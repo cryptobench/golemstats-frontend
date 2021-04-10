@@ -292,7 +292,7 @@ export default {
         var d = Math.pow(10, decimals)
         return (parseInt(figure * d) / d).toFixed(decimals)
       }
-      axios.get('/network/online/stats').then((response) => {
+      axios.get('/v1/network/online/stats').then((response) => {
         let apiResponse = response.data
         this.online = apiResponse.online
         this.cores = apiResponse.cores
