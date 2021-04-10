@@ -233,7 +233,7 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get('/network/online').then((response) => {
+      axios.get('/v1/network/online').then((response) => {
         let apiResponse = response.data
         function floorFigure(figure, decimals) {
           if (!decimals) decimals = 2
@@ -254,7 +254,7 @@ export default {
       })
     },
     utilization() {
-      axios.get('/network/1616596380/1616617980').then((response) => {
+      axios.get('/v1/network/1616596380/1616617980').then((response) => {
         let apiResponse = response.data
         let data = apiResponse.data.result[0]
         let success = data.map(({ values }) => values)
@@ -263,25 +263,25 @@ export default {
     },
 
     earnings1() {
-      axios.get('/network/earnings/1').then((response) => {
+      axios.get('/v1/network/earnings/1').then((response) => {
         let apiResponse = response.data
         this.earnings1h = apiResponse.total_earnings
       })
     },
     earnings24() {
-      axios.get('/network/earnings/24').then((response) => {
+      axios.get('/v1/network/earnings/24').then((response) => {
         let apiResponse = response.data
         this.earnings24h = apiResponse.total_earnings
       })
     },
     computingnow() {
-      axios.get('/provider/computing').then((response) => {
+      axios.get('/v1/provider/computing').then((response) => {
         let apiResponse = response.data
         this.computing = apiResponse.computing_now
       })
     },
     earningspertask() {
-      axios.get('/provider/average/earnings').then((response) => {
+      axios.get('/v1/provider/average/earnings').then((response) => {
         let apiResponse = response.data
         this.averagearnings = apiResponse.average_earnings
       })
