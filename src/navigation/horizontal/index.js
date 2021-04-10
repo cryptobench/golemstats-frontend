@@ -4,18 +4,12 @@ export default [
     icon: 'GlobeIcon',
     children: [
       {
-        title: 'Mainnet',
+        title: 'Mainnet + Testnet',
         route: 'home',
         icon: 'GlobeIcon',
       },
       {
-        title: 'Testnet',
-        route: 'Testnet',
-        icon: 'GlobeIcon',
-      },
-      {
-        title: 'Custom Subnet',
-        route: 'customsubnet',
+        title: 'Custom Subnet (coming soon)',
         icon: 'GlobeIcon',
       },
     ],

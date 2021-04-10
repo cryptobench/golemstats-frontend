@@ -70,20 +70,7 @@
           />
         </b-col>
       </b-row>
-      <h3>Network Utilization</h3>
-      <b-row>
-        <b-col lg="12" md="12">
-          <b-card>
-            <apexchart
-              width="100%"
-              height="100%"
-              type="line"
-              :options="chartOptions"
-              :series="series"
-            ></apexchart>
-          </b-card>
-        </b-col>
-      </b-row>
+
       <h3>Average stats per node</h3>
       <b-row>
         <b-col lg="3" md="4">

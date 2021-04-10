@@ -18,7 +18,7 @@ const router = new VueRouter({
         pageTitle: 'Overview',
         breadcrumb: [
           {
-            text: 'Mainnet',
+            text: 'Mainnet + Testnet',
             active: true,
           },
         ],

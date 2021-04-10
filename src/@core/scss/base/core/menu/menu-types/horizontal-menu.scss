@@ -1,14 +1,3 @@
-/*=========================================================================================
-	File Name: horizontal-menu.scss
-	Description: A classic horizontal menu for easy navigation & support all devices.
-	It support light & dark version, flipped layout, right side icons, borders menu for
-	item separation.
-	----------------------------------------------------------------------------------------
-	Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard TemplateTheme
-	Author: PIXINVENT
-	Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
 @import '../../../bootstrap-extended/include'; // Bootstrap includes
 @import '../../../components/include'; // Components includes
 
@@ -84,7 +73,7 @@
     &.navbar-brand-center {
       .navbar-header {
         position: absolute;
-        left: calc(50% - 56px); // left 50% - branding width
+        left: calc(50% - 140px); // left 50% - branding width
         padding: 0;
         z-index: 1000;
         .navbar-brand {
@@ -99,7 +88,6 @@
           // Brand Text Scss
           .brand-text {
             color: $primary;
-            padding-left: 1rem;
             margin-bottom: 0;
             font-weight: 600;
             letter-spacing: 0.01rem;
@@ -114,14 +102,22 @@
         &.dropdown-toggle {
           &::after {
             left: 0.4rem;
-            background-image: url(str-replace(str-replace($chevron-down, 'currentColor', $body-color), '#', '%23'));
+            background-image: url(str-replace(
+              str-replace($chevron-down, 'currentColor', $body-color),
+              '#',
+              '%23'
+            ));
           }
         }
       }
       .sidebar-group-active {
         .dropdown-toggle {
           &::after {
-            background-image: url(str-replace(str-replace($chevron-down, 'currentColor', $white), '#', '%23'));
+            background-image: url(str-replace(
+              str-replace($chevron-down, 'currentColor', $white),
+              '#',
+              '%23'
+            ));
           }
         }
       }
@@ -146,7 +142,11 @@
           margin-top: -7px;
           right: 1rem;
           // content: '\e844' !important;
-          background-image: url(str-replace(str-replace($chevron-right, 'currentColor', $body-color), '#', '%23'));
+          background-image: url(str-replace(
+            str-replace($chevron-right, 'currentColor', $body-color),
+            '#',
+            '%23'
+          ));
         }
         .dropdown-item {
           font-size: 1rem;
@@ -277,7 +277,10 @@
     &:not(.blank-page) {
       .app-content {
         // padding-top: 9.75rem;
-        padding: calc(#{$content-padding} + #{$navbar-height}* 2 + #{$floating-nav-margin}) #{$content-padding} 0 #{$content-padding}; // * 2  as we have 2 navbar (menu + navbar)  in horizontal layout.
+        padding: calc(
+            #{$content-padding} + #{$navbar-height}* 2 + #{$floating-nav-margin}
+          )
+          #{$content-padding} 0 #{$content-padding}; // * 2  as we have 2 navbar (menu + navbar)  in horizontal layout.
       }
     }
     .horizontal-menu-wrapper {
@@ -347,7 +350,8 @@
   // navbar sticky
   &.navbar-sticky {
     .app-content {
-      padding: calc(#{$content-padding} + #{$navbar-height}* 2) #{$content-padding} 0 #{$content-padding};
+      padding: calc(#{$content-padding} + #{$navbar-height}* 2) #{$content-padding}
+        0 #{$content-padding};
     }
     .header-navbar {
       background-color: $body-bg;
@@ -415,10 +419,14 @@
   // navbar static
   &.navbar-static {
     .app-content {
-      padding: calc(#{$content-padding} + #{$horizontal-menu-height}) #{$content-padding} 0 #{$content-padding};
+      padding: calc(#{$content-padding} + #{$horizontal-menu-height}) #{$content-padding}
+        0 #{$content-padding};
     }
     .content {
-      min-height: calc(100% - calc(#{$horizontal-menu-height} + calc(#{$footer-height} + 0.2rem)));
+      min-height: calc(
+        100% -
+          calc(#{$horizontal-menu-height} + calc(#{$footer-height} + 0.2rem))
+      );
     }
     .header-navbar {
       background-color: $body-bg;
@@ -572,8 +580,8 @@
       background: $white;
     }
     .app-content {
-      padding: calc(#{$navbar-height} + calc(#{$content-padding} - 0.8rem)) calc(#{$content-padding} - 0.8rem) 0
-        calc(#{$content-padding} - 0.8rem) !important;
+      padding: calc(#{$navbar-height} + calc(#{$content-padding} - 0.8rem))
+        calc(#{$content-padding} - 0.8rem) 0 calc(#{$content-padding} - 0.8rem) !important;
     }
   }
 }
@@ -581,8 +589,8 @@
 @include media-breakpoint-down(xs) {
   // For static navbar
   html body.horizontal-layout.navbar-static .app-content {
-    padding: calc(#{$content-padding} - 0.8rem + #{$navbar-height}) calc(#{$content-padding} - 0.8rem) 0
-      calc(#{$content-padding} - 0.8rem) !important; // - 0.8rem to reduce padding in small screen
+    padding: calc(#{$content-padding} - 0.8rem + #{$navbar-height})
+      calc(#{$content-padding} - 0.8rem) 0 calc(#{$content-padding} - 0.8rem) !important; // - 0.8rem to reduce padding in small screen
   }
 }
 // Import vertical-overlay-menu.scss for small screen support
