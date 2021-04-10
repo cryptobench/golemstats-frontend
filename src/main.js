@@ -1,10 +1,17 @@
 import Vue from 'vue'
 import { ToastPlugin, ModalPlugin } from 'bootstrap-vue'
 import VueCompositionAPI from '@vue/composition-api'
+import VueAnalytics from 'vue-analytics'
 
 import router from './router'
 import store from './store'
 import App from './App.vue'
+
+// Configuration VueAnalytics
+Vue.use(VueAnalytics, {
+  id: 'G-P8PVPYRZSY',
+  router,
+})
 
 // Global Components
 import './global-components'
@@ -31,5 +38,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: (h) => h(App),
 }).$mount('#app')
