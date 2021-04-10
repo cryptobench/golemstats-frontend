@@ -9377,6 +9377,11 @@
     "lodash.foreach" "^4.5.0"
     "lodash.isequal" "^4.5.0"
 
+"vue-gtag@^1.11.0":
+  "integrity" "sha512-tIieh6aZoB/METabJlEHJ3e/SwHpR5ysK6tW1lzsG8NSrI7HUpy/Wf5tVdq1AHAHV6Pr8aK99g63rC5iDzf0TA=="
+  "resolved" "https://registry.npmjs.org/vue-gtag/-/vue-gtag-1.11.0.tgz"
+  "version" "1.11.0"
+
 "vue-hot-reload-api@^2.3.0":
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="
   "resolved" "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"

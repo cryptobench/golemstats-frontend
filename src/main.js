@@ -1,18 +1,21 @@
 import Vue from 'vue'
 import { ToastPlugin, ModalPlugin } from 'bootstrap-vue'
 import VueCompositionAPI from '@vue/composition-api'
-import VueAnalytics from 'vue-analytics'
+import VueGtag from 'vue-gtag'
 
 import router from './router'
 import store from './store'
 import App from './App.vue'
 
 // Configuration VueAnalytics
-Vue.use(VueAnalytics, {
-  id: 'G-P8PVPYRZSY',
-  router,
-})
 
+Vue.use(
+  VueGtag,
+  {
+    config: { id: 'G-P8PVPYRZSY' },
+  },
+  router
+)
 // Global Components
 import './global-components'
 
