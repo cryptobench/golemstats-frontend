@@ -2,7 +2,7 @@
   <div>
     <b-container class="bv-example-row">
       <b-row>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="GlobeIcon"
             :statistic="online"
@@ -10,7 +10,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="CpuIcon"
             :statistic="cores"
@@ -18,7 +18,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="LayersIcon"
             :statistic="memory"
@@ -26,7 +26,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="HardDriveIcon"
             :statistic="disk"
@@ -34,7 +34,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="ActivityIcon"
             :statistic="computing"
@@ -42,7 +42,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="DollarSignIcon"
             color="success"
@@ -51,7 +51,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="DollarSignIcon"
             color="success"
@@ -60,7 +60,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="DollarSignIcon"
             color="success"
@@ -73,7 +73,7 @@
 
       <h3>Average stats per node</h3>
       <b-row>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="CpuIcon"
             :statistic="avgcores"
@@ -81,7 +81,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="CpuIcon"
             :statistic="avgthreads"
@@ -89,7 +89,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="LayersIcon"
             :statistic="avgmemory"
@@ -97,7 +97,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col lg="3" md="4">
+        <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="HardDriveIcon"
             :statistic="avgdisk"
