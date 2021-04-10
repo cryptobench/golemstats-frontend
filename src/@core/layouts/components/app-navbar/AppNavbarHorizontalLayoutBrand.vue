@@ -11,6 +11,7 @@
           </h2>
         </b-link>
       </li>
+      <span class="alpha"> Experimental Alpha Version</span>
     </ul>
   </div>
 </template>
@@ -36,4 +37,7 @@ export default {
 </script>
 
 <style>
+.alpha {
+  color: orange;
+}
 </style>
