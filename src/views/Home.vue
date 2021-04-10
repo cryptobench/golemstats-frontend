@@ -265,13 +265,13 @@ export default {
     earnings1() {
       axios.get('/v1/network/earnings/1').then((response) => {
         let apiResponse = response.data
-        this.earnings1h = apiResponse.total_earnings
+        this.earnings1h = apiResponse.total_earnings + ' GLM'
       })
     },
     earnings24() {
       axios.get('/v1/network/earnings/24').then((response) => {
         let apiResponse = response.data
-        this.earnings24h = apiResponse.total_earnings
+        this.earnings24h = apiResponse.total_earnings + ' GLM'
       })
     },
     computingnow() {
@@ -283,7 +283,7 @@ export default {
     earningspertask() {
       axios.get('/v1/provider/average/earnings').then((response) => {
         let apiResponse = response.data
-        this.averagearnings = apiResponse.average_earnings
+        this.averagearnings = apiResponse.average_earnings + ' GLM'
       })
     },
     generalstats() {
