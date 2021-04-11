@@ -4,100 +4,144 @@
       <b-row>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="stats_loaded"
             icon="GlobeIcon"
             :statistic="online"
             statistic-title="Nodes online"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="stats_loaded"
             icon="CpuIcon"
             :statistic="threads"
             statistic-title="Cores"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="stats_loaded"
             icon="LayersIcon"
             :statistic="memory"
             statistic-title="Memory (GB)"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="stats_loaded"
             icon="HardDriveIcon"
             :statistic="disk"
             statistic-title="Disk (GB)"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="computing_loaded"
             icon="ActivityIcon"
             :statistic="computing"
             statistic-title="Providers computing right now"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="averageearnings_loaded"
             icon="DollarSignIcon"
             color="success"
-            :statistic="averagearnings"
+            :statistic="averageearnings"
             statistic-title="Average earnings per task"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="earnings1h_loaded"
             icon="DollarSignIcon"
             color="success"
             :statistic="earnings1h"
             statistic-title="Total Network Earnings (1h)"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="earnings24h_loaded"
             icon="DollarSignIcon"
             color="success"
             :statistic="earnings24h"
             statistic-title="Total Network Earnings (24h)"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
       </b-row>
       <h3>Pricing Median</h3>
       <b-row>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="median_loaded"
             icon="DollarSignIcon"
             color="success"
             :statistic="median_cpu_hour"
             statistic-title="Median CPU/h pricing"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="median_loaded"
             icon="DollarSignIcon"
             color="success"
             :statistic="median_per_hour"
             statistic-title="Median Per/h pricing"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="median_loaded"
             icon="DollarSignIcon"
             color="success"
             :statistic="median_start_price"
             statistic-title="Median start pricing"
             style="max-width: 300px"
           />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
       </b-row>
       <h3>Network Utilization (6h)</h3>
@@ -112,6 +156,9 @@
               :options="chartOptions"
               :series="series"
             ></apexchart>
+            <div class="text-center" v-else>
+              <b-spinner variant="primary" label="Text Centered" />
+            </div>
           </b-card>
         </b-col>
       </b-row>
@@ -119,27 +166,39 @@
       <b-row>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="stats_loaded"
             icon="CpuIcon"
             :statistic="avgcores"
             statistic-title="Cores"
             style="max-width: 300px"
           />
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="stats_loaded"
             icon="LayersIcon"
             :statistic="avgmemory"
             statistic-title="Memory (GB)"
             style="max-width: 300px"
           />
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
+            v-if="stats_loaded"
             icon="HardDriveIcon"
             :statistic="avgdisk"
             statistic-title="Disk (GB)"
             style="max-width: 300px"
           />
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
@@ -209,6 +268,7 @@ import {
   BTable,
   BCard,
   BFormInput,
+  BSpinner,
 } from 'bootstrap-vue'
 import StatisticCardHorizontal from '@core/components/statistics-cards/StatisticCardHorizontal.vue'
 import StatisticCardWithLineChart from '@core/components/statistics-cards/StatisticCardWithLineChart.vue'
@@ -221,6 +281,7 @@ export default {
     BFormInput,
     BContainer,
     BRow,
+    BSpinner,
     BTable,
     StatisticCardHorizontal,
     StatisticCardWithLineChart,
@@ -233,6 +294,11 @@ export default {
       sortBy: 'Name',
       sortDesc: false,
       loaded: false,
+      median_loaded: false,
+      stats_loaded: false,
+      computing_loaded: false,
+      earnings1h_loaded: false,
+      earnings24h_loaded: false,
       items: [],
       computing: '',
       online: '',
@@ -250,7 +316,7 @@ export default {
       median_start_price: '',
       avg_per_hour: '',
       median_per_hour: '',
-      averagearnings: '',
+      averageearnings: '',
       earnings1h: '',
       earnings24h: '',
       fields: [
@@ -405,6 +471,7 @@ export default {
         this.median_cpu_hour = median(avg_cpu_hour) + ' GLM'
         this.median_start_price = median(avg_start_price) + ' GLM'
         this.median_per_hour = median(avg_per_hour) + ' GLM'
+        this.median_loaded = true
 
         let average = (array) => array.reduce((a, b) => a + b) / array.length
         this.avg_cpu_hour = floorFigure(average(avg_cpu_hour), 5) + ' GLM'
@@ -449,24 +516,28 @@ export default {
       axios.get('/v1/network/earnings/1').then((response) => {
         let apiResponse = response.data
         this.earnings1h = apiResponse.total_earnings + ' GLM'
+        this.earnings1h_loaded = true
       })
     },
     earnings24() {
       axios.get('/v1/network/earnings/24').then((response) => {
         let apiResponse = response.data
         this.earnings24h = apiResponse.total_earnings + ' GLM'
+        this.earnings24h_loaded = true
       })
     },
     computingnow() {
       axios.get('/v1/provider/computing').then((response) => {
         let apiResponse = response.data
         this.computing = apiResponse.computing_now
+        this.computing_loaded = true
       })
     },
     earningspertask() {
       axios.get('/v1/provider/average/earnings').then((response) => {
         let apiResponse = response.data
-        this.averagearnings = apiResponse.average_earnings + ' GLM'
+        this.averageearnings = apiResponse.average_earnings + ' GLM'
+        this.averageearnings_loaded = true
       })
     },
     generalstats() {
@@ -486,6 +557,7 @@ export default {
         this.avgmemory = floorFigure(apiResponse.memory / apiResponse.online)
         this.avgdisk = floorFigure(apiResponse.disk / apiResponse.online)
       })
+      this.stats_loaded = true
     },
   },
 }
@@ -500,6 +572,15 @@ export default {
 
 .bold {
   font-weight: 600;
+}
+
+.cardish {
+  background-color: white;
+  border-radius: 0.428rem;
+  background-clip: border-box;
+  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+  border: none;
+  padding: 1.5rem;
 }
 </style>
 
