@@ -344,24 +344,24 @@ export default {
               3
             ),
             per_hour: floorFigure(
-              obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
+              obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
               3
             ),
             cpu_hour: floorFigure(
-              obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+              obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
               3
             ),
             'Memory (GB)': floorFigure(obj.data['golem.inf.mem.gib']),
             'Disk (GB)': floorFigure(obj.data['golem.inf.storage.gib']),
           })
           avg_cpu_hour.push(
-            obj.data['golem.com.pricing.model.linear.coeffs'][0]
+            obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600
           )
           avg_start_price.push(
-            obj.data['golem.com.pricing.model.linear.coeffs'][2] * 3600
+            obj.data['golem.com.pricing.model.linear.coeffs'][2]
           )
           avg_per_hour.push(
-            obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600
+            obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600
           )
         })
         let average = (array) => array.reduce((a, b) => a + b) / array.length
