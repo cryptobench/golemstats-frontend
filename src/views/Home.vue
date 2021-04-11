@@ -1,203 +1,201 @@
 <template>
   <div>
-    <b-container class="bv-example-row">
-      <b-row>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="GlobeIcon"
-            :statistic="online"
-            statistic-title="Nodes online"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="CpuIcon"
-            :statistic="threads"
-            statistic-title="Cores"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="LayersIcon"
-            :statistic="memory"
-            statistic-title="Memory (GB)"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="HardDriveIcon"
-            :statistic="disk"
-            statistic-title="Disk (GB)"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="ActivityIcon"
-            :statistic="computing"
-            statistic-title="Providers computing right now"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="DollarSignIcon"
-            color="success"
-            :statistic="averagearnings"
-            statistic-title="Average earnings per task"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="DollarSignIcon"
-            color="success"
-            :statistic="earnings1h"
-            statistic-title="Total Network Earnings (1h)"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="DollarSignIcon"
-            color="success"
-            :statistic="earnings24h"
-            statistic-title="Total Network Earnings (24h)"
-            style="max-width: 300px"
-          />
-        </b-col>
-      </b-row>
-      <h3>Pricing Median</h3>
-      <b-row>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="DollarSignIcon"
-            color="success"
-            :statistic="median_cpu_hour"
-            statistic-title="Median CPU/h pricing"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="DollarSignIcon"
-            color="success"
-            :statistic="median_per_hour"
-            statistic-title="Median Per/h pricing"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="DollarSignIcon"
-            color="success"
-            :statistic="median_start_price"
-            statistic-title="Median start pricing"
-            style="max-width: 300px"
-          />
-        </b-col>
-      </b-row>
-      <h3>Network Utilization (6h)</h3>
-      <b-row>
-        <b-col lg="12" md="12">
-          <b-card>
-            <apexchart
-              v-if="loaded"
-              width="100%"
-              height="250"
-              type="area"
-              :options="chartOptions"
-              :series="series"
-            ></apexchart>
-          </b-card>
-        </b-col>
-      </b-row>
-      <h3>Average stats per node</h3>
-      <b-row>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="CpuIcon"
-            :statistic="avgcores"
-            statistic-title="Cores"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="LayersIcon"
-            :statistic="avgmemory"
-            statistic-title="Memory (GB)"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="HardDriveIcon"
-            :statistic="avgdisk"
-            statistic-title="Disk (GB)"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="DollarSignIcon"
-            color="success"
-            :statistic="avg_cpu_hour"
-            statistic-title="Average CPU/h pricing"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="DollarSignIcon"
-            color="success"
-            :statistic="avg_per_hour"
-            statistic-title="Average Per/h pricing"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="DollarSignIcon"
-            color="success"
-            :statistic="avg_start_price"
-            statistic-title="Average start pricing"
-            style="max-width: 300px"
-          />
-        </b-col>
-      </b-row>
-      <h3>Online nodes</h3>
-      <b-row>
-        <b-col>
-          <b-card no-body class="mb-0">
-            <b-col lg="6" class="mb-2 mt-2">
-              <h5>Search for node</h5>
-              <b-form-input
-                v-model="filter"
-                placeholder="Node Name"
-              ></b-form-input>
-            </b-col>
-            <b-table
-              outlined
-              hover
-              :fields="fields"
-              :items="items"
-              :sort-by.sync="sortBy"
-              :sort-desc.sync="sortDesc"
-              :filter="filter"
-              :filter-ignored-fields="ignoredfilter"
-              :per-page="rowcount"
-              show-empty
-              empty-text="No online nodes found"
-            >
-            </b-table>
-          </b-card>
-        </b-col>
-      </b-row>
-    </b-container>
+    <b-row>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="GlobeIcon"
+          :statistic="online"
+          statistic-title="Nodes online"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="CpuIcon"
+          :statistic="threads"
+          statistic-title="Cores"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="LayersIcon"
+          :statistic="memory"
+          statistic-title="Memory (GB)"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="HardDriveIcon"
+          :statistic="disk"
+          statistic-title="Disk (GB)"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="ActivityIcon"
+          :statistic="computing"
+          statistic-title="Providers computing right now"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="averagearnings"
+          statistic-title="Average earnings per task"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="earnings1h"
+          statistic-title="Total Network Earnings (1h)"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="earnings24h"
+          statistic-title="Total Network Earnings (24h)"
+          style="max-width: 300px"
+        />
+      </b-col>
+    </b-row>
+    <h3>Pricing Median</h3>
+    <b-row>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="median_cpu_hour"
+          statistic-title="Median CPU/h pricing"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="median_per_hour"
+          statistic-title="Median Per/h pricing"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="median_start_price"
+          statistic-title="Median start pricing"
+          style="max-width: 300px"
+        />
+      </b-col>
+    </b-row>
+    <h3>Network Utilization (6h)</h3>
+    <b-row>
+      <b-col lg="12" md="12">
+        <b-card>
+          <apexchart
+            v-if="loaded"
+            width="100%"
+            height="250"
+            type="area"
+            :options="chartOptions"
+            :series="series"
+          ></apexchart>
+        </b-card>
+      </b-col>
+    </b-row>
+    <h3>Average stats per node</h3>
+    <b-row>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="CpuIcon"
+          :statistic="avgcores"
+          statistic-title="Cores"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="LayersIcon"
+          :statistic="avgmemory"
+          statistic-title="Memory (GB)"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="HardDriveIcon"
+          :statistic="avgdisk"
+          statistic-title="Disk (GB)"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="avg_cpu_hour"
+          statistic-title="Average CPU/h pricing"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="avg_per_hour"
+          statistic-title="Average Per/h pricing"
+          style="max-width: 300px"
+        />
+      </b-col>
+      <b-col xs="6" sm="6" lg="3" md="4">
+        <statistic-card-horizontal
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="avg_start_price"
+          statistic-title="Average start pricing"
+          style="max-width: 300px"
+        />
+      </b-col>
+    </b-row>
+    <h3>Online nodes</h3>
+    <b-row>
+      <b-col>
+        <b-card no-body class="mb-0">
+          <b-col lg="6" class="mb-2 mt-2">
+            <h5>Search for node</h5>
+            <b-form-input
+              v-model="filter"
+              placeholder="Node Name"
+            ></b-form-input>
+          </b-col>
+          <b-table
+            outlined
+            hover
+            :fields="fields"
+            :items="items"
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
+            :filter="filter"
+            :filter-ignored-fields="ignoredfilter"
+            :per-page="rowcount"
+            show-empty
+            empty-text="No online nodes found"
+          >
+          </b-table>
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
