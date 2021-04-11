@@ -14,4 +14,10 @@ export default [
       },
     ],
   },
+  {
+    header: 'Market data',
+    icon: 'DollarSignIcon',
+    title: 'Market Data',
+    route: 'market',
+  },
 ]
