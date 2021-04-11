@@ -13,27 +13,20 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-    build:
-        runs-on: ubuntu-18.04
-        steps:
-            -   uses: actions/checkout@v2
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
 
-            -   name: Setup SSH Keys and known_hosts
-                env:
-                    SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-                run: |
-                    mkdir -p ~/.ssh
-                    ssh-keyscan github.com >> ~/.ssh/known_hosts
-                    ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-                    ssh-add - <<< "${{ secrets.KEY }}"
-
-            -   name: Some task that fetches dependencies
-                env:
-                    SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-                run: |
-                  cd ~/golem-stats-backend/golemstats-frontend
-                  git pull git@github.com:cryptobench/golemstats-frontend.git
-                  cd ..
-                  docker-compose -f docker-compose-prod.yml build frontend
-                  docker-compose -f docker-compose-prod.yml up -d --scale webserver=3
-                  docker image prune -f
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: SSH deploy
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.KEY }}
+            port: ${{ secrets.PORT }}
+            script:
+              ~/actions.sh
