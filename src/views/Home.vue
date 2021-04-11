@@ -106,15 +106,42 @@
           />
         </b-col>
       </b-row>
+      <h3>Network Utilization (6h)</h3>
+      <b-row>
+        <b-col lg="12" md="12">
+          <b-card>
+            <apexchart
+              v-if="loaded"
+              width="100%"
+              height="100%"
+              type="area"
+              :options="chartOptions"
+              :series="series"
+            ></apexchart>
+          </b-card>
+        </b-col>
+      </b-row>
       <h3>Online nodes</h3>
       <b-row>
         <b-col>
           <b-card no-body class="mb-0">
+            <b-col lg="6" class="mb-2 mt-2">
+              <h5>Search for node</h5>
+              <b-form-input
+                v-model="filter"
+                placeholder="Node Name"
+              ></b-form-input>
+            </b-col>
             <b-table
               outlined
               hover
               :fields="fields"
               :items="items"
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
+              :filter="filter"
+              :filter-ignored-fields="ignoredfilter"
+              :per-page="rowcount"
               show-empty
               empty-text="No online nodes found"
             >
@@ -127,15 +154,24 @@
 </template>
 
 <script>
-import { BCol, BContainer, BRow, BTable, BCard } from 'bootstrap-vue'
+import {
+  BCol,
+  BContainer,
+  BRow,
+  BTable,
+  BCard,
+  BFormInput,
+} from 'bootstrap-vue'
 import StatisticCardHorizontal from '@core/components/statistics-cards/StatisticCardHorizontal.vue'
 import StatisticCardWithLineChart from '@core/components/statistics-cards/StatisticCardWithLineChart.vue'
 import axios from '@axios'
+import { formatDate } from '@/@core/utils/filter'
 
 export default {
   components: {
     BCol,
     BCard,
+    BFormInput,
     BContainer,
     BRow,
     BTable,
@@ -144,6 +180,12 @@ export default {
   },
   data() {
     return {
+      ignoredfilter: ['Threads', 'Cores', 'Memory (GB)', 'Disk (GB)'],
+      filter: '',
+      rowcount: '',
+      sortBy: 'Name',
+      sortDesc: false,
+      loaded: false,
       items: [],
       computing: '',
       online: '',
@@ -162,41 +204,47 @@ export default {
           Optionally define a class per header, 
           this will overlay whatever thead-class background you choose 
         */
-        { key: 'Name', label: 'Provider Name', tdClass: 'primary bold' },
-        { key: 'Subnet', label: 'Subnet' },
-        { key: 'Cores', label: 'Cores' },
-        { key: 'Threads', label: 'Threads' },
-        { key: 'Memory (GB)', label: 'Memory (GB)' },
-        { key: 'Disk (GB)', label: 'Disk (GB)' },
+        {
+          key: 'Name',
+          label: 'Provider Name',
+          tdClass: 'primary bold',
+          sortable: true,
+        },
+        { key: 'Subnet', label: 'Subnet', sortable: true },
+        { key: 'Cores', label: 'Cores', sortable: true },
+        { key: 'Threads', label: 'Threads', sortable: true },
+        { key: 'Memory (GB)', label: 'Memory (GB)', sortable: true },
+        { key: 'Disk (GB)', label: 'Disk (GB)', sortable: true },
       ],
       options: {
         chart: {
           id: 'vuechart-example',
         },
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+          type: 'datetime',
+          labels: {
+            datetimeFormatter: {
+              year: 'yyyy',
+              month: "MMM 'yy",
+              day: 'dd MMM',
+              hour: 'HH:mm',
+            },
+          },
         },
       },
       series: [
         {
           name: 'Providers Computing a task',
-          data: [280, 185, 263, 108, 190, 2, 134, 218, 248, 265, 57, 146],
+          data: [],
         },
       ],
       chartOptions: {
         chart: {
+          id: 'area-datetime',
           type: 'area',
-          stacked: false,
+          height: 350,
           zoom: {
-            type: 'x',
-            enabled: true,
             autoScaleYaxis: true,
-          },
-          title: {
-            text: 'Network Utilization',
-          },
-          toolbar: {
-            autoSelected: 'zoom',
           },
         },
         dataLabels: {
@@ -216,7 +264,7 @@ export default {
     this.earnings1()
     this.earnings24()
     this.fetchData()
-    //this.utilization()
+    this.utilization()
   },
   mounted: function () {
     this.timer = setInterval(() => {
@@ -254,11 +302,38 @@ export default {
       })
     },
     utilization() {
-      axios.get('/v1/network/1616596380/1616617980').then((response) => {
+      let now = Math.floor(new Date().getTime() / 1000)
+      console.log('now ', now)
+      let then = now - 21600
+      console.log('then ', then)
+      axios.get('/v1/network/' + then + '/' + now).then((response) => {
         let apiResponse = response.data
-        let data = apiResponse.data.result[0]
-        let success = data.map(({ values }) => values)
-        console.log(success)
+        let data = apiResponse.data.result[0].values
+        function convertDate(inputFormat) {
+          function pad(s) {
+            return s < 10 ? '0' + s : s
+          }
+          var d = new Date(inputFormat)
+          return [
+            pad(d.getDate()),
+            pad(d.getMonth() + 1),
+            d.getFullYear(),
+          ].join('/')
+        }
+        let computing = []
+        for (var i in data) {
+          var time = data[i][0] * 1000
+          //var formatted = convertDate(time)
+          //console.log(formatted)
+          computing.push([time, data[i][1]])
+        }
+        this.series = [
+          {
+            data: computing,
+          },
+        ]
+        this.loaded = true
+        //let success = data.map(({ values }) => values)
       })
     },
 
