@@ -1,18 +1,24 @@
 export default [
+  // {
+  //   header: 'Subnet',
+  //   icon: 'GlobeIcon',
+  //   children: [
+  //     {
+  //       title: 'Mainnet + Testnet',
+  //       route: 'home',
+  //       icon: 'GlobeIcon',
+  //     },
+  //     {
+  //       title: 'Custom Subnet (coming soon)',
+  //       icon: 'GlobeIcon',
+  //     },
+  //   ],
+  // },
   {
-    header: 'Subnet',
+    header: 'Network',
     icon: 'GlobeIcon',
-    children: [
-      {
-        title: 'Mainnet + Testnet',
-        route: 'home',
-        icon: 'GlobeIcon',
-      },
-      {
-        title: 'Custom Subnet (coming soon)',
-        icon: 'GlobeIcon',
-      },
-    ],
+    title: 'Network',
+    route: 'home',
   },
   {
     header: 'Market data',
