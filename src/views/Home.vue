@@ -188,7 +188,6 @@
               :sort-by.sync="sortBy"
               :sort-desc.sync="sortDesc"
               :filter="filter"
-              sticky-header="500px"
               :filter-ignored-fields="ignoredfilter"
               :per-page="rowcount"
               show-empty
