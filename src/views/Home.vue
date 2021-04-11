@@ -340,7 +340,7 @@ export default {
             Subnet: obj.data['golem.node.debug.subnet'],
             Cores: obj.data['golem.inf.cpu.threads'],
             start_price: floorFigure(
-              obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+              obj.data['golem.com.pricing.model.linear.coeffs'][2],
               3
             ),
             per_hour: floorFigure(
@@ -348,17 +348,17 @@ export default {
               3
             ),
             cpu_hour: floorFigure(
-              obj.data['golem.com.pricing.model.linear.coeffs'][2],
+              obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
               3
             ),
             'Memory (GB)': floorFigure(obj.data['golem.inf.mem.gib']),
             'Disk (GB)': floorFigure(obj.data['golem.inf.storage.gib']),
           })
           avg_cpu_hour.push(
-            obj.data['golem.com.pricing.model.linear.coeffs'][2]
+            obj.data['golem.com.pricing.model.linear.coeffs'][0]
           )
           avg_start_price.push(
-            obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600
+            obj.data['golem.com.pricing.model.linear.coeffs'][2] * 3600
           )
           avg_per_hour.push(
             obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600
