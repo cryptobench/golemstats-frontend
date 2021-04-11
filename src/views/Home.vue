@@ -273,22 +273,6 @@ export default {
         { key: 'start_price', label: 'Start Price', sortable: true },
         //{ key: 'Pricing', label: 'Pricing', sortable: true },
       ],
-      options: {
-        chart: {
-          id: 'vuechart-example',
-        },
-        xaxis: {
-          type: 'datetime',
-          labels: {
-            datetimeFormatter: {
-              year: 'yyyy',
-              month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm',
-            },
-          },
-        },
-      },
       series: [
         {
           name: 'Providers Computing a task',
@@ -322,9 +306,19 @@ export default {
             style: {
               color: undefined,
               fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
               fontWeight: 600,
               cssClass: 'apexcharts-yaxis-title',
+            },
+          },
+        },
+        xaxis: {
+          type: 'datetime',
+          labels: {
+            datetimeFormatter: {
+              year: 'yyyy',
+              month: "MMM 'yy",
+              day: 'dd MMM',
+              hour: 'HH:mm:ss',
             },
           },
         },
