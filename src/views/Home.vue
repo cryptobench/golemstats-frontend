@@ -113,7 +113,7 @@
             <apexchart
               v-if="loaded"
               width="100%"
-              height="100%"
+              height="250"
               type="area"
               :options="chartOptions"
               :series="series"
@@ -242,7 +242,6 @@ export default {
         chart: {
           id: 'area-datetime',
           type: 'area',
-          height: 350,
           zoom: {
             autoScaleYaxis: true,
           },
@@ -253,6 +252,24 @@ export default {
         colors: ['#262ed1'],
         markers: {
           size: 0,
+        },
+        stroke: {
+          width: 2,
+        },
+        yaxis: {
+          title: {
+            text: 'Providers computing',
+            rotate: -90,
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: '12px',
+              fontFamily: 'Helvetica, Arial, sans-serif',
+              fontWeight: 600,
+              cssClass: 'apexcharts-yaxis-title',
+            },
+          },
         },
       },
     }
@@ -274,6 +291,7 @@ export default {
       this.earnings1()
       this.earnings24()
       this.fetchData()
+      this.utilization()
     }, 15000)
   },
   watch: {
@@ -330,6 +348,7 @@ export default {
         this.series = [
           {
             data: computing,
+            name: 'Providers computing a task',
           },
         ]
         this.loaded = true
