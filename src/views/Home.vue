@@ -70,6 +70,36 @@
           />
         </b-col>
       </b-row>
+      <h3>Pricing Median</h3>
+      <b-row>
+        <b-col xs="6" sm="6" lg="3" md="4">
+          <statistic-card-horizontal
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="median_cpu_hour"
+            statistic-title="Median CPU/h pricing"
+            style="max-width: 300px"
+          />
+        </b-col>
+        <b-col xs="6" sm="6" lg="3" md="4">
+          <statistic-card-horizontal
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="median_per_hour"
+            statistic-title="Median Per/h pricing"
+            style="max-width: 300px"
+          />
+        </b-col>
+        <b-col xs="6" sm="6" lg="3" md="4">
+          <statistic-card-horizontal
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="median_start_price"
+            statistic-title="Median start pricing"
+            style="max-width: 300px"
+          />
+        </b-col>
+      </b-row>
       <h3>Network Utilization (6h)</h3>
       <b-row>
         <b-col lg="12" md="12">
@@ -158,6 +188,7 @@
               :sort-by.sync="sortBy"
               :sort-desc.sync="sortDesc"
               :filter="filter"
+              sticky-header="500px"
               :filter-ignored-fields="ignoredfilter"
               :per-page="rowcount"
               show-empty
@@ -215,8 +246,11 @@ export default {
       avgthreads: '',
       avgdisk: '',
       avg_cpu_hour: '',
+      median_cpu_hour: '',
       avg_start_price: '',
+      median_start_price: '',
       avg_per_hour: '',
+      median_per_hour: '',
       averagearnings: '',
       earnings1h: '',
       earnings24h: '',
@@ -339,18 +373,21 @@ export default {
             Name: obj.data['golem.node.id.name'],
             Subnet: obj.data['golem.node.debug.subnet'],
             Cores: obj.data['golem.inf.cpu.threads'],
-            start_price: floorFigure(
-              obj.data['golem.com.pricing.model.linear.coeffs'][2],
-              3
-            ),
-            per_hour: floorFigure(
-              obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
-              3
-            ),
-            cpu_hour: floorFigure(
-              obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
-              3
-            ),
+            start_price:
+              floorFigure(
+                obj.data['golem.com.pricing.model.linear.coeffs'][2],
+                3
+              ) + ' GLM',
+            per_hour:
+              floorFigure(
+                obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+                3
+              ) + ' GLM',
+            cpu_hour:
+              floorFigure(
+                obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
+                3
+              ) + ' GLM',
             'Memory (GB)': floorFigure(obj.data['golem.inf.mem.gib']),
             'Disk (GB)': floorFigure(obj.data['golem.inf.storage.gib']),
           })
@@ -364,6 +401,18 @@ export default {
             obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600
           )
         })
+        const median = (arr) => {
+          const mid = Math.floor(arr.length / 2),
+            nums = [...arr].sort((a, b) => a - b)
+          return arr.length % 2 !== 0
+            ? nums[mid]
+            : (nums[mid - 1] + nums[mid]) / 2
+        }
+
+        this.median_cpu_hour = median(avg_cpu_hour) + ' GLM'
+        this.median_start_price = median(avg_start_price) + ' GLM'
+        this.median_per_hour = median(avg_per_hour) + ' GLM'
+
         let average = (array) => array.reduce((a, b) => a + b) / array.length
         this.avg_cpu_hour = floorFigure(average(avg_cpu_hour), 5) + ' GLM'
         this.avg_start_price = floorFigure(average(avg_start_price), 5) + ' GLM'
