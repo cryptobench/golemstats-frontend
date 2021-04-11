@@ -30,4 +30,10 @@ jobs:
             -   name: Some task that fetches dependencies
                 env:
                     SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-                run: ~/actions.sh
+                run: |
+                  cd ~/golem-stats-backend/golemstats-frontend
+                  git pull git@github.com:cryptobench/golemstats-frontend.git
+                  cd ..
+                  docker-compose -f docker-compose-prod.yml build frontend
+                  docker-compose -f docker-compose-prod.yml up -d --scale webserver=3
+                  docker image prune -f
