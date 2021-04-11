@@ -13,7 +13,7 @@
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
             icon="CpuIcon"
-            :statistic="cores"
+            :statistic="threads"
             statistic-title="Cores"
             style="max-width: 300px"
           />
@@ -70,7 +70,21 @@
           />
         </b-col>
       </b-row>
-
+      <h3>Network Utilization (6h)</h3>
+      <b-row>
+        <b-col lg="12" md="12">
+          <b-card>
+            <apexchart
+              v-if="loaded"
+              width="100%"
+              height="250"
+              type="area"
+              :options="chartOptions"
+              :series="series"
+            ></apexchart>
+          </b-card>
+        </b-col>
+      </b-row>
       <h3>Average stats per node</h3>
       <b-row>
         <b-col xs="6" sm="6" lg="3" md="4">
@@ -78,14 +92,6 @@
             icon="CpuIcon"
             :statistic="avgcores"
             statistic-title="Cores"
-            style="max-width: 300px"
-          />
-        </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
-          <statistic-card-horizontal
-            icon="CpuIcon"
-            :statistic="avgthreads"
-            statistic-title="Threads"
             style="max-width: 300px"
           />
         </b-col>
@@ -105,20 +111,32 @@
             style="max-width: 300px"
           />
         </b-col>
-      </b-row>
-      <h3>Network Utilization (6h)</h3>
-      <b-row>
-        <b-col lg="12" md="12">
-          <b-card>
-            <apexchart
-              v-if="loaded"
-              width="100%"
-              height="250"
-              type="area"
-              :options="chartOptions"
-              :series="series"
-            ></apexchart>
-          </b-card>
+        <b-col xs="6" sm="6" lg="3" md="4">
+          <statistic-card-horizontal
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="avg_cpu_hour"
+            statistic-title="Average CPU/h pricing"
+            style="max-width: 300px"
+          />
+        </b-col>
+        <b-col xs="6" sm="6" lg="3" md="4">
+          <statistic-card-horizontal
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="avg_per_hour"
+            statistic-title="Average Per/h pricing"
+            style="max-width: 300px"
+          />
+        </b-col>
+        <b-col xs="6" sm="6" lg="3" md="4">
+          <statistic-card-horizontal
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="avg_start_price"
+            statistic-title="Average start pricing"
+            style="max-width: 300px"
+          />
         </b-col>
       </b-row>
       <h3>Online nodes</h3>
@@ -165,7 +183,6 @@ import {
 import StatisticCardHorizontal from '@core/components/statistics-cards/StatisticCardHorizontal.vue'
 import StatisticCardWithLineChart from '@core/components/statistics-cards/StatisticCardWithLineChart.vue'
 import axios from '@axios'
-import { formatDate } from '@/@core/utils/filter'
 
 export default {
   components: {
@@ -180,7 +197,7 @@ export default {
   },
   data() {
     return {
-      ignoredfilter: ['Threads', 'Cores', 'Memory (GB)', 'Disk (GB)'],
+      ignoredfilter: ['Cores', 'Memory (GB)', 'Disk (GB)'],
       filter: '',
       rowcount: '',
       sortBy: 'Name',
@@ -190,12 +207,16 @@ export default {
       computing: '',
       online: '',
       cores: '',
+      threads: '',
       memory: '',
       disk: '',
       avgcores: '',
       avgmemory: '',
       avgthreads: '',
       avgdisk: '',
+      avg_cpu_hour: '',
+      avg_start_price: '',
+      avg_per_hour: '',
       averagearnings: '',
       earnings1h: '',
       earnings24h: '',
@@ -212,9 +233,12 @@ export default {
         },
         { key: 'Subnet', label: 'Subnet', sortable: true },
         { key: 'Cores', label: 'Cores', sortable: true },
-        { key: 'Threads', label: 'Threads', sortable: true },
         { key: 'Memory (GB)', label: 'Memory (GB)', sortable: true },
         { key: 'Disk (GB)', label: 'Disk (GB)', sortable: true },
+        { key: 'cpu_hour', label: 'CPU/h price', sortable: true },
+        { key: 'per_hour', label: 'Per/h price', sortable: true },
+        { key: 'start_price', label: 'Start Price', sortable: true },
+        //{ key: 'Pricing', label: 'Pricing', sortable: true },
       ],
       options: {
         chart: {
@@ -307,23 +331,48 @@ export default {
           return (parseInt(figure * d) / d).toFixed(decimals)
         }
         this.items.length = 0
+        let avg_cpu_hour = []
+        let avg_start_price = []
+        let avg_per_hour = []
         apiResponse.forEach((obj) => {
           this.items.push({
             Name: obj.data['golem.node.id.name'],
             Subnet: obj.data['golem.node.debug.subnet'],
-            Cores: obj.data['golem.inf.cpu.cores'],
-            Threads: obj.data['golem.inf.cpu.threads'],
+            Cores: obj.data['golem.inf.cpu.threads'],
+            start_price: floorFigure(
+              obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+              3
+            ),
+            per_hour: floorFigure(
+              obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
+              3
+            ),
+            cpu_hour: floorFigure(
+              obj.data['golem.com.pricing.model.linear.coeffs'][2],
+              3
+            ),
             'Memory (GB)': floorFigure(obj.data['golem.inf.mem.gib']),
             'Disk (GB)': floorFigure(obj.data['golem.inf.storage.gib']),
           })
+          avg_cpu_hour.push(
+            obj.data['golem.com.pricing.model.linear.coeffs'][2]
+          )
+          avg_start_price.push(
+            obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600
+          )
+          avg_per_hour.push(
+            obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600
+          )
         })
+        let average = (array) => array.reduce((a, b) => a + b) / array.length
+        this.avg_cpu_hour = floorFigure(average(avg_cpu_hour), 5) + ' GLM'
+        this.avg_start_price = floorFigure(average(avg_start_price), 5) + ' GLM'
+        this.avg_per_hour = floorFigure(average(avg_per_hour), 5) + ' GLM'
       })
     },
     utilization() {
       let now = Math.floor(new Date().getTime() / 1000)
-      console.log('now ', now)
       let then = now - 21600
-      console.log('then ', then)
       axios.get('/v1/network/' + then + '/' + now).then((response) => {
         let apiResponse = response.data
         let data = apiResponse.data.result[0].values
@@ -341,8 +390,6 @@ export default {
         let computing = []
         for (var i in data) {
           var time = data[i][0] * 1000
-          //var formatted = convertDate(time)
-          //console.log(formatted)
           computing.push([time, data[i][1]])
         }
         this.series = [
@@ -390,10 +437,10 @@ export default {
         let apiResponse = response.data
         this.online = apiResponse.online
         this.cores = apiResponse.cores
+        this.threads = apiResponse.threads
         this.memory = floorFigure(apiResponse.memory)
         this.disk = floorFigure(apiResponse.disk)
-        this.avgcores = floorFigure(apiResponse.cores / apiResponse.online)
-        this.avgthreads = floorFigure(apiResponse.threads / apiResponse.online)
+        this.avgcores = floorFigure(apiResponse.threads / apiResponse.online)
         this.avgmemory = floorFigure(apiResponse.memory / apiResponse.online)
         this.avgdisk = floorFigure(apiResponse.disk / apiResponse.online)
       })
