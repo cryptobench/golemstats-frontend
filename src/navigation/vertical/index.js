@@ -1,7 +1,12 @@
 export default [
   {
-    title: 'Home',
+    title: 'Network',
     route: 'home',
-    icon: 'HomeIcon',
+    icon: 'GlobeIcon',
+  },
+  {
+    title: 'Market Data',
+    route: 'market',
+    icon: 'DollarSignIcon',
   },
 ]

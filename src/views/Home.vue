@@ -249,6 +249,7 @@
               :filter="filter"
               :filter-ignored-fields="ignoredfilter"
               :per-page="rowcount"
+              @row-clicked="expandAdditionalInfo"
               show-empty
               empty-text="No online nodes found"
             >
@@ -415,6 +416,10 @@ export default {
     $route: 'fetchData',
   },
   methods: {
+    expandAdditionalInfo(row) {
+      console.log(row)
+      this.$router.push({ name: 'node', params: { id: row.id } })
+    },
     fetchData() {
       axios.get('/v1/network/online').then((response) => {
         let apiResponse = response.data
@@ -430,6 +435,7 @@ export default {
         apiResponse.forEach((obj) => {
           this.items.push({
             Name: obj.data['golem.node.id.name'],
+            id: obj.data['id'],
             Subnet: obj.data['golem.node.debug.subnet'],
             Cores: obj.data['golem.inf.cpu.threads'],
             start_price:

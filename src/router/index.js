@@ -25,6 +25,14 @@ const router = new VueRouter({
       },
     },
     {
+      path: '/node/:id',
+      name: 'node',
+      component: () => import('@/views/Node.vue'),
+      meta: {
+        pageTitle: 'Provider Node',
+      },
+    },
+    {
       path: '/market',
       name: 'market',
       component: () => import('@/views/Market.vue'),
