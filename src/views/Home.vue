@@ -468,9 +468,10 @@ export default {
             : (nums[mid - 1] + nums[mid]) / 2
         }
 
-        this.median_cpu_hour = median(avg_cpu_hour) + ' GLM'
-        this.median_start_price = median(avg_start_price) + ' GLM'
-        this.median_per_hour = median(avg_per_hour) + ' GLM'
+        this.median_cpu_hour = floorFigure(median(avg_cpu_hour), 3) + ' GLM'
+        this.median_start_price =
+          floorFigure(median(avg_start_price), 3) + ' GLM'
+        this.median_per_hour = floorFigure(median(avg_per_hour), 3) + ' GLM'
         this.median_loaded = true
 
         let average = (array) => array.reduce((a, b) => a + b) / array.length
