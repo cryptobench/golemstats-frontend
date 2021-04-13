@@ -77,11 +77,11 @@
         </b-col>
         <b-col xs="6" sm="6" lg="3" md="4">
           <statistic-card-horizontal
-            v-if="earnings1h_loaded"
+            v-if="earnings6h_loaded"
             icon="DollarSignIcon"
             color="success"
-            :statistic="earnings1h"
-            statistic-title="Total Network Earnings (1h)"
+            :statistic="earnings6h"
+            statistic-title="Total Network Earnings (6h)"
             style="max-width: 300px"
           />
           <div class="text-center cardish" v-else>
@@ -298,7 +298,7 @@ export default {
       median_loaded: false,
       stats_loaded: false,
       computing_loaded: false,
-      earnings1h_loaded: false,
+      earnings6h_loaded: false,
       earnings24h_loaded: false,
       items: [],
       computing: '',
@@ -318,7 +318,7 @@ export default {
       avg_per_hour: '',
       median_per_hour: '',
       averageearnings: '',
-      earnings1h: '',
+      earnings6h: '',
       earnings24h: '',
       fields: [
         /* 
@@ -520,10 +520,10 @@ export default {
     },
 
     earnings1() {
-      axios.get('/v1/network/earnings/1').then((response) => {
+      axios.get('/v1/network/earnings/6').then((response) => {
         let apiResponse = response.data
-        this.earnings1h = apiResponse.total_earnings + ' GLM'
-        this.earnings1h_loaded = true
+        this.earnings6h = apiResponse.total_earnings + ' GLM'
+        this.earnings6h_loaded = true
       })
     },
     earnings24() {
