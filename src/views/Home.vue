@@ -2,7 +2,7 @@
   <div>
     <b-container class="bv-example-row">
       <b-row>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="stats_loaded"
             icon="GlobeIcon"
@@ -14,7 +14,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="stats_loaded"
             icon="CpuIcon"
@@ -26,7 +26,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="stats_loaded"
             icon="LayersIcon"
@@ -38,7 +38,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="stats_loaded"
             icon="HardDriveIcon"
@@ -50,7 +50,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="computing_loaded"
             icon="ActivityIcon"
@@ -62,7 +62,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="averageearnings_loaded"
             icon="DollarSignIcon"
@@ -75,7 +75,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="earnings6h_loaded"
             icon="DollarSignIcon"
@@ -88,7 +88,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="earnings24h_loaded"
             icon="DollarSignIcon"
@@ -104,7 +104,7 @@
       </b-row>
       <h3>Pricing Median</h3>
       <b-row>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="median_loaded"
             icon="DollarSignIcon"
@@ -117,7 +117,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="median_loaded"
             icon="DollarSignIcon"
@@ -130,7 +130,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="median_loaded"
             icon="DollarSignIcon"
@@ -164,7 +164,7 @@
       </b-row>
       <h3>Average stats per node</h3>
       <b-row>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="stats_loaded"
             icon="CpuIcon"
@@ -176,7 +176,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="stats_loaded"
             icon="LayersIcon"
@@ -188,7 +188,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             v-if="stats_loaded"
             icon="HardDriveIcon"
@@ -200,7 +200,7 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             icon="DollarSignIcon"
             color="success"
@@ -209,7 +209,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             icon="DollarSignIcon"
             color="success"
@@ -218,7 +218,7 @@
             style="max-width: 300px"
           />
         </b-col>
-        <b-col xs="6" sm="6" lg="3" md="4">
+        <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
             icon="DollarSignIcon"
             color="success"
@@ -230,7 +230,7 @@
       </b-row>
       <h3>Online nodes</h3>
       <b-row>
-        <b-col>
+        <b-col lg="12" xl="12" md="12" sm="12" xs="12">
           <b-card no-body class="mb-0">
             <b-col lg="6" class="mb-2 mt-2">
               <h5>Search for node</h5>
@@ -292,6 +292,7 @@ export default {
       ignoredfilter: ['Cores', 'Memory (GB)', 'Disk (GB)'],
       filter: '',
       rowcount: '',
+      averageearnings_loaded: false,
       sortBy: 'Name',
       sortDesc: false,
       loaded: false,
