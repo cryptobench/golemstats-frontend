@@ -48,7 +48,7 @@
 
           <!-- User Stats -->
           <div class="d-flex align-items-center mt-2">
-            <div class="d-flex align-items-center mr-2">
+            <div class="d-flex align-items-center mr-5">
               <b-avatar variant="light-primary" rounded>
                 <feather-icon icon="CpuIcon" size="18" />
               </b-avatar>
@@ -57,7 +57,7 @@
                 <small>Cores</small>
               </div>
             </div>
-            <div class="d-flex align-items-center mr-2">
+            <div class="d-flex align-items-center mr-3">
               <b-avatar variant="light-primary" rounded>
                 <feather-icon icon="LayersIcon" size="18" />
               </b-avatar>
@@ -73,6 +73,35 @@
               <div class="ml-1">
                 <h5 class="mb-0">{{ disk }} GB</h5>
                 <small>Disk</small>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mt-2">
+            <div class="d-flex align-items-center mr-2">
+              <b-avatar variant="light-success" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              <div class="ml-1">
+                <h5 class="mb-0">{{ cpu_hour }}</h5>
+                <small>GLM CPU/h</small>
+              </div>
+            </div>
+            <div class="d-flex align-items-center mr-2">
+              <b-avatar variant="light-success" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              <div class="ml-1">
+                <h5 class="mb-0">{{ per_hour }}</h5>
+                <small>GLM per hour</small>
+              </div>
+            </div>
+            <div class="d-flex align-items-center mr-2">
+              <b-avatar variant="light-success" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              <div class="ml-1">
+                <h5 class="mb-0">{{ start_price }}</h5>
+                <small>GLM start price</small>
               </div>
             </div>
           </div>
@@ -138,7 +167,9 @@ export default {
       accept_timeout: '',
       wallet: '',
       online: '',
-      pricing: [],
+      cpu_hour: '',
+      per_hour: '',
+      start_price: '',
       transfer_protocol: [],
       cpu_capabilities: [],
       usage_vector: [],
@@ -196,7 +227,7 @@ export default {
           this.memory = floorFigure(apiResponse[0]['data']['golem.inf.mem.gib'])
           this.name = apiResponse[0]['data']['golem.node.id.name']
           this.runtime_name = apiResponse[0]['data']['golem.runtime.name']
-          this.cores = apiResponse[0]['data']['golem.inf.cpu.cores']
+          this.cores = apiResponse[0]['data']['golem.inf.cpu.threads']
           this.model = apiResponse[0]['data']['golem.inf.cpu.model']
           this.cpu_vendor = apiResponse[0]['data']['golem.inf.cpu.vendor']
           this.threads = apiResponse[0]['data']['golem.inf.cpu.threads']
@@ -206,6 +237,20 @@ export default {
           this.runtime_version = apiResponse[0]['data']['golem.runtime.version']
           this.usage_vector = apiResponse[0]['data']['golem.com.usage.vector']
           this.pricing_model = apiResponse[0]['data']['golem.com.pricing.model']
+          this.cpu_hour = floorFigure(
+            apiResponse[0]['data']['golem.com.pricing.model.linear.coeffs'][1] *
+              3600,
+            3
+          )
+          this.per_hour = floorFigure(
+            apiResponse[0]['data']['golem.com.pricing.model.linear.coeffs'][0] *
+              3600,
+            3
+          )
+          this.start_price = floorFigure(
+            apiResponse[0]['data']['golem.com.pricing.model.linear.coeffs'][2],
+            3
+          )
           this.subnet = apiResponse[0]['data']['golem.node.debug.subnet']
           this.architecture =
             apiResponse[0]['data']['golem.inf.cpu.architecture']
