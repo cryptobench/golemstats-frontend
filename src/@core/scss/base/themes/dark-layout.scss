@@ -2,6 +2,22 @@
 @import '../components/include'; // Components includes
 
 .dark-layout {
+  .b-avatar.badge-light-primary {
+    color: white !important;
+    background-color: rgb(154 155 181 / 12%);
+  }
+  a,
+  h2,
+  .text-primary {
+    color: white !important;
+  }
+  .cardish {
+    background-color: #283046;
+  }
+  .btn-outline-primary {
+    color: white !important;
+    border: 1px solid white !important;
+  }
   @at-root body#{&} {
     color: $theme-dark-body-color;
     background-color: $theme-dark-body-bg;

@@ -610,5 +610,20 @@ html {
   border: none;
   padding: 1.5rem;
 }
+
+.dark-layout {
+  .b-avatar.badge-light-primary {
+    color: white !important;
+    background-color: rgb(154 155 181 / 12%);
+  }
+  a,
+  h2 {
+    color: white !important;
+  }
+  .btn-outline-primary {
+    color: white !important;
+    border: 1px solid white !important;
+  }
+}
 </style>
 
