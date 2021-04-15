@@ -8,7 +8,7 @@
             icon="GlobeIcon"
             :statistic="online"
             statistic-title="Nodes online"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -20,7 +20,7 @@
             icon="CpuIcon"
             :statistic="threads"
             statistic-title="Cores"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -32,7 +32,7 @@
             icon="LayersIcon"
             :statistic="memory"
             statistic-title="Memory (GB)"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -44,7 +44,7 @@
             icon="HardDriveIcon"
             :statistic="disk"
             statistic-title="Disk (GB)"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -56,7 +56,7 @@
             icon="ActivityIcon"
             :statistic="computing"
             statistic-title="Providers computing right now"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -69,7 +69,7 @@
             color="success"
             :statistic="averageearnings"
             statistic-title="Average earnings per task"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -82,7 +82,7 @@
             color="success"
             :statistic="earnings6h"
             statistic-title="Total Network Earnings (6h)"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -95,7 +95,7 @@
             color="success"
             :statistic="earnings24h"
             statistic-title="Total Network Earnings (24h)"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -111,7 +111,7 @@
             color="success"
             :statistic="median_cpu_hour"
             statistic-title="Median CPU/h pricing"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -124,7 +124,7 @@
             color="success"
             :statistic="median_per_hour"
             statistic-title="Median Per/h pricing"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -137,7 +137,7 @@
             color="success"
             :statistic="median_start_price"
             statistic-title="Median start pricing"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -170,7 +170,7 @@
             icon="CpuIcon"
             :statistic="avgcores"
             statistic-title="Cores"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -182,7 +182,7 @@
             icon="LayersIcon"
             :statistic="avgmemory"
             statistic-title="Memory (GB)"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -194,7 +194,7 @@
             icon="HardDriveIcon"
             :statistic="avgdisk"
             statistic-title="Disk (GB)"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
           <div class="text-center" v-else>
             <b-spinner variant="primary" label="Text Centered" />
@@ -206,7 +206,7 @@
             color="success"
             :statistic="avg_cpu_hour"
             statistic-title="Average CPU/h pricing"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
         </b-col>
         <b-col xs="12" sm="12" lg="3" md="4">
@@ -215,7 +215,7 @@
             color="success"
             :statistic="avg_per_hour"
             statistic-title="Average Per/h pricing"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
         </b-col>
         <b-col xs="12" sm="12" lg="3" md="4">
@@ -224,7 +224,7 @@
             color="success"
             :statistic="avg_start_price"
             statistic-title="Average start pricing"
-            style="max-width: 300px"
+            style="max-width: 350px"
           />
         </b-col>
       </b-row>
