@@ -355,6 +355,14 @@ export default {
             autoScaleYaxis: true,
           },
         },
+        tooltip: {
+          enabled: true,
+          x: {
+            show: true,
+            format: 'HH:mm:ss',
+            formatter: undefined,
+          },
+        },
         dataLabels: {
           enabled: false,
         },
