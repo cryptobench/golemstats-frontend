@@ -501,17 +501,6 @@ export default {
       axios.get('/v1/network/' + then + '/' + now).then((response) => {
         let apiResponse = response.data
         let data = apiResponse.data.result[0].values
-        function convertDate(inputFormat) {
-          function pad(s) {
-            return s < 10 ? '0' + s : s
-          }
-          var d = new Date(inputFormat)
-          return [
-            pad(d.getDate()),
-            pad(d.getMonth() + 1),
-            d.getFullYear(),
-          ].join('/')
-        }
         let computing = []
         for (var i in data) {
           var time = data[i][0] * 1000

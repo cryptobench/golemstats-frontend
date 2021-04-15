@@ -48,13 +48,13 @@
 
           <!-- User Stats -->
           <div class="d-flex align-items-center mt-2">
-            <div class="d-flex align-items-center mr-5">
+            <div class="d-flex align-items-center mr-2">
               <b-avatar variant="light-primary" rounded>
                 <feather-icon icon="CpuIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
                 <h5 class="mb-0">{{ cores }}</h5>
-                <small>Cores</small>
+                <small> {{ cpu_vendor }} Cores</small>
               </div>
             </div>
             <div class="d-flex align-items-center mr-3">
@@ -113,6 +113,27 @@
         </div>
       </b-row>
     </b-card>
+    <h3>Node Activity</h3>
+    <b-row>
+      <b-col lg="12" md="12">
+        <b-card>
+          <apexchart
+            v-if="loaded_graph"
+            width="100%"
+            height="250"
+            type="area"
+            :options="chartOptions"
+            :series="series"
+          ></apexchart>
+          <b-col lg="12" xs="12" class="text-center mt-1" v-else-if="failure">
+            <p>Error while trying to fetch data :-(</p>
+          </b-col>
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -148,6 +169,8 @@ export default {
   data() {
     return {
       loaded: false,
+      failure: false,
+      loaded_graph: false,
       id: '',
       scheme: '',
       memory: '',
@@ -174,6 +197,64 @@ export default {
       cpu_capabilities: [],
       usage_vector: [],
       testnet: '',
+      series: [
+        {
+          name: 'Providers Computing a task',
+          data: [],
+        },
+      ],
+      chartOptions: {
+        chart: {
+          id: 'area-datetime',
+          type: 'area',
+          zoom: {
+            autoScaleYaxis: true,
+          },
+        },
+        tooltip: {
+          enabled: true,
+          x: {
+            show: true,
+            format: 'HH:mm:ss',
+            formatter: undefined,
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        colors: ['#262ed1'],
+        markers: {
+          size: 0,
+        },
+        stroke: {
+          width: 2,
+        },
+        yaxis: {
+          title: {
+            text: '1 = Node is computing a task',
+            rotate: -90,
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: '12px',
+              fontWeight: 600,
+              cssClass: 'apexcharts-yaxis-title',
+            },
+          },
+        },
+        xaxis: {
+          type: 'datetime',
+          labels: {
+            datetimeFormatter: {
+              year: 'yyyy',
+              month: "MMM 'yy",
+              day: 'dd MMM',
+              hour: 'HH:mm:ss',
+            },
+          },
+        },
+      },
     }
   },
   setup() {
@@ -186,8 +267,41 @@ export default {
   },
   created() {
     this.fetchData()
+    this.activity()
+  },
+  mounted: function () {
+    this.timer = setInterval(() => {
+      this.activity()
+    }, 15000)
   },
   methods: {
+    activity() {
+      axios
+        .get('/v1/provider/node/' + this.$route.params.id + '/activity')
+        .then((response) => {
+          let apiResponse = response.data
+          try {
+            var data = apiResponse.data.result[0].values
+          } catch (error) {
+            this.failure = true
+            // expected output: ReferenceError: nonExistentFunction is not defined
+            // Note - error messages will vary depending on browser
+          }
+          let computing = []
+          for (var i in data) {
+            var time = data[i][0] * 1000
+            computing.push([time, data[i][1]])
+          }
+          this.series = [
+            {
+              data: computing,
+              name: 'Computing = 1',
+            },
+          ]
+          this.loaded_graph = true
+          //let success = data.map(({ values }) => values)
+        })
+    },
     zkscan() {
       if (this.testnet) {
         window.open(
@@ -229,7 +343,16 @@ export default {
           this.runtime_name = apiResponse[0]['data']['golem.runtime.name']
           this.cores = apiResponse[0]['data']['golem.inf.cpu.threads']
           this.model = apiResponse[0]['data']['golem.inf.cpu.model']
-          this.cpu_vendor = apiResponse[0]['data']['golem.inf.cpu.vendor']
+
+          if (
+            apiResponse[0]['data']['golem.inf.cpu.vendor'] == 'GenuineIntel'
+          ) {
+            this.cpu_vendor = 'Intel'
+          } else if (
+            apiResponse[0]['data']['golem.inf.cpu.vendor'] == 'AuthenticAMD'
+          ) {
+            this.cpu_vendor = 'AMD'
+          }
           this.threads = apiResponse[0]['data']['golem.inf.cpu.threads']
           this.disk = floorFigure(
             apiResponse[0]['data']['golem.inf.storage.gib']
