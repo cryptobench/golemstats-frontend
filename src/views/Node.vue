@@ -113,7 +113,7 @@
         </div>
       </b-row>
     </b-card>
-    <h3>Node Activity</h3>
+    <h3>Task Activity</h3>
     <b-row>
       <b-col lg="12" md="12">
         <b-card>
