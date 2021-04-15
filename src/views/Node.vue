@@ -1,60 +1,52 @@
 <template>
   <div>
     <b-card>
-      <b-row v-if="loaded">
-        <b-col
-          cols="21"
-          xl="6"
-          class="d-flex justify-content-between flex-column"
-        >
-          <!-- User Avatar & Action Buttons -->
-          <div class="d-flex justify-content-start">
-            <b-avatar
-              variant="light-primary"
-              :src="appLogoImage"
-              :text="name"
-              size="104px"
-              rounded
-            />
-            <div class="d-flex flex-column ml-1">
-              <div class="mb-1">
-                <h4 class="mb-0">
-                  {{ name }}
-                  <b-badge v-if="online" variant="success">
-                    <feather-icon icon="GlobeIcon" class="mr-25" />
-                    <span>Online</span>
-                  </b-badge>
-                  <b-badge v-else variant="danger">
-                    <feather-icon icon="GlobeIcon" class="mr-25" />
-                    <span>Offline</span>
-                  </b-badge>
-                </h4>
-                <span class="card-text"><b>Subnet:</b> {{ subnet }}</span>
-              </div>
-              <div class="d-flex flex-wrap">
-                <b-button v-on:click="zkscan" variant="outline-primary">
-                  ZKscan
-                </b-button>
-                <b-button
-                  v-on:click="etherscan"
-                  variant="outline-primary"
-                  class="ml-1"
-                >
-                  Etherscan
-                </b-button>
-              </div>
-            </div>
+      <b-row>
+        <b-col xs="6" sm="6" md="2" lg="1">
+          <b-avatar
+            class="mb-1"
+            variant="light-primary"
+            :src="appLogoImage"
+            :text="name"
+            size="104px"
+            rounded
+          />
+        </b-col>
+        <b-col xs="6" sm="6" md="10" lg="11">
+          <h4 class="mb-0">
+            {{ name }}
+            <b-badge v-if="online" variant="success">
+              <feather-icon icon="GlobeIcon" class="mr-25" />
+              <span>Online</span>
+            </b-badge>
+            <b-badge v-else variant="danger">
+              <feather-icon icon="GlobeIcon" class="mr-25" />
+              <span>Offline</span>
+            </b-badge>
+          </h4>
+          <span class="card-text"><b>Subnet:</b> {{ subnet }}</span>
+          <div class="mt-1 mb-1">
+            <b-button v-on:click="zkscan" variant="outline-primary">
+              ZKscan
+            </b-button>
+            <b-button
+              v-on:click="etherscan"
+              variant="outline-primary"
+              class="ml-1"
+            >
+              Etherscan
+            </b-button>
           </div>
-
-          <!-- User Stats -->
+        </b-col>
+        <b-col xs="12" sm="12" md="12" lg="12">
           <div class="d-flex align-items-center mt-2">
-            <div class="d-flex align-items-center mr-2">
+            <div class="d-flex align-items-center mr-3">
               <b-avatar variant="light-primary" rounded>
-                <feather-icon icon="CpuIcon" size="18" />
+                <feather-icon icon="CPUIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
-                <h5 class="mb-0">{{ cores }}</h5>
-                <small> {{ cpu_vendor }} Cores</small>
+                <h5 class="mb-0">{{ cpu_hour }}</h5>
+                <small>GLM CPU/h</small>
               </div>
             </div>
             <div class="d-flex align-items-center mr-3">
@@ -62,42 +54,13 @@
                 <feather-icon icon="LayersIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
-                <h5 class="mb-0">{{ memory }} GB</h5>
-                <small>Memory</small>
-              </div>
-            </div>
-            <div class="d-flex align-items-center mr-2">
-              <b-avatar variant="light-primary" rounded>
-                <feather-icon icon="HardDriveIcon" size="18" />
-              </b-avatar>
-              <div class="ml-1">
-                <h5 class="mb-0">{{ disk }} GB</h5>
-                <small>Disk</small>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex align-items-center mt-2">
-            <div class="d-flex align-items-center mr-2">
-              <b-avatar variant="light-success" rounded>
-                <feather-icon icon="DollarSignIcon" size="18" />
-              </b-avatar>
-              <div class="ml-1">
-                <h5 class="mb-0">{{ cpu_hour }}</h5>
-                <small>GLM CPU/h</small>
-              </div>
-            </div>
-            <div class="d-flex align-items-center mr-2">
-              <b-avatar variant="light-success" rounded>
-                <feather-icon icon="DollarSignIcon" size="18" />
-              </b-avatar>
-              <div class="ml-1">
                 <h5 class="mb-0">{{ per_hour }}</h5>
                 <small>GLM per hour</small>
               </div>
             </div>
-            <div class="d-flex align-items-center mr-2">
-              <b-avatar variant="light-success" rounded>
-                <feather-icon icon="DollarSignIcon" size="18" />
+            <div class="d-flex align-items-center mr-3">
+              <b-avatar variant="light-primary" rounded>
+                <feather-icon icon="HardDriveIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
                 <h5 class="mb-0">{{ start_price }}</h5>
@@ -106,13 +69,40 @@
             </div>
           </div>
         </b-col>
-      </b-row>
-      <b-row v-else>
-        <div class="text-center">
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
+        <b-col xs="12" sm="12" lg="12">
+          <div class="d-flex align-items-center mt-2">
+            <div class="d-flex align-items-center mr-3">
+              <b-avatar variant="light-success" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              <div class="ml-1">
+                <h5 class="mb-0">{{ cores }}</h5>
+                <small>{{ cpu_vendor }} Cores</small>
+              </div>
+            </div>
+            <div class="d-flex align-items-center mr-3">
+              <b-avatar variant="light-success" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              <div class="ml-1">
+                <h5 class="mb-0">{{ memory }}</h5>
+                <small>Memory (GB)</small>
+              </div>
+            </div>
+            <div class="d-flex align-items-center mr-3">
+              <b-avatar variant="light-success" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              <div class="ml-1">
+                <h5 class="mb-0">{{ disk }}</h5>
+                <small>Disk (GB)</small>
+              </div>
+            </div>
+          </div>
+        </b-col>
       </b-row>
     </b-card>
+
     <h3>Task Activity</h3>
     <b-row>
       <b-col lg="12" md="12">
