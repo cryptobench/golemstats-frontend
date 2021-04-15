@@ -589,6 +589,11 @@ export default {
 <style lang="scss">
 @import '@core/scss/base/colors.scss';
 
+html {
+  max-width: 100vw;
+  overflow-x: hidden !important;
+}
+
 .primary {
   color: $primary;
 }
