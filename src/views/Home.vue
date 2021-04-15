@@ -243,6 +243,7 @@
               outlined
               hover
               :fields="fields"
+              responsive
               :items="items"
               :sort-by.sync="sortBy"
               :sort-desc.sync="sortDesc"
@@ -432,7 +433,6 @@ export default {
   },
   methods: {
     expandAdditionalInfo(row) {
-      console.log(row)
       this.$router.push({ name: 'node', params: { id: row.id } })
     },
     fetchData() {
@@ -459,7 +459,6 @@ export default {
               obj.data['golem.com.payment.platform.erc20-rinkeby-tglm.address']
             //  block of code to be executed if the condition is false
           }
-          console.log(wallet)
           this.items.push({
             Name: obj.data['golem.node.id.name'],
             id: obj.data['id'],
