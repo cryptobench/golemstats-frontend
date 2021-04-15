@@ -236,7 +236,7 @@
               <h5>Search for node</h5>
               <b-form-input
                 v-model="filter"
-                placeholder="Node Name"
+                placeholder="Node Name or wallet address"
               ></b-form-input>
             </b-col>
             <b-table
@@ -289,7 +289,14 @@ export default {
   },
   data() {
     return {
-      ignoredfilter: ['Cores', 'Memory (GB)', 'Disk (GB)'],
+      ignoredfilter: [
+        'Cores',
+        'Memory (GB)',
+        'Disk (GB)',
+        'cpu_hour',
+        'per_hour',
+        'start_price',
+      ],
       filter: '',
       rowcount: '',
       averageearnings_loaded: false,
@@ -339,7 +346,6 @@ export default {
         { key: 'cpu_hour', label: 'CPU/h price', sortable: true },
         { key: 'per_hour', label: 'Per/h price', sortable: true },
         { key: 'start_price', label: 'Start Price', sortable: true },
-        //{ key: 'Pricing', label: 'Pricing', sortable: true },
       ],
       series: [
         {
@@ -442,11 +448,24 @@ export default {
         let avg_start_price = []
         let avg_per_hour = []
         apiResponse.forEach((obj) => {
+          if (
+            obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
+          ) {
+            var wallet =
+              obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
+            //  block of code to be executed if the condition is true
+          } else {
+            var wallet =
+              obj.data['golem.com.payment.platform.erc20-rinkeby-tglm.address']
+            //  block of code to be executed if the condition is false
+          }
+          console.log(wallet)
           this.items.push({
             Name: obj.data['golem.node.id.name'],
             id: obj.data['id'],
             Subnet: obj.data['golem.node.debug.subnet'],
             Cores: obj.data['golem.inf.cpu.threads'],
+            Wallet: wallet,
             start_price:
               floorFigure(
                 obj.data['golem.com.pricing.model.linear.coeffs'][2],
