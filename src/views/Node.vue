@@ -232,6 +232,9 @@ export default {
               cssClass: 'apexcharts-yaxis-title',
             },
           },
+          min: 0,
+          max: 1,
+          tickAmount: 1,
         },
         xaxis: {
           type: 'datetime',
