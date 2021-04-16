@@ -42,11 +42,11 @@
           <div class="d-flex align-items-center mt-2">
             <div class="d-flex align-items-center mr-3">
               <b-avatar variant="light-primary" rounded>
-                <feather-icon icon="CPUIcon" size="18" />
+                <feather-icon icon="CpuIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
-                <h5 class="mb-0">{{ cpu_hour }}</h5>
-                <small>GLM CPU/h</small>
+                <h5 class="mb-0">{{ cores }}</h5>
+                <small>{{ cpu_vendor }} Cores</small>
               </div>
             </div>
             <div class="d-flex align-items-center mr-3">
@@ -54,8 +54,8 @@
                 <feather-icon icon="LayersIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
-                <h5 class="mb-0">{{ per_hour }}</h5>
-                <small>GLM per hour</small>
+                <h5 class="mb-0">{{ memory }}</h5>
+                <small>Memory (GB)</small>
               </div>
             </div>
             <div class="d-flex align-items-center mr-3">
@@ -63,8 +63,8 @@
                 <feather-icon icon="HardDriveIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
-                <h5 class="mb-0">{{ start_price }}</h5>
-                <small>GLM start price</small>
+                <h5 class="mb-0">{{ disk }}</h5>
+                <small>Disk (GB)</small>
               </div>
             </div>
           </div>
@@ -76,8 +76,8 @@
                 <feather-icon icon="DollarSignIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
-                <h5 class="mb-0">{{ cores }}</h5>
-                <small>{{ cpu_vendor }} Cores</small>
+                <h5 class="mb-0">{{ cpu_hour }}</h5>
+                <small>GLM CPU/h</small>
               </div>
             </div>
             <div class="d-flex align-items-center mr-3">
@@ -85,8 +85,8 @@
                 <feather-icon icon="DollarSignIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
-                <h5 class="mb-0">{{ memory }}</h5>
-                <small>Memory (GB)</small>
+                <h5 class="mb-0">{{ per_hour }}</h5>
+                <small>GLM per hour</small>
               </div>
             </div>
             <div class="d-flex align-items-center mr-3">
@@ -94,8 +94,8 @@
                 <feather-icon icon="DollarSignIcon" size="18" />
               </b-avatar>
               <div class="ml-1">
-                <h5 class="mb-0">{{ disk }}</h5>
-                <small>Disk (GB)</small>
+                <h5 class="mb-0">{{ start_price }}</h5>
+                <small>GLM start price</small>
               </div>
             </div>
           </div>

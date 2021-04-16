@@ -46,7 +46,7 @@
             </b-col>
             <b-col lg="6">
               <p>
-                <b>{{ circulating_supply }} GLM</b>
+                <b>1 000 000 000 GLM</b>
               </p>
             </b-col>
           </b-row>
