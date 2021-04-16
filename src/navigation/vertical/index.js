@@ -5,6 +5,11 @@ export default [
     icon: 'GlobeIcon',
   },
   {
+    title: 'Graphs',
+    route: 'graphs',
+    icon: 'BarChart2Icon',
+  },
+  {
     title: 'Market Data',
     route: 'market',
     icon: 'DollarSignIcon',
