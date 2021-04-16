@@ -1,11 +1,21 @@
 <template>
   <div>
+    <b-row>
+      <b-col xl="6" lg="6" md="12" sm="12" xs="12">
+        <networkversions> </networkversions>
+      </b-col>
+      <b-col xl="6" lg="6" md="12" sm="12" xs="12">
+        <networkpercentagecomputing> </networkpercentagecomputing>
+      </b-col>
+    </b-row>
     <networkutilization> </networkutilization>
   </div>
 </template>
 
 <script>
 import networkutilization from '@core/components/network/networkutilization.vue'
+import networkpercentagecomputing from '@core/components/network/networkpercentagecomputing.vue'
+import networkversions from '@core/components/network/networkversions.vue'
 import {
   BCard,
   BCardText,
@@ -34,6 +44,8 @@ export default {
     BRow,
     BSpinner,
     networkutilization,
+    networkversions,
+    networkpercentagecomputing,
   },
   data() {
     return {

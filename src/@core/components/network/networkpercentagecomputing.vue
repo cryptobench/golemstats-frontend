@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-col lg="12" md="12">
-      <h3>Network Version adoption (24h)</h3>
+      <h3>Network Utilization in percentage (6h)</h3>
       <b-card>
         <apexchart
           v-if="loaded"
@@ -32,20 +32,14 @@ export default {
   data() {
     return {
       loaded: false,
+      online: '',
       series: [],
       chartOptions: {
         chart: {
           id: 'area-datetime',
-          type: 'line',
+          type: 'area',
           zoom: {
             autoScaleYaxis: true,
-          },
-          animations: {
-            enabled: false,
-            easing: 'linear',
-            dynamicAnimation: {
-              speed: 1000,
-            },
           },
         },
         tooltip: {
@@ -59,7 +53,7 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        colors: ['#08e3f6', '#17a2b8', '#8641f6', '#ec3076'],
+        colors: ['#262ed1'],
         markers: {
           size: 0,
         },
@@ -68,7 +62,7 @@ export default {
         },
         yaxis: {
           title: {
-            text: 'Node count',
+            text: 'Percentage of network computing',
             rotate: -90,
             offsetX: 0,
             offsetY: 0,
@@ -104,25 +98,34 @@ export default {
   },
   methods: {
     utilization() {
-      this.series.length = 0
-      axios.get('/v1/network/versions').then((response) => {
-        let apiResponse = response.data
-        let data = apiResponse.data.result
-        data.forEach((obj, index) => {
-          let values = obj['values']
-          let computing = []
-          for (var i in values) {
-            var time = values[i][0] * 1000
-            computing.push([time, values[i][1]])
-          }
-          this.series.push({
-            data: computing,
-            name: obj['metric']['version'].slice(-3, 5),
-          })
-        })
+      function floorFigure(figure, decimals) {
+        if (!decimals) decimals = 2
+        var d = Math.pow(10, decimals)
+        return (parseInt(figure * d) / d).toFixed(decimals)
+      }
+      axios.get('/v1/network/online/stats').then((response) => {
+        let responsedata = response.data
+        this.online = responsedata.online
       })
-      this.loaded = true
-      console.log('ned')
+      let now = Math.floor(new Date().getTime() / 1000)
+      let then = now - 21600
+      axios.get('/v1/network/' + then + '/' + now).then((response) => {
+        let apiResponse = response.data
+        let data = apiResponse.data.result[0].values
+        let computing = []
+        for (var i in data) {
+          var time = data[i][0] * 1000
+          computing.push([time, floorFigure(data[i][1] / this.online, 2)])
+        }
+        this.series = [
+          {
+            data: computing,
+            name: 'Percentage of network computing',
+          },
+        ]
+        this.loaded = true
+        //let success = data.map(({ values }) => values)
+      })
     },
   },
 }

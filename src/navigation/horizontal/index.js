@@ -22,7 +22,7 @@ export default [
   },
   {
     header: 'Graphs',
-    icon: 'DataIcon',
+    icon: 'BarChart2Icon',
     title: 'Graphs',
     route: 'graphs',
   },
