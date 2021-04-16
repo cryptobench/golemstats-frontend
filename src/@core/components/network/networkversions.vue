@@ -82,6 +82,18 @@ export default {
         },
         xaxis: {
           type: 'datetime',
+          title: {
+            text: 'Yagna version',
+            rotate: -90,
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: '12px',
+              fontWeight: 600,
+              cssClass: 'apexcharts-yaxis-title',
+            },
+          },
           labels: {
             datetimeFormatter: {
               year: 'yyyy',
