@@ -144,24 +144,7 @@
           </div>
         </b-col>
       </b-row>
-      <h3>Network Utilization (6h)</h3>
-      <b-row>
-        <b-col lg="12" md="12">
-          <b-card>
-            <apexchart
-              v-if="loaded"
-              width="100%"
-              height="250"
-              type="area"
-              :options="chartOptions"
-              :series="series"
-            ></apexchart>
-            <div class="text-center" v-else>
-              <b-spinner variant="primary" label="Text Centered" />
-            </div>
-          </b-card>
-        </b-col>
-      </b-row>
+      <networkutilization> </networkutilization>
       <h3>Average stats per node</h3>
       <b-row>
         <b-col xs="12" sm="12" lg="3" md="4">
@@ -275,6 +258,7 @@ import {
 import StatisticCardHorizontal from '@core/components/statistics-cards/StatisticCardHorizontal.vue'
 import StatisticCardWithLineChart from '@core/components/statistics-cards/StatisticCardWithLineChart.vue'
 import axios from '@axios'
+import networkutilization from '@core/components/network/networkutilization.vue'
 
 export default {
   components: {
@@ -287,6 +271,7 @@ export default {
     BTable,
     StatisticCardHorizontal,
     StatisticCardWithLineChart,
+    networkutilization,
   },
   data() {
     return {
@@ -303,7 +288,6 @@ export default {
       averageearnings_loaded: false,
       sortBy: 'Name',
       sortDesc: false,
-      loaded: false,
       median_loaded: false,
       stats_loaded: false,
       computing_loaded: false,
@@ -348,64 +332,6 @@ export default {
         { key: 'per_hour', label: 'Per/h price', sortable: true },
         { key: 'start_price', label: 'Start Price', sortable: true },
       ],
-      series: [
-        {
-          name: 'Providers Computing a task',
-          data: [],
-        },
-      ],
-      chartOptions: {
-        chart: {
-          id: 'area-datetime',
-          type: 'area',
-          zoom: {
-            autoScaleYaxis: true,
-          },
-        },
-        tooltip: {
-          enabled: true,
-          x: {
-            show: true,
-            format: 'HH:mm:ss',
-            formatter: undefined,
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        colors: ['#262ed1'],
-        markers: {
-          size: 0,
-        },
-        stroke: {
-          width: 2,
-        },
-        yaxis: {
-          title: {
-            text: 'Providers computing',
-            rotate: -90,
-            offsetX: 0,
-            offsetY: 0,
-            style: {
-              color: undefined,
-              fontSize: '12px',
-              fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
-            },
-          },
-        },
-        xaxis: {
-          type: 'datetime',
-          labels: {
-            datetimeFormatter: {
-              year: 'yyyy',
-              month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm:ss',
-            },
-          },
-        },
-      },
     }
   },
   created() {
@@ -415,7 +341,6 @@ export default {
     this.earnings1()
     this.earnings24()
     this.fetchData()
-    this.utilization()
   },
   mounted: function () {
     this.timer = setInterval(() => {
@@ -425,7 +350,6 @@ export default {
       this.earnings1()
       this.earnings24()
       this.fetchData()
-      this.utilization()
     }, 15000)
   },
   watch: {
@@ -511,27 +435,6 @@ export default {
         this.avg_cpu_hour = floorFigure(average(avg_cpu_hour), 5) + ' GLM'
         this.avg_start_price = floorFigure(average(avg_start_price), 5) + ' GLM'
         this.avg_per_hour = floorFigure(average(avg_per_hour), 5) + ' GLM'
-      })
-    },
-    utilization() {
-      let now = Math.floor(new Date().getTime() / 1000)
-      let then = now - 21600
-      axios.get('/v1/network/' + then + '/' + now).then((response) => {
-        let apiResponse = response.data
-        let data = apiResponse.data.result[0].values
-        let computing = []
-        for (var i in data) {
-          var time = data[i][0] * 1000
-          computing.push([time, data[i][1]])
-        }
-        this.series = [
-          {
-            data: computing,
-            name: 'Providers computing a task',
-          },
-        ]
-        this.loaded = true
-        //let success = data.map(({ values }) => values)
       })
     },
 

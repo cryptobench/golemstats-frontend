@@ -21,6 +21,12 @@ export default [
     route: 'home',
   },
   {
+    header: 'Graphs',
+    icon: 'DataIcon',
+    title: 'Graphs',
+    route: 'graphs',
+  },
+  {
     header: 'Market data',
     icon: 'DollarSignIcon',
     title: 'Market Data',

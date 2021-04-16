@@ -33,6 +33,20 @@ const router = new VueRouter({
       },
     },
     {
+      path: '/graphs',
+      name: 'graphs',
+      component: () => import('@/views/Graphs.vue'),
+      meta: {
+        pageTitle: 'Network Graphs',
+        breadcrumb: [
+          {
+            text: 'Mainnet + Testnet',
+            active: true,
+          },
+        ],
+      },
+    },
+    {
       path: '/market',
       name: 'market',
       component: () => import('@/views/Market.vue'),
