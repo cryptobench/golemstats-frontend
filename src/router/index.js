@@ -14,45 +14,21 @@ const router = new VueRouter({
       path: '/',
       name: 'home',
       component: () => import('@/views/Home.vue'),
-      meta: {
-        pageTitle: 'Overview',
-        breadcrumb: [
-          {
-            text: 'Mainnet + Testnet',
-            active: true,
-          },
-        ],
-      },
     },
     {
       path: '/node/:id',
       name: 'node',
       component: () => import('@/views/Node.vue'),
-      meta: {
-        pageTitle: 'Provider Node',
-      },
     },
     {
       path: '/graphs',
       name: 'graphs',
       component: () => import('@/views/Graphs.vue'),
-      meta: {
-        pageTitle: 'Network Graphs',
-        breadcrumb: [
-          {
-            text: 'Mainnet + Testnet',
-            active: true,
-          },
-        ],
-      },
     },
     {
       path: '/market',
       name: 'market',
       component: () => import('@/views/Market.vue'),
-      meta: {
-        pageTitle: 'GLM Market',
-      },
     },
     {
       path: '/error-404',
