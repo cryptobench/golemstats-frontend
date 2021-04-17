@@ -1,10 +1,10 @@
 <template>
   <b-badge class="badge-status" v-if="computing" variant="danger">
-    <feather-icon icon="GlobeIcon" class="mr-25" />
+    <feather-icon icon="ActivityIcon" class="mr-25" />
     <span>Computing</span>
   </b-badge>
   <b-badge class="badge-status" v-else variant="warning">
-    <feather-icon icon="GlobeIcon" class="mr-25" />
+    <feather-icon icon="ActivityIcon" class="mr-25" />
     <span>Not computing</span>
   </b-badge>
 </template>
