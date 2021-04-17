@@ -53,7 +53,7 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        colors: ['#0d9e2a'],
+        colors: ['#ffd166'],
         markers: {
           size: 0,
         },

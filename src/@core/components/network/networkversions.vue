@@ -36,7 +36,7 @@ export default {
       chartOptions: {
         chart: {
           id: 'area-datetime',
-          type: 'line',
+          type: 'area',
           zoom: {
             autoScaleYaxis: true,
           },
@@ -59,7 +59,7 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        colors: ['#08e3f6', '#17a2b8', '#8641f6', '#ec3076'],
+        colors: ['#b5179e', '#560bad', '#3a0ca3', '#72efdd'],
         markers: {
           size: 0,
         },
@@ -85,8 +85,8 @@ export default {
           title: {
             text: 'Yagna version',
             rotate: -90,
-            offsetX: 0,
-            offsetY: 0,
+            offsetX: -25,
+            offsetY: 10,
             style: {
               color: undefined,
               fontSize: '12px',
