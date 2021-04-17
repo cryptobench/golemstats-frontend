@@ -259,6 +259,7 @@ import StatisticCardHorizontal from '@core/components/statistics-cards/Statistic
 import StatisticCardWithLineChart from '@core/components/statistics-cards/StatisticCardWithLineChart.vue'
 import axios from '@axios'
 import networkutilization from '@core/components/network/networkutilization.vue'
+import statisticscardearnings from '@core/components/provider/statisticscardearnings.vue'
 
 export default {
   components: {
@@ -272,6 +273,7 @@ export default {
     StatisticCardHorizontal,
     StatisticCardWithLineChart,
     networkutilization,
+    statisticscardearnings,
   },
   data() {
     return {
