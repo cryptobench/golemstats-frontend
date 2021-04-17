@@ -64,7 +64,7 @@ export default {
           size: 0,
         },
         stroke: {
-          width: 2,
+          width: 3,
         },
         yaxis: {
           title: {
@@ -78,6 +78,16 @@ export default {
               fontWeight: 600,
               cssClass: 'apexcharts-yaxis-title',
             },
+          },
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 0.1,
+            inverseColors: false,
+            opacityFrom: 0.8,
+            opacityTo: 0,
+            stops: [0, 90, 100],
           },
         },
         xaxis: {

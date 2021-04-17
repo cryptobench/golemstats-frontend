@@ -53,12 +53,21 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        colors: ['#ffd166'],
         markers: {
           size: 0,
         },
         stroke: {
-          width: 2,
+          width: 3,
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 0.1,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 0,
+            stops: [0, 90, 100],
+          },
         },
         yaxis: {
           title: {

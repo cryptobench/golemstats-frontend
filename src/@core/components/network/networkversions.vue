@@ -59,12 +59,20 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        colors: ['#b5179e', '#560bad', '#3a0ca3', '#72efdd'],
+        colors: ['#93d7f5', '#4fa0c4', '#4483c9', '#1257a3'],
         markers: {
           size: 0,
         },
-        stroke: {
-          width: 2,
+
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 0.1,
+            inverseColors: false,
+            opacityFrom: 0.8,
+            opacityTo: 0,
+            stops: [0, 90, 100],
+          },
         },
         yaxis: {
           title: {
