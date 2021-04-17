@@ -262,6 +262,16 @@ import networkutilization from '@core/components/network/networkutilization.vue'
 import statisticscardearnings from '@core/components/provider/statisticscardearnings.vue'
 
 export default {
+  metaInfo: {
+    title: 'Golemstats - A stats page for the Golem Network',
+    meta: [
+      {
+        name: 'description',
+        content:
+          'Golemstats is a network explorer for the Golem network. It features detailed stats about the nodes, the nework and financial data.',
+      },
+    ],
+  },
   components: {
     BCol,
     BCard,
