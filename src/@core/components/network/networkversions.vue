@@ -142,7 +142,6 @@ export default {
         })
       })
       this.loaded = true
-      console.log('ned')
     },
   },
 }
