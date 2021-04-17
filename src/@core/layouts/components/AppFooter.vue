@@ -6,7 +6,7 @@
 
     <span class="float-md-right d-none d-md-block"
       >Send feature requests to Phillip on
-      <a href="chat.golem.network">Discord</a>
+      <a target="_blank" href="https://chat.golem.network">Discord</a>
       <feather-icon
         icon="SmileIcon"
         size="21"

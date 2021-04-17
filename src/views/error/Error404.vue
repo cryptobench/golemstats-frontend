@@ -11,8 +11,8 @@
         <h2 class="mb-1">Page Not Found</h2>
         <p class="mb-2">
           Bip bop this page wasn't found. Contact Phillip on
-          <a href="chat.golem.network">Discord</a> if you believe this is a
-          mistake.
+          <a target="_blank" href="https://chat.golem.network">Discord</a> if
+          you believe this is a mistake.
         </p>
 
         <b-button
