@@ -10,6 +10,11 @@ export default [
     icon: 'BarChart2Icon',
   },
   {
+    icon: 'ListIcon',
+    title: 'Node by operator',
+    route: 'operator',
+  },
+  {
     title: 'Market Data',
     route: 'market',
     icon: 'DollarSignIcon',

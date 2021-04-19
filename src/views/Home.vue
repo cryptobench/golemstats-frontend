@@ -31,7 +31,7 @@
             v-if="stats_loaded"
             icon="LayersIcon"
             :statistic="memory"
-            statistic-title="Memory (GB)"
+            statistic-title="Memory"
             style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
@@ -43,7 +43,7 @@
             v-if="stats_loaded"
             icon="HardDriveIcon"
             :statistic="disk"
-            statistic-title="Disk (GB)"
+            statistic-title="Disk"
             style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
@@ -164,7 +164,7 @@
             v-if="stats_loaded"
             icon="LayersIcon"
             :statistic="avgmemory"
-            statistic-title="Memory (GB)"
+            statistic-title="Memory"
             style="max-width: 350px"
           />
           <div class="text-center" v-else>
@@ -176,7 +176,7 @@
             v-if="stats_loaded"
             icon="HardDriveIcon"
             :statistic="avgdisk"
-            statistic-title="Disk (GB)"
+            statistic-title="Disk"
             style="max-width: 350px"
           />
           <div class="text-center" v-else>
@@ -216,27 +216,96 @@
         <b-col lg="12" xl="12" md="12" sm="12" xs="12">
           <b-card no-body class="mb-0">
             <b-col lg="6" class="mb-2 mt-2">
-              <h5>Search for node</h5>
-              <b-form-input
-                v-model="filter"
-                placeholder="Node Name or wallet address"
-              ></b-form-input>
+              <b-col lg="6">
+                <h5>Search for node</h5>
+                <b-form-input
+                  v-model="filter"
+                  placeholder="Node Name or wallet address"
+                ></b-form-input>
+              </b-col>
+              <b-col lg="4" class="mb-2 mt-2">
+                <h5>Showing first {{ this.rowcount }} nodes</h5>
+                <b-form-input
+                  v-model="rowcount"
+                  placeholder="30"
+                ></b-form-input>
+              </b-col>
             </b-col>
             <b-table
-              outlined
-              hover
-              :fields="fields"
+              v-if="table_data"
               responsive
-              :items="items"
-              :sort-by.sync="sortBy"
-              :sort-desc.sync="sortDesc"
+              hover
+              outlined
+              small
               :filter="filter"
               :filter-ignored-fields="ignoredfilter"
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
+              :fields="fields"
+              :items="items"
               :per-page="rowcount"
               @row-clicked="expandAdditionalInfo"
               show-empty
               empty-text="No online nodes found"
             >
+              <!-- A virtual column -->
+              <template #cell(Name)="data">
+                {{ data.value }}
+                <b-badge v-if="data['item'].Online" pill variant="success"
+                  >Online</b-badge
+                >
+                <b-badge v-else pill variant="danger">Offline</b-badge>
+              </template>
+
+              <!-- A custom formatted column -->
+              <template #cell(Subnet)="data">
+                {{ data.value }}
+                <b-badge v-if="data['item'].Mainnet" pill variant="primary"
+                  >Mainnet</b-badge
+                >
+                <b-badge v-else pill variant="warning">Testnet</b-badge>
+              </template>
+
+              <!-- A custom formatted column -->
+              <template #cell(Cores)="data">
+                <b-avatar class="mr-1" variant="light-primary" rounded>
+                  <feather-icon icon="CpuIcon" size="18" />
+                </b-avatar>
+                {{ data.value }}
+              </template>
+
+              <template #cell(Memory)="data">
+                <b-avatar class="mr-1" variant="light-primary" rounded>
+                  <feather-icon icon="LayersIcon" size="18" />
+                </b-avatar>
+                {{ data.value }}
+              </template>
+
+              <!-- A virtual composite column -->
+              <template #cell(Disk)="data">
+                <b-avatar class="mr-1" variant="light-primary" rounded>
+                  <feather-icon icon="HardDriveIcon" size="18" />
+                </b-avatar>
+                {{ data.value }}
+              </template>
+              <template #cell(cpu_hour)="data">
+                <b-avatar variant="light-success" rounded>
+                  <feather-icon icon="DollarSignIcon" size="18" />
+                </b-avatar>
+                {{ data.value }}
+              </template>
+              <template #cell(per_hour)="data">
+                <b-avatar variant="light-success" rounded>
+                  <feather-icon icon="DollarSignIcon" size="18" />
+                </b-avatar>
+                {{ data.value }}
+              </template>
+              <template #cell(start_price)="data">
+                <b-avatar variant="light-success" rounded>
+                  <feather-icon icon="DollarSignIcon" size="18" />
+                </b-avatar>
+                {{ data.value }}
+              </template>
             </b-table>
           </b-card>
         </b-col>
@@ -254,6 +323,8 @@ import {
   BCard,
   BFormInput,
   BSpinner,
+  BBadge,
+  BAvatar,
 } from 'bootstrap-vue'
 import StatisticCardHorizontal from '@core/components/statistics-cards/StatisticCardHorizontal.vue'
 import StatisticCardWithLineChart from '@core/components/statistics-cards/StatisticCardWithLineChart.vue'
@@ -277,8 +348,10 @@ export default {
     BCard,
     BFormInput,
     BContainer,
+    BBadge,
     BRow,
     BSpinner,
+    BAvatar,
     BTable,
     StatisticCardHorizontal,
     StatisticCardWithLineChart,
@@ -289,14 +362,16 @@ export default {
     return {
       ignoredfilter: [
         'Cores',
-        'Memory (GB)',
-        'Disk (GB)',
+        'Memory',
+        'Disk',
         'cpu_hour',
         'per_hour',
         'start_price',
       ],
       filter: '',
-      rowcount: '',
+      mainnet: '',
+      table_data: false,
+      rowcount: '30',
       averageearnings_loaded: false,
       sortBy: 'Name',
       sortDesc: false,
@@ -338,8 +413,8 @@ export default {
         },
         { key: 'Subnet', label: 'Subnet', sortable: true },
         { key: 'Cores', label: 'Cores', sortable: true },
-        { key: 'Memory (GB)', label: 'Memory (GB)', sortable: true },
-        { key: 'Disk (GB)', label: 'Disk (GB)', sortable: true },
+        { key: 'Memory', label: 'Memory (GB)', sortable: true },
+        { key: 'Disk', label: 'Disk (GB)', sortable: true },
         { key: 'cpu_hour', label: 'CPU/h price', sortable: true },
         { key: 'per_hour', label: 'Per/h price', sortable: true },
         { key: 'start_price', label: 'Start Price', sortable: true },
@@ -387,15 +462,19 @@ export default {
           if (
             obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
           ) {
+            var mainnet = true
             var wallet =
               obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
             //  block of code to be executed if the condition is true
           } else {
+            var mainnet = false
             var wallet =
               obj.data['golem.com.payment.platform.erc20-rinkeby-tglm.address']
             //  block of code to be executed if the condition is false
           }
           this.items.push({
+            Online: obj.online,
+            Mainnet: mainnet,
             Name: obj.data['golem.node.id.name'],
             id: obj.data['id'],
             Subnet: obj.data['golem.node.debug.subnet'],
@@ -416,8 +495,8 @@ export default {
                 obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
                 3
               ) + ' GLM',
-            'Memory (GB)': floorFigure(obj.data['golem.inf.mem.gib']),
-            'Disk (GB)': floorFigure(obj.data['golem.inf.storage.gib']),
+            Memory: floorFigure(obj.data['golem.inf.mem.gib']),
+            Disk: floorFigure(obj.data['golem.inf.storage.gib']),
           })
           avg_cpu_hour.push(
             obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600
@@ -448,6 +527,7 @@ export default {
         this.avg_start_price = floorFigure(average(avg_start_price), 5) + ' GLM'
         this.avg_per_hour = floorFigure(average(avg_per_hour), 5) + ' GLM'
       })
+      this.table_data = true
     },
 
     earnings1() {
@@ -539,6 +619,11 @@ html {
     color: white !important;
     border: 1px solid white !important;
   }
+}
+
+[dir] .table.table-sm th,
+[dir] .table.table-sm td {
+  padding: 1.3rem 0.5rem;
 }
 </style>
 

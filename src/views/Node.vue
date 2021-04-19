@@ -14,7 +14,7 @@
                 rounded
               />
             </b-col>
-            <b-col cols="9756yu yu8" sm="9" md="10" lg="6">
+            <b-col cols="9" sm="9" md="10" lg="6">
               <h4 class="mb-0">
                 {{ name }}
                 <b-badge v-if="online" variant="success">

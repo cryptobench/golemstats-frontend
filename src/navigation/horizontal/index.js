@@ -27,6 +27,12 @@ export default [
     route: 'graphs',
   },
   {
+    header: 'Operator',
+    icon: 'ListIcon',
+    title: 'Node by operator',
+    route: 'operator',
+  },
+  {
     header: 'Market data',
     icon: 'DollarSignIcon',
     title: 'Market Data',

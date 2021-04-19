@@ -26,6 +26,16 @@ const router = new VueRouter({
       component: () => import('@/views/Graphs.vue'),
     },
     {
+      path: '/operator',
+      name: 'operator',
+      component: () => import('@/views/Operator.vue'),
+    },
+    {
+      path: '/operator/:id',
+      name: 'operatordetailed',
+      component: () => import('@/views/Operatordetailed.vue'),
+    },
+    {
       path: '/market',
       name: 'market',
       component: () => import('@/views/Market.vue'),

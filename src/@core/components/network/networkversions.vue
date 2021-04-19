@@ -94,7 +94,7 @@ export default {
             text: 'Yagna version',
             rotate: -90,
             offsetX: -25,
-            offsetY: 10,
+            offsetY: 0,
             style: {
               color: undefined,
               fontSize: '12px',
