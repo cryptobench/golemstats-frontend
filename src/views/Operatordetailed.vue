@@ -234,4 +234,8 @@ html {
   max-width: 100vw;
   overflow-x: hidden !important;
 }
+[dir] .table.table-sm th,
+[dir] .table.table-sm td {
+  padding: 1.3rem 0.5rem;
+}
 </style>
