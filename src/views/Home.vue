@@ -236,7 +236,6 @@
               responsive
               hover
               outlined
-              small
               :filter="filter"
               :filter-ignored-fields="ignoredfilter"
               :sort-by.sync="sortBy"
@@ -288,20 +287,26 @@
                 </b-avatar>
                 {{ data.value }}
               </template>
-              <template #cell(cpu_hour)="data">
+              <template #cell(Earnings)="data">
                 <b-avatar variant="light-success" rounded>
+                  <feather-icon icon="DollarSignIcon" size="18" />
+                </b-avatar>
+                {{ data.value }}
+              </template>
+              <template #cell(cpu_hour)="data">
+                <b-avatar variant="light-info" rounded>
                   <feather-icon icon="DollarSignIcon" size="18" />
                 </b-avatar>
                 {{ data.value }}
               </template>
               <template #cell(per_hour)="data">
-                <b-avatar variant="light-success" rounded>
+                <b-avatar variant="light-info" rounded>
                   <feather-icon icon="DollarSignIcon" size="18" />
                 </b-avatar>
                 {{ data.value }}
               </template>
               <template #cell(start_price)="data">
-                <b-avatar variant="light-success" rounded>
+                <b-avatar variant="light-info" rounded>
                   <feather-icon icon="DollarSignIcon" size="18" />
                 </b-avatar>
                 {{ data.value }}
@@ -373,8 +378,8 @@ export default {
       table_data: false,
       rowcount: '30',
       averageearnings_loaded: false,
-      sortBy: 'Name',
-      sortDesc: false,
+      sortBy: 'Earnings',
+      sortDesc: true,
       median_loaded: false,
       stats_loaded: false,
       computing_loaded: false,
@@ -415,6 +420,7 @@ export default {
         { key: 'Cores', label: 'Cores', sortable: true },
         { key: 'Memory', label: 'Memory (GB)', sortable: true },
         { key: 'Disk', label: 'Disk (GB)', sortable: true },
+        { key: 'Earnings', label: 'Total earnings', sortable: true },
         { key: 'cpu_hour', label: 'CPU/h price', sortable: true },
         { key: 'per_hour', label: 'Per/h price', sortable: true },
         { key: 'start_price', label: 'Start Price', sortable: true },
@@ -474,6 +480,7 @@ export default {
           }
           this.items.push({
             Online: obj.online,
+            Earnings: floorFigure(obj.earnings_total, 2) + ' GLM',
             Mainnet: mainnet,
             Name: obj.data['golem.node.id.name'],
             id: obj.data['id'],
@@ -623,7 +630,7 @@ html {
 
 [dir] .table th,
 [dir] .table td {
-  padding: 1rem 1.5rem !important;
+  padding: 1rem !important;
 }
 </style>
 
