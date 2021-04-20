@@ -31,8 +31,13 @@
                 ></computing>
               </h4>
               <span class="card-text"><b>Subnet:</b> {{ subnet }}</span>
+              <div class="mt-1">
+                <b-button v-on:click="operator" variant="primary">
+                  Node by operator
+                </b-button>
+              </div>
               <div class="mt-1 mb-1">
-                <b-button v-on:click="zkscan" variant="outline-primary">
+                <b-button v-on:click="operator" variant="outline-primary">
                   ZKscan
                 </b-button>
                 <b-button
@@ -44,6 +49,7 @@
                 </b-button>
               </div>
             </b-col>
+
             <b-col cols="12" sm="12" md="12" lg="12">
               <div class="d-flex align-items-center mt-2">
                 <b-col cols="4" sm="4" md="4" lg="2">
@@ -337,6 +343,12 @@ export default {
     }, 15000)
   },
   methods: {
+    operator() {
+      this.$router.push({
+        name: 'operatordetailed',
+        params: { id: this.wallet },
+      })
+    },
     activity() {
       axios
         .get('/v1/provider/node/' + this.$route.params.id + '/activity')
