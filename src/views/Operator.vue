@@ -75,7 +75,7 @@ export default {
       })
     },
     find_node() {
-      axios.get('/v1/wallet/' + this.wallet).then((response) => {
+      axios.get('/v1/provider/wallet/' + this.wallet).then((response) => {
         this.$router.push({
           name: 'operatordetailed',
           params: { id: this.wallet },

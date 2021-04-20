@@ -189,54 +189,58 @@ export default {
         var d = Math.pow(10, decimals)
         return (parseInt(figure * d) / d).toFixed(decimals)
       }
-      axios.get('/v1/wallet/' + this.$route.params.id).then((response) => {
-        let apiResponse = response.data
+      axios
+        .get('/v1/provider/wallet/' + this.$route.params.id)
+        .then((response) => {
+          let apiResponse = response.data
 
-        apiResponse.forEach((obj) => {
-          if (
-            obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
-          ) {
-            var mainnet = true
-            var wallet =
+          apiResponse.forEach((obj) => {
+            if (
               obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
-            //  block of code to be executed if the condition is true
-          } else {
-            var mainnet = false
-            var wallet =
-              obj.data['golem.com.payment.platform.erc20-rinkeby-tglm.address']
-            //  block of code to be executed if the condition is false
-          }
-          this.items.push({
-            Mainnet: mainnet,
-            Online: obj.online,
-            Earnings: floorFigure(obj.earnings_total, 2) + ' GLM',
-            Name: obj.data['golem.node.id.name'],
-            id: obj.data['id'],
-            Subnet: obj.data['golem.node.debug.subnet'],
-            Cores: obj.data['golem.inf.cpu.threads'],
-            Wallet: wallet,
-            start_price:
-              floorFigure(
-                obj.data['golem.com.pricing.model.linear.coeffs'][2],
-                3
-              ) + ' GLM',
-            per_hour:
-              floorFigure(
-                obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
-                3
-              ) + ' GLM',
-            cpu_hour:
-              floorFigure(
-                obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
-                3
-              ) + ' GLM',
-            Memory: floorFigure(obj.data['golem.inf.mem.gib']),
-            Disk: floorFigure(obj.data['golem.inf.storage.gib']),
+            ) {
+              var mainnet = true
+              var wallet =
+                obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
+              //  block of code to be executed if the condition is true
+            } else {
+              var mainnet = false
+              var wallet =
+                obj.data[
+                  'golem.com.payment.platform.erc20-rinkeby-tglm.address'
+                ]
+              //  block of code to be executed if the condition is false
+            }
+            this.items.push({
+              Mainnet: mainnet,
+              Online: obj.online,
+              Earnings: floorFigure(obj.earnings_total, 2) + ' GLM',
+              Name: obj.data['golem.node.id.name'],
+              id: obj.data['id'],
+              Subnet: obj.data['golem.node.debug.subnet'],
+              Cores: obj.data['golem.inf.cpu.threads'],
+              Wallet: wallet,
+              start_price:
+                floorFigure(
+                  obj.data['golem.com.pricing.model.linear.coeffs'][2],
+                  3
+                ) + ' GLM',
+              per_hour:
+                floorFigure(
+                  obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+                  3
+                ) + ' GLM',
+              cpu_hour:
+                floorFigure(
+                  obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
+                  3
+                ) + ' GLM',
+              Memory: floorFigure(obj.data['golem.inf.mem.gib']),
+              Disk: floorFigure(obj.data['golem.inf.storage.gib']),
+            })
           })
+          this.loaded = true
+          //let success = data.map(({ values }) => values)
         })
-        this.loaded = true
-        //let success = data.map(({ values }) => values)
-      })
     },
   },
 }
