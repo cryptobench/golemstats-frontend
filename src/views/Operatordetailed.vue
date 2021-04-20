@@ -15,6 +15,8 @@
             :sort-desc.sync="sortDesc"
             :fields="fields"
             :items="items"
+            hover
+            @row-clicked="expandAdditionalInfo"
             responsive="sm"
           >
             <!-- A virtual column -->
@@ -177,6 +179,9 @@ export default {
     }, 60000)
   },
   methods: {
+    expandAdditionalInfo(row) {
+      this.$router.push({ name: 'node', params: { id: row.id } })
+    },
     activity() {
       this.items.length = 0
       function floorFigure(figure, decimals) {
