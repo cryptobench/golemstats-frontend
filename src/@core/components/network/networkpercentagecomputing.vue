@@ -124,12 +124,15 @@ export default {
         let computing = []
         for (var i in data) {
           var time = data[i][0] * 1000
-          computing.push([time, floorFigure(data[i][1] / this.online, 2)])
+          computing.push([
+            time,
+            floorFigure((data[i][1] / this.online) * 100, 2),
+          ])
         }
         this.series = [
           {
             data: computing,
-            name: 'Percentage of network computing',
+            name: '% of network computing',
           },
         ]
         this.loaded = true
