@@ -37,7 +37,7 @@
                 </b-button>
               </div>
               <div class="mt-1 mb-1">
-                <b-button v-on:click="operator" variant="outline-primary">
+                <b-button v-on:click="zkscan" variant="outline-primary">
                   ZKscan
                 </b-button>
                 <b-button
