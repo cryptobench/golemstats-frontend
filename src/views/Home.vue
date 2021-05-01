@@ -31,7 +31,7 @@
             v-if="stats_loaded"
             icon="LayersIcon"
             :statistic="memory"
-            statistic-title="Memory"
+            statistic-title="Memory (TB)"
             style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
@@ -43,7 +43,7 @@
             v-if="stats_loaded"
             icon="HardDriveIcon"
             :statistic="disk"
-            statistic-title="Disk"
+            statistic-title="Disk (TB)"
             style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
@@ -164,7 +164,7 @@
             v-if="stats_loaded"
             icon="LayersIcon"
             :statistic="avgmemory"
-            statistic-title="Memory"
+            statistic-title="Memory (GB)"
             style="max-width: 350px"
           />
           <div class="text-center" v-else>
@@ -176,7 +176,7 @@
             v-if="stats_loaded"
             icon="HardDriveIcon"
             :statistic="avgdisk"
-            statistic-title="Disk"
+            statistic-title="Disk (GB)"
             style="max-width: 350px"
           />
           <div class="text-center" v-else>
@@ -576,8 +576,8 @@ export default {
         this.online = apiResponse.online
         this.cores = apiResponse.cores
         this.threads = apiResponse.threads
-        this.memory = floorFigure(apiResponse.memory)
-        this.disk = floorFigure(apiResponse.disk)
+        this.memory = floorFigure(apiResponse.memory / 1024)
+        this.disk = floorFigure(apiResponse.disk / 1024)
         this.avgcores = floorFigure(apiResponse.threads / apiResponse.online)
         this.avgmemory = floorFigure(apiResponse.memory / apiResponse.online)
         this.avgdisk = floorFigure(apiResponse.disk / apiResponse.online)
