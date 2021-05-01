@@ -59,25 +59,27 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        colors: ['#262ed1', '#d5d6d6'],
+        colors: ['#262ed1'],
         markers: {
           size: 0,
         },
         stroke: {
           width: 3,
         },
-        yaxis: [
-          {
-            tickAmount: 4,
-            seriesName: 'Logarithmic',
+        yaxis: {
+          title: {
+            text: 'Providers computing',
+            rotate: -90,
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: '12px',
+              fontWeight: 600,
+              cssClass: 'apexcharts-yaxis-title',
+            },
           },
-          {
-            title: 'test',
-            opposite: true,
-            tickAmount: 4,
-            seriesName: 'Linear',
-          },
-        ],
+        },
         fill: {
           type: 'gradient',
           gradient: {
@@ -110,42 +112,22 @@ export default {
       this.utilization()
     }, 15000)
   },
-  props: {
-    online: {
-      type: Number,
-      required: true,
-    },
-  },
   methods: {
     utilization() {
-      function floorFigure(figure, decimals) {
-        if (!decimals) decimals = 2
-        var d = Math.pow(10, decimals)
-        return (parseInt(figure * d) / d).toFixed(decimals)
-      }
       let now = Math.floor(new Date().getTime() / 1000)
       let then = now - 21600
       axios.get('/v1/network/' + then + '/' + now).then((response) => {
         let apiResponse = response.data
         let data = apiResponse.data.result[0].values
         let computing = []
-        let averagecomputing = []
         for (var i in data) {
           var time = data[i][0] * 1000
           computing.push([time, data[i][1]])
-          averagecomputing.push([
-            time,
-            floorFigure((data[i][1] / this.online) * 100, 2),
-          ])
         }
         this.series = [
           {
-            name: 'Logarithmic',
             data: computing,
-          },
-          {
-            name: 'Linear',
-            data: averagecomputing,
+            name: 'Providers computing a task',
           },
         ]
         this.loaded = true

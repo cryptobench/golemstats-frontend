@@ -144,8 +144,7 @@
           </div>
         </b-col>
       </b-row>
-      <networkutilization v-if="stats_loaded" :online="249">
-      </networkutilization>
+      <networkutilization> </networkutilization>
       <h3>Average stats per node</h3>
       <b-row>
         <b-col xs="12" sm="12" lg="3" md="4">
