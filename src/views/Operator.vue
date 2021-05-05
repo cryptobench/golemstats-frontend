@@ -3,7 +3,7 @@
     <b-row>
       <b-col lg="12" class="mb-2 mt-2">
         <b-card>
-          <h1>Node by opeator</h1>
+          <h1>Node by operator</h1>
           <p>
             Search for a specific wallet and get a dashboard of all the nodes
             providing for that specific wallet address.
