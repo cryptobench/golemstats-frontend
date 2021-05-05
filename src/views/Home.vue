@@ -101,6 +101,19 @@
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
+        <b-col xs="12" sm="12" lg="3" md="4">
+          <statistic-card-horizontal
+            v-if="earnings365d_loaded"
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="earnings365d"
+            statistic-title="Total Network Earnings (1y)"
+            style="max-width: 350px"
+          />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
       </b-row>
       <h3>Pricing Median</h3>
       <b-row>
@@ -396,6 +409,8 @@ export default {
       computing_loaded: false,
       earnings6h_loaded: false,
       earnings24h_loaded: false,
+      earnings365d_loaded: false,
+      earnings365d: '',
       items: [],
       computing: '',
       online: '',
@@ -444,6 +459,7 @@ export default {
     this.earningspertask()
     this.earnings1()
     this.earnings24()
+    this.earnings365()
     this.fetchData()
   },
   mounted: function () {
@@ -453,6 +469,7 @@ export default {
       this.earningspertask()
       this.earnings1()
       this.earnings24()
+      this.earnings365()
       this.fetchData()
     }, 15000)
   },
@@ -598,6 +615,21 @@ export default {
             this.floorFigure(apiResponse.total_earnings * this.usdprice) +
             ' USD'
           this.earnings24h_loaded = true
+        }
+      })
+    },
+    earnings365() {
+      axios.get('/v1/network/earnings/365d').then((response) => {
+        let apiResponse = response.data
+        if (localStorage.getItem('currency') == 'glm') {
+          this.earnings365d =
+            this.floorFigure(apiResponse.total_earnings) + ' GLM'
+          this.earnings365d_loaded = true
+        } else {
+          this.earnings365d =
+            this.floorFigure(apiResponse.total_earnings * this.usdprice) +
+            ' USD'
+          this.earnings365d_loaded = true
         }
       })
     },
