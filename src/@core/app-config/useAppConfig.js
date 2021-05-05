@@ -7,7 +7,7 @@ export default function usAppConfig() {
   // ------------------------------------------------
   const isVerticalMenuCollapsed = computed({
     get: () => store.state.verticalMenu.isVerticalMenuCollapsed,
-    set: val => {
+    set: (val) => {
       store.commit('verticalMenu/UPDATE_VERTICAL_MENU_COLLAPSED', val)
     },
   })
@@ -17,7 +17,7 @@ export default function usAppConfig() {
   // ------------------------------------------------
   const isRTL = computed({
     get: () => store.state.appConfig.layout.isRTL,
-    set: val => {
+    set: (val) => {
       store.commit('appConfig/TOGGLE_RTL', val)
     },
   })
@@ -27,8 +27,15 @@ export default function usAppConfig() {
   // ------------------------------------------------
   const skin = computed({
     get: () => store.state.appConfig.layout.skin,
-    set: val => {
+    set: (val) => {
       store.commit('appConfig/UPDATE_SKIN', val)
+    },
+  })
+
+  const currency = computed({
+    get: () => store.state.appConfig.layout.currency,
+    set: (val) => {
+      store.commit('appConfig/UPDATE_CURRENCY', val)
     },
   })
 
@@ -46,7 +53,7 @@ export default function usAppConfig() {
   // ------------------------------------------------
   const routerTransition = computed({
     get: () => store.state.appConfig.layout.routerTransition,
-    set: val => {
+    set: (val) => {
       store.commit('appConfig/UPDATE_ROUTER_TRANSITION', val)
     },
   })
@@ -61,13 +68,13 @@ export default function usAppConfig() {
 
   const layoutType = computed({
     get: () => store.state.appConfig.layout.type,
-    set: val => {
+    set: (val) => {
       store.commit('appConfig/UPDATE_LAYOUT_TYPE', val)
     },
   })
 
   // Reset skin if skin is semi-dark and move to horizontal layout
-  watch(layoutType, val => {
+  watch(layoutType, (val) => {
     if (val === 'horizontal' && skin.value === 'semi-dark') skin.value = 'light'
   })
 
@@ -76,7 +83,7 @@ export default function usAppConfig() {
   // ------------------------------------------------
   const contentWidth = computed({
     get: () => store.state.appConfig.layout.contentWidth,
-    set: val => {
+    set: (val) => {
       store.commit('appConfig/UPDATE_CONTENT_WIDTH', val)
     },
   })
@@ -86,7 +93,7 @@ export default function usAppConfig() {
   // ------------------------------------------------
   const isNavMenuHidden = computed({
     get: () => store.state.appConfig.layout.menu.hidden,
-    set: val => {
+    set: (val) => {
       store.commit('appConfig/UPDATE_NAV_MENU_HIDDEN', val)
     },
   })
@@ -97,14 +104,14 @@ export default function usAppConfig() {
 
   const navbarBackgroundColor = computed({
     get: () => store.state.appConfig.layout.navbar.backgroundColor,
-    set: val => {
+    set: (val) => {
       store.commit('appConfig/UPDATE_NAVBAR_CONFIG', { backgroundColor: val })
     },
   })
 
   const navbarType = computed({
     get: () => store.state.appConfig.layout.navbar.type,
-    set: val => {
+    set: (val) => {
       store.commit('appConfig/UPDATE_NAVBAR_CONFIG', { type: val })
     },
   })
@@ -115,7 +122,7 @@ export default function usAppConfig() {
 
   const footerType = computed({
     get: () => store.state.appConfig.layout.footer.type,
-    set: val => {
+    set: (val) => {
       store.commit('appConfig/UPDATE_FOOTER_CONFIG', { type: val })
     },
   })
@@ -124,6 +131,7 @@ export default function usAppConfig() {
     isVerticalMenuCollapsed,
     isRTL,
     skin,
+    currency,
     skinClasses,
     routerTransition,
 

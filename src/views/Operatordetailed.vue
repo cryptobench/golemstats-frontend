@@ -160,6 +160,7 @@ export default {
       filter: '',
       sortBy: 'Online',
       sortDesc: true,
+      usdprice: '',
     }
   },
   setup() {
@@ -178,17 +179,44 @@ export default {
       this.activity()
     }, 60000)
   },
+  watch: {
+    '$store.state.appConfig.layout.currency': function () {
+      this.makeToast(
+        'success',
+        'Changing layout to ' +
+          this.$store.state.appConfig.layout.currency +
+          ' prices',
+        'This will happen on next pull (within 60s)'
+      )
+    },
+  },
   methods: {
     expandAdditionalInfo(row) {
       this.$router.push({ name: 'node', params: { id: row.id } })
     },
+    makeToast(variant = null, title, message) {
+      this.$bvToast.toast(message, {
+        title: title,
+        variant: variant,
+        solid: true,
+      })
+    },
+    floorFigure: function floorFigure(figure, decimals) {
+      if (!decimals) decimals = 2
+      var d = Math.pow(10, decimals)
+      return (parseInt(figure * d) / d).toFixed(decimals)
+    },
+    geckoapi: function () {
+      axios
+        .get('https://api.coingecko.com/api/v3/coins/golem')
+        .then((response) => {
+          this.usdprice = response.data.market_data.current_price.usd
+            .toString()
+            .slice(0, 7)
+        })
+    },
     activity() {
       this.items.length = 0
-      function floorFigure(figure, decimals) {
-        if (!decimals) decimals = 2
-        var d = Math.pow(10, decimals)
-        return (parseInt(figure * d) / d).toFixed(decimals)
-      }
       axios
         .get('/v1/provider/wallet/' + this.$route.params.id)
         .then((response) => {
@@ -210,32 +238,40 @@ export default {
                 ]
               //  block of code to be executed if the condition is false
             }
+
+            if (localStorage.getItem('currency') == 'glm') {
+              var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
+            } else {
+              var earnings =
+                this.floorFigure(obj.earnings_total * this.usdprice, 2) + ' USD'
+            }
+
             this.items.push({
               Mainnet: mainnet,
               Online: obj.online,
-              Earnings: floorFigure(obj.earnings_total, 2) + ' GLM',
+              Earnings: earnings,
               Name: obj.data['golem.node.id.name'],
               id: obj.data['id'],
               Subnet: obj.data['golem.node.debug.subnet'],
               Cores: obj.data['golem.inf.cpu.threads'],
               Wallet: wallet,
               start_price:
-                floorFigure(
+                this.floorFigure(
                   obj.data['golem.com.pricing.model.linear.coeffs'][2],
                   3
                 ) + ' GLM',
               per_hour:
-                floorFigure(
+                this.floorFigure(
                   obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
                   3
                 ) + ' GLM',
               cpu_hour:
-                floorFigure(
+                this.floorFigure(
                   obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
                   3
                 ) + ' GLM',
-              Memory: floorFigure(obj.data['golem.inf.mem.gib']),
-              Disk: floorFigure(obj.data['golem.inf.storage.gib']),
+              Memory: this.floorFigure(obj.data['golem.inf.mem.gib']),
+              Disk: this.floorFigure(obj.data['golem.inf.storage.gib']),
             })
           })
           this.loaded = true

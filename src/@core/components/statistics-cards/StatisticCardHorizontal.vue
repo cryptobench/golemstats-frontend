@@ -7,14 +7,8 @@
         </h2>
         <span>{{ statisticTitle }}</span>
       </div>
-      <b-avatar
-        :variant="`light-${color}`"
-        size="45"
-      >
-        <feather-icon
-          size="21"
-          :icon="icon"
-        />
+      <b-avatar :variant="`light-${color}`" size="45">
+        <feather-icon size="21" :icon="icon" />
       </b-avatar>
     </b-card-body>
   </b-card>
@@ -38,6 +32,7 @@ export default {
       type: [Number, String],
       required: true,
     },
+
     statisticTitle: {
       type: String,
       default: '',

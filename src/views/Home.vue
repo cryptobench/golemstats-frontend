@@ -363,6 +363,17 @@ export default {
     networkutilization,
     statisticscardearnings,
   },
+  watch: {
+    '$store.state.appConfig.layout.currency': function () {
+      this.makeToast(
+        'success',
+        'Changing layout to ' +
+          this.$store.state.appConfig.layout.currency +
+          ' prices',
+        'This will happen on next pull (within 15s)'
+      )
+    },
+  },
   data() {
     return {
       ignoredfilter: [
@@ -390,6 +401,7 @@ export default {
       online: '',
       cores: '',
       threads: '',
+      usdprice: '',
       memory: '',
       disk: '',
       avgcores: '',
@@ -403,8 +415,6 @@ export default {
       avg_per_hour: '',
       median_per_hour: '',
       averageearnings: '',
-      earnings6h: '',
-      earnings24h: '',
       fields: [
         /* 
           Optionally define a class per header, 
@@ -428,6 +438,7 @@ export default {
     }
   },
   created() {
+    this.geckoapi()
     this.computingnow()
     this.generalstats()
     this.earningspertask()
@@ -445,21 +456,35 @@ export default {
       this.fetchData()
     }, 15000)
   },
-  watch: {
-    $route: 'fetchData',
-  },
   methods: {
     expandAdditionalInfo(row) {
       this.$router.push({ name: 'node', params: { id: row.id } })
     },
+    makeToast(variant = null, title, message) {
+      this.$bvToast.toast(message, {
+        title: title,
+        variant: variant,
+        solid: true,
+      })
+    },
+    floorFigure: function floorFigure(figure, decimals) {
+      if (!decimals) decimals = 2
+      var d = Math.pow(10, decimals)
+      return (parseInt(figure * d) / d).toFixed(decimals)
+    },
+    geckoapi: function () {
+      axios
+        .get('https://api.coingecko.com/api/v3/coins/golem')
+        .then((response) => {
+          this.usdprice = response.data.market_data.current_price.usd
+            .toString()
+            .slice(0, 7)
+        })
+    },
+
     fetchData() {
       axios.get('/v1/network/online').then((response) => {
         let apiResponse = response.data
-        function floorFigure(figure, decimals) {
-          if (!decimals) decimals = 2
-          var d = Math.pow(10, decimals)
-          return (parseInt(figure * d) / d).toFixed(decimals)
-        }
         this.items.length = 0
         let avg_cpu_hour = []
         let avg_start_price = []
@@ -478,9 +503,17 @@ export default {
               obj.data['golem.com.payment.platform.erc20-rinkeby-tglm.address']
             //  block of code to be executed if the condition is false
           }
+
+          if (localStorage.getItem('currency') == 'glm') {
+            var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
+          } else {
+            var earnings =
+              this.floorFigure(obj.earnings_total * this.usdprice, 2) + ' USD'
+          }
+
           this.items.push({
             Online: obj.online,
-            Earnings: floorFigure(obj.earnings_total, 2) + ' GLM',
+            Earnings: earnings,
             Mainnet: mainnet,
             Name: obj.data['golem.node.id.name'],
             id: obj.data['id'],
@@ -488,22 +521,22 @@ export default {
             Cores: obj.data['golem.inf.cpu.threads'],
             Wallet: wallet,
             start_price:
-              floorFigure(
+              this.floorFigure(
                 obj.data['golem.com.pricing.model.linear.coeffs'][2],
                 3
               ) + ' GLM',
             per_hour:
-              floorFigure(
+              this.floorFigure(
                 obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
                 3
               ) + ' GLM',
             cpu_hour:
-              floorFigure(
+              this.floorFigure(
                 obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
                 3
               ) + ' GLM',
-            Memory: floorFigure(obj.data['golem.inf.mem.gib']),
-            Disk: floorFigure(obj.data['golem.inf.storage.gib']),
+            Memory: this.floorFigure(obj.data['golem.inf.mem.gib']),
+            Disk: this.floorFigure(obj.data['golem.inf.storage.gib']),
           })
           avg_cpu_hour.push(
             obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600
@@ -523,16 +556,19 @@ export default {
             : (nums[mid - 1] + nums[mid]) / 2
         }
 
-        this.median_cpu_hour = floorFigure(median(avg_cpu_hour), 3) + ' GLM'
+        this.median_cpu_hour =
+          this.floorFigure(median(avg_cpu_hour), 3) + ' GLM'
         this.median_start_price =
-          floorFigure(median(avg_start_price), 3) + ' GLM'
-        this.median_per_hour = floorFigure(median(avg_per_hour), 3) + ' GLM'
+          this.floorFigure(median(avg_start_price), 3) + ' GLM'
+        this.median_per_hour =
+          this.floorFigure(median(avg_per_hour), 3) + ' GLM'
         this.median_loaded = true
 
         let average = (array) => array.reduce((a, b) => a + b) / array.length
-        this.avg_cpu_hour = floorFigure(average(avg_cpu_hour), 5) + ' GLM'
-        this.avg_start_price = floorFigure(average(avg_start_price), 5) + ' GLM'
-        this.avg_per_hour = floorFigure(average(avg_per_hour), 5) + ' GLM'
+        this.avg_cpu_hour = this.floorFigure(average(avg_cpu_hour), 5) + ' GLM'
+        this.avg_start_price =
+          this.floorFigure(average(avg_start_price), 5) + ' GLM'
+        this.avg_per_hour = this.floorFigure(average(avg_per_hour), 5) + ' GLM'
       })
       this.table_data = true
     },
@@ -540,15 +576,29 @@ export default {
     earnings1() {
       axios.get('/v1/network/earnings/6').then((response) => {
         let apiResponse = response.data
-        this.earnings6h = apiResponse.total_earnings + ' GLM'
-        this.earnings6h_loaded = true
+        if (localStorage.getItem('currency') == 'glm') {
+          this.earnings6h = apiResponse.total_earnings + ' GLM'
+          this.earnings6h_loaded = true
+        } else {
+          this.earnings6h =
+            this.floorFigure(apiResponse.total_earnings * this.usdprice) +
+            ' USD'
+          this.earnings6h_loaded = true
+        }
       })
     },
     earnings24() {
       axios.get('/v1/network/earnings/24').then((response) => {
         let apiResponse = response.data
-        this.earnings24h = apiResponse.total_earnings + ' GLM'
-        this.earnings24h_loaded = true
+        if (localStorage.getItem('currency') == 'glm') {
+          this.earnings24h = apiResponse.total_earnings + ' GLM'
+          this.earnings24h_loaded = true
+        } else {
+          this.earnings24h =
+            this.floorFigure(apiResponse.total_earnings * this.usdprice) +
+            ' USD'
+          this.earnings24h_loaded = true
+        }
       })
     },
     computingnow() {
@@ -561,26 +611,32 @@ export default {
     earningspertask() {
       axios.get('/v1/provider/average/earnings').then((response) => {
         let apiResponse = response.data
-        this.averageearnings = apiResponse.average_earnings + ' GLM'
-        this.averageearnings_loaded = true
+        if (localStorage.getItem('currency') == 'glm') {
+          this.averageearnings = apiResponse.average_earnings + ' GLM'
+          this.averageearnings_loaded = true
+        } else {
+          this.averageearnings =
+            this.floorFigure(apiResponse.average_earnings * this.usdprice) +
+            ' USD'
+          this.averageearnings_loaded = true
+        }
       })
     },
     generalstats() {
-      function floorFigure(figure, decimals) {
-        if (!decimals) decimals = 2
-        var d = Math.pow(10, decimals)
-        return (parseInt(figure * d) / d).toFixed(decimals)
-      }
       axios.get('/v1/network/online/stats').then((response) => {
         let apiResponse = response.data
         this.online = apiResponse.online
         this.cores = apiResponse.cores
         this.threads = apiResponse.threads
-        this.memory = floorFigure(apiResponse.memory / 1024)
-        this.disk = floorFigure(apiResponse.disk / 1024)
-        this.avgcores = floorFigure(apiResponse.threads / apiResponse.online)
-        this.avgmemory = floorFigure(apiResponse.memory / apiResponse.online)
-        this.avgdisk = floorFigure(apiResponse.disk / apiResponse.online)
+        this.memory = this.floorFigure(apiResponse.memory / 1024)
+        this.disk = this.floorFigure(apiResponse.disk / 1024)
+        this.avgcores = this.floorFigure(
+          apiResponse.threads / apiResponse.online
+        )
+        this.avgmemory = this.floorFigure(
+          apiResponse.memory / apiResponse.online
+        )
+        this.avgdisk = this.floorFigure(apiResponse.disk / apiResponse.online)
       })
       this.stats_loaded = true
     },

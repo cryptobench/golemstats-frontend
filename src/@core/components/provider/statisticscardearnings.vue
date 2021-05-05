@@ -39,6 +39,10 @@ export default {
       type: Number,
       required: true,
     },
+    usdprice: {
+      type: String,
+      required: true,
+    },
     statisticTitle: {
       type: String,
       default: '',
@@ -75,7 +79,12 @@ export default {
         )
         .then((response) => {
           let apiResponse = response.data
-          this.income = floorFigure(apiResponse.earnings, 3) + ' GLM'
+          if (localStorage.getItem('currency') == 'glm') {
+            this.income = floorFigure(apiResponse.earnings, 3) + ' GLM'
+          } else {
+            this.income =
+              floorFigure(apiResponse.earnings * this.usdprice, 3) + ' USD'
+          }
           this.loaded = true
         })
     },

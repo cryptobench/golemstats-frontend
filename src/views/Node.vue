@@ -131,8 +131,10 @@
     <b-row>
       <b-col cols="12" sm="12" md="6" lg="3" xl="3">
         <statisticscardearnings
+          v-if="usdprice"
           icon="DollarSignIcon"
           :hours="24"
+          :usdprice="this.usdprice"
           color="success"
           :provider="this.$route.params.id"
           statistic-title="Income (24h)"
@@ -142,9 +144,11 @@
       </b-col>
       <b-col cols="12" sm="12" md="6" lg="3" xl="3">
         <statisticscardearnings
+          v-if="usdprice"
           icon="DollarSignIcon"
           :hours="168"
           color="success"
+          :usdprice="this.usdprice"
           :provider="this.$route.params.id"
           statistic-title="Income (7d)"
           style="max-width: 380px"
@@ -153,9 +157,11 @@
       </b-col>
       <b-col cols="12" sm="12" md="6" lg="3" xl="3">
         <statisticscardearnings
+          v-if="usdprice"
           icon="DollarSignIcon"
           :hours="744"
           color="success"
+          :usdprice="this.usdprice"
           :provider="this.$route.params.id"
           statistic-title="Income (31d)"
           style="max-width: 380px"
@@ -164,9 +170,11 @@
       </b-col>
       <b-col cols="12" sm="12" md="6" lg="3" xl="3">
         <statisticscardearnings
+          v-if="usdprice"
           icon="DollarSignIcon"
           :hours="8760"
           color="success"
+          :usdprice="this.usdprice"
           :provider="this.$route.params.id"
           statistic-title="Income (1y)"
           style="max-width: 380px"
@@ -237,6 +245,7 @@ export default {
       failure: false,
       loaded_graph: false,
       id: '',
+      usdprice: '',
       scheme: '',
       memory: '',
       name: '',
@@ -336,18 +345,51 @@ export default {
   created() {
     this.fetchData()
     this.activity()
+    this.geckoapi()
   },
   mounted: function () {
     this.timer = setInterval(() => {
       this.activity()
     }, 15000)
   },
+  watch: {
+    '$store.state.appConfig.layout.currency': function () {
+      this.makeToast(
+        'success',
+        'Changing layout to ' +
+          this.$store.state.appConfig.layout.currency +
+          ' prices',
+        'This will happen on next pull (within 15s)'
+      )
+    },
+  },
   methods: {
+    makeToast(variant = null, title, message) {
+      this.$bvToast.toast(message, {
+        title: title,
+        variant: variant,
+        solid: true,
+      })
+    },
     operator() {
       this.$router.push({
         name: 'operatordetailed',
         params: { id: this.wallet },
       })
+    },
+    floorFigure: function floorFigure(figure, decimals) {
+      if (!decimals) decimals = 2
+      var d = Math.pow(10, decimals)
+      return (parseInt(figure * d) / d).toFixed(decimals)
+    },
+    geckoapi: function () {
+      axios
+        .get('https://api.coingecko.com/api/v3/coins/golem')
+        .then((response) => {
+          this.usdprice = response.data.market_data.current_price.usd
+            .toString()
+            .slice(0, 7)
+        })
     },
     activity() {
       axios
@@ -400,11 +442,6 @@ export default {
       }
     },
     fetchData() {
-      function floorFigure(figure, decimals) {
-        if (!decimals) decimals = 2
-        var d = Math.pow(10, decimals)
-        return (parseInt(figure * d) / d).toFixed(decimals)
-      }
       axios
         .get('/v1/provider/node/' + this.$route.params.id)
         .then((response) => {
@@ -412,7 +449,9 @@ export default {
           this.id = apiResponse[0]['data']['id']
           this.online = apiResponse[0]['online']
           this.scheme = apiResponse[0]['data']['golem.com.scheme']
-          this.memory = floorFigure(apiResponse[0]['data']['golem.inf.mem.gib'])
+          this.memory = this.floorFigure(
+            apiResponse[0]['data']['golem.inf.mem.gib']
+          )
           this.name = apiResponse[0]['data']['golem.node.id.name']
           this.runtime_name = apiResponse[0]['data']['golem.runtime.name']
           this.cores = apiResponse[0]['data']['golem.inf.cpu.threads']
@@ -428,23 +467,23 @@ export default {
             this.cpu_vendor = 'AMD'
           }
           this.threads = apiResponse[0]['data']['golem.inf.cpu.threads']
-          this.disk = floorFigure(
+          this.disk = this.floorFigure(
             apiResponse[0]['data']['golem.inf.storage.gib']
           )
           this.runtime_version = apiResponse[0]['data']['golem.runtime.version']
           this.usage_vector = apiResponse[0]['data']['golem.com.usage.vector']
           this.pricing_model = apiResponse[0]['data']['golem.com.pricing.model']
-          this.cpu_hour = floorFigure(
+          this.cpu_hour = this.floorFigure(
             apiResponse[0]['data']['golem.com.pricing.model.linear.coeffs'][1] *
               3600,
             3
           )
-          this.per_hour = floorFigure(
+          this.per_hour = this.floorFigure(
             apiResponse[0]['data']['golem.com.pricing.model.linear.coeffs'][0] *
               3600,
             3
           )
-          this.start_price = floorFigure(
+          this.start_price = this.floorFigure(
             apiResponse[0]['data']['golem.com.pricing.model.linear.coeffs'][2],
             3
           )

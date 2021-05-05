@@ -4,7 +4,12 @@
       <li class="nav-item">
         <b-link class="navbar-brand" to="/">
           <span class="brand-logo">
-            <b-img :src="appLogoImage" alt="logo" />
+            <b-img
+              class="logo-manual"
+              width="15"
+              :src="appLogoImage"
+              alt="logo"
+            />
           </span>
           <h2 class="brand-text mb-0">
             {{ appName }}
@@ -39,5 +44,9 @@ export default {
 <style>
 .alpha {
   color: orange;
+}
+
+.logo-manual {
+  margin-right: 5px;
 }
 </style>
