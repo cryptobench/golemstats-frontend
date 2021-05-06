@@ -59,7 +59,9 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        colors: ['#93d7f5', '#4fa0c4', '#4483c9', '#1257a3'],
+        theme: {
+          palette: 'palette10', // upto palette10
+        },
         markers: {
           size: 0,
         },
@@ -69,7 +71,7 @@ export default {
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
-            opacityFrom: 0.8,
+            opacityFrom: 0.5,
             opacityTo: 0,
             stops: [0, 90, 100],
           },
