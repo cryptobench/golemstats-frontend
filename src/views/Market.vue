@@ -1,13 +1,13 @@
 <template>
   <div>
     <b-row>
-      <b-col lg="4">
+      <b-col lg="12">
         <b-card>
           <b-row class="mb-1">
-            <b-col offset-lg="2" lg="8">
+            <b-col offset-lg="5" lg="4">
               <h4>
                 <span class="brand-logo">
-                  <b-img :src="appLogoImage" alt="logo" />
+                  <b-img width="20" :src="appLogoImage" alt="logo" />
                 </span>
                 <b>Golem Network Token</b>
               </h4>
@@ -15,48 +15,48 @@
           </b-row>
           <div class="divider mb-2"></div>
           <b-row>
-            <b-col offset-lg="1" lg="6">
+            <b-col offset-lg="4" lg="3">
               <p>
                 <b>Price:</b>
               </p>
             </b-col>
-            <b-col lg="5">
+            <b-col lg="4">
               <p>
                 <b>${{ usdprice }}</b>
               </p>
             </b-col>
           </b-row>
           <b-row>
-            <b-col offset-lg="1" lg="6">
+            <b-col offset-lg="4" lg="3">
               <p>
                 <b>Marketcap:</b>
               </p>
             </b-col>
-            <b-col lg="5">
+            <b-col lg="4">
               <p>
                 <b>${{ marketcap }}</b>
               </p>
             </b-col>
           </b-row>
           <b-row>
-            <b-col offset-lg="1" lg="5">
+            <b-col offset-lg="4" lg="3">
               <p>
                 <b>Circulating Supply:</b>
               </p>
             </b-col>
-            <b-col lg="6">
+            <b-col lg="4">
               <p>
                 <b>1 000 000 000 GLM</b>
               </p>
             </b-col>
           </b-row>
           <b-row>
-            <b-col offset-lg="1" lg="5">
+            <b-col offset-lg="4" lg="3">
               <p>
                 <b>Max Supply:</b>
               </p>
             </b-col>
-            <b-col lg="6">
+            <b-col lg="4">
               <p>
                 <b>1 000 000 000 GLM</b>
               </p>
