@@ -68,6 +68,7 @@
     <b-row>
       <b-col lg="12" xl="12" md="12" sm="12" xs="12">
         <b-card class="mb-0">
+          <h2 class="mb-2">Market Volume</h2>
           <b-table
             v-if="table_data"
             responsive
