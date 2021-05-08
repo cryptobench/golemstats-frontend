@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-row>
     <b-col lg="12" md="12">
       <h3>Network Version adoption (24h)</h3>
       <b-card>
@@ -16,7 +16,7 @@
         </div>
       </b-card>
     </b-col>
-  </div>
+  </b-row>
 </template>
 
 <script>

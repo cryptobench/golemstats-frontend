@@ -1,5 +1,6 @@
 <template>
   <div>
+    <statsovertime></statsovertime>
     <b-row>
       <b-col xl="6" lg="6" md="12" sm="12" xs="12">
         <networkversions> </networkversions>
@@ -16,6 +17,7 @@
 import networkutilization from '@core/components/network/networkutilization.vue'
 import networkpercentagecomputing from '@core/components/network/networkpercentagecomputing.vue'
 import networkversions from '@core/components/network/networkversions.vue'
+import statsovertime from '@core/components/network/statsovertime.vue'
 import {
   BCard,
   BCardText,
@@ -46,6 +48,7 @@ export default {
     networkutilization,
     networkversions,
     networkpercentagecomputing,
+    statsovertime,
   },
   data() {
     return {
