@@ -65,6 +65,42 @@
         </b-card>
       </b-col>
     </b-row>
+    <b-row>
+      <b-col lg="12" xl="12" md="12" sm="12" xs="12">
+        <b-card class="mb-0">
+          <b-table
+            v-if="table_data"
+            responsive
+            hover
+            outlined
+            :fields="fields"
+            :items="items"
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
+            show-empty
+            empty-text="No online nodes found"
+          >
+            <!-- A virtual column -->
+            <template #cell(Exchange)="data">
+              <b>{{ data.value }}</b>
+            </template>
+
+            <template #cell(Volume)="data">
+              <b-avatar variant="light-success" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              {{ data.value }}
+            </template>
+            <!-- A custom formatted column -->
+            <template #cell(Pair)="data">
+              <b>{{ data.value }}</b>
+            </template>
+
+            <!-- A custom formatted column -->
+          </b-table>
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -76,7 +112,7 @@ import {
   BRow,
   BTable,
   BCard,
-  BFormInput,
+  BAvatar,
   BImg,
 } from 'bootstrap-vue'
 import axios from '@axios'
@@ -90,6 +126,8 @@ export default {
     BRow,
     BCol,
     BImg,
+    BTable,
+    BAvatar,
   },
   setup() {
     // App Name
@@ -104,6 +142,24 @@ export default {
       usdprice: '',
       marketcap: '',
       circulating_supply: '',
+      table_data: false,
+      sortBy: 'Volume',
+      sortDesc: true,
+      items: [],
+      fields: [
+        /* 
+          Optionally define a class per header, 
+          this will overlay whatever thead-class background you choose 
+        */
+        {
+          key: 'Exchange',
+          label: 'Exchange',
+          tdClass: 'primary bold',
+          sortable: true,
+        },
+        { key: 'Pair', label: 'Pair', sortable: true },
+        { key: 'Volume', label: 'Volume', sortable: true },
+      ],
     }
   },
   created() {
@@ -128,6 +184,15 @@ export default {
           this.circulating_supply = response.data.market_data.circulating_supply
             .toString()
             .replace(/(.{3})/g, '$1 ')
+          let tickers = response.data.tickers
+          tickers.forEach((obj) => {
+            this.items.push({
+              Exchange: obj.market.name,
+              Pair: obj.base + '/' + obj.target,
+              Volume: obj.converted_volume.usd,
+            })
+          })
+          this.table_data = true
         })
     },
   },
