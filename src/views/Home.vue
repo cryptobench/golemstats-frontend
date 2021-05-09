@@ -7,7 +7,7 @@
             v-if="stats_loaded"
             icon="GlobeIcon"
             :statistic="online"
-            statistic-title="Nodes online"
+            statistic-title="Providers online"
             style="max-width: 350px"
           />
           <div class="text-center cardish" v-else>
