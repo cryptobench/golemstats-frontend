@@ -71,7 +71,6 @@ export default {
         },
         yaxis: {
           title: {
-            text: 'Percentage of network computing',
             rotate: -90,
             offsetX: 0,
             offsetY: 0,
@@ -80,6 +79,11 @@ export default {
               fontSize: '12px',
               fontWeight: 600,
               cssClass: 'apexcharts-yaxis-title',
+            },
+          },
+          labels: {
+            formatter: function (value) {
+              return value + ' %'
             },
           },
         },

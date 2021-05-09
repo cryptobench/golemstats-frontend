@@ -138,6 +138,11 @@ export default {
               cssClass: 'apexcharts-yaxis-title',
             },
           },
+          labels: {
+            formatter: function (value) {
+              return value + ' TB'
+            },
+          },
         },
         xaxis: {
           type: 'datetime',
@@ -214,6 +219,13 @@ export default {
               fontSize: '12px',
               fontWeight: 600,
               cssClass: 'apexcharts-yaxis-title',
+            },
+          },
+          labels: {
+            formatter: function (value) {
+              let decimals = 2
+              var d = Math.pow(10, decimals)
+              return (parseInt(value * d) / d).toFixed(decimals) + ' TB'
             },
           },
         },
@@ -294,6 +306,11 @@ export default {
               cssClass: 'apexcharts-yaxis-title',
             },
           },
+          labels: {
+            formatter: function (value) {
+              return value + ' Cores'
+            },
+          },
         },
         xaxis: {
           type: 'datetime',
@@ -371,6 +388,11 @@ export default {
               fontSize: '12px',
               fontWeight: 600,
               cssClass: 'apexcharts-yaxis-title',
+            },
+          },
+          labels: {
+            formatter: function (value) {
+              return value + ' Providers'
             },
           },
         },

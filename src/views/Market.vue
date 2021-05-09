@@ -217,6 +217,13 @@ export default {
               cssClass: 'apexcharts-yaxis-title',
             },
           },
+          labels: {
+            formatter: function (value) {
+              let decimals = 4
+              var d = Math.pow(10, decimals)
+              return '$' + (parseInt(value * d) / d).toFixed(decimals)
+            },
+          },
         },
         fill: {
           type: 'gradient',
@@ -288,7 +295,7 @@ export default {
           this.series = [
             {
               data: computing,
-              name: 'Price $',
+              name: 'Price',
             },
           ]
           this.graph_loaded = true
