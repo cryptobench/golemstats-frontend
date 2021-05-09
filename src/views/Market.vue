@@ -319,7 +319,7 @@ export default {
             }
             this.items.push({
               Exchange: obj.market.name,
-              Price: obj.converted_last.usd,
+              Price: this.floorFigure(obj.converted_last.usd, 4),
               Pair: pair,
               Volume: obj.converted_volume.usd,
             })
