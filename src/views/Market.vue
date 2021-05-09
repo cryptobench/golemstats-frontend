@@ -280,7 +280,6 @@ export default {
             now
         )
         .then((response) => {
-          console.log(response.data)
           let prices = response.data.prices
           let computing = []
           for (var i in prices) {
@@ -300,7 +299,6 @@ export default {
       axios
         .get('https://api.coingecko.com/api/v3/coins/golem')
         .then((response) => {
-          console.log(response.data)
           this.usdprice = response.data.market_data.current_price.usd
             .toString()
             .slice(0, 7)
