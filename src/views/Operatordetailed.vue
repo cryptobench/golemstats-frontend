@@ -1,6 +1,76 @@
 <template>
   <div v-if="loaded">
     <b-row>
+      <b-col>
+        <b-card>
+          <h3>Operator Node Status</h3>
+          <b-badge class="mr-1" pill variant="success">
+            {{ this.onlinecount }} Online Nodes</b-badge
+          >
+          <b-badge pill variant="danger"
+            >{{ this.offlinecount }} Offline Nodes</b-badge
+          >
+          <div class="mt-2 mb-1">
+            <h4>Mainnet wallet</h4>
+            <b-button v-on:click="zkscan" target="_blank" variant="primary">
+              ZKscan
+            </b-button>
+            <b-button v-on:click="etherscan" variant="primary" class="ml-1">
+              Etherscan
+            </b-button>
+          </div>
+        </b-card>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col xs="12" sm="12" lg="3" md="4">
+        <statistic-card-horizontal
+          v-if="loaded"
+          icon="CpuIcon"
+          :statistic="totalcores"
+          statistic-title="Total Cores"
+          style="max-width: 400px"
+        />
+        <div class="text-center cardish" v-else>
+          <b-spinner variant="primary" label="Text Centered" />
+        </div>
+      </b-col>
+      <b-col xs="12" sm="12" lg="3" md="4">
+        <statistic-card-horizontal
+          v-if="loaded"
+          icon="LayersIcon"
+          :statistic="totalmemory"
+          statistic-title="Total Memory"
+          style="max-width: 400px"
+        />
+        <div class="text-center cardish" v-else>
+          <b-spinner variant="primary" label="Text Centered" />
+        </div>
+      </b-col>
+      <b-col xs="12" sm="12" lg="3" md="4">
+        <statistic-card-horizontal
+          v-if="loaded"
+          icon="HardDriveIcon"
+          :statistic="totaldisk"
+          statistic-title="Total Disk"
+          style="max-width: 400px"
+        />
+      </b-col>
+      <b-col xs="12" sm="12" lg="3" md="4">
+        <statistic-card-horizontal
+          v-if="usdloaded"
+          icon="DollarSignIcon"
+          color="success"
+          :statistic="totalearnings"
+          statistic-title="Total Earnings"
+          style="max-width: 400px"
+        />
+        <div class="text-center cardish" v-else>
+          <b-spinner variant="primary" label="Text Centered" />
+        </div>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col lg="12" xl="12" md="12" sm="12" xs="12">
         <b-card no-body class="mb-0">
           <b-col lg="6" class="mb-2 mt-2">
@@ -108,6 +178,7 @@ import axios from '@axios'
 import { $themeConfig } from '@themeConfig'
 import statisticscardearnings from '@core/components/provider/statisticscardearnings.vue'
 import computing from '@core/components/provider/computing.vue'
+import StatisticCardHorizontal from '@core/components/statistics-cards/StatisticCardHorizontal.vue'
 
 export default {
   components: {
@@ -124,6 +195,7 @@ export default {
     BTable,
     statisticscardearnings,
     computing,
+    StatisticCardHorizontal,
   },
   data() {
     return {
@@ -161,6 +233,13 @@ export default {
       sortBy: 'Online',
       sortDesc: true,
       usdprice: '',
+      usdloaded: false,
+      onlinecount: '',
+      offlinecount: '',
+      totalcores: '',
+      totalmemory: '',
+      totaldisk: '',
+      totalearnings: '',
     }
   },
   setup() {
@@ -172,11 +251,13 @@ export default {
     }
   },
   created() {
+    this.geckoapi()
     this.activity()
   },
   mounted: function () {
     this.timer = setInterval(() => {
       this.activity()
+      this.geckoapi()
     }, 60000)
   },
   watch: {
@@ -191,6 +272,18 @@ export default {
     },
   },
   methods: {
+    zkscan() {
+      window.open(
+        'https://zkscan.io/explorer/accounts/' + this.$route.params.id,
+        '_blank'
+      )
+    },
+    etherscan() {
+      window.open(
+        'https://etherscan.io/address/' + this.$route.params.id,
+        '_blank'
+      )
+    },
     expandAdditionalInfo(row) {
       this.$router.push({ name: 'node', params: { id: row.id } })
     },
@@ -208,12 +301,24 @@ export default {
     },
     geckoapi: function () {
       axios
-        .get('https://api.coingecko.com/api/v3/coins/golem')
+        .get(
+          'https://api.coingecko.com/api/v3/simple/price?ids=golem&vs_currencies=usd'
+        )
         .then((response) => {
-          this.usdprice = response.data.market_data.current_price.usd
-            .toString()
-            .slice(0, 7)
+          this.usdprice = response.data.golem.usd
+          if (localStorage.getItem('currency') == 'glm') {
+            this.totalearnings =
+              this.floorFigure(this.totalearnings, 2) + ' GLM'
+          } else {
+            this.totalearnings =
+              this.floorFigure(this.totalearnings * this.usdprice, 2) + ' USD'
+          }
+          this.usdloaded = true
         })
+    },
+    daydifference: function (d1, d2) {
+      var diff = Math.abs(d1.getTime() - d2.getTime())
+      return diff / (1000 * 60 * 60 * 24)
     },
     activity() {
       this.items.length = 0
@@ -221,8 +326,28 @@ export default {
         .get('/v1/provider/wallet/' + this.$route.params.id)
         .then((response) => {
           let apiResponse = response.data
-
+          let onlinecounter = 0
+          let offlinecounter = 0
+          let totalcores = 0
+          let totalmemory = 0
+          let totaldisk = 0
+          let totalearnings = 0
           apiResponse.forEach((obj) => {
+            if (obj.online) {
+              onlinecounter++
+            } else {
+              offlinecounter++
+            }
+            totalcores += obj.data['golem.inf.cpu.threads']
+            totalmemory += obj.data['golem.inf.mem.gib']
+            totaldisk += obj.data['golem.inf.storage.gib']
+            totalearnings += obj.earnings_total
+            var seen = new Date(obj.updated_at)
+            var currenttime = new Date(Date.now())
+            // console.log(
+            //   obj.data['golem.node.id.name'],
+            //   this.daydifference(currenttime, seen)
+            // )
             if (
               obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
             ) {
@@ -275,6 +400,12 @@ export default {
             })
           })
           this.loaded = true
+          this.onlinecount = onlinecounter
+          this.offlinecount = offlinecounter
+          this.totalcores = totalcores
+          this.totalmemory = this.floorFigure(totalmemory) + ' GB'
+          this.totaldisk = this.floorFigure(totaldisk) + ' GB'
+          this.totalearnings = this.floorFigure(totalearnings)
           //let success = data.map(({ values }) => values)
         })
     },
