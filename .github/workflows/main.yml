@@ -34,4 +34,4 @@ jobs:
                 git pull https://${{ secrets.PAT }}@github.com/cryptobench/golemstats-frontend
                 cd ..
                 docker-compose -f docker-compose-prod.yml build frontend
-                docker service update --image frontend_golemstats:latest golemstats_frontend
+                docker service update --force --image frontend_golemstats:latest golemstats_frontend
