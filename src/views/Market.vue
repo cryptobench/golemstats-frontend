@@ -85,6 +85,25 @@
       <b-col lg="12" xl="12" md="12" sm="12" xs="12">
         <b-card class="mb-0">
           <h2 class="mb-2">Market</h2>
+          <span class="text-secondary">Filter by</span>
+          <br />
+          <div class="badgelist" v-for="item in pairlist" :key="item">
+            <b-badge
+              v-if="item == filter"
+              class="badgemargin"
+              variant="primary"
+            >
+              {{ item }}
+            </b-badge>
+            <b-badge
+              v-else
+              @click="badgeClick(item)"
+              class="badgemargin"
+              variant="secondary"
+            >
+              {{ item }}
+            </b-badge>
+          </div>
           <b-table
             v-if="table_data"
             responsive
@@ -92,6 +111,8 @@
             outlined
             :fields="fields"
             :items="items"
+            :filter="filter"
+            :filter-ignored-fields="ignoredfilter"
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
             show-empty
@@ -139,6 +160,7 @@ import {
   BAvatar,
   BImg,
   BSpinner,
+  BBadge,
 } from 'bootstrap-vue'
 import axios from '@axios'
 import { $themeConfig } from '@themeConfig'
@@ -153,6 +175,7 @@ export default {
     BSpinner,
     BImg,
     BTable,
+    BBadge,
     BAvatar,
   },
   setup() {
@@ -166,11 +189,14 @@ export default {
   data() {
     return {
       usdprice: '',
+
       graph_loaded: false,
       marketcap: '',
       circulating_supply: '',
       table_data: false,
+      pairlist: [],
       sortBy: 'Volume',
+      filter: '',
       sortDesc: true,
       items: [],
       series: [
@@ -247,6 +273,7 @@ export default {
           },
         },
       },
+      ignoredfilter: ['Exchange', 'Price', 'Pair', 'Volume'],
       fields: [
         /* 
           Optionally define a class per header, 
@@ -301,6 +328,9 @@ export default {
           this.graph_loaded = true
         })
     },
+    badgeClick(item) {
+      this.filter = item
+    },
     geckoapi: function () {
       this.items.length = 0
       axios
@@ -327,7 +357,11 @@ export default {
               Price: this.floorFigure(obj.converted_last.usd, 4),
               Pair: pair,
               Volume: obj.converted_volume.usd,
+              Target: obj.target,
             })
+            this.pairlist.indexOf(obj.target) === -1
+              ? this.pairlist.push(obj.target)
+              : void 0
           })
           this.table_data = true
         })
@@ -337,8 +371,16 @@ export default {
 </script>
 
 <style>
-.divider {
-  background-color: #d8d6dd;
-  height: 1px;
+.badgemargin {
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+.badgemargin:hover {
+  cursor: pointer;
+}
+
+.badgelist {
+  display: inline;
 }
 </style>
