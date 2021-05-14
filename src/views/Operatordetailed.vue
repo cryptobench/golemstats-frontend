@@ -338,9 +338,12 @@ export default {
             } else {
               offlinecounter++
             }
-            totalcores += obj.data['golem.inf.cpu.threads']
-            totalmemory += obj.data['golem.inf.mem.gib']
-            totaldisk += obj.data['golem.inf.storage.gib']
+            if (obj.online) {
+              totalcores += obj.data['golem.inf.cpu.threads']
+              totalmemory += obj.data['golem.inf.mem.gib']
+              totaldisk += obj.data['golem.inf.storage.gib']
+            }
+
             totalearnings += obj.earnings_total
             var seen = new Date(obj.updated_at)
             var currenttime = new Date(Date.now())
