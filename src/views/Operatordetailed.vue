@@ -71,7 +71,7 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col lg="12" xl="12" md="12" sm="12" xs="12">
+      <b-col class="pb-5" lg="12" xl="12" md="12" sm="12" xs="12">
         <b-card no-body class="mb-0">
           <b-col lg="6" class="mb-2 mt-2">
             <h5>Search for node</h5>
@@ -97,7 +97,93 @@
               <b-badge v-if="data['item'].Online" pill variant="success"
                 >Online</b-badge
               >
+              <b-badge v-else-if="data['item'].Old" pill variant="danger"
+                >OLD</b-badge
+              >
               <b-badge v-else pill variant="danger">Offline</b-badge>
+            </template>
+
+            <!-- A custom formatted column -->
+            <template #cell(Subnet)="data">
+              {{ data.value }}
+              <b-badge v-if="data['item'].Mainnet" pill variant="primary"
+                >Mainnet</b-badge
+              >
+              <b-badge v-else pill variant="warning">Testnet</b-badge>
+            </template>
+
+            <!-- A custom formatted column -->
+            <template #cell(Cores)="data">
+              <b-avatar class="mr-1" variant="light-primary" rounded>
+                <feather-icon icon="CpuIcon" size="18" />
+              </b-avatar>
+              {{ data.value }}
+            </template>
+
+            <template #cell(Memory)="data">
+              <b-avatar class="mr-1" variant="light-primary" rounded>
+                <feather-icon icon="LayersIcon" size="18" />
+              </b-avatar>
+              {{ data.value }}
+            </template>
+
+            <!-- A virtual composite column -->
+            <template #cell(Disk)="data">
+              <b-avatar class="mr-1" variant="light-primary" rounded>
+                <feather-icon icon="HardDriveIcon" size="18" />
+              </b-avatar>
+              {{ data.value }}
+            </template>
+            <template #cell(Earnings)="data">
+              <b-avatar variant="light-success" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              {{ data.value }}
+            </template>
+            <template #cell(cpu_hour)="data">
+              <b-avatar variant="light-info" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              {{ data.value }}
+            </template>
+            <template #cell(per_hour)="data">
+              <b-avatar variant="light-info" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              {{ data.value }}
+            </template>
+            <template #cell(start_price)="data">
+              <b-avatar variant="light-info" rounded>
+                <feather-icon icon="DollarSignIcon" size="18" />
+              </b-avatar>
+              {{ data.value }}
+            </template>
+          </b-table>
+        </b-card>
+      </b-col>
+    </b-row>
+
+    <b-row v-if="oldloaded">
+      <b-col lg="12" xl="12" md="12" sm="12" xs="12">
+        <b-card no-body class="mb-0">
+          <b-col lg="6" class="mb-2 mt-2">
+            <h5>Nodes offline for 7 or more days</h5>
+          </b-col>
+          <b-table
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
+            :fields="fields"
+            :filter="filter"
+            :filter-ignored-fields="ignoredfilter"
+            :items="oldlist"
+            hover
+            @row-clicked="expandAdditionalInfo"
+            responsive="sm"
+          >
+            <!-- A virtual column -->
+            <template #cell(Name)="data">
+              {{ data.value }}
+              <b-badge pill variant="danger">Old node</b-badge>
             </template>
 
             <!-- A custom formatted column -->
@@ -223,6 +309,7 @@ export default {
         { key: 'start_price', label: 'Start Price', sortable: true },
       ],
       items: [],
+      oldlist: [],
       ignoredfilter: [
         'Cores',
         'Memory',
@@ -237,6 +324,7 @@ export default {
       sortBy: 'Online',
       sortDesc: true,
       usdprice: '',
+      oldloaded: false,
       usdloaded: false,
       onlinecount: '',
       offlinecount: '',
@@ -303,6 +391,23 @@ export default {
       var d = Math.pow(10, decimals)
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
+    earnings(provider, hours) {
+      axios
+        .get('/v1/provider/node/' + provider + '/earnings' + '/' + hours)
+        .then((response) => {
+          let apiResponse = response.data
+          if (localStorage.getItem('currency') == 'glm') {
+            let income = this.floorFigure(apiResponse.earnings, 3) + ' GLM'
+            console.log('INCOME', income)
+            return income
+          } else {
+            let income =
+              this.floorFigure(apiResponse.earnings * this.usdprice, 3) + ' USD'
+            console.log('INCOME', income)
+            return income
+          }
+        })
+    },
     geckoapi: function () {
       axios
         .get(
@@ -349,12 +454,15 @@ export default {
             }
 
             totalearnings += obj.earnings_total
+            // this.earnings(obj.data['id'], 24)
             var seen = new Date(obj.updated_at)
             var currenttime = new Date(Date.now())
-            // console.log(
-            //   obj.data['golem.node.id.name'],
-            //   this.daydifference(currenttime, seen)
-            // )
+            if (this.daydifference(currenttime, seen) > 7) {
+              var old = true
+            } else {
+              var old = false
+            }
+
             if (
               obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
             ) {
@@ -378,33 +486,64 @@ export default {
                 this.floorFigure(obj.earnings_total * this.usdprice, 2) + ' USD'
             }
 
-            this.items.push({
-              Mainnet: mainnet,
-              Online: obj.online,
-              Earnings: earnings,
-              Name: obj.data['golem.node.id.name'],
-              id: obj.data['id'],
-              Subnet: obj.data['golem.node.debug.subnet'],
-              Cores: obj.data['golem.inf.cpu.threads'],
-              Wallet: wallet,
-              start_price:
-                this.floorFigure(
-                  obj.data['golem.com.pricing.model.linear.coeffs'][2],
-                  3
-                ) + ' GLM',
-              per_hour:
-                this.floorFigure(
-                  obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
-                  3
-                ) + ' GLM',
-              cpu_hour:
-                this.floorFigure(
-                  obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
-                  3
-                ) + ' GLM',
-              Memory: this.floorFigure(obj.data['golem.inf.mem.gib']),
-              Disk: this.floorFigure(obj.data['golem.inf.storage.gib']),
-            })
+            if (!old) {
+              this.items.push({
+                Mainnet: mainnet,
+                Online: obj.online,
+                Earnings: earnings,
+                Name: obj.data['golem.node.id.name'],
+                id: obj.data['id'],
+                Subnet: obj.data['golem.node.debug.subnet'],
+                Cores: obj.data['golem.inf.cpu.threads'],
+                Wallet: wallet,
+                start_price:
+                  this.floorFigure(
+                    obj.data['golem.com.pricing.model.linear.coeffs'][2],
+                    3
+                  ) + ' GLM',
+                per_hour:
+                  this.floorFigure(
+                    obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+                    3
+                  ) + ' GLM',
+                cpu_hour:
+                  this.floorFigure(
+                    obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
+                    3
+                  ) + ' GLM',
+                Memory: this.floorFigure(obj.data['golem.inf.mem.gib']),
+                Disk: this.floorFigure(obj.data['golem.inf.storage.gib']),
+              })
+            } else {
+              this.oldlist.push({
+                Mainnet: mainnet,
+                Online: obj.online,
+                Earnings: earnings,
+                Name: obj.data['golem.node.id.name'],
+                id: obj.data['id'],
+                Subnet: obj.data['golem.node.debug.subnet'],
+                Cores: obj.data['golem.inf.cpu.threads'],
+                Wallet: wallet,
+                start_price:
+                  this.floorFigure(
+                    obj.data['golem.com.pricing.model.linear.coeffs'][2],
+                    3
+                  ) + ' GLM',
+                per_hour:
+                  this.floorFigure(
+                    obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+                    3
+                  ) + ' GLM',
+                cpu_hour:
+                  this.floorFigure(
+                    obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
+                    3
+                  ) + ' GLM',
+                Memory: this.floorFigure(obj.data['golem.inf.mem.gib']),
+                Disk: this.floorFigure(obj.data['golem.inf.storage.gib']),
+              })
+              this.oldloaded = true
+            }
           })
           this.loaded = true
           this.onlinecount = onlinecounter
