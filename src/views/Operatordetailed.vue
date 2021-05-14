@@ -84,6 +84,8 @@
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
             :fields="fields"
+            :filter="filter"
+            :filter-ignored-fields="ignoredfilter"
             :items="items"
             hover
             @row-clicked="expandAdditionalInfo"
@@ -223,11 +225,13 @@ export default {
       items: [],
       ignoredfilter: [
         'Cores',
-        'Memory (GB)',
-        'Disk (GB)',
+        'Memory',
+        'Disk',
+        'Earnings',
         'cpu_hour',
         'per_hour',
         'start_price',
+        'Subnet',
       ],
       filter: '',
       sortBy: 'Online',
