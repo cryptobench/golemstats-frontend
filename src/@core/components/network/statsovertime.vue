@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col lg="6" md="12">
-      <h3>Historical Stats Nodes</h3>
+      <h3>Historical Stats Providers</h3>
       <b-card>
         <apexchart
           v-if="loaded"

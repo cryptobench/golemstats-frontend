@@ -158,7 +158,7 @@
         </b-col>
       </b-row>
       <networkutilization> </networkutilization>
-      <h3>Average stats per node</h3>
+      <h3>Average provider stats</h3>
       <b-row>
         <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
@@ -224,20 +224,20 @@
           />
         </b-col>
       </b-row>
-      <h3>Online nodes</h3>
+      <h3>Online providers</h3>
       <b-row>
         <b-col lg="12" xl="12" md="12" sm="12" xs="12">
           <b-card no-body class="mb-0">
             <b-col lg="6" class="mb-2 mt-2">
               <b-col lg="6">
-                <h5>Search for node</h5>
+                <h5>Search for provider</h5>
                 <b-form-input
                   v-model="filter"
                   placeholder="Node Name or wallet address"
                 ></b-form-input>
               </b-col>
               <b-col lg="4" class="mb-2 mt-2">
-                <h5>Showing first {{ this.rowcount }} nodes</h5>
+                <h5>Showing first {{ this.rowcount }} providers</h5>
                 <b-form-input
                   @keyup.enter="rowcount = $event.target.value"
                   placeholder="30"
@@ -258,7 +258,7 @@
               :per-page="rowcount"
               @row-clicked="expandAdditionalInfo"
               show-empty
-              empty-text="No online nodes found"
+              empty-text="No online providers found"
             >
               <!-- A virtual column -->
               <template #cell(Name)="data">
