@@ -56,18 +56,12 @@
                   <div class="d-flex align-items-center">
                     <b-avatar
                       v-if="this.cpu_vendor == 'AMD'"
-                      class="mr-1"
                       variant="light-danger"
                       rounded
                     >
                       <feather-icon icon="CpuIcon" size="18" />
                     </b-avatar>
-                    <b-avatar
-                      v-else
-                      class="mr-1"
-                      variant="light-primary"
-                      rounded
-                    >
+                    <b-avatar v-else variant="light-primary" rounded>
                       <feather-icon icon="CpuIcon" size="18" />
                     </b-avatar>
                     <div class="ml-1">
