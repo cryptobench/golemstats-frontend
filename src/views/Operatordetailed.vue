@@ -269,6 +269,16 @@ import computing from '@core/components/provider/computing.vue'
 import StatisticCardHorizontal from '@core/components/statistics-cards/StatisticCardHorizontal.vue'
 
 export default {
+  metaInfo: {
+    title: 'Golemstats - A stats page for the Golem Network',
+    meta: [
+      {
+        name: 'description',
+        content:
+          'Filter node operators by wallet address to view in-depth details for operators.',
+      },
+    ],
+  },
   components: {
     BCard,
     BCardText,
@@ -454,6 +464,10 @@ export default {
             }
 
             totalearnings += obj.earnings_total
+            this.earnings(obj.data['id'], 24).then((items) => {
+              // You might use this at some stage: const { sortBy, descending, page, rowsPerPage } = this.pagination
+              console.log(items)
+            })
             // this.earnings(obj.data['id'], 24)
             var seen = new Date(obj.updated_at)
             var currenttime = new Date(Date.now())

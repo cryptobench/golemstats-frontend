@@ -166,6 +166,16 @@ import axios from '@axios'
 import { $themeConfig } from '@themeConfig'
 
 export default {
+  metaInfo: {
+    title: 'Golemstats - A stats page for the Golem Network',
+    meta: [
+      {
+        name: 'description',
+        content:
+          'Explore the market data available for the Golem Network Token (GLM)',
+      },
+    ],
+  },
   components: {
     BCard,
     BCardText,

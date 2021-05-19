@@ -21,9 +21,14 @@ const router = new VueRouter({
       component: () => import('@/views/Node.vue'),
     },
     {
-      path: '/graphs',
-      name: 'graphs',
-      component: () => import('@/views/Graphs.vue'),
+      path: '/graphs/live',
+      name: 'livegraphs',
+      component: () => import('@/views/LiveGraphs.vue'),
+    },
+    {
+      path: '/graphs/historical',
+      name: 'historical',
+      component: () => import('@/views/HistoricalGraphs.vue'),
     },
     {
       path: '/operator',

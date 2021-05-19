@@ -388,7 +388,7 @@ export default {
       {
         name: 'description',
         content:
-          'Golemstats is a network explorer for the Golem network. It features detailed stats about the nodes, the nework and financial data.',
+          'Golemstats is a stats page and network explorer for the Golem Network. View live network data, historical data and more.',
       },
     ],
   },

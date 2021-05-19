@@ -21,10 +21,16 @@ export default [
     route: 'home',
   },
   {
-    header: 'Graphs',
+    header: 'Live Graphs',
     icon: 'BarChart2Icon',
-    title: 'Graphs',
-    route: 'graphs',
+    title: 'Live Graphs',
+    route: 'livegraphs',
+  },
+  {
+    header: 'Historical Data',
+    icon: 'BarChart2Icon',
+    title: 'Historical Data',
+    route: 'historical',
   },
   {
     header: 'Operator',

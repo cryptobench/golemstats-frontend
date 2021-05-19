@@ -5,8 +5,13 @@ export default [
     icon: 'GlobeIcon',
   },
   {
-    title: 'Graphs',
-    route: 'graphs',
+    title: 'Live Graphs',
+    route: 'livegraphs',
+    icon: 'BarChart2Icon',
+  },
+  {
+    title: 'Historical Data',
+    route: 'historical',
     icon: 'BarChart2Icon',
   },
   {
