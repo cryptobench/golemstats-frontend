@@ -273,58 +273,87 @@
 
               <!-- A custom formatted column -->
               <template #cell(Subnet)="data">
-                {{ data.value }}
-                <b-badge v-if="data['item'].Mainnet" pill variant="primary"
-                  >Mainnet</b-badge
-                >
-                <b-badge v-else pill variant="warning">Testnet</b-badge>
+                <div class="d-flex align-items-center">
+                  <b-badge
+                    class="w-100"
+                    v-if="data['item'].Mainnet"
+                    pill
+                    variant="primary"
+                    >Mainnet</b-badge
+                  >
+                  <b-badge class="w-100" v-else pill variant="warning"
+                    >Testnet</b-badge
+                  >
+                </div>
               </template>
 
               <!-- A custom formatted column -->
               <template #cell(Cores)="data">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="CpuIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
+                <div class="d-flex align-items-center">
+                  <b-avatar
+                    v-if="data['item'].Vendor == 'AuthenticAMD'"
+                    class="mr-1"
+                    variant="light-danger"
+                    rounded
+                  >
+                    <feather-icon icon="CpuIcon" size="18" />
+                  </b-avatar>
+                  <b-avatar v-else class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="CpuIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
               </template>
 
               <template #cell(Memory)="data">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="LayersIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="LayersIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }} GB
+                </div>
               </template>
 
               <!-- A virtual composite column -->
               <template #cell(Disk)="data">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="HardDriveIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="HardDriveIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }} GB
+                </div>
               </template>
               <template #cell(Earnings)="data">
-                <b-avatar variant="light-success" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-success" rounded>
+                    <feather-icon icon="DollarSignIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
               </template>
               <template #cell(cpu_hour)="data">
-                <b-avatar variant="light-info" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="DollarSignIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
               </template>
               <template #cell(per_hour)="data">
-                <b-avatar variant="light-info" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="DollarSignIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
               </template>
               <template #cell(start_price)="data">
-                <b-avatar variant="light-info" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="DollarSignIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
               </template>
             </b-table>
           </b-card>
@@ -443,7 +472,7 @@ export default {
           tdClass: 'primary bold',
           sortable: true,
         },
-        { key: 'Subnet', label: 'Subnet', sortable: true },
+        { key: 'Subnet', label: 'Network', sortable: true },
         { key: 'Cores', label: 'Cores', sortable: true },
         { key: 'Memory', label: 'Memory (GB)', sortable: true },
         { key: 'Disk', label: 'Disk (GB)', sortable: true },
@@ -538,6 +567,7 @@ export default {
             id: obj.data['id'],
             Subnet: obj.data['golem.node.debug.subnet'],
             Cores: obj.data['golem.inf.cpu.threads'],
+            Vendor: obj.data['golem.inf.cpu.vendor'],
             Wallet: wallet,
             start_price:
               this.floorFigure(
