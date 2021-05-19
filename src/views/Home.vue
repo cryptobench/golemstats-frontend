@@ -236,8 +236,10 @@
                   placeholder="Node Name or wallet address"
                 ></b-form-input>
               </b-col>
-              <b-col lg="4" class="mb-2 mt-2">
+              <b-col lg="5" class="mt-2">
                 <h5>Showing first {{ this.rowcount }} providers</h5>
+              </b-col>
+              <b-col lg="3">
                 <b-form-input
                   @keyup.enter="rowcount = $event.target.value"
                   placeholder="30"
