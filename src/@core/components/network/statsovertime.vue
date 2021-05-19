@@ -436,7 +436,7 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     fetchData() {
-      axios.get('/v1/network/stats').then((response) => {
+      axios.get('/v1/network/historical/stats').then((response) => {
         let apiResponse = response.data
         let online = []
         let cores = []
