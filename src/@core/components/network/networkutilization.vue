@@ -1,23 +1,18 @@
 <template>
   <div>
-    <h3>Network Utilization (6h)</h3>
-    <b-row>
-      <b-col lg="12" md="12">
-        <b-card>
-          <apexchart
-            v-if="loaded"
-            width="100%"
-            height="250"
-            type="area"
-            :options="chartOptions"
-            :series="series"
-          ></apexchart>
-          <div class="text-center" v-else>
-            <b-spinner variant="primary" label="Text Centered" />
-          </div>
-        </b-card>
-      </b-col>
-    </b-row>
+    <b-card>
+      <apexchart
+        v-if="loaded"
+        width="100%"
+        height="250"
+        type="area"
+        :options="chartOptions"
+        :series="series"
+      ></apexchart>
+      <div class="text-center" v-else>
+        <b-spinner variant="primary" label="Text Centered" />
+      </div>
+    </b-card>
   </div>
 </template>
 

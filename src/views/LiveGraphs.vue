@@ -1,11 +1,22 @@
 <template>
   <div>
     <b-row>
-      <b-col xl="6" lg="6" md="12" sm="12" xs="12">
-        <networkversions> </networkversions>
+      <b-col xl="12" lg="12" md="12" sm="12" xs="12">
+        <networkpercentagecomputing> </networkpercentagecomputing>
+      </b-col>
+      <b-col xs="12" sm="12" lg="6" md="12">
+        <h3>Network CPU Vendor Distribution</h3>
+        <vendorpie v-if="table_data" :data="vendorlist"></vendorpie>
+      </b-col>
+      <b-col xs="12" sm="12" lg="6" md="12">
+        <h3>Network CPU Architecture</h3>
+        <architecturepie
+          v-if="table_data"
+          :data="architecturelist"
+        ></architecturepie>
       </b-col>
       <b-col xl="6" lg="6" md="12" sm="12" xs="12">
-        <networkpercentagecomputing> </networkpercentagecomputing>
+        <networkversions> </networkversions>
       </b-col>
     </b-row>
     <networkutilization> </networkutilization>
@@ -16,6 +27,8 @@
 import networkutilization from '@core/components/network/networkutilization.vue'
 import networkpercentagecomputing from '@core/components/network/networkpercentagecomputing.vue'
 import networkversions from '@core/components/network/networkversions.vue'
+import Vendorpie from '@core/components/network/vendorpie.vue'
+import architecturepie from '@core/components/network/architecturepie.vue'
 import {
   BCard,
   BCardText,
@@ -55,12 +68,22 @@ export default {
     networkutilization,
     networkversions,
     networkpercentagecomputing,
+    Vendorpie,
+    architecturepie,
   },
   data() {
     return {
       loaded: false,
+      table_data: false,
       failure: false,
       loaded_graph: false,
+      intelcount: 0,
+      amdcount: 0,
+      thirdtypecpu: 0,
+      x86_64: 0,
+      Aarch64: 0,
+      vendorlist: [],
+      architecturelist: [],
       id: '',
       scheme: '',
       memory: '',
@@ -157,12 +180,13 @@ export default {
   },
   created() {
     this.utilization()
+    this.fetchData()
   },
-  // mounted: function () {
-  //   this.timer = setInterval(() => {
-  //     this.activity()
-  //   }, 15000)
-  // },
+  mounted: function () {
+    this.timer = setInterval(() => {
+      this.fetchData()
+    }, 15000)
+  },
   methods: {
     utilization() {
       let now = Math.floor(new Date().getTime() / 1000)
@@ -184,6 +208,41 @@ export default {
         this.loaded_graph = true
         //let success = data.map(({ values }) => values)
       })
+    },
+    fetchData() {
+      this.intelcount = 0
+      this.amdcount = 0
+      this.thirdtypecpu = 0
+      this.vendorlist.length = 0
+      this.Aarch64 = 0
+      this.x86_64 = 0
+      this.architecturelist.length = 0
+      axios.get('/v1/network/online').then((response) => {
+        let apiResponse = response.data
+        apiResponse.forEach((obj) => {
+          if (obj.data['golem.inf.cpu.vendor']) {
+            if (obj.data['golem.inf.cpu.vendor'] == 'GenuineIntel') {
+              this.intelcount++
+            } else if (obj.data['golem.inf.cpu.vendor'] == 'AuthenticAMD') {
+              this.amdcount++
+            } else {
+              this.thirdtypecpu++
+            }
+          }
+
+          if (obj.data['golem.inf.cpu.architecture']) {
+            if (obj.data['golem.inf.cpu.architecture'] == 'x86_64') {
+              this.x86_64++
+            } else if (obj.data['golem.inf.cpu.architecture'] == 'aarch64') {
+              this.Aarch64++
+            }
+          }
+        })
+
+        this.vendorlist.push(this.intelcount, this.amdcount, this.thirdtypecpu)
+        this.architecturelist.push(this.x86_64, this.Aarch64)
+      })
+      this.table_data = true
     },
   },
 }
