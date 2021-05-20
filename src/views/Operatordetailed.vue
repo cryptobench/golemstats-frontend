@@ -62,7 +62,7 @@
           icon="DollarSignIcon"
           color="success"
           :statistic="totalearnings"
-          statistic-title="Total Earnings"
+          statistic-title="Total Earnings (14d)"
           style="max-width: 400px"
         />
         <div class="text-center cardish" v-else>
