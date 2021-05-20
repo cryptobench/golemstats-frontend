@@ -141,6 +141,7 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     fetchData() {
+      this.series.length = 0
       axios.get(this.endpoint).then((response) => {
         let apiResponse = response.data
         let count = []
