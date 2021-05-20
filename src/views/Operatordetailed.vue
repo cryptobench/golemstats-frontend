@@ -464,10 +464,10 @@ export default {
             }
 
             totalearnings += obj.earnings_total
-            this.earnings(obj.data['id'], 24).then((items) => {
-              // You might use this at some stage: const { sortBy, descending, page, rowsPerPage } = this.pagination
-              console.log(items)
-            })
+            // this.earnings(obj.data['id'], 24).then((items) => {
+            //   // You might use this at some stage: const { sortBy, descending, page, rowsPerPage } = this.pagination
+            //   console.log(items)
+            // })
             // this.earnings(obj.data['id'], 24)
             var seen = new Date(obj.updated_at)
             var currenttime = new Date(Date.now())
