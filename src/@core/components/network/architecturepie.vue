@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card class="h-100">
-      <h3>Network CPU Vendor Distribution</h3>
+      <h3>Network CPU Architecture</h3>
       <apexchart
         width="100%"
         height="250"
