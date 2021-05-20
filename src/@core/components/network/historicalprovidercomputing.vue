@@ -146,7 +146,7 @@ export default {
         let apiResponse = response.data
         let count = []
         apiResponse.forEach((obj) => {
-          start.push([obj.date, obj.total])
+          count.push([obj.date, obj.total])
         })
         this.series.push({
           data: count,
