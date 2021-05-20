@@ -2,18 +2,27 @@
   <b-row>
     <b-col col="12">
       <statsovertime></statsovertime>
-      <historicalpricinggraphs
-        :endpoint="'/v1/network/historical/pricing/average'"
-        :title="'Provider Average Pricing'"
-      ></historicalpricinggraphs>
-      <historicalpricinggraphs
-        :endpoint="'/v1/network/historical/pricing/median'"
-        :title="'Provider Median Pricing'"
-      ></historicalpricinggraphs>
-      <historicalprovidercomputing
-        :endpoint="'/v1/network/historical/provider/computing'"
-        :title="'Providers computing simultaneously'"
-      ></historicalprovidercomputing>
+      <b-row>
+        <b-col lg="6" xl="6" md="12" sm="12" xs="12">
+          <historicalpricinggraphs
+            :endpoint="'/v1/network/historical/pricing/average'"
+            :title="'Provider Average Pricing'"
+          ></historicalpricinggraphs>
+        </b-col>
+        <b-col lg="6" xl="6" md="12" sm="12" xs="12">
+          <historicalpricinggraphs
+            :endpoint="'/v1/network/historical/pricing/median'"
+            :title="'Provider Median Pricing'"
+          ></historicalpricinggraphs>
+        </b-col>
+
+        <b-col lg="6" xl="6" md="12" sm="12" xs="12">
+          <historicalprovidercomputing
+            :endpoint="'/v1/network/historical/provider/computing'"
+            :title="'Providers computing simultaneously'"
+          ></historicalprovidercomputing>
+        </b-col>
+      </b-row>
     </b-col>
   </b-row>
 </template>

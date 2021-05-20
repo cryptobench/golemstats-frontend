@@ -1,20 +1,18 @@
 <template>
-  <b-col lg="6" md="12">
-    <b-card>
-      <h3>{{ this.title }}</h3>
-      <apexchart
-        v-if="loaded"
-        width="100%"
-        height="350"
-        type="area"
-        :options="options"
-        :series="series"
-      ></apexchart>
-      <div class="text-center" v-else>
-        <b-spinner variant="primary" label="Text Centered" />
-      </div>
-    </b-card>
-  </b-col>
+  <b-card>
+    <h3>{{ this.title }}</h3>
+    <apexchart
+      v-if="loaded"
+      width="100%"
+      height="350"
+      type="area"
+      :options="options"
+      :series="series"
+    ></apexchart>
+    <div class="text-center" v-else>
+      <b-spinner variant="primary" label="Text Centered" />
+    </div>
+  </b-card>
 </template>
 
 <script>
