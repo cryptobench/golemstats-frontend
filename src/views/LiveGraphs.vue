@@ -5,11 +5,9 @@
         <networkpercentagecomputing> </networkpercentagecomputing>
       </b-col>
       <b-col xs="12" sm="12" lg="6" md="12">
-        <h3>Network CPU Vendor Distribution</h3>
         <vendorpie v-if="table_data" :data="vendorlist"></vendorpie>
       </b-col>
       <b-col xs="12" sm="12" lg="6" md="12">
-        <h3>Network CPU Architecture</h3>
         <architecturepie
           v-if="table_data"
           :data="architecturelist"

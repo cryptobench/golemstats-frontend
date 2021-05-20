@@ -1,12 +1,12 @@
 <template>
   <b-row>
     <b-col lg="6" md="12">
-      <h3>Historical Stats Providers</h3>
       <b-card>
+        <h3>Historical Stats Providers</h3>
         <apexchart
           v-if="loaded"
           width="100%"
-          height="250"
+          height="350"
           type="area"
           :options="onlineoptions"
           :series="online"
@@ -17,12 +17,12 @@
       </b-card>
     </b-col>
     <b-col lg="6" md="12">
-      <h3>Historical Stats Cores</h3>
       <b-card>
+        <h3>Historical Stats Cores</h3>
         <apexchart
           v-if="loaded"
           width="100%"
-          height="250"
+          height="350"
           type="area"
           :options="coresoptions"
           :series="cores"
@@ -33,12 +33,12 @@
       </b-card>
     </b-col>
     <b-col lg="6" md="12">
-      <h3>Historical Stats Memory (TB)</h3>
       <b-card>
+        <h3>Historical Stats Memory (TB)</h3>
         <apexchart
           v-if="loaded"
           width="100%"
-          height="250"
+          height="350"
           type="area"
           :options="memoryoptions"
           :series="memory"
@@ -49,12 +49,12 @@
       </b-card>
     </b-col>
     <b-col lg="6" md="12">
-      <h3>Historical Stats Disk (TB)</h3>
       <b-card>
+        <h3>Historical Stats Disk (TB)</h3>
         <apexchart
           v-if="loaded"
           width="100%"
-          height="250"
+          height="350"
           type="area"
           :options="diskoptions"
           :series="disk"

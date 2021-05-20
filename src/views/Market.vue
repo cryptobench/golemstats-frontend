@@ -2,7 +2,7 @@
   <div>
     <b-row>
       <b-col lg="4">
-        <b-card>
+        <b-card height="350">
           <b-row class="mb-1">
             <b-col xs="12" sm="12" offset-lg="2" lg="8">
               <h4>
@@ -70,7 +70,7 @@
           <apexchart
             v-if="graph_loaded"
             width="100%"
-            height="250"
+            height="350"
             type="area"
             :options="chartOptions"
             :series="series"

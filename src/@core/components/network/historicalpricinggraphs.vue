@@ -1,11 +1,11 @@
 <template>
   <b-col lg="6" md="12">
-    <h3>{{ this.title }}</h3>
     <b-card>
+      <h3>{{ this.title }}</h3>
       <apexchart
         v-if="loaded"
         width="100%"
-        height="250"
+        height="350"
         type="area"
         :options="options"
         :series="series"

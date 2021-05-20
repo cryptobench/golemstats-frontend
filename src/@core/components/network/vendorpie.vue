@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-card class="h-100">
+      <h3>Network CPU Architecture</h3>
       <apexchart
         v-if="loaded"
         width="100%"

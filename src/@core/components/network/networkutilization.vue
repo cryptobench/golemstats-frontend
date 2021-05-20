@@ -1,10 +1,11 @@
 <template>
   <div>
     <b-card>
+      <h3>Network Utilization (6h)</h3>
       <apexchart
         v-if="loaded"
         width="100%"
-        height="250"
+        height="350"
         type="area"
         :options="chartOptions"
         :series="series"

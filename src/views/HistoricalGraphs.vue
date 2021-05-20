@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <b-row>
+  <b-row>
+    <b-col col="12">
       <statsovertime></statsovertime>
       <historicalpricinggraphs
         :endpoint="'/v1/network/historical/pricing/average'"
@@ -14,8 +14,8 @@
         :endpoint="'/v1/network/historical/provider/computing'"
         :title="'Providers computing simultaneously'"
       ></historicalprovidercomputing>
-    </b-row>
-  </div>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
