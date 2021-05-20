@@ -15,9 +15,9 @@
           :data="architecturelist"
         ></architecturepie>
       </b-col>
-      <b-col xl="6" lg="6" md="12" sm="12" xs="12">
+      <!-- <b-col xl="12" lg="12" md="12" sm="12" xs="12">
         <networkversions> </networkversions>
-      </b-col>
+      </b-col> -->
     </b-row>
     <networkutilization> </networkutilization>
   </div>
