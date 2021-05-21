@@ -1,6 +1,6 @@
 <template>
   <b-row>
-    <b-col col="12">
+    <b-col>
       <statsovertime></statsovertime>
       <b-row>
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">

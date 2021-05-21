@@ -16,11 +16,11 @@
       <dark-Toggler class="d-none d-lg-block" />
       <currency-Toggler class="d-none d-lg-block" />
     </div>
-    <b-navbar-nav class="nav align-items-center ml-auto">
+    <div class="nav align-items-center ml-auto">
       <span class="api"
         ><b>{{ this.count.toLocaleString('en') }}</b> API requests served</span
       >
-    </b-navbar-nav>
+    </div>
   </div>
 </template>
 
