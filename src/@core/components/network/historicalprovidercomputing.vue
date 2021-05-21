@@ -34,6 +34,10 @@ export default {
       type: String,
       required: true,
     },
+    colors: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -64,9 +68,7 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        theme: {
-          palette: 'palette4', // upto palette10
-        },
+        colors: [this.colors],
         markers: {
           size: 0,
         },
@@ -76,7 +78,7 @@ export default {
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
-            opacityFrom: 0.5,
+            opacityFrom: 0.2,
             opacityTo: 0,
             stops: [0, 90, 100],
           },
@@ -95,7 +97,7 @@ export default {
           },
           labels: {
             formatter: function (value) {
-              return value + ' Providers'
+              return Math.floor(value) + ' Providers'
             },
           },
         },
@@ -148,7 +150,7 @@ export default {
         })
         this.series.push({
           data: count,
-          name: 'Simultaneous Provider computing',
+          name: 'Simultaneous providers computing',
         })
       })
 

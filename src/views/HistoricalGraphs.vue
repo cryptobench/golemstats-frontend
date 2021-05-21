@@ -7,12 +7,14 @@
           <historicalpricinggraphs
             :endpoint="'/v1/network/historical/pricing/average'"
             :title="'Provider Average Pricing'"
+            :palette="['#7033FF', '#CC1100', '#FF7E3D']"
           ></historicalpricinggraphs>
         </b-col>
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
           <historicalpricinggraphs
             :endpoint="'/v1/network/historical/pricing/median'"
             :title="'Provider Median Pricing'"
+            :palette="['#FFED29', '#FF5289', '#00096B']"
           ></historicalpricinggraphs>
         </b-col>
 
@@ -20,6 +22,7 @@
           <historicalprovidercomputing
             :endpoint="'/v1/network/historical/provider/computing'"
             :title="'Providers computing simultaneously'"
+            :colors="'#0230FF'"
           ></historicalprovidercomputing>
         </b-col>
       </b-row>

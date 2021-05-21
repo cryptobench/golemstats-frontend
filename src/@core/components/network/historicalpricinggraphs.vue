@@ -34,6 +34,10 @@ export default {
       type: String,
       required: true,
     },
+    palette: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -64,9 +68,7 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        theme: {
-          palette: 'palette3', // upto palette10
-        },
+        colors: this.palette,
         markers: {
           size: 0,
         },
@@ -76,7 +78,7 @@ export default {
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
-            opacityFrom: 0.5,
+            opacityFrom: 0.2,
             opacityTo: 0,
             stops: [0, 90, 100],
           },
