@@ -140,7 +140,7 @@ export default {
           },
           labels: {
             formatter: function (value) {
-              return value
+              return value + ' TB'
             },
           },
         },
@@ -225,7 +225,7 @@ export default {
             formatter: function (value) {
               let decimals = 2
               var d = Math.pow(10, decimals)
-              return (parseInt(value * d) / d).toFixed(decimals)
+              return (parseInt(value * d) / d).toFixed(decimals) + ' TB'
             },
           },
         },
@@ -308,7 +308,7 @@ export default {
           },
           labels: {
             formatter: function (value) {
-              return value
+              return value + ' Cores'
             },
           },
         },
@@ -392,7 +392,7 @@ export default {
           },
           labels: {
             formatter: function (value) {
-              return value
+              return value + ' Providers'
             },
           },
         },
