@@ -1,65 +1,8 @@
 <template>
   <div>
     <b-row>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="GlobeIcon"
-          :statistic="online"
-          statistic-title="Providers online"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="CpuIcon"
-          :statistic="threads"
-          statistic-title="Cores"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="LayersIcon"
-          :statistic="memory"
-          statistic-title="Memory (TB)"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="HardDriveIcon"
-          :statistic="disk"
-          statistic-title="Disk (TB)"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="computing_loaded"
-          icon="ActivityIcon"
-          :statistic="computing"
-          statistic-title="Providers computing right now"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
+      <b-col xs="12" sm="12" lg="12" md="12">
+        <h3>Network Earnings</h3>
       </b-col>
       <b-col xs="12" sm="12" lg="3" md="4">
         <statistic-card-horizontal
@@ -114,7 +57,54 @@
         </div>
       </b-col>
     </b-row>
-    <h3>Pricing Median</h3>
+    <sixhourstat
+      :provider_title="online + ' Providers'"
+      :cores_title="threads + ' Cores'"
+      :memory_title="memory + ' TB Memory '"
+      :disk_title="disk + ' TB Disk'"
+    ></sixhourstat>
+
+    <networkutilization> </networkutilization>
+    <h3>Average Provider Stats</h3>
+    <b-row>
+      <b-col xs="12" sm="12" lg="3" md="4">
+        <statistic-card-horizontal
+          v-if="stats_loaded"
+          icon="CpuIcon"
+          :statistic="avgcores"
+          statistic-title="Cores"
+          style="max-width: 400px"
+        />
+        <div class="text-center" v-else>
+          <b-spinner variant="primary" label="Text Centered" />
+        </div>
+      </b-col>
+      <b-col xs="12" sm="12" lg="3" md="4">
+        <statistic-card-horizontal
+          v-if="stats_loaded"
+          icon="LayersIcon"
+          :statistic="avgmemory"
+          statistic-title="Memory (GB)"
+          style="max-width: 400px"
+        />
+        <div class="text-center" v-else>
+          <b-spinner variant="primary" label="Text Centered" />
+        </div>
+      </b-col>
+      <b-col xs="12" sm="12" lg="3" md="4">
+        <statistic-card-horizontal
+          v-if="stats_loaded"
+          icon="HardDriveIcon"
+          :statistic="avgdisk"
+          statistic-title="Disk (GB)"
+          style="max-width: 400px"
+        />
+        <div class="text-center" v-else>
+          <b-spinner variant="primary" label="Text Centered" />
+        </div>
+      </b-col>
+    </b-row>
+    <h3>Median Provider Pricing</h3>
     <b-row>
       <b-col xs="12" sm="12" lg="3" md="4">
         <statistic-card-horizontal
@@ -156,45 +146,8 @@
         </div>
       </b-col>
     </b-row>
-    <networkutilization> </networkutilization>
-    <h3>Average provider stats</h3>
+    <h3>Average Provider Pricing</h3>
     <b-row>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="CpuIcon"
-          :statistic="avgcores"
-          statistic-title="Cores"
-          style="max-width: 400px"
-        />
-        <div class="text-center" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="LayersIcon"
-          :statistic="avgmemory"
-          statistic-title="Memory (GB)"
-          style="max-width: 400px"
-        />
-        <div class="text-center" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="HardDriveIcon"
-          :statistic="avgdisk"
-          statistic-title="Disk (GB)"
-          style="max-width: 400px"
-        />
-        <div class="text-center" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
       <b-col xs="12" sm="12" lg="3" md="4">
         <statistic-card-horizontal
           icon="DollarSignIcon"
@@ -378,6 +331,7 @@ import StatisticCardWithLineChart from '@core/components/statistics-cards/Statis
 import axios from '@axios'
 import networkutilization from '@core/components/network/networkutilization.vue'
 import statisticscardearnings from '@core/components/provider/statisticscardearnings.vue'
+import sixhourstat from '@core/components/network/6hstat.vue'
 
 export default {
   metaInfo: {
@@ -404,6 +358,7 @@ export default {
     StatisticCardWithLineChart,
     networkutilization,
     statisticscardearnings,
+    sixhourstat,
   },
   watch: {
     '$store.state.appConfig.layout.currency': function () {

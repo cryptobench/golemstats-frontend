@@ -2,11 +2,28 @@
   <b-row>
     <b-col lg="6" md="12">
       <b-card>
-        <h3>Historical Stats Providers</h3>
+        <div class="d-flex align-items-center">
+          <b-avatar class="avatar-margin-btm" variant="light-primary" rounded>
+            <feather-icon icon="GlobeIcon" size="18" />
+          </b-avatar>
+          <h1 class="avatar-margin">{{ this.provider_title }}</h1>
+
+          <b-spinner
+            variant="success"
+            type="grow"
+            small
+            label="Spinning"
+            class="mb-1 spinner-graph"
+          ></b-spinner>
+        </div>
+        <b-badge class="badge-graph" pill variant="success"
+          >Online and available for compute</b-badge
+        >
+
         <apexchart
           v-if="loaded"
           width="100%"
-          height="350"
+          height="250"
           type="area"
           :options="onlineoptions"
           :series="online"
@@ -18,11 +35,27 @@
     </b-col>
     <b-col lg="6" md="12">
       <b-card>
-        <h3>Historical Stats Cores</h3>
+        <div class="d-flex align-items-center">
+          <b-avatar class="avatar-margin-btm" variant="light-primary" rounded>
+            <feather-icon icon="CpuIcon" size="18" />
+          </b-avatar>
+          <h1 class="avatar-margin">{{ this.cores_title }}</h1>
+
+          <b-spinner
+            variant="success"
+            type="grow"
+            small
+            label="Spinning"
+            class="mb-1 spinner-graph"
+          ></b-spinner>
+        </div>
+        <b-badge class="badge-graph" pill variant="success"
+          >Online and available for compute</b-badge
+        >
         <apexchart
           v-if="loaded"
           width="100%"
-          height="350"
+          height="250"
           type="area"
           :options="coresoptions"
           :series="cores"
@@ -34,11 +67,27 @@
     </b-col>
     <b-col lg="6" md="12">
       <b-card>
-        <h3>Historical Stats Memory (TB)</h3>
+        <div class="d-flex align-items-center">
+          <b-avatar class="avatar-margin-btm" variant="light-primary" rounded>
+            <feather-icon icon="LayersIcon" size="18" />
+          </b-avatar>
+          <h1 class="avatar-margin">{{ this.memory_title }}</h1>
+
+          <b-spinner
+            variant="success"
+            type="grow"
+            small
+            label="Spinning"
+            class="mb-1 spinner-graph"
+          ></b-spinner>
+        </div>
+        <b-badge class="badge-graph" pill variant="success"
+          >Online and available for compute</b-badge
+        >
         <apexchart
           v-if="loaded"
           width="100%"
-          height="350"
+          height="250"
           type="area"
           :options="memoryoptions"
           :series="memory"
@@ -50,11 +99,27 @@
     </b-col>
     <b-col lg="6" md="12">
       <b-card>
-        <h3>Historical Stats Disk (TB)</h3>
+        <div class="d-flex align-items-center">
+          <b-avatar class="avatar-margin-btm" variant="light-primary" rounded>
+            <feather-icon icon="HardDriveIcon" size="18" />
+          </b-avatar>
+          <h1 class="avatar-margin">{{ this.disk_title }}</h1>
+
+          <b-spinner
+            variant="success"
+            type="grow"
+            small
+            label="Spinning"
+            class="mb-1 spinner-graph"
+          ></b-spinner>
+        </div>
+        <b-badge class="badge-graph" pill variant="success"
+          >Online and available for compute</b-badge
+        >
         <apexchart
           v-if="loaded"
           width="100%"
-          height="350"
+          height="250"
           type="area"
           :options="diskoptions"
           :series="disk"
@@ -68,14 +133,34 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner } from 'bootstrap-vue'
+import { BCard, BCol, BRow, BSpinner, BBadge, BAvatar } from 'bootstrap-vue'
 import axios from '@axios'
 export default {
   components: {
     BCard,
+    BAvatar,
     BRow,
     BCol,
+    BBadge,
     BSpinner,
+  },
+  props: {
+    provider_title: {
+      type: String,
+      required: true,
+    },
+    cores_title: {
+      type: String,
+      required: true,
+    },
+    memory_title: {
+      type: String,
+      required: true,
+    },
+    disk_title: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -103,6 +188,7 @@ export default {
           enabled: true,
           x: {
             show: true,
+            format: 'dd MMMM HH:mm:ss',
             formatter: undefined,
           },
         },
@@ -186,6 +272,7 @@ export default {
           enabled: true,
           x: {
             show: true,
+            format: 'dd MMMM HH:mm:ss',
             formatter: undefined,
           },
         },
@@ -271,6 +358,7 @@ export default {
           enabled: true,
           x: {
             show: true,
+            format: 'dd MMMM HH:mm:ss',
             formatter: undefined,
           },
         },
@@ -355,6 +443,7 @@ export default {
           enabled: true,
           x: {
             show: true,
+            format: 'dd MMMM HH:mm:ss',
             formatter: undefined,
           },
         },
@@ -436,7 +525,7 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     fetchData() {
-      axios.get('/v1/network/historical/stats').then((response) => {
+      axios.get('/v1/network/historical/stats/6h').then((response) => {
         let apiResponse = response.data
         let online = []
         let cores = []
@@ -479,3 +568,41 @@ export default {
   },
 }
 </script>
+
+<style>
+.badge-graph {
+  margin-bottom: 6px;
+}
+.spinner-graph {
+  margin-bottom: 35px !important;
+  margin-left: 2px;
+}
+
+.spinner-grow {
+  animation: 1s linear infinite spinner-grow, pause-between-iterations 5s;
+}
+
+@keyframes pause-between-iterations {
+  /* Other animation is visible for 25% of the time */
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  /* Other animation is hidden for 75% of the time */
+  25.1% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.avatar-margin {
+  margin-left: 10px;
+}
+.avatar-margin-btm {
+  margin-bottom: 5px;
+}
+</style>

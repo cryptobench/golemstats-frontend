@@ -1,7 +1,23 @@
 <template>
   <div>
     <b-card>
-      <h3>Network Utilization (6h)</h3>
+      <div class="d-flex align-items-center">
+        <b-avatar class="avatar-margin-btm" variant="light-primary" rounded>
+          <feather-icon icon="ActivityIcon" size="18" />
+        </b-avatar>
+        <h1 class="avatar-margin">Network Activity</h1>
+
+        <b-spinner
+          variant="success"
+          type="grow"
+          small
+          label="Spinning"
+          class="mb-1 spinner-graph"
+        ></b-spinner>
+      </div>
+      <span class="card-text text-muted h5"
+        ><b>{{ this.computing_now }}</b> provider(s) computing right now</span
+      >
       <apexchart
         v-if="loaded"
         width="100%"
@@ -18,17 +34,20 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner } from 'bootstrap-vue'
+import { BCard, BCol, BRow, BSpinner, BAvatar } from 'bootstrap-vue'
 import axios from '@axios'
 export default {
   components: {
     BCard,
     BRow,
+    BAvatar,
     BCol,
     BSpinner,
   },
+
   data() {
     return {
+      computing_now: '',
       loaded: false,
       series: [
         {
@@ -120,6 +139,8 @@ export default {
           var time = data[i][0] * 1000
           computing.push([time, data[i][1]])
         }
+        var last_element = computing[computing.length - 1]
+        this.computing_now = last_element[1]
         this.series = [
           {
             data: computing,

@@ -2,7 +2,23 @@
   <b-row>
     <b-col lg="12" md="12">
       <b-card>
-        <h3>Network Utilization in percentage (6h)</h3>
+        <div class="d-flex align-items-center">
+          <b-avatar class="avatar-margin-btm" variant="light-primary" rounded>
+            <feather-icon icon="ActivityIcon" size="18" />
+          </b-avatar>
+          <h1 class="avatar-margin">Network Activity in percentage</h1>
+
+          <b-spinner
+            variant="success"
+            type="grow"
+            small
+            label="Spinning"
+            class="mb-1 spinner-graph"
+          ></b-spinner>
+        </div>
+        <span class="card-text text-muted h5"
+          ><b>{{ this.computing_now }}%</b> Utilization</span
+        >
         <apexchart
           v-if="loaded"
           width="100%"
@@ -20,11 +36,12 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner } from 'bootstrap-vue'
+import { BCard, BCol, BRow, BSpinner, BAvatar } from 'bootstrap-vue'
 import axios from '@axios'
 export default {
   components: {
     BCard,
+    BAvatar,
     BRow,
     BCol,
     BSpinner,
@@ -33,6 +50,7 @@ export default {
     return {
       loaded: false,
       online: '',
+      computing_now: '',
       series: [],
       chartOptions: {
         chart: {
@@ -134,6 +152,11 @@ export default {
             floorFigure((data[i][1] / this.online) * 100, 2),
           ])
         }
+        var last_element = computing[computing.length - 1]
+        this.computing_now = floorFigure(
+          (last_element[1] / this.online) * 100,
+          2
+        )
         this.series = [
           {
             data: computing,
