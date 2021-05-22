@@ -1,317 +1,319 @@
 <template>
-  <div>
-    <b-row>
-      <b-col xs="12" sm="12" lg="12" md="12">
-        <h3>Network Earnings</h3>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="averageearnings_loaded"
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="averageearnings"
-          statistic-title="Average earnings per task"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="earnings6h_loaded"
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="earnings6h"
-          statistic-title="Total Network Earnings (6h)"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="earnings24h_loaded"
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="earnings24h"
-          statistic-title="Total Network Earnings (24h)"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="earnings365d_loaded"
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="earnings365d"
-          statistic-title="Total Network Earnings (14d)"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-    </b-row>
-    <sixhourstat
-      :provider_title="online + ' Providers'"
-      :cores_title="threads + ' Cores'"
-      :memory_title="memory + ' TB Memory '"
-      :disk_title="disk + ' TB Disk'"
-    ></sixhourstat>
+  <b-container>
+    <div>
+      <b-row>
+        <b-col xs="12" sm="12" lg="12" md="12">
+          <h3>Network Earnings</h3>
+        </b-col>
+        <b-col xs="12" sm="12" lg="3" md="4">
+          <statistic-card-horizontal
+            v-if="averageearnings_loaded"
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="averageearnings"
+            statistic-title="Average earnings per task"
+            style="max-width: 400px"
+          />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+        <b-col xs="12" sm="12" lg="3" md="4">
+          <statistic-card-horizontal
+            v-if="earnings6h_loaded"
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="earnings6h"
+            statistic-title="Total Network Earnings (6h)"
+            style="max-width: 400px"
+          />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+        <b-col xs="12" sm="12" lg="3" md="4">
+          <statistic-card-horizontal
+            v-if="earnings24h_loaded"
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="earnings24h"
+            statistic-title="Total Network Earnings (24h)"
+            style="max-width: 400px"
+          />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+        <b-col xs="12" sm="12" lg="3" md="4">
+          <statistic-card-horizontal
+            v-if="earnings365d_loaded"
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="earnings365d"
+            statistic-title="Total Network Earnings (14d)"
+            style="max-width: 400px"
+          />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+      </b-row>
+      <sixhourstat
+        :provider_title="online + ' Providers'"
+        :cores_title="threads + ' Cores'"
+        :memory_title="memory + ' TB Memory '"
+        :disk_title="disk + ' TB Disk'"
+      ></sixhourstat>
 
-    <networkutilization> </networkutilization>
-    <h3>Average Provider Stats</h3>
-    <b-row>
-      <b-col xs="12" sm="12" lg="4" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="CpuIcon"
-          :statistic="avgcores"
-          statistic-title="Cores"
-          style="max-width: 400px"
-        />
-        <div class="text-center" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="4" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="LayersIcon"
-          :statistic="avgmemory"
-          statistic-title="Memory (GB)"
-          style="max-width: 400px"
-        />
-        <div class="text-center" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="4" md="4">
-        <statistic-card-horizontal
-          v-if="stats_loaded"
-          icon="HardDriveIcon"
-          :statistic="avgdisk"
-          statistic-title="Disk (GB)"
-          style="max-width: 400px"
-        />
-        <div class="text-center" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-    </b-row>
-    <h3>Median Provider Pricing</h3>
-    <b-row>
-      <b-col xs="12" sm="12" lg="4" md="4">
-        <statistic-card-horizontal
-          v-if="median_loaded"
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="median_cpu_hour"
-          statistic-title="Median CPU/h pricing"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="4" md="4">
-        <statistic-card-horizontal
-          v-if="median_loaded"
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="median_per_hour"
-          statistic-title="Median Per/h pricing"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="4" md="4">
-        <statistic-card-horizontal
-          v-if="median_loaded"
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="median_start_price"
-          statistic-title="Median start pricing"
-          style="max-width: 400px"
-        />
-        <div class="text-center cardish" v-else>
-          <b-spinner variant="primary" label="Text Centered" />
-        </div>
-      </b-col>
-    </b-row>
-    <h3>Average Provider Pricing</h3>
-    <b-row>
-      <b-col xs="12" sm="12" lg="4" md="4">
-        <statistic-card-horizontal
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="avg_cpu_hour"
-          statistic-title="Average CPU/h pricing"
-          style="max-width: 400px"
-        />
-      </b-col>
-      <b-col xs="12" sm="12" lg="4" md="4">
-        <statistic-card-horizontal
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="avg_per_hour"
-          statistic-title="Average Per/h pricing"
-          style="max-width: 400px"
-        />
-      </b-col>
-      <b-col xs="12" sm="12" lg="4" md="4">
-        <statistic-card-horizontal
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="avg_start_price"
-          statistic-title="Average start pricing"
-          style="max-width: 400px"
-        />
-      </b-col>
-    </b-row>
-    <h3>Online providers</h3>
-    <b-row>
-      <b-col lg="12" xl="12" md="12" sm="12" xs="12">
-        <b-card no-body class="mb-0">
-          <b-col lg="6" class="mb-2 mt-2">
-            <b-col lg="6">
-              <h5>Search for provider</h5>
-              <b-form-input
-                v-model="filter"
-                placeholder="Node Name or wallet address"
-              ></b-form-input>
+      <networkutilization> </networkutilization>
+      <h3>Average Provider Stats</h3>
+      <b-row>
+        <b-col xs="12" sm="12" lg="4" md="4">
+          <statistic-card-horizontal
+            v-if="stats_loaded"
+            icon="CpuIcon"
+            :statistic="avgcores"
+            statistic-title="Cores"
+            style="max-width: 400px"
+          />
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+        <b-col xs="12" sm="12" lg="4" md="4">
+          <statistic-card-horizontal
+            v-if="stats_loaded"
+            icon="LayersIcon"
+            :statistic="avgmemory"
+            statistic-title="Memory (GB)"
+            style="max-width: 400px"
+          />
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+        <b-col xs="12" sm="12" lg="4" md="4">
+          <statistic-card-horizontal
+            v-if="stats_loaded"
+            icon="HardDriveIcon"
+            :statistic="avgdisk"
+            statistic-title="Disk (GB)"
+            style="max-width: 400px"
+          />
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+      </b-row>
+      <h3>Median Provider Pricing</h3>
+      <b-row>
+        <b-col xs="12" sm="12" lg="4" md="4">
+          <statistic-card-horizontal
+            v-if="median_loaded"
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="median_cpu_hour"
+            statistic-title="Median CPU/h pricing"
+            style="max-width: 400px"
+          />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+        <b-col xs="12" sm="12" lg="4" md="4">
+          <statistic-card-horizontal
+            v-if="median_loaded"
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="median_per_hour"
+            statistic-title="Median Per/h pricing"
+            style="max-width: 400px"
+          />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+        <b-col xs="12" sm="12" lg="4" md="4">
+          <statistic-card-horizontal
+            v-if="median_loaded"
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="median_start_price"
+            statistic-title="Median start pricing"
+            style="max-width: 400px"
+          />
+          <div class="text-center cardish" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-col>
+      </b-row>
+      <h3>Average Provider Pricing</h3>
+      <b-row>
+        <b-col xs="12" sm="12" lg="4" md="4">
+          <statistic-card-horizontal
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="avg_cpu_hour"
+            statistic-title="Average CPU/h pricing"
+            style="max-width: 400px"
+          />
+        </b-col>
+        <b-col xs="12" sm="12" lg="4" md="4">
+          <statistic-card-horizontal
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="avg_per_hour"
+            statistic-title="Average Per/h pricing"
+            style="max-width: 400px"
+          />
+        </b-col>
+        <b-col xs="12" sm="12" lg="4" md="4">
+          <statistic-card-horizontal
+            icon="DollarSignIcon"
+            color="success"
+            :statistic="avg_start_price"
+            statistic-title="Average start pricing"
+            style="max-width: 400px"
+          />
+        </b-col>
+      </b-row>
+      <h3>Online providers</h3>
+      <b-row>
+        <b-col lg="12" xl="12" md="12" sm="12" xs="12">
+          <b-card no-body class="mb-0">
+            <b-col lg="6" class="mb-2 mt-2">
+              <b-col lg="6">
+                <h5>Search for provider</h5>
+                <b-form-input
+                  v-model="filter"
+                  placeholder="Node Name or wallet address"
+                ></b-form-input>
+              </b-col>
+              <b-col lg="5" class="mt-2">
+                <h5>Showing first {{ this.rowcount }} providers</h5>
+              </b-col>
+              <b-col lg="3">
+                <b-form-input
+                  @keyup.enter="rowcount = $event.target.value"
+                  placeholder="30"
+                ></b-form-input>
+              </b-col>
             </b-col>
-            <b-col lg="5" class="mt-2">
-              <h5>Showing first {{ this.rowcount }} providers</h5>
-            </b-col>
-            <b-col lg="3">
-              <b-form-input
-                @keyup.enter="rowcount = $event.target.value"
-                placeholder="30"
-              ></b-form-input>
-            </b-col>
-          </b-col>
-          <b-table
-            v-if="table_data"
-            responsive
-            hover
-            outlined
-            :filter="filter"
-            :filter-ignored-fields="ignoredfilter"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :fields="fields"
-            :items="items"
-            :per-page="rowcount"
-            @row-clicked="expandAdditionalInfo"
-            show-empty
-            empty-text="No online providers found"
-          >
-            <!-- A virtual column -->
-            <template #cell(Name)="data">
-              {{ data.value }}
-              <b-badge v-if="data['item'].Online" pill variant="success"
-                >Online</b-badge
-              >
-              <b-badge v-else pill variant="danger">Offline</b-badge>
-            </template>
-
-            <!-- A custom formatted column -->
-            <template #cell(Subnet)="data">
-              <div class="d-flex align-items-center">
-                <b-badge
-                  class="w-100"
-                  v-if="data['item'].Mainnet"
-                  pill
-                  variant="primary"
-                  >Mainnet</b-badge
+            <b-table
+              v-if="table_data"
+              responsive
+              hover
+              outlined
+              :filter="filter"
+              :filter-ignored-fields="ignoredfilter"
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
+              :fields="fields"
+              :items="items"
+              :per-page="rowcount"
+              @row-clicked="expandAdditionalInfo"
+              show-empty
+              empty-text="No online providers found"
+            >
+              <!-- A virtual column -->
+              <template #cell(Name)="data">
+                {{ data.value }}
+                <b-badge v-if="data['item'].Online" pill variant="success"
+                  >Online</b-badge
                 >
-                <b-badge class="w-100" v-else pill variant="warning"
-                  >Testnet</b-badge
-                >
-              </div>
-            </template>
+                <b-badge v-else pill variant="danger">Offline</b-badge>
+              </template>
 
-            <!-- A custom formatted column -->
-            <template #cell(Cores)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar
-                  v-if="data['item'].Vendor == 'AuthenticAMD'"
-                  class="mr-1"
-                  variant="light-danger"
-                  rounded
-                >
-                  <feather-icon icon="CpuIcon" size="18" />
-                </b-avatar>
-                <b-avatar v-else class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="CpuIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
+              <!-- A custom formatted column -->
+              <template #cell(Subnet)="data">
+                <div class="d-flex align-items-center">
+                  <b-badge
+                    class="w-100"
+                    v-if="data['item'].Mainnet"
+                    pill
+                    variant="primary"
+                    >Mainnet</b-badge
+                  >
+                  <b-badge class="w-100" v-else pill variant="warning"
+                    >Testnet</b-badge
+                  >
+                </div>
+              </template>
 
-            <template #cell(Memory)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="LayersIcon" size="18" />
-                </b-avatar>
-                {{ data.value }} GB
-              </div>
-            </template>
+              <!-- A custom formatted column -->
+              <template #cell(Cores)="data">
+                <div class="d-flex align-items-center">
+                  <b-avatar
+                    v-if="data['item'].Vendor == 'AuthenticAMD'"
+                    class="mr-1"
+                    variant="light-danger"
+                    rounded
+                  >
+                    <feather-icon icon="CpuIcon" size="18" />
+                  </b-avatar>
+                  <b-avatar v-else class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="CpuIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
+              </template>
 
-            <!-- A virtual composite column -->
-            <template #cell(Disk)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="HardDriveIcon" size="18" />
-                </b-avatar>
-                {{ data.value }} GB
-              </div>
-            </template>
-            <template #cell(Earnings)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-success" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-            <template #cell(cpu_hour)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-            <template #cell(per_hour)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-            <template #cell(start_price)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-          </b-table>
-        </b-card>
-      </b-col>
-    </b-row>
-  </div>
+              <template #cell(Memory)="data">
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="LayersIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }} GB
+                </div>
+              </template>
+
+              <!-- A virtual composite column -->
+              <template #cell(Disk)="data">
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="HardDriveIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }} GB
+                </div>
+              </template>
+              <template #cell(Earnings)="data">
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-success" rounded>
+                    <feather-icon icon="DollarSignIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
+              </template>
+              <template #cell(cpu_hour)="data">
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="DollarSignIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
+              </template>
+              <template #cell(per_hour)="data">
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="DollarSignIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
+              </template>
+              <template #cell(start_price)="data">
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="DollarSignIcon" size="18" />
+                  </b-avatar>
+                  {{ data.value }}
+                </div>
+              </template>
+            </b-table>
+          </b-card>
+        </b-col>
+      </b-row>
+    </div>
+  </b-container>
 </template>
 
 <script>
