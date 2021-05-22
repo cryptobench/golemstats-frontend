@@ -11,7 +11,7 @@
           color="success"
           :statistic="averageearnings"
           statistic-title="Average earnings per task"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center cardish" v-else>
           <b-spinner variant="primary" label="Text Centered" />
@@ -24,7 +24,7 @@
           color="success"
           :statistic="earnings6h"
           statistic-title="Total Network Earnings (6h)"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center cardish" v-else>
           <b-spinner variant="primary" label="Text Centered" />
@@ -37,7 +37,7 @@
           color="success"
           :statistic="earnings24h"
           statistic-title="Total Network Earnings (24h)"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center cardish" v-else>
           <b-spinner variant="primary" label="Text Centered" />
@@ -50,7 +50,7 @@
           color="success"
           :statistic="earnings365d"
           statistic-title="Total Network Earnings (14d)"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center cardish" v-else>
           <b-spinner variant="primary" label="Text Centered" />
@@ -67,37 +67,37 @@
     <networkutilization> </networkutilization>
     <h3>Average Provider Stats</h3>
     <b-row>
-      <b-col xs="12" sm="12" lg="3" md="4">
+      <b-col xs="12" sm="12" lg="4" md="4">
         <statistic-card-horizontal
           v-if="stats_loaded"
           icon="CpuIcon"
           :statistic="avgcores"
           statistic-title="Cores"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
       </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
+      <b-col xs="12" sm="12" lg="4" md="4">
         <statistic-card-horizontal
           v-if="stats_loaded"
           icon="LayersIcon"
           :statistic="avgmemory"
           statistic-title="Memory (GB)"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
       </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
+      <b-col xs="12" sm="12" lg="4" md="4">
         <statistic-card-horizontal
           v-if="stats_loaded"
           icon="HardDriveIcon"
           :statistic="avgdisk"
           statistic-title="Disk (GB)"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
@@ -106,40 +106,40 @@
     </b-row>
     <h3>Median Provider Pricing</h3>
     <b-row>
-      <b-col xs="12" sm="12" lg="3" md="4">
+      <b-col xs="12" sm="12" lg="4" md="4">
         <statistic-card-horizontal
           v-if="median_loaded"
           icon="DollarSignIcon"
           color="success"
           :statistic="median_cpu_hour"
           statistic-title="Median CPU/h pricing"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center cardish" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
       </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
+      <b-col xs="12" sm="12" lg="4" md="4">
         <statistic-card-horizontal
           v-if="median_loaded"
           icon="DollarSignIcon"
           color="success"
           :statistic="median_per_hour"
           statistic-title="Median Per/h pricing"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center cardish" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
       </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
+      <b-col xs="12" sm="12" lg="4" md="4">
         <statistic-card-horizontal
           v-if="median_loaded"
           icon="DollarSignIcon"
           color="success"
           :statistic="median_start_price"
           statistic-title="Median start pricing"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
         <div class="text-center cardish" v-else>
           <b-spinner variant="primary" label="Text Centered" />
@@ -148,31 +148,31 @@
     </b-row>
     <h3>Average Provider Pricing</h3>
     <b-row>
-      <b-col xs="12" sm="12" lg="3" md="4">
+      <b-col xs="12" sm="12" lg="4" md="4">
         <statistic-card-horizontal
           icon="DollarSignIcon"
           color="success"
           :statistic="avg_cpu_hour"
           statistic-title="Average CPU/h pricing"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
       </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
+      <b-col xs="12" sm="12" lg="4" md="4">
         <statistic-card-horizontal
           icon="DollarSignIcon"
           color="success"
           :statistic="avg_per_hour"
           statistic-title="Average Per/h pricing"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
       </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
+      <b-col xs="12" sm="12" lg="4" md="4">
         <statistic-card-horizontal
           icon="DollarSignIcon"
           color="success"
           :statistic="avg_start_price"
           statistic-title="Average start pricing"
-          style="max-width: 350px"
+          style="max-width: 400px"
         />
       </b-col>
     </b-row>
