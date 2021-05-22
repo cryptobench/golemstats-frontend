@@ -17,7 +17,7 @@
       <currency-Toggler class="d-none d-lg-block" />
     </div>
     <div class="nav align-items-center ml-auto">
-      <span class="api"
+      <span class="text-primary"
         ><b>{{ this.count.toLocaleString('en') }}</b> API requests served</span
       >
     </div>
