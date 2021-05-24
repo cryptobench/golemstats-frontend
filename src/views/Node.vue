@@ -183,7 +183,7 @@
           color="success"
           :usdprice="this.usdprice"
           :provider="this.$route.params.id"
-          statistic-title="Income (14d)"
+          statistic-title="Income (90d)"
           style="max-width: 380px"
         >
         </statisticscardearnings>
