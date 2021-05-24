@@ -226,7 +226,7 @@ export default {
           },
           labels: {
             formatter: function (value) {
-              return value + ' TB'
+              return value.toFixed(2) + ' TB'
             },
           },
         },
