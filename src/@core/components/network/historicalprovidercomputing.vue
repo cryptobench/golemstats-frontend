@@ -1,6 +1,16 @@
 <template>
   <b-card>
     <h3>{{ this.title }}</h3>
+    <b-button
+      v-if="showAnnotations"
+      @click="hideshowAnnotation()"
+      size="sm"
+      variant="primary"
+      >Hide release labels</b-button
+    >
+    <b-button v-else @click="hideshowAnnotation()" size="sm" variant="primary"
+      >Annotate release labels</b-button
+    >
     <apexchart
       v-if="loaded"
       width="100%"
@@ -16,11 +26,12 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner } from 'bootstrap-vue'
+import { BCard, BCol, BRow, BSpinner, BButton } from 'bootstrap-vue'
 import axios from '@axios'
 export default {
   components: {
     BCard,
+    BButton,
     BRow,
     BCol,
     BSpinner,
@@ -41,6 +52,7 @@ export default {
   },
   data() {
     return {
+      showAnnotations: false,
       loaded: false,
       series: [],
       options: {
@@ -57,6 +69,36 @@ export default {
               speed: 1000,
             },
           },
+        },
+        annotations: {
+          xaxis: [
+            {
+              x: new Date('21 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#3F51B5',
+              label: {
+                borderColor: '#3F51B5',
+                style: {
+                  color: '#fff',
+                  background: '#3F51B5',
+                },
+                text: '0.6.7 Released',
+              },
+            },
+            {
+              x: new Date('20 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#3F51B5',
+              label: {
+                borderColor: '#3F51B5',
+                style: {
+                  color: '#fff',
+                  background: '#3F51B5',
+                },
+                text: '0.6.6 Released',
+              },
+            },
+          ],
         },
         tooltip: {
           enabled: true,
@@ -135,6 +177,21 @@ export default {
     }, 15000)
   },
   methods: {
+    hideshowAnnotation() {
+      if (this.showAnnotations) {
+        var elem = document.getElementsByClassName(
+          'apexcharts-xaxis-annotations'
+        )
+        elem.forEach((element) => (element.style.visibility = 'hidden'))
+        this.showAnnotations = false
+      } else {
+        this.showAnnotations = true
+        var elem = document.getElementsByClassName(
+          'apexcharts-xaxis-annotations'
+        )
+        elem.forEach((element) => (element.style.visibility = 'visible'))
+      }
+    },
     floorFigure: function floorFigure(figure, decimals) {
       if (!decimals) decimals = 2
       var d = Math.pow(10, decimals)
