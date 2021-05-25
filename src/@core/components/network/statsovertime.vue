@@ -3,6 +3,21 @@
     <b-col lg="6" md="12">
       <b-card>
         <h3>Historical Stats Providers</h3>
+        <b-button
+          v-if="showAnnotations"
+          @click="hideshowAnnotation()"
+          size="sm"
+          variant="primary"
+          >Hide release labels</b-button
+        >
+        <b-button
+          v-else
+          @click="hideshowAnnotation()"
+          size="sm"
+          variant="primary"
+          >Annotate release labels</b-button
+        >
+
         <apexchart
           v-if="loaded"
           width="100%"
@@ -19,6 +34,20 @@
     <b-col lg="6" md="12">
       <b-card>
         <h3>Historical Stats Cores</h3>
+        <b-button
+          v-if="showAnnotations"
+          @click="hideshowAnnotation()"
+          size="sm"
+          variant="primary"
+          >Hide release labels</b-button
+        >
+        <b-button
+          v-else
+          @click="hideshowAnnotation()"
+          size="sm"
+          variant="primary"
+          >Annotate release labels</b-button
+        >
         <apexchart
           v-if="loaded"
           width="100%"
@@ -35,6 +64,20 @@
     <b-col lg="6" md="12">
       <b-card>
         <h3>Historical Stats Memory (TB)</h3>
+        <b-button
+          v-if="showAnnotations"
+          @click="hideshowAnnotation()"
+          size="sm"
+          variant="primary"
+          >Hide release labels</b-button
+        >
+        <b-button
+          v-else
+          @click="hideshowAnnotation()"
+          size="sm"
+          variant="primary"
+          >Annotate release labels</b-button
+        >
         <apexchart
           v-if="loaded"
           width="100%"
@@ -51,6 +94,20 @@
     <b-col lg="6" md="12">
       <b-card>
         <h3>Historical Stats Disk (TB)</h3>
+        <b-button
+          v-if="showAnnotations"
+          @click="hideshowAnnotation()"
+          size="sm"
+          variant="primary"
+          >Hide release labels</b-button
+        >
+        <b-button
+          v-else
+          @click="hideshowAnnotation()"
+          size="sm"
+          variant="primary"
+          >Annotate release labels</b-button
+        >
         <apexchart
           v-if="loaded"
           width="100%"
@@ -68,17 +125,19 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner } from 'bootstrap-vue'
+import { BCard, BCol, BRow, BSpinner, BButton } from 'bootstrap-vue'
 import axios from '@axios'
 export default {
   components: {
     BCard,
+    BButton,
     BRow,
     BCol,
     BSpinner,
   },
   data() {
     return {
+      showAnnotations: false,
       loaded: false,
       online: [],
       cores: [],
@@ -98,6 +157,49 @@ export default {
               speed: 1000,
             },
           },
+        },
+        annotations: {
+          xaxis: [
+            {
+              x: new Date('21 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#D7263D',
+              label: {
+                borderColor: '#D7263D',
+                style: {
+                  color: '#fff',
+                  background: '#D7263D',
+                },
+                text: '0.6.7 Released',
+              },
+            },
+            {
+              x: new Date('20 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#D7263D',
+              label: {
+                borderColor: '#D7263D',
+                style: {
+                  color: '#fff',
+                  background: '#D7263D',
+                },
+                text: '0.6.6 Released',
+              },
+            },
+            {
+              x: new Date('6 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#D7263D',
+              label: {
+                borderColor: '#D7263D',
+                style: {
+                  color: '#fff',
+                  background: '#D7263D',
+                },
+                text: '0.6.5 Released',
+              },
+            },
+          ],
         },
         tooltip: {
           enabled: true,
@@ -181,6 +283,49 @@ export default {
               speed: 1000,
             },
           },
+        },
+        annotations: {
+          xaxis: [
+            {
+              x: new Date('21 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#A300D6',
+              label: {
+                borderColor: '#A300D6',
+                style: {
+                  color: '#fff',
+                  background: '#A300D6',
+                },
+                text: '0.6.7 Released',
+              },
+            },
+            {
+              x: new Date('20 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#A300D6',
+              label: {
+                borderColor: '#A300D6',
+                style: {
+                  color: '#fff',
+                  background: '#A300D6',
+                },
+                text: '0.6.6 Released',
+              },
+            },
+            {
+              x: new Date('6 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#A300D6',
+              label: {
+                borderColor: '#A300D6',
+                style: {
+                  color: '#fff',
+                  background: '#A300D6',
+                },
+                text: '0.6.5 Released',
+              },
+            },
+          ],
         },
         tooltip: {
           enabled: true,
@@ -267,6 +412,49 @@ export default {
             },
           },
         },
+        annotations: {
+          xaxis: [
+            {
+              x: new Date('21 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#4ECDC4',
+              label: {
+                borderColor: '#4ECDC4',
+                style: {
+                  color: '#fff',
+                  background: '#4ECDC4',
+                },
+                text: '0.6.7 Released',
+              },
+            },
+            {
+              x: new Date('20 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#4ECDC4',
+              label: {
+                borderColor: '#4ECDC4',
+                style: {
+                  color: '#fff',
+                  background: '#4ECDC4',
+                },
+                text: '0.6.6 Released',
+              },
+            },
+            {
+              x: new Date('6 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#4ECDC4',
+              label: {
+                borderColor: '#4ECDC4',
+                style: {
+                  color: '#fff',
+                  background: '#4ECDC4  ',
+                },
+                text: '0.6.5 Released',
+              },
+            },
+          ],
+        },
         tooltip: {
           enabled: true,
           x: {
@@ -351,6 +539,49 @@ export default {
             },
           },
         },
+        annotations: {
+          xaxis: [
+            {
+              x: new Date('21 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#3F51B5',
+              label: {
+                borderColor: '#3F51B5',
+                style: {
+                  color: '#fff',
+                  background: '#3F51B5',
+                },
+                text: '0.6.7 Released',
+              },
+            },
+            {
+              x: new Date('20 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#3F51B5',
+              label: {
+                borderColor: '#3F51B5',
+                style: {
+                  color: '#fff',
+                  background: '#3F51B5',
+                },
+                text: '0.6.6 Released',
+              },
+            },
+            {
+              x: new Date('6 May 2021').getTime(),
+              strokeDashArray: 0,
+              borderColor: '#3F51B5	',
+              label: {
+                borderColor: '#3F51B5	',
+                style: {
+                  color: '#fff',
+                  background: '#3F51B5',
+                },
+                text: '0.6.5 Released',
+              },
+            },
+          ],
+        },
         tooltip: {
           enabled: true,
           x: {
@@ -430,6 +661,21 @@ export default {
     }, 15000)
   },
   methods: {
+    hideshowAnnotation() {
+      if (this.showAnnotations) {
+        var elem = document.getElementsByClassName(
+          'apexcharts-xaxis-annotations'
+        )
+        elem.forEach((element) => (element.style.visibility = 'hidden'))
+        this.showAnnotations = false
+      } else {
+        this.showAnnotations = true
+        var elem = document.getElementsByClassName(
+          'apexcharts-xaxis-annotations'
+        )
+        elem.forEach((element) => (element.style.visibility = 'visible'))
+      }
+    },
     floorFigure: function floorFigure(figure, decimals) {
       if (!decimals) decimals = 2
       var d = Math.pow(10, decimals)
@@ -479,3 +725,8 @@ export default {
   },
 }
 </script>
+<style>
+.apexcharts-xaxis-annotations {
+  visibility: hidden;
+}
+</style>
