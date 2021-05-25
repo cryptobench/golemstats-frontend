@@ -16,7 +16,7 @@
             class="mb-1 spinner-graph"
           ></b-spinner>
         </div>
-        <b-badge class="badge-graph" pill variant="success"
+        <b-badge class="badge-graph" pill variant="primary"
           >Online and available for compute</b-badge
         >
 
@@ -49,7 +49,7 @@
             class="mb-1 spinner-graph"
           ></b-spinner>
         </div>
-        <b-badge class="badge-graph" pill variant="success"
+        <b-badge class="badge-graph" pill variant="primary"
           >Online and available for compute</b-badge
         >
         <apexchart
@@ -81,7 +81,7 @@
             class="mb-1 spinner-graph"
           ></b-spinner>
         </div>
-        <b-badge class="badge-graph" pill variant="success"
+        <b-badge class="badge-graph" pill variant="primary"
           >Online and available for compute</b-badge
         >
         <apexchart
@@ -113,7 +113,7 @@
             class="mb-1 spinner-graph"
           ></b-spinner>
         </div>
-        <b-badge class="badge-graph" pill variant="success"
+        <b-badge class="badge-graph" pill variant="primary"
           >Online and available for compute</b-badge
         >
         <apexchart
