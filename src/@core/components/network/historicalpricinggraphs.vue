@@ -6,10 +6,10 @@
       @click="hideshowAnnotation()"
       size="sm"
       variant="primary"
-      >Hide release labels</b-button
+      >Hide Release Labels</b-button
     >
     <b-button v-else @click="hideshowAnnotation()" size="sm" variant="primary"
-      >Annotate release labels</b-button
+      >Show Release Labels</b-button
     >
     <apexchart
       v-if="loaded"
