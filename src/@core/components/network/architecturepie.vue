@@ -2,6 +2,10 @@
   <div>
     <b-card class="h-100">
       <h3>Network CPU Architecture</h3>
+      <span class="card-text text-muted h5"
+        >x86_64: <b class="mr-1">{{ data[0] }}</b> Aarch64:
+        <b>{{ data[1] }}</b></span
+      >
       <apexchart
         width="100%"
         height="250"

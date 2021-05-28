@@ -2,6 +2,10 @@
   <div>
     <b-card class="h-100">
       <h3>Network CPU Vendor Distribution</h3>
+      <span class="card-text text-muted h5"
+        >AMD: <b class="mr-1">{{ data[1] }}</b> Intel:
+        <b class="mr-1">{{ data[0] }}</b> Other: <b>{{ data[2] }}</b></span
+      >
       <apexchart
         v-if="loaded"
         width="100%"
