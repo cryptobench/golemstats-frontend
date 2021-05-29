@@ -24,7 +24,6 @@ jobs:
       - name: SSH deploy
         uses: appleboy/ssh-action@master
         with:
-            persist-credentials: false
             host: ${{ secrets.HOST }}
             username: ${{ secrets.USERNAME }}
             key: ${{ secrets.KEY }}
