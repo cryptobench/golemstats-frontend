@@ -17,15 +17,18 @@
           variant="primary"
           >Show Release Labels</b-button
         >
-
-        <apexchart
-          v-if="loaded"
-          width="100%"
-          height="350"
-          type="area"
-          :options="onlineoptions"
-          :series="online"
-        ></apexchart>
+        <div v-if="loaded" class="text-center">
+          <apexchart
+            width="100%"
+            height="350"
+            type="area"
+            :options="onlineoptions"
+            :series="online"
+          ></apexchart>
+          <b-badge class="text-center" variant="success"
+            >ATH: {{ onlinecount }} Providers</b-badge
+          >
+        </div>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
@@ -48,14 +51,19 @@
           variant="primary"
           >Show Release Labels</b-button
         >
-        <apexchart
-          v-if="loaded"
-          width="100%"
-          height="350"
-          type="area"
-          :options="coresoptions"
-          :series="cores"
-        ></apexchart>
+
+        <div v-if="loaded" class="text-center">
+          <apexchart
+            width="100%"
+            height="350"
+            type="area"
+            :options="coresoptions"
+            :series="cores"
+          ></apexchart>
+          <b-badge class="text-center" variant="success"
+            >ATH: {{ corescount }} Cores</b-badge
+          >
+        </div>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
@@ -78,14 +86,19 @@
           variant="primary"
           >Show Release Labels</b-button
         >
-        <apexchart
-          v-if="loaded"
-          width="100%"
-          height="350"
-          type="area"
-          :options="memoryoptions"
-          :series="memory"
-        ></apexchart>
+
+        <div v-if="loaded" class="text-center">
+          <apexchart
+            width="100%"
+            height="350"
+            type="area"
+            :options="memoryoptions"
+            :series="memory"
+          ></apexchart>
+          <b-badge class="text-center" variant="success"
+            >ATH: {{ memorycount }} TB
+          </b-badge>
+        </div>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
@@ -108,14 +121,19 @@
           variant="primary"
           >Show Release Labels</b-button
         >
-        <apexchart
-          v-if="loaded"
-          width="100%"
-          height="350"
-          type="area"
-          :options="diskoptions"
-          :series="disk"
-        ></apexchart>
+
+        <div v-if="loaded" class="text-center">
+          <apexchart
+            width="100%"
+            height="350"
+            type="area"
+            :options="diskoptions"
+            :series="disk"
+          ></apexchart>
+          <b-badge class="text-center" variant="success"
+            >ATH: {{ diskcount }} TB
+          </b-badge>
+        </div>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
@@ -125,7 +143,7 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner, BButton } from 'bootstrap-vue'
+import { BCard, BBadge, BCol, BRow, BSpinner, BButton } from 'bootstrap-vue'
 import axios from '@axios'
 export default {
   components: {
@@ -133,6 +151,7 @@ export default {
     BButton,
     BRow,
     BCol,
+    BBadge,
     BSpinner,
   },
   data() {
@@ -140,9 +159,13 @@ export default {
       showAnnotations: false,
       loaded: false,
       online: [],
+      onlinecount: [],
       cores: [],
+      corescount: [],
       memory: [],
+      memorycount: [],
       disk: [],
+      diskcount: [],
       diskoptions: {
         chart: {
           id: 'area-datetime',
@@ -685,15 +708,27 @@ export default {
       axios.get('/v1/network/historical/stats').then((response) => {
         let apiResponse = response.data
         let online = []
+        let onlinecount = []
         let cores = []
+        let corescount = []
         let memory = []
+        let memorycount = []
         let disk = []
+        let diskcount = []
         apiResponse.forEach((obj) => {
           online.push([obj.date, obj.online])
+          onlinecount.push(obj.online)
           cores.push([obj.date, obj.cores])
+          corescount.push(obj.cores)
           memory.push([obj.date, this.floorFigure(obj.memory / 1024, 0)])
+          memorycount.push(this.floorFigure(obj.memory / 1024, 0))
           disk.push([obj.date, this.floorFigure(obj.disk / 1024, 0)])
+          diskcount.push(this.floorFigure(obj.disk / 1024, 0))
         })
+        this.onlinecount = Math.max.apply(Math, onlinecount)
+        this.corescount = Math.max.apply(Math, corescount)
+        this.memorycount = Math.max.apply(Math, memorycount)
+        this.diskcount = Math.max.apply(Math, diskcount)
         this.online = [
           {
             data: online,

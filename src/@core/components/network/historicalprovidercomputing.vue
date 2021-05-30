@@ -11,14 +11,19 @@
     <b-button v-else @click="hideshowAnnotation()" size="sm" variant="primary"
       >Show Release Labels</b-button
     >
-    <apexchart
-      v-if="loaded"
-      width="100%"
-      height="350"
-      type="area"
-      :options="options"
-      :series="series"
-    ></apexchart>
+
+    <div v-if="loaded" class="text-center">
+      <apexchart
+        width="100%"
+        height="350"
+        type="area"
+        :options="options"
+        :series="series"
+      ></apexchart>
+      <b-badge class="text-center" variant="success"
+        >ATH: {{ computingath }}
+      </b-badge>
+    </div>
     <div class="text-center" v-else>
       <b-spinner variant="primary" label="Text Centered" />
     </div>
@@ -26,11 +31,12 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner, BButton } from 'bootstrap-vue'
+import { BCard, BCol, BRow, BSpinner, BBadge, BButton } from 'bootstrap-vue'
 import axios from '@axios'
 export default {
   components: {
     BCard,
+    BBadge,
     BButton,
     BRow,
     BCol,
@@ -54,6 +60,7 @@ export default {
     return {
       showAnnotations: false,
       loaded: false,
+      computingath: '',
       series: [],
       options: {
         chart: {
@@ -202,9 +209,12 @@ export default {
       axios.get(this.endpoint).then((response) => {
         let apiResponse = response.data
         let count = []
+        let counttotal = []
         apiResponse.forEach((obj) => {
           count.push([obj.date, obj.total])
+          counttotal.push(obj.total)
         })
+        this.computingath = Math.max.apply(Math, counttotal)
         this.series.push({
           data: count,
           name: 'Simultaneous providers computing',
