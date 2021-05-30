@@ -2,7 +2,7 @@
   <div>
     <b-row>
       <b-col lg="4">
-        <b-card height="350">
+        <b-card>
           <b-row class="mb-1">
             <b-col xs="12" sm="12" offset-lg="2" lg="8">
               <h4>
@@ -67,6 +67,9 @@
       <b-col lg="8" md="12">
         <b-card>
           <h3>Price graph</h3>
+          <span class="card-text text-muted h5"
+            >Current price: <b>${{ usdprice }}</b>
+          </span>
           <apexchart
             v-if="graph_loaded"
             width="100%"
