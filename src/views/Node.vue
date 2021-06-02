@@ -1,20 +1,102 @@
 <template>
   <div>
     <b-row>
-      <b-col lg="12">
+      <b-col cols="12" sm="12" md="6" lg="3" xl="3">
+        <statisticscardearnings
+          v-if="usdprice"
+          icon="DollarSignIcon"
+          :hours="24"
+          :usdprice="this.usdprice"
+          color="success"
+          :provider="this.$route.params.id"
+          statistic-title="Earnings (24h)"
+          style="max-width: 380px"
+        >
+        </statisticscardearnings>
+      </b-col>
+      <b-col cols="12" sm="12" md="6" lg="3" xl="3">
+        <statisticscardearnings
+          v-if="usdprice"
+          icon="DollarSignIcon"
+          :hours="168"
+          color="success"
+          :usdprice="this.usdprice"
+          :provider="this.$route.params.id"
+          statistic-title="Earnings (7d)"
+          style="max-width: 380px"
+        >
+        </statisticscardearnings>
+      </b-col>
+      <b-col cols="12" sm="12" md="6" lg="3" xl="3">
+        <statisticscardearnings
+          v-if="usdprice"
+          icon="DollarSignIcon"
+          :hours="744"
+          color="success"
+          :usdprice="this.usdprice"
+          :provider="this.$route.params.id"
+          statistic-title="Earnings (31d)"
+          style="max-width: 380px"
+        >
+        </statisticscardearnings>
+      </b-col>
+      <b-col cols="12" sm="12" md="6" lg="3" xl="3">
+        <statisticscardearnings
+          v-if="usdprice"
+          icon="DollarSignIcon"
+          :hours="8760"
+          color="success"
+          :usdprice="this.usdprice"
+          :provider="this.$route.params.id"
+          statistic-title="Earnings (90d)"
+          style="max-width: 380px"
+        >
+        </statisticscardearnings>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col lg="7" md="12">
         <b-card>
+          <div class="d-flex align-items-center">
+            <b-avatar class="avatar-margin-btm" variant="light-primary" rounded>
+              <feather-icon icon="ActivityIcon" size="18" />
+            </b-avatar>
+            <h1 class="avatar-margin icon-margin">Task Activity</h1>
+
+            <b-spinner
+              variant="success"
+              type="grow"
+              small
+              label="Spinning"
+              class="mb-1 spinner-graph"
+            ></b-spinner>
+          </div>
+          <span class="card-text text-muted h5"
+            ><b>Total tasks computed: {{ computed_total }}</b></span
+          ><br />
+          <span v-if="seconds_computed" class="card-text text-muted h5"
+            >Time spent computing: <b>{{ seconds_computed }}</b></span
+          >
+          <apexchart
+            v-if="loaded_graph"
+            width="100%"
+            height="250"
+            type="area"
+            :options="chartOptions"
+            :series="series"
+          ></apexchart>
+          <b-col lg="12" cols="12" class="text-center mt-1" v-else-if="failure">
+            <p>Error while trying to fetch data :-(</p>
+          </b-col>
+          <div class="text-center" v-else>
+            <b-spinner variant="primary" label="Text Centered" />
+          </div>
+        </b-card>
+      </b-col>
+      <b-col lg="5">
+        <b-card class="provider-info">
           <b-row>
-            <b-col cols="3" sm="4" md="2" lg="1">
-              <b-avatar
-                class="mb-1"
-                variant="light-primary"
-                :src="appLogoImage"
-                :text="name"
-                size="104px"
-                rounded
-              />
-            </b-col>
-            <b-col cols="9" sm="9" md="10" lg="6">
+            <b-col cols="9" sm="9" md="10" lg="8">
               <h4 class="mb-0">
                 {{ name }}
                 <b-badge v-if="online" variant="success">
@@ -25,12 +107,11 @@
                   <feather-icon icon="GlobeIcon" class="mr-25" />
                   <span>Offline</span>
                 </b-badge>
-                <computing
-                  v-if="online"
-                  :provider="this.$route.params.id"
-                ></computing>
               </h4>
-              <span class="card-text"><b>Subnet:</b> {{ subnet }}</span>
+              <span class="card-text text-muted h5"
+                >Subnet: <b>{{ subnet }}</b></span
+              ><br />
+
               <div class="mt-1">
                 <b-button v-on:click="operator" variant="primary">
                   Node by operator
@@ -52,7 +133,7 @@
 
             <b-col cols="12" sm="12" md="12" lg="12">
               <div class="d-flex align-items-center mt-2">
-                <b-col cols="4" sm="4" md="4" lg="2">
+                <b-col cols="4" sm="4" md="4" lg="4">
                   <div class="d-flex align-items-center">
                     <b-avatar
                       v-if="this.cpu_vendor == 'AMD'"
@@ -70,7 +151,7 @@
                     </div>
                   </div>
                 </b-col>
-                <b-col cols="4" sm="4" md="4" lg="2">
+                <b-col cols="4" sm="4" md="4" lg="4">
                   <div class="d-flex align-items-center">
                     <b-avatar variant="light-primary" rounded>
                       <feather-icon icon="LayersIcon" size="18" />
@@ -81,7 +162,7 @@
                     </div>
                   </div>
                 </b-col>
-                <b-col cols="4" sm="4" md="4" lg="2">
+                <b-col cols="4" sm="4" md="4" lg="4">
                   <div class="d-flex align-items-center">
                     <b-avatar variant="light-primary" rounded>
                       <feather-icon icon="HardDriveIcon" size="18" />
@@ -96,7 +177,7 @@
             </b-col>
             <b-col cols="12" sm="12" lg="12">
               <div class="d-flex align-items-center mt-2">
-                <b-col cols="4" sm="4" md="4" lg="2">
+                <b-col cols="4" sm="4" md="4" lg="4">
                   <div class="d-flex align-items-center">
                     <b-avatar variant="light-success" rounded>
                       <feather-icon icon="DollarSignIcon" size="18" />
@@ -107,7 +188,7 @@
                     </div>
                   </div>
                 </b-col>
-                <b-col cols="4" sm="4" md="4" lg="2">
+                <b-col cols="4" sm="4" md="4" lg="4">
                   <div class="d-flex align-items-center">
                     <b-avatar variant="light-success" rounded>
                       <feather-icon icon="DollarSignIcon" size="18" />
@@ -135,81 +216,6 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row>
-      <b-col cols="12" sm="12" md="6" lg="3" xl="3">
-        <statisticscardearnings
-          v-if="usdprice"
-          icon="DollarSignIcon"
-          :hours="24"
-          :usdprice="this.usdprice"
-          color="success"
-          :provider="this.$route.params.id"
-          statistic-title="Income (24h)"
-          style="max-width: 380px"
-        >
-        </statisticscardearnings>
-      </b-col>
-      <b-col cols="12" sm="12" md="6" lg="3" xl="3">
-        <statisticscardearnings
-          v-if="usdprice"
-          icon="DollarSignIcon"
-          :hours="168"
-          color="success"
-          :usdprice="this.usdprice"
-          :provider="this.$route.params.id"
-          statistic-title="Income (7d)"
-          style="max-width: 380px"
-        >
-        </statisticscardearnings>
-      </b-col>
-      <b-col cols="12" sm="12" md="6" lg="3" xl="3">
-        <statisticscardearnings
-          v-if="usdprice"
-          icon="DollarSignIcon"
-          :hours="744"
-          color="success"
-          :usdprice="this.usdprice"
-          :provider="this.$route.params.id"
-          statistic-title="Income (31d)"
-          style="max-width: 380px"
-        >
-        </statisticscardearnings>
-      </b-col>
-      <b-col cols="12" sm="12" md="6" lg="3" xl="3">
-        <statisticscardearnings
-          v-if="usdprice"
-          icon="DollarSignIcon"
-          :hours="8760"
-          color="success"
-          :usdprice="this.usdprice"
-          :provider="this.$route.params.id"
-          statistic-title="Income (90d)"
-          style="max-width: 380px"
-        >
-        </statisticscardearnings>
-      </b-col>
-    </b-row>
-    <h3>Task Activity</h3>
-    <b-row>
-      <b-col lg="12" md="12">
-        <b-card>
-          <apexchart
-            v-if="loaded_graph"
-            width="100%"
-            height="250"
-            type="area"
-            :options="chartOptions"
-            :series="series"
-          ></apexchart>
-          <b-col lg="12" cols="12" class="text-center mt-1" v-else-if="failure">
-            <p>Error while trying to fetch data :-(</p>
-          </b-col>
-          <div class="text-center" v-else>
-            <b-spinner variant="primary" label="Text Centered" />
-          </div>
-        </b-card>
-      </b-col>
-    </b-row>
   </div>
 </template>
 
@@ -229,7 +235,6 @@ import {
 import axios from '@axios'
 import { $themeConfig } from '@themeConfig'
 import statisticscardearnings from '@core/components/provider/statisticscardearnings.vue'
-import computing from '@core/components/provider/computing.vue'
 
 export default {
   components: {
@@ -244,7 +249,6 @@ export default {
     BRow,
     BSpinner,
     statisticscardearnings,
-    computing,
   },
   data() {
     return {
@@ -252,6 +256,8 @@ export default {
       failure: false,
       loaded_graph: false,
       id: '',
+      computed_total: '',
+      seconds_computed: '',
       usdprice: '',
       scheme: '',
       memory: '',
@@ -353,10 +359,14 @@ export default {
     this.fetchData()
     this.activity()
     this.geckoapi()
+    this.tasks_computed()
+    this.get_seconds_computed()
   },
   mounted: function () {
     this.timer = setInterval(() => {
       this.activity()
+      this.tasks_computed()
+      this.get_seconds_computed()
     }, 15000)
   },
   watch: {
@@ -371,6 +381,27 @@ export default {
     },
   },
   methods: {
+    secondsToString(seconds) {
+      var numyears = Math.floor(seconds / 31536000)
+      var numdays = Math.floor((seconds % 31536000) / 86400)
+      var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600)
+      var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60)
+      var numseconds = this.floorFigure(
+        (((seconds % 31536000) % 86400) % 3600) % 60
+      )
+      return (
+        numyears +
+        ' years ' +
+        numdays +
+        ' days ' +
+        numhours +
+        ' hours ' +
+        numminutes +
+        ' minutes ' +
+        numseconds +
+        ' seconds'
+      )
+    },
     makeToast(variant = null, title, message) {
       this.$bvToast.toast(message, {
         title: title,
@@ -423,6 +454,27 @@ export default {
           ]
           this.loaded_graph = true
           //let success = data.map(({ values }) => values)
+        })
+    },
+    tasks_computed() {
+      axios
+        .get('/v1/provider/node/' + this.$route.params.id + '/total/computed')
+        .then((response) => {
+          let apiResponse = response.data
+          this.computed_total = apiResponse.tasks_computed_total
+        })
+    },
+    get_seconds_computed() {
+      axios
+        .get(
+          '/v1/provider/node/' +
+            this.$route.params.id +
+            '/total/computed/seconds'
+        )
+        .then((response) => {
+          let apiResponse = response.data
+          this.seconds_computed = this.floorFigure(apiResponse.seconds_computed)
+          this.seconds_computed = this.secondsToString(this.seconds_computed)
         })
     },
     zkscan() {
@@ -538,4 +590,7 @@ export default {
 </script>
 
 <style>
+.icon-margin {
+  margin-left: 5px;
+}
 </style>
