@@ -323,7 +323,6 @@ import {
 import axios from '@axios'
 import { $themeConfig } from '@themeConfig'
 import statisticscardearnings from '@core/components/provider/statisticscardearnings.vue'
-import computing from '@core/components/provider/computing.vue'
 import StatisticCardHorizontal from '@core/components/statistics-cards/StatisticCardHorizontal.vue'
 
 export default {
@@ -350,7 +349,6 @@ export default {
     BSpinner,
     BTable,
     statisticscardearnings,
-    computing,
     StatisticCardHorizontal,
   },
   data() {
