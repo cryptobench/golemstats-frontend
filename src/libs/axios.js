@@ -6,7 +6,7 @@ import axios from 'axios'
 const axiosIns = axios.create({
   // You can add your headers here
   // ================================
-  baseURL: 'https://api.golemstats.com',
+  baseURL: 'https://api.stats.golem.network',
   // timeout: 1000,
   // headers: {'X-Custom-Header': 'foobar'}
 })
