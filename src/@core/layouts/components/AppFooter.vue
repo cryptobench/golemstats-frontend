@@ -1,11 +1,11 @@
 <template>
   <p class="clearfix mb-0">
     <span class="float-md-left d-block d-md-inline-block mt-25">
-      Golemstats - Alpha version
+      Golem Network Stats
     </span>
 
     <span class="float-md-right d-none d-md-block"
-      >Send feature requests to Phillip on
+      >Send feature requests to Phillip#9780 on
       <a target="_blank" href="https://chat.golem.network">Discord</a>
       <feather-icon
         icon="SmileIcon"
