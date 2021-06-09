@@ -25,6 +25,9 @@
             :colors="'#0230FF'"
           ></historicalprovidercomputing>
         </b-col>
+        <b-col lg="6" xl="6" md="12" sm="12" xs="12">
+          <latestnodes :count="5"> </latestnodes>
+        </b-col>
       </b-row>
     </b-col>
   </b-row>
@@ -34,6 +37,7 @@
 import statsovertime from '@core/components/network/statsovertime.vue'
 import historicalpricinggraphs from '@core/components/network/historicalpricinggraphs.vue'
 import historicalprovidercomputing from '@core/components/network/historicalprovidercomputing.vue'
+import latestnodes from '@core/components/network/latestnodes.vue'
 import {
   BCard,
   BCardText,
@@ -72,6 +76,7 @@ export default {
     statsovertime,
     historicalpricinggraphs,
     historicalprovidercomputing,
+    latestnodes,
   },
   data() {
     return {}
