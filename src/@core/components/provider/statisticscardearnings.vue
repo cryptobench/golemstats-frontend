@@ -81,6 +81,9 @@ export default {
           let apiResponse = response.data
           if (localStorage.getItem('currency') == 'glm') {
             this.income = floorFigure(apiResponse.earnings, 3) + ' GLM'
+          } else if (!localStorage.getItem('currency')) {
+            localStorage.setItem('currency', 'glm')
+            this.income = floorFigure(apiResponse.earnings, 3) + ' GLM'
           } else {
             this.income =
               floorFigure(apiResponse.earnings * this.usdprice, 3) + ' USD'

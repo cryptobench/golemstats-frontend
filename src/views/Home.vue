@@ -509,6 +509,9 @@ export default {
 
           if (localStorage.getItem('currency') == 'glm') {
             var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
+          } else if (!localStorage.getItem('currency')) {
+            localStorage.setItem('currency', 'glm')
+            var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
           } else {
             var earnings =
               this.floorFigure(obj.earnings_total * this.usdprice, 2) + ' USD'
@@ -583,6 +586,10 @@ export default {
         if (localStorage.getItem('currency') == 'glm') {
           this.earnings6h = apiResponse.total_earnings + ' GLM'
           this.earnings6h_loaded = true
+        } else if (!localStorage.getItem('currency')) {
+          localStorage.setItem('currency', 'glm')
+          this.earnings6h = apiResponse.total_earnings + ' GLM'
+          this.earnings6h_loaded = true
         } else {
           this.earnings6h =
             this.floorFigure(apiResponse.total_earnings * this.usdprice) +
@@ -597,6 +604,10 @@ export default {
         if (localStorage.getItem('currency') == 'glm') {
           this.earnings24h = apiResponse.total_earnings + ' GLM'
           this.earnings24h_loaded = true
+        } else if (!localStorage.getItem('currency')) {
+          localStorage.setItem('currency', 'glm')
+          this.earnings24h = apiResponse.total_earnings + ' GLM'
+          this.earnings24h_loaded = true
         } else {
           this.earnings24h =
             this.floorFigure(apiResponse.total_earnings * this.usdprice) +
@@ -609,6 +620,11 @@ export default {
       axios.get('/v1/network/earnings/365d').then((response) => {
         let apiResponse = response.data
         if (localStorage.getItem('currency') == 'glm') {
+          this.earnings365d =
+            this.floorFigure(apiResponse.total_earnings) + ' GLM'
+          this.earnings365d_loaded = true
+        } else if (!localStorage.getItem('currency')) {
+          localStorage.setItem('currency', 'glm')
           this.earnings365d =
             this.floorFigure(apiResponse.total_earnings) + ' GLM'
           this.earnings365d_loaded = true
@@ -631,6 +647,10 @@ export default {
       axios.get('/v1/provider/average/earnings').then((response) => {
         let apiResponse = response.data
         if (localStorage.getItem('currency') == 'glm') {
+          this.averageearnings = apiResponse.average_earnings + ' GLM'
+          this.averageearnings_loaded = true
+        } else if (!localStorage.getItem('currency')) {
+          localStorage.setItem('currency', 'glm')
           this.averageearnings = apiResponse.average_earnings + ' GLM'
           this.averageearnings_loaded = true
         } else {

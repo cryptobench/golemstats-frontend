@@ -466,6 +466,11 @@ export default {
             let income = this.floorFigure(apiResponse.earnings, 3) + ' GLM'
             console.log('INCOME', income)
             return income
+          } else if (!localStorage.getItem('currency')) {
+            localStorage.setItem('currency', 'glm')
+            let income = this.floorFigure(apiResponse.earnings, 3) + ' GLM'
+            console.log('INCOME', income)
+            return income
           } else {
             let income =
               this.floorFigure(apiResponse.earnings * this.usdprice, 3) + ' USD'
@@ -482,6 +487,10 @@ export default {
         .then((response) => {
           this.usdprice = response.data.golem.usd
           if (localStorage.getItem('currency') == 'glm') {
+            this.totalearnings =
+              this.floorFigure(this.totalearnings, 2) + ' GLM'
+          } else if (!localStorage.getItem('currency')) {
+            localStorage.setItem('currency', 'glm')
             this.totalearnings =
               this.floorFigure(this.totalearnings, 2) + ' GLM'
           } else {
@@ -550,6 +559,9 @@ export default {
             }
 
             if (localStorage.getItem('currency') == 'glm') {
+              var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
+            } else if (!localStorage.getItem('currency')) {
+              localStorage.setItem('currency', 'glm')
               var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
             } else {
               var earnings =
