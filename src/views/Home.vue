@@ -46,10 +46,10 @@
         </b-col>
         <b-col xs="12" sm="12" lg="3" md="4">
           <statistic-card-horizontal
-            v-if="earnings365d_loaded"
+            v-if="earnings90d_loaded"
             icon="DollarSignIcon"
             color="success"
-            :statistic="earnings365d"
+            :statistic="earnings90d"
             statistic-title="Total Network Earnings (90d)"
             style="max-width: 400px"
           />
@@ -395,8 +395,8 @@ export default {
       computing_loaded: false,
       earnings6h_loaded: false,
       earnings24h_loaded: false,
-      earnings365d_loaded: false,
-      earnings365d: '',
+      earnings90d_loaded: false,
+      earnings90d: '',
       items: [],
       computing: '',
       online: '',
@@ -617,22 +617,22 @@ export default {
       })
     },
     earnings365() {
-      axios.get('/v1/network/earnings/365d').then((response) => {
+      axios.get('/v1/network/earnings/90d').then((response) => {
         let apiResponse = response.data
         if (localStorage.getItem('currency') == 'glm') {
-          this.earnings365d =
+          this.earnings90d =
             this.floorFigure(apiResponse.total_earnings) + ' GLM'
-          this.earnings365d_loaded = true
+          this.earnings90d_loaded = true
         } else if (!localStorage.getItem('currency')) {
           localStorage.setItem('currency', 'glm')
-          this.earnings365d =
+          this.earnings90d =
             this.floorFigure(apiResponse.total_earnings) + ' GLM'
-          this.earnings365d_loaded = true
+          this.earnings90d_loaded = true
         } else {
-          this.earnings365d =
+          this.earnings90d =
             this.floorFigure(apiResponse.total_earnings * this.usdprice) +
             ' USD'
-          this.earnings365d_loaded = true
+          this.earnings90d_loaded = true
         }
       })
     },

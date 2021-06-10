@@ -139,9 +139,8 @@ export default {
         let responsedata = response.data
         this.online = responsedata.online
       })
-      let now = Math.floor(new Date().getTime() / 1000)
-      let then = now - 21600
-      axios.get('/v1/network/' + then + '/' + now).then((response) => {
+
+      axios.get('/v1/network/utilization').then((response) => {
         let apiResponse = response.data
         let data = apiResponse.data.result[0].values
         let computing = []
