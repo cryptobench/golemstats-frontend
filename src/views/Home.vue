@@ -644,7 +644,7 @@ export default {
       })
     },
     earningspertask() {
-      axios.get('/v1/provider/average/earnings').then((response) => {
+      axios.get('/v1/network/provider/average/earnings').then((response) => {
         let apiResponse = response.data
         if (localStorage.getItem('currency') == 'glm') {
           this.averageearnings = apiResponse.average_earnings + ' GLM'
