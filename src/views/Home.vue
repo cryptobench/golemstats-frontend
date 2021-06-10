@@ -637,7 +637,7 @@ export default {
       })
     },
     computingnow() {
-      axios.get('/v1/provider/computing').then((response) => {
+      axios.get('/v1/network/computing').then((response) => {
         let apiResponse = response.data
         this.computing = apiResponse.computing_now
         this.computing_loaded = true

@@ -20,7 +20,7 @@
 
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
           <historicalprovidercomputing
-            :endpoint="'/v1/network/historical/provider/computing'"
+            :endpoint="'/v1/network/historical/network/computing'"
             :title="'Providers computing simultaneously'"
             :colors="'#0230FF'"
           ></historicalprovidercomputing>
