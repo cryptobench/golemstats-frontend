@@ -44,4 +44,9 @@ export default [
     title: 'Market Data',
     route: 'market',
   },
+  {
+    title: 'API Documentation',
+    route: 'stats-docs',
+    icon: 'BookOpenIcon',
+  },
 ]

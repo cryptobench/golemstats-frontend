@@ -54,6 +54,10 @@ const router = new VueRouter({
       },
     },
     {
+      path: 'https://docs.stats.golem.network',
+      name: 'stats-docs',
+    },
+    {
       path: '*',
       redirect: 'error-404',
     },

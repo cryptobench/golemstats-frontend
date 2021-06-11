@@ -24,4 +24,9 @@ export default [
     route: 'market',
     icon: 'DollarSignIcon',
   },
+  {
+    title: 'API Documentation',
+    route: 'stats-docs',
+    icon: 'BookOpenIcon',
+  },
 ]
