@@ -1,4 +1,5 @@
-<template>
+<template
+>
   <b-container>
     <div>
       <b-row>
@@ -14,7 +15,7 @@
             statistic-title="Average earnings per task"
             style="max-width: 400px"
           />
-          <div class="text-center cardish" v-else>
+          <div v-else class="text-center cardish">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -27,7 +28,7 @@
             statistic-title="Total Network Earnings (6h)"
             style="max-width: 400px"
           />
-          <div class="text-center cardish" v-else>
+          <div v-else class="text-center cardish">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -40,7 +41,7 @@
             statistic-title="Total Network Earnings (24h)"
             style="max-width: 400px"
           />
-          <div class="text-center cardish" v-else>
+          <div v-else class="text-center cardish">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -53,7 +54,7 @@
             statistic-title="Total Network Earnings (90d)"
             style="max-width: 400px"
           />
-          <div class="text-center cardish" v-else>
+          <div v-else class="text-center cardish">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -63,9 +64,9 @@
         :cores_title="threads + ' Cores'"
         :memory_title="memory + ' TB Memory '"
         :disk_title="disk + ' TB Disk'"
-      ></sixhourstat>
+      />
 
-      <networkutilization> </networkutilization>
+      <networkutilization />
       <h3>Average Provider Stats</h3>
       <b-row>
         <b-col xs="12" sm="12" lg="4" md="4">
@@ -76,7 +77,7 @@
             statistic-title="Cores"
             style="max-width: 400px"
           />
-          <div class="text-center" v-else>
+          <div v-else class="text-center">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -88,7 +89,7 @@
             statistic-title="Memory (GB)"
             style="max-width: 400px"
           />
-          <div class="text-center" v-else>
+          <div v-else class="text-center">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -100,7 +101,7 @@
             statistic-title="Disk (GB)"
             style="max-width: 400px"
           />
-          <div class="text-center" v-else>
+          <div v-else class="text-center">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -116,7 +117,7 @@
             statistic-title="Median CPU/h pricing"
             style="max-width: 400px"
           />
-          <div class="text-center cardish" v-else>
+          <div v-else class="text-center cardish">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -129,7 +130,7 @@
             statistic-title="Median Per/h pricing"
             style="max-width: 400px"
           />
-          <div class="text-center cardish" v-else>
+          <div v-else class="text-center cardish">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -142,7 +143,7 @@
             statistic-title="Median start pricing"
             style="max-width: 400px"
           />
-          <div class="text-center cardish" v-else>
+          <div v-else class="text-center cardish">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-col>
@@ -187,16 +188,16 @@
                 <b-form-input
                   v-model="filter"
                   placeholder="Node Name or wallet address"
-                ></b-form-input>
+                />
               </b-col>
               <b-col lg="5" class="mt-2">
                 <h5>Showing first {{ this.rowcount }} providers</h5>
               </b-col>
               <b-col lg="3">
                 <b-form-input
-                  @keyup.enter="rowcount = $event.target.value"
                   placeholder="30"
-                ></b-form-input>
+                  @keyup.enter="rowcount = $event.target.value"
+                />
               </b-col>
             </b-col>
             <b-table
@@ -211,9 +212,9 @@
               :fields="fields"
               :items="items"
               :per-page="rowcount"
-              @row-clicked="expandAdditionalInfo"
               show-empty
               empty-text="No online providers found"
+              @row-clicked="expandAdditionalInfo"
             >
               <!-- A virtual column -->
               <template #cell(Name)="data">
@@ -221,20 +222,20 @@
                 <b-badge v-if="data['item'].Online" pill variant="success"
                   >Online</b-badge
                 >
-                <b-badge v-else pill variant="danger">Offline</b-badge>
+                <b-badge v-else pill variant="danger"> Offline </b-badge>
               </template>
 
               <!-- A custom formatted column -->
               <template #cell(Subnet)="data">
                 <div class="d-flex align-items-center">
                   <b-badge
-                    class="w-100"
                     v-if="data['item'].Mainnet"
+                    class="w-100"
                     pill
                     variant="primary"
                     >Mainnet</b-badge
                   >
-                  <b-badge class="w-100" v-else pill variant="warning"
+                  <b-badge v-else class="w-100" pill variant="warning"
                     >Testnet</b-badge
                   >
                 </div>
@@ -314,7 +315,8 @@
       </b-row>
     </div>
   </b-container>
-</template>
+</template
+>
 
 <script>
 import {
@@ -337,12 +339,12 @@ import sixhourstat from '@core/components/network/6hstat.vue'
 
 export default {
   metaInfo: {
-    title: 'Golemstats - A stats page for the Golem Network',
+    title: 'Golem Network Stats - A stats page for the Golem Network',
     meta: [
       {
         name: 'description',
         content:
-          'Golemstats is a stats page and network explorer for the Golem Network. View live network data, historical data and more.',
+          'Golem Network Stats is a stats page and network explorer for the Golem Network. View live network data, historical data and more.',
       },
     ],
   },
@@ -361,17 +363,6 @@ export default {
     networkutilization,
     statisticscardearnings,
     sixhourstat,
-  },
-  watch: {
-    '$store.state.appConfig.layout.currency': function () {
-      this.makeToast(
-        'success',
-        'Changing layout to ' +
-          this.$store.state.appConfig.layout.currency +
-          ' prices',
-        'This will happen on next pull (within 15s)'
-      )
-    },
   },
   data() {
     return {
@@ -417,9 +408,9 @@ export default {
       median_per_hour: '',
       averageearnings: '',
       fields: [
-        /* 
-          Optionally define a class per header, 
-          this will overlay whatever thead-class background you choose 
+        /*
+          Optionally define a class per header,
+          this will overlay whatever thead-class background you choose
         */
         {
           key: 'Name',
@@ -438,6 +429,15 @@ export default {
       ],
     }
   },
+  watch: {
+    '$store.state.appConfig.layout.currency': function () {
+      this.makeToast(
+        'success',
+        `Changing layout to ${this.$store.state.appConfig.layout.currency} prices`,
+        'This will happen on next pull (within 15s)'
+      )
+    },
+  },
   created() {
     this.geckoapi()
     this.computingnow()
@@ -448,7 +448,7 @@ export default {
     this.earnings365()
     this.fetchData()
   },
-  mounted: function () {
+  mounted() {
     this.timer = setInterval(() => {
       this.computingnow()
       this.generalstats()
@@ -465,17 +465,17 @@ export default {
     },
     makeToast(variant = null, title, message) {
       this.$bvToast.toast(message, {
-        title: title,
-        variant: variant,
+        title,
+        variant,
         solid: true,
       })
     },
     floorFigure: function floorFigure(figure, decimals) {
       if (!decimals) decimals = 2
-      var d = Math.pow(10, decimals)
+      const d = Math.pow(10, decimals)
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
-    geckoapi: function () {
+    geckoapi() {
       axios
         .get('https://api.coingecko.com/api/v3/coins/golem')
         .then((response) => {
@@ -487,11 +487,11 @@ export default {
 
     fetchData() {
       axios.get('/v1/network/online').then((response) => {
-        let apiResponse = response.data
+        const apiResponse = response.data
         this.items.length = 0
-        let avg_cpu_hour = []
-        let avg_start_price = []
-        let avg_per_hour = []
+        const avg_cpu_hour = []
+        const avg_start_price = []
+        const avg_per_hour = []
         apiResponse.forEach((obj) => {
           if (
             obj.data['golem.com.payment.platform.erc20-mainnet-glm.address']
@@ -508,13 +508,15 @@ export default {
           }
 
           if (localStorage.getItem('currency') == 'glm') {
-            var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
+            var earnings = `${this.floorFigure(obj.earnings_total, 2)} GLM`
           } else if (!localStorage.getItem('currency')) {
             localStorage.setItem('currency', 'glm')
-            var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
+            var earnings = `${this.floorFigure(obj.earnings_total, 2)} GLM`
           } else {
-            var earnings =
-              this.floorFigure(obj.earnings_total * this.usdprice, 2) + ' USD'
+            var earnings = `${this.floorFigure(
+              obj.earnings_total * this.usdprice,
+              2
+            )} USD`
           }
 
           this.items.push({
@@ -522,26 +524,23 @@ export default {
             Earnings: earnings,
             Mainnet: mainnet,
             Name: obj.data['golem.node.id.name'],
-            id: obj.data['id'],
+            id: obj.data.id,
             Subnet: obj.data['golem.node.debug.subnet'],
             Cores: obj.data['golem.inf.cpu.threads'],
             Vendor: obj.data['golem.inf.cpu.vendor'],
             Wallet: wallet,
-            start_price:
-              this.floorFigure(
-                obj.data['golem.com.pricing.model.linear.coeffs'][2],
-                3
-              ) + ' GLM',
-            per_hour:
-              this.floorFigure(
-                obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
-                3
-              ) + ' GLM',
-            cpu_hour:
-              this.floorFigure(
-                obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
-                3
-              ) + ' GLM',
+            start_price: `${this.floorFigure(
+              obj.data['golem.com.pricing.model.linear.coeffs'][2],
+              3
+            )} GLM`,
+            per_hour: `${this.floorFigure(
+              obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+              3
+            )} GLM`,
+            cpu_hour: `${this.floorFigure(
+              obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
+              3
+            )} GLM`,
             Memory: this.floorFigure(obj.data['golem.inf.mem.gib']),
             Disk: this.floorFigure(obj.data['golem.inf.storage.gib']),
           })
@@ -556,114 +555,124 @@ export default {
           )
         })
         const median = (arr) => {
-          const mid = Math.floor(arr.length / 2),
-            nums = [...arr].sort((a, b) => a - b)
+          const mid = Math.floor(arr.length / 2)
+          const nums = [...arr].sort((a, b) => a - b)
           return arr.length % 2 !== 0
             ? nums[mid]
             : (nums[mid - 1] + nums[mid]) / 2
         }
 
-        this.median_cpu_hour =
-          this.floorFigure(median(avg_cpu_hour), 3) + ' GLM'
-        this.median_start_price =
-          this.floorFigure(median(avg_start_price), 3) + ' GLM'
-        this.median_per_hour =
-          this.floorFigure(median(avg_per_hour), 3) + ' GLM'
+        this.median_cpu_hour = `${this.floorFigure(
+          median(avg_cpu_hour),
+          3
+        )} GLM`
+        this.median_start_price = `${this.floorFigure(
+          median(avg_start_price),
+          3
+        )} GLM`
+        this.median_per_hour = `${this.floorFigure(
+          median(avg_per_hour),
+          3
+        )} GLM`
         this.median_loaded = true
 
-        let average = (array) => array.reduce((a, b) => a + b) / array.length
-        this.avg_cpu_hour = this.floorFigure(average(avg_cpu_hour), 5) + ' GLM'
-        this.avg_start_price =
-          this.floorFigure(average(avg_start_price), 5) + ' GLM'
-        this.avg_per_hour = this.floorFigure(average(avg_per_hour), 5) + ' GLM'
+        const average = (array) => array.reduce((a, b) => a + b) / array.length
+        this.avg_cpu_hour = `${this.floorFigure(average(avg_cpu_hour), 5)} GLM`
+        this.avg_start_price = `${this.floorFigure(
+          average(avg_start_price),
+          5
+        )} GLM`
+        this.avg_per_hour = `${this.floorFigure(average(avg_per_hour), 5)} GLM`
       })
       this.table_data = true
     },
 
     earnings1() {
       axios.get('/v1/network/earnings/6').then((response) => {
-        let apiResponse = response.data
+        const apiResponse = response.data
         if (localStorage.getItem('currency') == 'glm') {
-          this.earnings6h = apiResponse.total_earnings + ' GLM'
+          this.earnings6h = `${apiResponse.total_earnings} GLM`
           this.earnings6h_loaded = true
         } else if (!localStorage.getItem('currency')) {
           localStorage.setItem('currency', 'glm')
-          this.earnings6h = apiResponse.total_earnings + ' GLM'
+          this.earnings6h = `${apiResponse.total_earnings} GLM`
           this.earnings6h_loaded = true
         } else {
-          this.earnings6h =
-            this.floorFigure(apiResponse.total_earnings * this.usdprice) +
-            ' USD'
+          this.earnings6h = `${this.floorFigure(
+            apiResponse.total_earnings * this.usdprice
+          )} USD`
           this.earnings6h_loaded = true
         }
       })
     },
     earnings24() {
       axios.get('/v1/network/earnings/24').then((response) => {
-        let apiResponse = response.data
+        const apiResponse = response.data
         if (localStorage.getItem('currency') == 'glm') {
-          this.earnings24h = apiResponse.total_earnings + ' GLM'
+          this.earnings24h = `${apiResponse.total_earnings} GLM`
           this.earnings24h_loaded = true
         } else if (!localStorage.getItem('currency')) {
           localStorage.setItem('currency', 'glm')
-          this.earnings24h = apiResponse.total_earnings + ' GLM'
+          this.earnings24h = `${apiResponse.total_earnings} GLM`
           this.earnings24h_loaded = true
         } else {
-          this.earnings24h =
-            this.floorFigure(apiResponse.total_earnings * this.usdprice) +
-            ' USD'
+          this.earnings24h = `${this.floorFigure(
+            apiResponse.total_earnings * this.usdprice
+          )} USD`
           this.earnings24h_loaded = true
         }
       })
     },
     earnings365() {
       axios.get('/v1/network/earnings/90d').then((response) => {
-        let apiResponse = response.data
+        const apiResponse = response.data
         if (localStorage.getItem('currency') == 'glm') {
-          this.earnings90d =
-            this.floorFigure(apiResponse.total_earnings) + ' GLM'
+          this.earnings90d = `${this.floorFigure(
+            apiResponse.total_earnings
+          )} GLM`
           this.earnings90d_loaded = true
         } else if (!localStorage.getItem('currency')) {
           localStorage.setItem('currency', 'glm')
-          this.earnings90d =
-            this.floorFigure(apiResponse.total_earnings) + ' GLM'
+          this.earnings90d = `${this.floorFigure(
+            apiResponse.total_earnings
+          )} GLM`
           this.earnings90d_loaded = true
         } else {
-          this.earnings90d =
-            this.floorFigure(apiResponse.total_earnings * this.usdprice) +
-            ' USD'
+          this.earnings90d = `${this.floorFigure(
+            apiResponse.total_earnings * this.usdprice
+          )} USD`
           this.earnings90d_loaded = true
         }
       })
     },
     computingnow() {
       axios.get('/v1/network/computing').then((response) => {
-        let apiResponse = response.data
+        const apiResponse = response.data
         this.computing = apiResponse.computing_now
         this.computing_loaded = true
       })
     },
     earningspertask() {
       axios.get('/v1/network/provider/average/earnings').then((response) => {
-        let apiResponse = response.data
+        const apiResponse = response.data
         if (localStorage.getItem('currency') == 'glm') {
-          this.averageearnings = apiResponse.average_earnings + ' GLM'
+          this.averageearnings = `${apiResponse.average_earnings} GLM`
           this.averageearnings_loaded = true
         } else if (!localStorage.getItem('currency')) {
           localStorage.setItem('currency', 'glm')
-          this.averageearnings = apiResponse.average_earnings + ' GLM'
+          this.averageearnings = `${apiResponse.average_earnings} GLM`
           this.averageearnings_loaded = true
         } else {
-          this.averageearnings =
-            this.floorFigure(apiResponse.average_earnings * this.usdprice) +
-            ' USD'
+          this.averageearnings = `${this.floorFigure(
+            apiResponse.average_earnings * this.usdprice
+          )} USD`
           this.averageearnings_loaded = true
         }
       })
     },
     generalstats() {
       axios.get('/v1/network/online/stats').then((response) => {
-        let apiResponse = response.data
+        const apiResponse = response.data
         this.online = apiResponse.online
         this.cores = apiResponse.cores
         this.threads = apiResponse.threads
@@ -728,4 +737,3 @@ html {
   padding: 1rem !important;
 }
 </style>
-

@@ -1,4 +1,5 @@
-<template>
+<template
+>
   <div v-if="loaded">
     <b-row>
       <b-col>
@@ -12,10 +13,10 @@
           >
           <div class="mt-2 mb-1">
             <h4>Mainnet wallet</h4>
-            <b-button v-on:click="zkscan" target="_blank" variant="primary">
+            <b-button target="_blank" variant="primary" @click="zkscan">
               ZKscan
             </b-button>
-            <b-button v-on:click="etherscan" variant="primary" class="ml-1">
+            <b-button variant="primary" class="ml-1" @click="etherscan">
               Etherscan
             </b-button>
           </div>
@@ -31,7 +32,7 @@
           statistic-title="Total Cores"
           style="max-width: 400px"
         />
-        <div class="text-center cardish" v-else>
+        <div v-else class="text-center cardish">
           <b-spinner variant="primary" label="Text Centered" />
         </div>
       </b-col>
@@ -43,7 +44,7 @@
           statistic-title="Total Memory"
           style="max-width: 400px"
         />
-        <div class="text-center cardish" v-else>
+        <div v-else class="text-center cardish">
           <b-spinner variant="primary" label="Text Centered" />
         </div>
       </b-col>
@@ -65,7 +66,7 @@
           statistic-title="Total Earnings (90d)"
           style="max-width: 400px"
         />
-        <div class="text-center cardish" v-else>
+        <div v-else class="text-center cardish">
           <b-spinner variant="primary" label="Text Centered" />
         </div>
       </b-col>
@@ -75,10 +76,7 @@
         <b-card no-body class="mb-0">
           <b-col lg="6" class="mb-2 mt-2">
             <h5>Search for node</h5>
-            <b-form-input
-              v-model="filter"
-              placeholder="Node Name"
-            ></b-form-input>
+            <b-form-input v-model="filter" placeholder="Node Name" />
           </b-col>
           <b-table
             :sort-by.sync="sortBy"
@@ -88,8 +86,8 @@
             :filter-ignored-fields="ignoredfilter"
             :items="items"
             hover
-            @row-clicked="expandAdditionalInfo"
             responsive="sm"
+            @row-clicked="expandAdditionalInfo"
           >
             <!-- A virtual column -->
             <template #cell(Name)="data">
@@ -100,20 +98,20 @@
               <b-badge v-else-if="data['item'].Old" pill variant="danger"
                 >OLD</b-badge
               >
-              <b-badge v-else pill variant="danger">Offline</b-badge>
+              <b-badge v-else pill variant="danger"> Offline </b-badge>
             </template>
 
             <!-- A custom formatted column -->
             <template #cell(Subnet)="data">
               <div class="d-flex align-items-center">
                 <b-badge
-                  class="w-100"
                   v-if="data['item'].Mainnet"
+                  class="w-100"
                   pill
                   variant="primary"
                   >Mainnet</b-badge
                 >
-                <b-badge class="w-100" v-else pill variant="warning"
+                <b-badge v-else class="w-100" pill variant="warning"
                   >Testnet</b-badge
                 >
               </div>
@@ -206,26 +204,26 @@
             :filter-ignored-fields="ignoredfilter"
             :items="oldlist"
             hover
-            @row-clicked="expandAdditionalInfo"
             responsive="sm"
+            @row-clicked="expandAdditionalInfo"
           >
             <!-- A virtual column -->
             <template #cell(Name)="data">
               {{ data.value }}
-              <b-badge pill variant="danger">Old node</b-badge>
+              <b-badge pill variant="danger"> Old node </b-badge>
             </template>
 
             <!-- A custom formatted column -->
             <template #cell(Subnet)="data">
               <div class="d-flex align-items-center">
                 <b-badge
-                  class="w-100"
                   v-if="data['item'].Mainnet"
+                  class="w-100"
                   pill
                   variant="primary"
                   >Mainnet</b-badge
                 >
-                <b-badge class="w-100" v-else pill variant="warning"
+                <b-badge v-else class="w-100" pill variant="warning"
                   >Testnet</b-badge
                 >
               </div>
@@ -304,7 +302,8 @@
       </b-col>
     </b-row>
   </div>
-</template>
+</template
+>
 
 <script>
 import {
@@ -327,7 +326,7 @@ import StatisticCardHorizontal from '@core/components/statistics-cards/Statistic
 
 export default {
   metaInfo: {
-    title: 'Golemstats - A stats page for the Golem Network',
+    title: 'Golem Network Stats - A stats page for the Golem Network',
     meta: [
       {
         name: 'description',
@@ -355,9 +354,9 @@ export default {
     return {
       loaded: false,
       fields: [
-        /* 
-          Optionally define a class per header, 
-          this will overlay whatever thead-class background you choose 
+        /*
+          Optionally define a class per header,
+          this will overlay whatever thead-class background you choose
         */
         {
           key: 'Name',
@@ -408,37 +407,35 @@ export default {
       appLogoImage,
     }
   },
+  watch: {
+    '$store.state.appConfig.layout.currency': function () {
+      this.makeToast(
+        'success',
+        `Changing layout to ${this.$store.state.appConfig.layout.currency} prices`,
+        'This will happen on next pull (within 60s)'
+      )
+    },
+  },
   created() {
     this.geckoapi()
     this.activity()
   },
-  mounted: function () {
+  mounted() {
     this.timer = setInterval(() => {
       this.activity()
       this.geckoapi()
     }, 60000)
   },
-  watch: {
-    '$store.state.appConfig.layout.currency': function () {
-      this.makeToast(
-        'success',
-        'Changing layout to ' +
-          this.$store.state.appConfig.layout.currency +
-          ' prices',
-        'This will happen on next pull (within 60s)'
-      )
-    },
-  },
   methods: {
     zkscan() {
       window.open(
-        'https://zkscan.io/explorer/accounts/' + this.$route.params.id,
+        `https://zkscan.io/explorer/accounts/${this.$route.params.id}`,
         '_blank'
       )
     },
     etherscan() {
       window.open(
-        'https://etherscan.io/address/' + this.$route.params.id,
+        `https://etherscan.io/address/${this.$route.params.id}`,
         '_blank'
       )
     },
@@ -447,39 +444,41 @@ export default {
     },
     makeToast(variant = null, title, message) {
       this.$bvToast.toast(message, {
-        title: title,
-        variant: variant,
+        title,
+        variant,
         solid: true,
       })
     },
     floorFigure: function floorFigure(figure, decimals) {
       if (!decimals) decimals = 2
-      var d = Math.pow(10, decimals)
+      const d = Math.pow(10, decimals)
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     earnings(provider, hours) {
       axios
-        .get('/v1/provider/node/' + provider + '/earnings' + '/' + hours)
+        .get(`/v1/provider/node/${provider}/earnings` + `/${hours}`)
         .then((response) => {
-          let apiResponse = response.data
+          const apiResponse = response.data
           if (localStorage.getItem('currency') == 'glm') {
-            let income = this.floorFigure(apiResponse.earnings, 3) + ' GLM'
-            console.log('INCOME', income)
-            return income
-          } else if (!localStorage.getItem('currency')) {
-            localStorage.setItem('currency', 'glm')
-            let income = this.floorFigure(apiResponse.earnings, 3) + ' GLM'
-            console.log('INCOME', income)
-            return income
-          } else {
-            let income =
-              this.floorFigure(apiResponse.earnings * this.usdprice, 3) + ' USD'
+            const income = `${this.floorFigure(apiResponse.earnings, 3)} GLM`
             console.log('INCOME', income)
             return income
           }
+          if (!localStorage.getItem('currency')) {
+            localStorage.setItem('currency', 'glm')
+            const income = `${this.floorFigure(apiResponse.earnings, 3)} GLM`
+            console.log('INCOME', income)
+            return income
+          }
+          const income = `${this.floorFigure(
+            apiResponse.earnings * this.usdprice,
+            3
+          )} USD`
+          console.log('INCOME', income)
+          return income
         })
     },
-    geckoapi: function () {
+    geckoapi() {
       axios
         .get(
           'https://api.coingecko.com/api/v3/simple/price?ids=golem&vs_currencies=usd'
@@ -487,29 +486,35 @@ export default {
         .then((response) => {
           this.usdprice = response.data.golem.usd
           if (localStorage.getItem('currency') == 'glm') {
-            this.totalearnings =
-              this.floorFigure(this.totalearnings, 2) + ' GLM'
+            this.totalearnings = `${this.floorFigure(
+              this.totalearnings,
+              2
+            )} GLM`
           } else if (!localStorage.getItem('currency')) {
             localStorage.setItem('currency', 'glm')
-            this.totalearnings =
-              this.floorFigure(this.totalearnings, 2) + ' GLM'
+            this.totalearnings = `${this.floorFigure(
+              this.totalearnings,
+              2
+            )} GLM`
           } else {
-            this.totalearnings =
-              this.floorFigure(this.totalearnings * this.usdprice, 2) + ' USD'
+            this.totalearnings = `${this.floorFigure(
+              this.totalearnings * this.usdprice,
+              2
+            )} USD`
           }
           this.usdloaded = true
         })
     },
-    daydifference: function (d1, d2) {
-      var diff = Math.abs(d1.getTime() - d2.getTime())
+    daydifference(d1, d2) {
+      const diff = Math.abs(d1.getTime() - d2.getTime())
       return diff / (1000 * 60 * 60 * 24)
     },
     activity() {
       this.items.length = 0
       axios
-        .get('/v1/provider/wallet/' + this.$route.params.id)
+        .get(`/v1/provider/wallet/${this.$route.params.id}`)
         .then((response) => {
-          let apiResponse = response.data
+          const apiResponse = response.data
           let onlinecounter = 0
           let offlinecounter = 0
           let totalcores = 0
@@ -534,8 +539,8 @@ export default {
             //   console.log(items)
             // })
             // this.earnings(obj.data['id'], 24)
-            var seen = new Date(obj.updated_at)
-            var currenttime = new Date(Date.now())
+            const seen = new Date(obj.updated_at)
+            const currenttime = new Date(Date.now())
             if (this.daydifference(currenttime, seen) > 7) {
               var old = true
             } else {
@@ -559,13 +564,15 @@ export default {
             }
 
             if (localStorage.getItem('currency') == 'glm') {
-              var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
+              var earnings = `${this.floorFigure(obj.earnings_total, 2)} GLM`
             } else if (!localStorage.getItem('currency')) {
               localStorage.setItem('currency', 'glm')
-              var earnings = this.floorFigure(obj.earnings_total, 2) + ' GLM'
+              var earnings = `${this.floorFigure(obj.earnings_total, 2)} GLM`
             } else {
-              var earnings =
-                this.floorFigure(obj.earnings_total * this.usdprice, 2) + ' USD'
+              var earnings = `${this.floorFigure(
+                obj.earnings_total * this.usdprice,
+                2
+              )} USD`
             }
 
             if (!old) {
@@ -574,26 +581,23 @@ export default {
                 Online: obj.online,
                 Earnings: earnings,
                 Name: obj.data['golem.node.id.name'],
-                id: obj.data['id'],
+                id: obj.data.id,
                 Subnet: obj.data['golem.node.debug.subnet'],
                 Cores: obj.data['golem.inf.cpu.threads'],
                 Vendor: obj.data['golem.inf.cpu.vendor'],
                 Wallet: wallet,
-                start_price:
-                  this.floorFigure(
-                    obj.data['golem.com.pricing.model.linear.coeffs'][2],
-                    3
-                  ) + ' GLM',
-                per_hour:
-                  this.floorFigure(
-                    obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
-                    3
-                  ) + ' GLM',
-                cpu_hour:
-                  this.floorFigure(
-                    obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
-                    3
-                  ) + ' GLM',
+                start_price: `${this.floorFigure(
+                  obj.data['golem.com.pricing.model.linear.coeffs'][2],
+                  3
+                )} GLM`,
+                per_hour: `${this.floorFigure(
+                  obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+                  3
+                )} GLM`,
+                cpu_hour: `${this.floorFigure(
+                  obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
+                  3
+                )} GLM`,
                 Memory: this.floorFigure(obj.data['golem.inf.mem.gib']),
                 Disk: this.floorFigure(obj.data['golem.inf.storage.gib']),
               })
@@ -603,25 +607,22 @@ export default {
                 Online: obj.online,
                 Earnings: earnings,
                 Name: obj.data['golem.node.id.name'],
-                id: obj.data['id'],
+                id: obj.data.id,
                 Subnet: obj.data['golem.node.debug.subnet'],
                 Cores: obj.data['golem.inf.cpu.threads'],
                 Wallet: wallet,
-                start_price:
-                  this.floorFigure(
-                    obj.data['golem.com.pricing.model.linear.coeffs'][2],
-                    3
-                  ) + ' GLM',
-                per_hour:
-                  this.floorFigure(
-                    obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
-                    3
-                  ) + ' GLM',
-                cpu_hour:
-                  this.floorFigure(
-                    obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
-                    3
-                  ) + ' GLM',
+                start_price: `${this.floorFigure(
+                  obj.data['golem.com.pricing.model.linear.coeffs'][2],
+                  3
+                )} GLM`,
+                per_hour: `${this.floorFigure(
+                  obj.data['golem.com.pricing.model.linear.coeffs'][0] * 3600,
+                  3
+                )} GLM`,
+                cpu_hour: `${this.floorFigure(
+                  obj.data['golem.com.pricing.model.linear.coeffs'][1] * 3600,
+                  3
+                )} GLM`,
                 Memory: this.floorFigure(obj.data['golem.inf.mem.gib']),
                 Disk: this.floorFigure(obj.data['golem.inf.storage.gib']),
               })
@@ -632,10 +633,10 @@ export default {
           this.onlinecount = onlinecounter
           this.offlinecount = offlinecounter
           this.totalcores = totalcores
-          this.totalmemory = this.floorFigure(totalmemory) + ' GB'
-          this.totaldisk = this.floorFigure(totaldisk) + ' GB'
+          this.totalmemory = `${this.floorFigure(totalmemory)} GB`
+          this.totaldisk = `${this.floorFigure(totaldisk)} GB`
           this.totalearnings = this.floorFigure(totalearnings)
-          //let success = data.map(({ values }) => values)
+          // let success = data.map(({ values }) => values)
         })
     },
   },

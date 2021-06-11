@@ -1,9 +1,10 @@
-<template>
+<template
+>
   <!-- Error page-->
   <div class="misc-wrapper">
     <b-link class="brand-logo">
       <vuexy-logo />
-      <h2 class="brand-text text-primary ml-1">Golemstats</h2>
+      <h2 class="brand-text text-primary ml-1">Golem Network Stats</h2>
     </b-link>
 
     <div class="misc-inner p-2 p-sm-3">
@@ -29,7 +30,8 @@
     </div>
   </div>
   <!-- / Error page-->
-</template>
+</template
+>
 
 <script>
 /* eslint-disable global-require */

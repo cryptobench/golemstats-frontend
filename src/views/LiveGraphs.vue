@@ -1,25 +1,24 @@
-<template>
+<template
+>
   <div>
     <b-row>
       <b-col xl="12" lg="12" md="12" sm="12" xs="12">
-        <networkpercentagecomputing> </networkpercentagecomputing>
+        <networkpercentagecomputing />
       </b-col>
       <b-col xs="12" sm="12" lg="6" md="12">
-        <vendorpie v-if="table_data" :data="vendorlist"></vendorpie>
+        <vendorpie v-if="table_data" :data="vendorlist" />
       </b-col>
       <b-col xs="12" sm="12" lg="6" md="12">
-        <architecturepie
-          v-if="table_data"
-          :data="architecturelist"
-        ></architecturepie>
+        <architecturepie v-if="table_data" :data="architecturelist" />
       </b-col>
       <!-- <b-col xl="12" lg="12" md="12" sm="12" xs="12">
         <networkversions> </networkversions>
       </b-col> -->
     </b-row>
-    <networkutilization> </networkutilization>
+    <networkutilization />
   </div>
-</template>
+</template
+>
 
 <script>
 import networkutilization from '@core/components/network/networkutilization.vue'
@@ -44,7 +43,7 @@ import { $themeConfig } from '@themeConfig'
 
 export default {
   metaInfo: {
-    title: 'Golemstats - A stats page for the Golem Network',
+    title: 'Golem Network Stats - A stats page for the Golem Network',
     meta: [
       {
         name: 'description',
@@ -180,21 +179,21 @@ export default {
     this.utilization()
     this.fetchData()
   },
-  mounted: function () {
+  mounted() {
     this.timer = setInterval(() => {
       this.fetchData()
     }, 15000)
   },
   methods: {
     utilization() {
-      let now = Math.floor(new Date().getTime() / 1000)
-      let then = now - 21600
-      axios.get('/v1/network/' + then + '/' + now).then((response) => {
-        let apiResponse = response.data
-        let data = apiResponse.data.result[0].values
-        let computing = []
-        for (var i in data) {
-          var time = data[i][0] * 1000
+      const now = Math.floor(new Date().getTime() / 1000)
+      const then = now - 21600
+      axios.get(`/v1/network/${then}/${now}`).then((response) => {
+        const apiResponse = response.data
+        const data = apiResponse.data.result[0].values
+        const computing = []
+        for (const i in data) {
+          const time = data[i][0] * 1000
           computing.push([time, data[i][1]])
         }
         this.series = [
@@ -204,7 +203,7 @@ export default {
           },
         ]
         this.loaded_graph = true
-        //let success = data.map(({ values }) => values)
+        // let success = data.map(({ values }) => values)
       })
     },
     fetchData() {
@@ -216,7 +215,7 @@ export default {
       this.x86_64 = 0
       this.architecturelist.length = 0
       axios.get('/v1/network/online').then((response) => {
-        let apiResponse = response.data
+        const apiResponse = response.data
         apiResponse.forEach((obj) => {
           if (obj.data['golem.inf.cpu.vendor']) {
             if (obj.data['golem.inf.cpu.vendor'] == 'GenuineIntel') {

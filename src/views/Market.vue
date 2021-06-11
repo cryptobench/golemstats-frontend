@@ -1,4 +1,5 @@
-<template>
+<template
+>
   <div>
     <b-row>
       <b-col lg="4">
@@ -13,7 +14,7 @@
               </h4>
             </b-col>
           </b-row>
-          <div class="divider mb-2"></div>
+          <div class="divider mb-2" />
           <b-row>
             <b-col xs="6" sm="6" offset-lg="1" lg="4">
               <p>
@@ -77,8 +78,8 @@
             type="area"
             :options="chartOptions"
             :series="series"
-          ></apexchart>
-          <div class="text-center" v-else>
+          />
+          <div v-else class="text-center">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
         </b-card>
@@ -90,7 +91,7 @@
           <h2 class="mb-2">Market</h2>
           <span class="text-secondary">Filter by</span>
           <br />
-          <div class="badgelist" v-for="item in pairlist" :key="item">
+          <div v-for="item in pairlist" :key="item" class="badgelist">
             <b-badge
               v-if="item == filter"
               class="badgemargin"
@@ -100,9 +101,9 @@
             </b-badge>
             <b-badge
               v-else
-              @click="badgeClick(item)"
               class="badgemargin"
               variant="secondary"
+              @click="badgeClick(item)"
             >
               {{ item }}
             </b-badge>
@@ -150,7 +151,8 @@
       </b-col>
     </b-row>
   </div>
-</template>
+</template
+>
 
 <script>
 import {
@@ -170,7 +172,7 @@ import { $themeConfig } from '@themeConfig'
 
 export default {
   metaInfo: {
-    title: 'Golemstats - A stats page for the Golem Network',
+    title: 'Golem Network Stats - A stats page for the Golem Network',
     meta: [
       {
         name: 'description',
@@ -257,10 +259,10 @@ export default {
             },
           },
           labels: {
-            formatter: function (value) {
-              let decimals = 4
-              var d = Math.pow(10, decimals)
-              return '$' + (parseInt(value * d) / d).toFixed(decimals)
+            formatter(value) {
+              const decimals = 4
+              const d = Math.pow(10, decimals)
+              return `$${(parseInt(value * d) / d).toFixed(decimals)}`
             },
           },
         },
@@ -288,9 +290,9 @@ export default {
       },
       ignoredfilter: ['Exchange', 'Price', 'Pair', 'Volume'],
       fields: [
-        /* 
-          Optionally define a class per header, 
-          this will overlay whatever thead-class background you choose 
+        /*
+          Optionally define a class per header,
+          this will overlay whatever thead-class background you choose
         */
         {
           key: 'Exchange',
@@ -308,7 +310,7 @@ export default {
     this.geckoapi()
     this.graph()
   },
-  mounted: function () {
+  mounted() {
     this.timer = setInterval(() => {
       this.geckoapi()
     }, 15000)
@@ -316,20 +318,19 @@ export default {
   methods: {
     floorFigure: function floorFigure(figure, decimals) {
       if (!decimals) decimals = 2
-      var d = Math.pow(10, decimals)
+      const d = Math.pow(10, decimals)
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
-    graph: function () {
-      let now = Math.floor(Date.now() / 1000)
+    graph() {
+      const now = Math.floor(Date.now() / 1000)
       axios
         .get(
-          'https://api.coingecko.com/api/v3/coins/golem/market_chart/range?vs_currency=usd&from=1392577232&to=' +
-            now
+          `https://api.coingecko.com/api/v3/coins/golem/market_chart/range?vs_currency=usd&from=1392577232&to=${now}`
         )
         .then((response) => {
-          let prices = response.data.prices
-          let computing = []
-          for (var i in prices) {
+          const { prices } = response.data
+          const computing = []
+          for (const i in prices) {
             computing.push([prices[i][0], this.floorFigure(prices[i][1], 4)])
           }
           this.series = [
@@ -344,7 +345,7 @@ export default {
     badgeClick(item) {
       this.filter = item
     },
-    geckoapi: function () {
+    geckoapi() {
       this.items.length = 0
       axios
         .get('https://api.coingecko.com/api/v3/coins/golem')
@@ -358,12 +359,12 @@ export default {
           this.circulating_supply = response.data.market_data.circulating_supply
             .toString()
             .replace(/(.{3})/g, '$1 ')
-          let tickers = response.data.tickers
+          const { tickers } = response.data
           tickers.forEach((obj) => {
             if (obj.market.name.includes('swap')) {
-              var pair = 'GLM/' + obj.target
+              var pair = `GLM/${obj.target}`
             } else {
-              var pair = obj.base + '/' + obj.target
+              var pair = `${obj.base}/${obj.target}`
             }
             this.items.push({
               Exchange: obj.market.name,

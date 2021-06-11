@@ -1,21 +1,22 @@
-<template>
+<template
+>
   <b-row>
     <b-col>
-      <statsovertime></statsovertime>
+      <statsovertime />
       <b-row>
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
           <historicalpricinggraphs
             :endpoint="'/v1/network/historical/pricing/average'"
             :title="'Provider Average Pricing'"
             :palette="['#7033FF', '#CC1100', '#FF7E3D']"
-          ></historicalpricinggraphs>
+          />
         </b-col>
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
           <historicalpricinggraphs
             :endpoint="'/v1/network/historical/pricing/median'"
             :title="'Provider Median Pricing'"
             :palette="['#FFED29', '#FF5289', '#00096B']"
-          ></historicalpricinggraphs>
+          />
         </b-col>
 
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
@@ -23,15 +24,16 @@
             :endpoint="'/v1/network/historical/network/computing'"
             :title="'Providers computing simultaneously'"
             :colors="'#0230FF'"
-          ></historicalprovidercomputing>
+          />
         </b-col>
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
-          <latestnodes :count="5"> </latestnodes>
+          <latestnodes :count="5" />
         </b-col>
       </b-row>
     </b-col>
   </b-row>
-</template>
+</template
+>
 
 <script>
 import statsovertime from '@core/components/network/statsovertime.vue'
@@ -54,7 +56,7 @@ import { $themeConfig } from '@themeConfig'
 
 export default {
   metaInfo: {
-    title: 'Golemstats - A stats page for the Golem Network',
+    title: 'Golem Network Stats - A stats page for the Golem Network',
     meta: [
       {
         name: 'description',
