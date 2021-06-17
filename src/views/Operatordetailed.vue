@@ -567,4 +567,11 @@ html {
 [dir] .table td {
   padding: 1rem !important;
 }
+[dir] .table:not(.table-dark):not(.table-light) tfoot:not(.thead-dark) th,
+[dir] .table:not(.table-dark):not(.table-light) thead:not(.thead-dark) th {
+  background-color: white;
+}
+[dir] .table thead th {
+  border-bottom: none;
+}
 </style>
