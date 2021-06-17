@@ -1,5 +1,4 @@
-<template
->
+<template>
   <b-row>
     <b-col>
       <statsovertime />
@@ -21,7 +20,7 @@
 
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
           <historicalprovidercomputing
-            :endpoint="'/v1/network/historical/network/computing'"
+            :endpoint="'/v1/network/historical/provider/computing'"
             :title="'Providers computing simultaneously'"
             :colors="'#0230FF'"
           />
@@ -32,35 +31,23 @@
       </b-row>
     </b-col>
   </b-row>
-</template
->
+</template>
 
 <script>
-import statsovertime from '@core/components/network/statsovertime.vue'
-import historicalpricinggraphs from '@core/components/network/historicalpricinggraphs.vue'
-import historicalprovidercomputing from '@core/components/network/historicalprovidercomputing.vue'
-import latestnodes from '@core/components/network/latestnodes.vue'
-import {
-  BCard,
-  BCardText,
-  BFormGroup,
-  BFormInput,
-  BButton,
-  BAvatar,
-  BBadge,
-  BCol,
-  BRow,
-  BSpinner,
-} from 'bootstrap-vue'
-import { $themeConfig } from '@themeConfig'
+import statsovertime from "@core/components/network/statsovertime.vue"
+import historicalpricinggraphs from "@core/components/network/historicalpricinggraphs.vue"
+import historicalprovidercomputing from "@core/components/network/historicalprovidercomputing.vue"
+import latestnodes from "@core/components/network/latestnodes.vue"
+import { BCard, BCardText, BFormGroup, BFormInput, BButton, BAvatar, BBadge, BCol, BRow, BSpinner } from "bootstrap-vue"
+import { $themeConfig } from "@themeConfig"
 
 export default {
   metaInfo: {
-    title: 'Golem Network Stats - A stats page for the Golem Network',
+    title: "Golem Network Stats - A stats page for the Golem Network",
     meta: [
       {
-        name: 'description',
-        content: 'Explore the historical Golem Network stats through graphs',
+        name: "description",
+        content: "Explore the historical Golem Network stats through graphs",
       },
     ],
   },
@@ -94,5 +81,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>
