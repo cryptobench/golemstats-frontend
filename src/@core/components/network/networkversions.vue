@@ -1,16 +1,12 @@
 <template>
   <b-row>
     <b-col lg="12" md="12">
-      <h3>Network Version adoption (24h)</h3>
       <b-card>
-        <apexchart
-          v-if="loaded"
-          width="100%"
-          height="250"
-          type="area"
-          :options="chartOptions"
-          :series="series"
-        ></apexchart>
+        <h3>Network Version Adoption (24h)</h3>
+        <span class="card-text text-muted h5"
+          >Live Data<b>{{ this.count }}</b></span
+        >
+        <apexchart v-if="loaded" width="100%" height="250" type="area" :options="chartOptions" :series="series"></apexchart>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
@@ -20,8 +16,8 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner } from 'bootstrap-vue'
-import axios from '@axios'
+import { BCard, BCol, BRow, BSpinner } from "bootstrap-vue"
+import axios from "@axios"
 export default {
   components: {
     BCard,
@@ -35,14 +31,14 @@ export default {
       series: [],
       chartOptions: {
         chart: {
-          id: 'area-datetime',
-          type: 'area',
+          id: "area-datetime",
+          type: "area",
           zoom: {
             autoScaleYaxis: true,
           },
           animations: {
             enabled: false,
-            easing: 'linear',
+            easing: "linear",
             dynamicAnimation: {
               speed: 1000,
             },
@@ -52,7 +48,7 @@ export default {
           enabled: true,
           x: {
             show: true,
-            format: 'HH:mm:ss',
+            format: "HH:mm:ss",
             formatter: undefined,
           },
         },
@@ -60,14 +56,14 @@ export default {
           enabled: false,
         },
         theme: {
-          palette: 'palette10', // upto palette10
+          palette: "palette10", // upto palette10
         },
         markers: {
           size: 0,
         },
 
         fill: {
-          type: 'gradient',
+          type: "gradient",
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
@@ -83,37 +79,37 @@ export default {
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
-            formatter: function (value) {
-              return value + ' Nodes'
+            formatter: function(value) {
+              return value + " Nodes"
             },
           },
         },
         xaxis: {
-          type: 'datetime',
+          type: "datetime",
           title: {
-            text: 'Yagna version',
+            text: "Yagna version",
             rotate: -90,
             offsetX: -25,
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
             datetimeFormatter: {
-              year: 'yyyy',
+              year: "yyyy",
               month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm:ss',
+              day: "dd MMM",
+              hour: "HH:mm:ss",
             },
           },
         },
@@ -123,7 +119,7 @@ export default {
   created() {
     this.utilization()
   },
-  mounted: function () {
+  mounted: function() {
     this.timer = setInterval(() => {
       this.utilization()
     }, 15000)
@@ -131,11 +127,11 @@ export default {
   methods: {
     utilization() {
       this.series.length = 0
-      axios.get('/v1/network/versions').then((response) => {
+      axios.get("/v1/network/versions").then((response) => {
         let apiResponse = response.data
-        let data = apiResponse.data.result
+        let data = apiResponse[0].data.result
         data.forEach((obj, index) => {
-          let values = obj['values']
+          let values = obj["values"]
           let computing = []
           for (var i in values) {
             var time = values[i][0] * 1000
@@ -143,7 +139,7 @@ export default {
           }
           this.series.push({
             data: computing,
-            name: obj['metric']['version'].slice(-3, 5),
+            name: obj["metric"]["version"].slice(-3, 5),
           })
         })
       })
