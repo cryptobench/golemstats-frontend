@@ -137,9 +137,11 @@ export default {
             var time = values[i][0] * 1000
             computing.push([time, values[i][1]])
           }
+          let unformatted_version = obj["metric"]["version"].slice(-3, 5)
+          let version_name = unformatted_version[0] + "." + unformatted_version[1] + "." + unformatted_version[2]
           this.series.push({
             data: computing,
-            name: obj["metric"]["version"].slice(-3, 5),
+            name: version_name,
           })
         })
       })
