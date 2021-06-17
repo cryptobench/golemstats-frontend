@@ -233,10 +233,10 @@
                     class="w-100"
                     pill
                     variant="primary"
-                    >Mainnet</b-badge
+                    >Mainnet - v{{ data['item'].Version }}</b-badge
                   >
                   <b-badge v-else class="w-100" pill variant="warning"
-                    >Testnet</b-badge
+                    >Testnet - v{{ data['item'].Version }}</b-badge
                   >
                 </div>
               </template>
@@ -521,6 +521,7 @@ export default {
 
           this.items.push({
             Online: obj.online,
+            Version: obj.version,
             Earnings: earnings,
             Mainnet: mainnet,
             Name: obj.data['golem.node.id.name'],
