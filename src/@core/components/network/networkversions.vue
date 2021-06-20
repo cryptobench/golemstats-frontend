@@ -6,7 +6,7 @@
         <span class="card-text text-muted h5"
           >Live Data<b>{{ this.count }}</b></span
         >
-        <apexchart v-if="loaded" width="100%" height="250" type="area" :options="chartOptions" :series="series"></apexchart>
+        <apexchart v-if="loaded" width="100%" height="350" type="area" :options="chartOptions" :series="series"></apexchart>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
