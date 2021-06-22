@@ -1,5 +1,4 @@
-<template
->
+<template>
   <div>
     <b-row>
       <b-col xl="12" lg="12" md="12" sm="12" xs="12">
@@ -17,39 +16,21 @@
     </b-row>
     <networkutilization />
   </div>
-</template
->
+</template>
 
 <script>
-import networkutilization from '@core/components/network/networkutilization.vue'
-import networkpercentagecomputing from '@core/components/network/networkpercentagecomputing.vue'
-import networkversions from '@core/components/network/networkversions.vue'
-import Vendorpie from '@core/components/network/vendorpie.vue'
-import architecturepie from '@core/components/network/architecturepie.vue'
-import {
-  BCard,
-  BCardText,
-  BFormGroup,
-  BFormInput,
-  BButton,
-  BAvatar,
-  BBadge,
-  BCol,
-  BRow,
-  BSpinner,
-} from 'bootstrap-vue'
-import axios from '@axios'
-import { $themeConfig } from '@themeConfig'
+import networkutilization from "@core/components/network/networkutilization.vue"
+import networkpercentagecomputing from "@core/components/network/networkpercentagecomputing.vue"
+import networkversions from "@core/components/network/networkversions.vue"
+import Vendorpie from "@core/components/network/vendorpie.vue"
+import architecturepie from "@core/components/network/architecturepie.vue"
+import { BCard, BCardText, BFormGroup, BFormInput, BButton, BAvatar, BBadge, BCol, BRow, BSpinner } from "bootstrap-vue"
+import axios from "@axios"
+import { $themeConfig } from "@themeConfig"
 
 export default {
   metaInfo: {
-    title: 'Golem Network Stats - A stats page for the Golem Network',
-    meta: [
-      {
-        name: 'description',
-        content: 'View live Golem Network stats',
-      },
-    ],
+    title: "Golem Network Stats - A stats page for the Golem Network",
   },
   components: {
     BCard,
@@ -81,42 +62,42 @@ export default {
       Aarch64: 0,
       vendorlist: [],
       architecturelist: [],
-      id: '',
-      scheme: '',
-      memory: '',
-      name: '',
-      runtime_name: '',
-      cores: '',
-      model: '',
-      cpu_vendor: '',
-      threads: '',
-      disk: '',
-      runtime_version: '',
-      pricing_model: '',
-      subnet: '',
-      architecture: '',
-      multi_activity: '',
-      interval_sec: '',
-      accept_timeout: '',
-      wallet: '',
-      online: '',
-      cpu_hour: '',
-      per_hour: '',
-      start_price: '',
+      id: "",
+      scheme: "",
+      memory: "",
+      name: "",
+      runtime_name: "",
+      cores: "",
+      model: "",
+      cpu_vendor: "",
+      threads: "",
+      disk: "",
+      runtime_version: "",
+      pricing_model: "",
+      subnet: "",
+      architecture: "",
+      multi_activity: "",
+      interval_sec: "",
+      accept_timeout: "",
+      wallet: "",
+      online: "",
+      cpu_hour: "",
+      per_hour: "",
+      start_price: "",
       transfer_protocol: [],
       cpu_capabilities: [],
       usage_vector: [],
-      testnet: '',
+      testnet: "",
       series: [
         {
-          name: 'Providers Computing a task',
+          name: "Providers Computing a task",
           data: [],
         },
       ],
       chartOptions: {
         chart: {
-          id: 'area-datetime',
-          type: 'area',
+          id: "area-datetime",
+          type: "area",
           zoom: {
             autoScaleYaxis: true,
           },
@@ -125,14 +106,14 @@ export default {
           enabled: true,
           x: {
             show: true,
-            format: 'HH:mm:ss',
+            format: "HH:mm:ss",
             formatter: undefined,
           },
         },
         dataLabels: {
           enabled: false,
         },
-        colors: ['#262ed1'],
+        colors: ["#262ed1"],
         markers: {
           size: 0,
         },
@@ -141,26 +122,26 @@ export default {
         },
         yaxis: {
           title: {
-            text: '1 = Node is computing a task',
+            text: "1 = Node is computing a task",
             rotate: -90,
             offsetX: 0,
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
         },
         xaxis: {
-          type: 'datetime',
+          type: "datetime",
           labels: {
             datetimeFormatter: {
-              year: 'yyyy',
+              year: "yyyy",
               month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm:ss',
+              day: "dd MMM",
+              hour: "HH:mm:ss",
             },
           },
         },
@@ -199,7 +180,7 @@ export default {
         this.series = [
           {
             data: computing,
-            name: 'Providers computing a task',
+            name: "Providers computing a task",
           },
         ]
         this.loaded_graph = true
@@ -214,23 +195,23 @@ export default {
       this.Aarch64 = 0
       this.x86_64 = 0
       this.architecturelist.length = 0
-      axios.get('/v1/network/online').then((response) => {
+      axios.get("/v1/network/online").then((response) => {
         const apiResponse = response.data
         apiResponse.forEach((obj) => {
-          if (obj.data['golem.inf.cpu.vendor']) {
-            if (obj.data['golem.inf.cpu.vendor'] == 'GenuineIntel') {
+          if (obj.data["golem.inf.cpu.vendor"]) {
+            if (obj.data["golem.inf.cpu.vendor"] == "GenuineIntel") {
               this.intelcount++
-            } else if (obj.data['golem.inf.cpu.vendor'] == 'AuthenticAMD') {
+            } else if (obj.data["golem.inf.cpu.vendor"] == "AuthenticAMD") {
               this.amdcount++
             } else {
               this.thirdtypecpu++
             }
           }
 
-          if (obj.data['golem.inf.cpu.architecture']) {
-            if (obj.data['golem.inf.cpu.architecture'] == 'x86_64') {
+          if (obj.data["golem.inf.cpu.architecture"]) {
+            if (obj.data["golem.inf.cpu.architecture"] == "x86_64") {
               this.x86_64++
-            } else if (obj.data['golem.inf.cpu.architecture'] == 'aarch64') {
+            } else if (obj.data["golem.inf.cpu.architecture"] == "aarch64") {
               this.Aarch64++
             }
           }
@@ -245,5 +226,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

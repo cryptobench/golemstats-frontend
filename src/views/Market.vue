@@ -1,5 +1,4 @@
-<template
->
+<template>
   <div>
     <b-row>
       <b-col lg="4">
@@ -71,14 +70,7 @@
           <span class="card-text text-muted h5"
             >Current price: <b>${{ usdprice }}</b>
           </span>
-          <apexchart
-            v-if="graph_loaded"
-            width="100%"
-            height="350"
-            type="area"
-            :options="chartOptions"
-            :series="series"
-          />
+          <apexchart v-if="graph_loaded" width="100%" height="350" type="area" :options="chartOptions" :series="series" />
           <div v-else class="text-center">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
@@ -92,19 +84,10 @@
           <span class="text-secondary">Filter by</span>
           <br />
           <div v-for="item in pairlist" :key="item" class="badgelist">
-            <b-badge
-              v-if="item == filter"
-              class="badgemargin"
-              variant="primary"
-            >
+            <b-badge v-if="item == filter" class="badgemargin" variant="primary">
               {{ item }}
             </b-badge>
-            <b-badge
-              v-else
-              class="badgemargin"
-              variant="secondary"
-              @click="badgeClick(item)"
-            >
+            <b-badge v-else class="badgemargin" variant="secondary" @click="badgeClick(item)">
               {{ item }}
             </b-badge>
           </div>
@@ -138,7 +121,7 @@
             </template>
 
             <template #cell(Volume)="data">
-              <b>${{ data.value.toLocaleString('en') }}</b>
+              <b>${{ data.value.toLocaleString("en") }}</b>
             </template>
             <!-- A custom formatted column -->
             <template #cell(Pair)="data">
@@ -151,35 +134,16 @@
       </b-col>
     </b-row>
   </div>
-</template
->
+</template>
 
 <script>
-import {
-  BCol,
-  BCardText,
-  BContainer,
-  BRow,
-  BTable,
-  BCard,
-  BAvatar,
-  BImg,
-  BSpinner,
-  BBadge,
-} from 'bootstrap-vue'
-import axios from '@axios'
-import { $themeConfig } from '@themeConfig'
+import { BCol, BCardText, BContainer, BRow, BTable, BCard, BAvatar, BImg, BSpinner, BBadge } from "bootstrap-vue"
+import axios from "@axios"
+import { $themeConfig } from "@themeConfig"
 
 export default {
   metaInfo: {
-    title: 'Golem Network Stats - A stats page for the Golem Network',
-    meta: [
-      {
-        name: 'description',
-        content:
-          'Explore the market data available for the Golem Network Token (GLM)',
-      },
-    ],
+    title: "Golem Network Stats - A stats page for the Golem Network",
   },
   components: {
     BCard,
@@ -203,27 +167,27 @@ export default {
   },
   data() {
     return {
-      usdprice: '',
+      usdprice: "",
 
       graph_loaded: false,
-      marketcap: '',
-      circulating_supply: '',
+      marketcap: "",
+      circulating_supply: "",
       table_data: false,
       pairlist: [],
-      sortBy: 'Volume',
-      filter: '',
+      sortBy: "Volume",
+      filter: "",
       sortDesc: true,
       items: [],
       series: [
         {
-          name: 'Providers Computing a task',
+          name: "Providers Computing a task",
           data: [],
         },
       ],
       chartOptions: {
         chart: {
-          id: 'area-datetime',
-          type: 'area',
+          id: "area-datetime",
+          type: "area",
           zoom: {
             autoScaleYaxis: true,
           },
@@ -232,14 +196,14 @@ export default {
           enabled: true,
           x: {
             show: true,
-            format: 'dd MMM yyyy',
+            format: "dd MMM yyyy",
             formatter: undefined,
           },
         },
         dataLabels: {
           enabled: false,
         },
-        colors: ['#262ed1'],
+        colors: ["#262ed1"],
         markers: {
           size: 0,
         },
@@ -253,9 +217,9 @@ export default {
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
@@ -267,7 +231,7 @@ export default {
           },
         },
         fill: {
-          type: 'gradient',
+          type: "gradient",
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
@@ -277,32 +241,32 @@ export default {
           },
         },
         xaxis: {
-          type: 'datetime',
+          type: "datetime",
           labels: {
             datetimeFormatter: {
-              year: 'yyyy',
+              year: "yyyy",
               month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm:ss',
+              day: "dd MMM",
+              hour: "HH:mm:ss",
             },
           },
         },
       },
-      ignoredfilter: ['Exchange', 'Price', 'Pair', 'Volume'],
+      ignoredfilter: ["Exchange", "Price", "Pair", "Volume"],
       fields: [
         /*
           Optionally define a class per header,
           this will overlay whatever thead-class background you choose
         */
         {
-          key: 'Exchange',
-          label: 'Exchange',
-          tdClass: 'primary bold',
+          key: "Exchange",
+          label: "Exchange",
+          tdClass: "primary bold",
           sortable: true,
         },
-        { key: 'Price', label: 'Price', sortable: true },
-        { key: 'Pair', label: 'Pair', sortable: true },
-        { key: 'Volume', label: 'Volume', sortable: true },
+        { key: "Price", label: "Price", sortable: true },
+        { key: "Pair", label: "Pair", sortable: true },
+        { key: "Volume", label: "Volume", sortable: true },
       ],
     }
   },
@@ -324,9 +288,7 @@ export default {
     graph() {
       const now = Math.floor(Date.now() / 1000)
       axios
-        .get(
-          `https://api.coingecko.com/api/v3/coins/golem/market_chart/range?vs_currency=usd&from=1392577232&to=${now}`
-        )
+        .get(`https://api.coingecko.com/api/v3/coins/golem/market_chart/range?vs_currency=usd&from=1392577232&to=${now}`)
         .then((response) => {
           const { prices } = response.data
           const computing = []
@@ -336,7 +298,7 @@ export default {
           this.series = [
             {
               data: computing,
-              name: 'Price',
+              name: "Price",
             },
           ]
           this.graph_loaded = true
@@ -347,38 +309,28 @@ export default {
     },
     geckoapi() {
       this.items.length = 0
-      axios
-        .get('https://api.coingecko.com/api/v3/coins/golem')
-        .then((response) => {
-          this.usdprice = response.data.market_data.current_price.usd
-            .toString()
-            .slice(0, 7)
-          this.marketcap = response.data.market_data.market_cap.usd
-            .toString()
-            .replace(/(.{3})/g, '$1 ')
-          this.circulating_supply = response.data.market_data.circulating_supply
-            .toString()
-            .replace(/(.{3})/g, '$1 ')
-          const { tickers } = response.data
-          tickers.forEach((obj) => {
-            if (obj.market.name.includes('swap')) {
-              var pair = `GLM/${obj.target}`
-            } else {
-              var pair = `${obj.base}/${obj.target}`
-            }
-            this.items.push({
-              Exchange: obj.market.name,
-              Price: this.floorFigure(obj.converted_last.usd, 4),
-              Pair: pair,
-              Volume: obj.converted_volume.usd,
-              Target: obj.target,
-            })
-            this.pairlist.indexOf(obj.target) === -1
-              ? this.pairlist.push(obj.target)
-              : void 0
+      axios.get("https://api.coingecko.com/api/v3/coins/golem").then((response) => {
+        this.usdprice = response.data.market_data.current_price.usd.toString().slice(0, 7)
+        this.marketcap = response.data.market_data.market_cap.usd.toString().replace(/(.{3})/g, "$1 ")
+        this.circulating_supply = response.data.market_data.circulating_supply.toString().replace(/(.{3})/g, "$1 ")
+        const { tickers } = response.data
+        tickers.forEach((obj) => {
+          if (obj.market.name.includes("swap")) {
+            var pair = `GLM/${obj.target}`
+          } else {
+            var pair = `${obj.base}/${obj.target}`
+          }
+          this.items.push({
+            Exchange: obj.market.name,
+            Price: this.floorFigure(obj.converted_last.usd, 4),
+            Pair: pair,
+            Volume: obj.converted_volume.usd,
+            Target: obj.target,
           })
-          this.table_data = true
+          this.pairlist.indexOf(obj.target) === -1 ? this.pairlist.push(obj.target) : void 0
         })
+        this.table_data = true
+      })
     },
   },
 }

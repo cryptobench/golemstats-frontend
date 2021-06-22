@@ -324,13 +324,6 @@ import sixhourstat from "@core/components/network/6hstat.vue"
 export default {
   metaInfo: {
     title: "Golem Network Stats - A stats page for the Golem Network",
-    meta: [
-      {
-        name: "description",
-        content:
-          "Golem Network Stats is a stats page and network explorer for the Golem Network. View live network data, historical data and more.",
-      },
-    ],
   },
   components: {
     BCol,
