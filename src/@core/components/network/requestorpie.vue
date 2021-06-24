@@ -86,7 +86,7 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     fetchData() {
-      axios.get("/v1/network/requestors").then((response) => {
+      axios.get("/v1/requestors").then((response) => {
         const apiResponse = response.data
         let count = []
         const slicedArray = apiResponse.slice(0, this.displaycount)
