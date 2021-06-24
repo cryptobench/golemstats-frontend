@@ -20,7 +20,6 @@ export default [
     route: "operator",
   },
   {
-    header: "Requestors",
     icon: "UsersIcon",
     title: "Requestors",
     route: "requestors",
