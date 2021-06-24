@@ -31,6 +31,12 @@ import { $themeConfig } from "@themeConfig"
 export default {
   metaInfo: {
     title: "Golem Network Stats - A stats page for the Golem Network",
+    meta: [
+      {
+        name: "description",
+        content: "View live Golem Network stats",
+      },
+    ],
   },
   components: {
     BCard,
@@ -88,64 +94,6 @@ export default {
       cpu_capabilities: [],
       usage_vector: [],
       testnet: "",
-      series: [
-        {
-          name: "Providers Computing a task",
-          data: [],
-        },
-      ],
-      chartOptions: {
-        chart: {
-          id: "area-datetime",
-          type: "area",
-          zoom: {
-            autoScaleYaxis: true,
-          },
-        },
-        tooltip: {
-          enabled: true,
-          x: {
-            show: true,
-            format: "HH:mm:ss",
-            formatter: undefined,
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        colors: ["#262ed1"],
-        markers: {
-          size: 0,
-        },
-        stroke: {
-          width: 2,
-        },
-        yaxis: {
-          title: {
-            text: "1 = Node is computing a task",
-            rotate: -90,
-            offsetX: 0,
-            offsetY: 0,
-            style: {
-              color: undefined,
-              fontSize: "12px",
-              fontWeight: 600,
-              cssClass: "apexcharts-yaxis-title",
-            },
-          },
-        },
-        xaxis: {
-          type: "datetime",
-          labels: {
-            datetimeFormatter: {
-              year: "yyyy",
-              month: "MMM 'yy",
-              day: "dd MMM",
-              hour: "HH:mm:ss",
-            },
-          },
-        },
-      },
     }
   },
   setup() {
@@ -157,7 +105,6 @@ export default {
     }
   },
   created() {
-    this.utilization()
     this.fetchData()
   },
   mounted() {
@@ -166,27 +113,6 @@ export default {
     }, 15000)
   },
   methods: {
-    utilization() {
-      const now = Math.floor(new Date().getTime() / 1000)
-      const then = now - 21600
-      axios.get(`/v1/network/${then}/${now}`).then((response) => {
-        const apiResponse = response.data
-        const data = apiResponse.data.result[0].values
-        const computing = []
-        for (const i in data) {
-          const time = data[i][0] * 1000
-          computing.push([time, data[i][1]])
-        }
-        this.series = [
-          {
-            data: computing,
-            name: "Providers computing a task",
-          },
-        ]
-        this.loaded_graph = true
-        // let success = data.map(({ values }) => values)
-      })
-    },
     fetchData() {
       this.intelcount = 0
       this.amdcount = 0
