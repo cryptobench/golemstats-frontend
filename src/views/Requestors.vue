@@ -59,21 +59,6 @@ export default {
       },
     }
   },
-  // mounted: function () {
-  //   this.timer = setInterval(() => {
-  //     this.activity()
-  //   }, 15000)
-  // },
-
-  methods: {
-    makeToast(variant = null) {
-      this.$bvToast.toast("Toast body content", {
-        title: `Variant ${variant || "default"}`,
-        variant,
-        solid: true,
-      })
-    },
-  },
 }
 </script>
 

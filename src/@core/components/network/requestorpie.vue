@@ -74,6 +74,11 @@ export default {
   created() {
     this.fetchData()
   },
+  mounted() {
+    this.timer = setInterval(() => {
+      this.fetchData()
+    }, 15000)
+  },
   methods: {
     floorFigure: function floorFigure(figure, decimals) {
       if (!decimals) decimals = 2
