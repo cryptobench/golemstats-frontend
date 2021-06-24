@@ -1,68 +1,73 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue"
+import VueRouter from "vue-router"
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   scrollBehavior() {
     return { x: 0, y: 0 }
   },
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('@/views/Home.vue'),
+      path: "/",
+      name: "home",
+      component: () => import("@/views/Home.vue"),
     },
     {
-      path: '/node/:id',
-      name: 'node',
-      component: () => import('@/views/Node.vue'),
+      path: "/node/:id",
+      name: "node",
+      component: () => import("@/views/Node.vue"),
     },
     {
-      path: '/graphs/live',
-      name: 'livegraphs',
-      component: () => import('@/views/LiveGraphs.vue'),
+      path: "/graphs/live",
+      name: "livegraphs",
+      component: () => import("@/views/LiveGraphs.vue"),
     },
     {
-      path: '/graphs/historical',
-      name: 'historical',
-      component: () => import('@/views/HistoricalGraphs.vue'),
+      path: "/graphs/historical",
+      name: "historical",
+      component: () => import("@/views/HistoricalGraphs.vue"),
     },
     {
-      path: '/operator',
-      name: 'operator',
-      component: () => import('@/views/Operator.vue'),
+      path: "/operator",
+      name: "operator",
+      component: () => import("@/views/Operator.vue"),
     },
     {
-      path: '/operator/:id',
-      name: 'operatordetailed',
-      component: () => import('@/views/Operatordetailed.vue'),
+      path: "/operator/:id",
+      name: "operatordetailed",
+      component: () => import("@/views/Operatordetailed.vue"),
     },
     {
-      path: '/market',
-      name: 'market',
-      component: () => import('@/views/Market.vue'),
+      path: "/requestors",
+      name: "requestors",
+      component: () => import("@/views/Requestors.vue"),
     },
     {
-      path: '/error-404',
-      name: 'error-404',
-      component: () => import('@/views/error/Error404.vue'),
+      path: "/market",
+      name: "market",
+      component: () => import("@/views/Market.vue"),
+    },
+    {
+      path: "/error-404",
+      name: "error-404",
+      component: () => import("@/views/error/Error404.vue"),
       meta: {
-        layout: 'full',
+        layout: "full",
       },
     },
     {
-      path: 'https://docs.stats.golem.network',
-      name: 'stats-docs',
+      path: "https://docs.stats.golem.network",
+      name: "stats-docs",
       beforeEnter() {
-        window.open('https://docs.stats.golem.network', '_blank')
+        window.open("https://docs.stats.golem.network ", "_blank")
       },
     },
     {
-      path: '*',
-      redirect: 'error-404',
+      path: "*",
+      redirect: "error-404",
     },
   ],
 })
@@ -71,9 +76,9 @@ const router = new VueRouter({
 // Remove afterEach hook if you are not using splash screen
 router.afterEach(() => {
   // Remove initial loading
-  const appLoading = document.getElementById('loading-bg')
+  const appLoading = document.getElementById("loading-bg")
   if (appLoading) {
-    appLoading.style.display = 'none'
+    appLoading.style.display = "none"
   }
 })
 
