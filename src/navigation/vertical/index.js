@@ -21,7 +21,7 @@ export default [
   },
   {
     header: "Requestors",
-    icon: "ListIcon",
+    icon: "UsersIcon",
     title: "Requestors",
     route: "requestors",
   },
