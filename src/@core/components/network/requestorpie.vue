@@ -5,7 +5,7 @@
         <b-col lg="6">
       <h3>Amount of tasks requested by requestors</h3>
       <span class="card-text text-muted h5"
-        >Click a bar to see requestor's wallet.</span
+        >Ordered by most requesting to lowest.</span
       >
         </b-col>
         <b-col lg="3">
@@ -46,15 +46,7 @@ export default {
         },
       ],
       chartOptions: {
-        chart: {
-          events: {
-            click(event, chartContext, config) {
-              window.open(
-                "https://zkscan.io/explorer/accounts/" + config.config.series[config.seriesIndex].data[config.dataPointIndex]["x"]
-              )
-            },
-          },
-        },
+        
         plotOptions: {
           bar: {
             borderRadius: 5,
