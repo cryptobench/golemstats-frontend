@@ -90,9 +90,9 @@ export default {
         const apiResponse = response.data
         let count = []
         const slicedArray = apiResponse.slice(0, this.displaycount)
-        slicedArray.forEach((obj) => {
+        slicedArray.forEach((obj, i) => {
           count.push({
-            x: obj.node_id,
+            x: "Requestor " + i,
             y: Math.trunc(obj.tasks_requested),
           })
         })
