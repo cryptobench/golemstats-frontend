@@ -145,12 +145,12 @@ export default {
             {
               x: new Date("15 June 2021").getTime(),
               strokeDashArray: 0,
-              borderColor: "#3F51B5	",
+              borderColor: "#D7263D",
               label: {
-                borderColor: "#3F51B5	",
+                borderColor: "#D7263D",
                 style: {
                   color: "#fff",
-                  background: "#3F51B5",
+                  background: "#D7263D",
                 },
                 text: "0.7.0 Released",
               },
@@ -158,12 +158,12 @@ export default {
             {
               x: new Date("24 June 2021").getTime(),
               strokeDashArray: 0,
-              borderColor: "#3F51B5	",
+              borderColor: "#D7263D",
               label: {
-                borderColor: "#3F51B5	",
+                borderColor: "#D7263D",
                 style: {
                   color: "#fff",
-                  background: "#3F51B5",
+                  background: "#D7263D",
                 },
                 text: "0.7.1 Released",
               },
@@ -297,12 +297,12 @@ export default {
             {
               x: new Date("15 June 2021").getTime(),
               strokeDashArray: 0,
-              borderColor: "#3F51B5	",
+              borderColor: "#A300D6",
               label: {
-                borderColor: "#3F51B5	",
+                borderColor: "#A300D6",
                 style: {
                   color: "#fff",
-                  background: "#3F51B5",
+                  background: "#A300D6",
                 },
                 text: "0.7.0 Released",
               },
@@ -310,12 +310,12 @@ export default {
             {
               x: new Date("24 June 2021").getTime(),
               strokeDashArray: 0,
-              borderColor: "#3F51B5	",
+              borderColor: "#A300D6",
               label: {
-                borderColor: "#3F51B5	",
+                borderColor: "#A300D6",
                 style: {
                   color: "#fff",
-                  background: "#3F51B5",
+                  background: "#A300D6",
                 },
                 text: "0.7.1 Released",
               },
@@ -451,12 +451,12 @@ export default {
             {
               x: new Date("15 June 2021").getTime(),
               strokeDashArray: 0,
-              borderColor: "#3F51B5	",
+              borderColor: "#4ECDC4",
               label: {
-                borderColor: "#3F51B5	",
+                borderColor: "#4ECDC4",
                 style: {
                   color: "#fff",
-                  background: "#3F51B5",
+                  background: "#4ECDC4",
                 },
                 text: "0.7.0 Released",
               },
@@ -464,12 +464,12 @@ export default {
             {
               x: new Date("24 June 2021").getTime(),
               strokeDashArray: 0,
-              borderColor: "#3F51B5	",
+              borderColor: "#4ECDC4",
               label: {
-                borderColor: "#3F51B5	",
+                borderColor: "#4ECDC4",
                 style: {
                   color: "#fff",
-                  background: "#3F51B5",
+                  background: "#4ECDC4",
                 },
                 text: "0.7.1 Released",
               },
