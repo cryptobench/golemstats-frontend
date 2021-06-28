@@ -1,28 +1,12 @@
 <template>
   <b-card>
     <h3>{{ this.title }}</h3>
-    <b-button
-      v-if="showAnnotations"
-      @click="hideshowAnnotation()"
-      size="sm"
-      variant="primary"
-      >Hide Release Labels</b-button
-    >
-    <b-button v-else @click="hideshowAnnotation()" size="sm" variant="primary"
-      >Show Release Labels</b-button
-    >
+    <b-button v-if="showAnnotations" @click="hideshowAnnotation()" size="sm" variant="primary">Hide Release Labels</b-button>
+    <b-button v-else @click="hideshowAnnotation()" size="sm" variant="primary">Show Release Labels</b-button>
 
     <div v-if="loaded" class="text-center">
-      <apexchart
-        width="100%"
-        height="350"
-        type="area"
-        :options="options"
-        :series="series"
-      ></apexchart>
-      <b-badge class="text-center" variant="success"
-        >ATH: {{ computingath }}
-      </b-badge>
+      <apexchart width="100%" height="350" type="area" :options="options" :series="series"></apexchart>
+      <b-badge class="text-center" variant="success">ATH: {{ computingath }} </b-badge>
     </div>
     <div class="text-center" v-else>
       <b-spinner variant="primary" label="Text Centered" />
@@ -31,8 +15,8 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner, BBadge, BButton } from 'bootstrap-vue'
-import axios from '@axios'
+import { BCard, BCol, BRow, BSpinner, BBadge, BButton } from "bootstrap-vue"
+import axios from "@axios"
 export default {
   components: {
     BCard,
@@ -60,18 +44,18 @@ export default {
     return {
       showAnnotations: false,
       loaded: false,
-      computingath: '',
+      computingath: "",
       series: [],
       options: {
         chart: {
-          id: 'area-datetime',
-          type: 'area',
+          id: "area-datetime",
+          type: "area",
           zoom: {
             autoScaleYaxis: true,
           },
           animations: {
             enabled: false,
-            easing: 'linear',
+            easing: "linear",
             dynamicAnimation: {
               speed: 1000,
             },
@@ -80,29 +64,55 @@ export default {
         annotations: {
           xaxis: [
             {
-              x: new Date('21 May 2021').getTime(),
+              x: new Date("21 May 2021").getTime(),
               strokeDashArray: 0,
-              borderColor: '#3F51B5',
+              borderColor: "#3F51B5",
               label: {
-                borderColor: '#3F51B5',
+                borderColor: "#3F51B5",
                 style: {
-                  color: '#fff',
-                  background: '#3F51B5',
+                  color: "#fff",
+                  background: "#3F51B5",
                 },
-                text: '0.6.7 Released',
+                text: "0.6.7 Released",
               },
             },
             {
-              x: new Date('20 May 2021').getTime(),
+              x: new Date("20 May 2021").getTime(),
               strokeDashArray: 0,
-              borderColor: '#3F51B5',
+              borderColor: "#3F51B5",
               label: {
-                borderColor: '#3F51B5',
+                borderColor: "#3F51B5",
                 style: {
-                  color: '#fff',
-                  background: '#3F51B5',
+                  color: "#fff",
+                  background: "#3F51B5",
                 },
-                text: '0.6.6 Released',
+                text: "0.6.6 Released",
+              },
+            },
+            {
+              x: new Date("15 June 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#3F51B5",
+              label: {
+                borderColor: "#3F51B5",
+                style: {
+                  color: "#fff",
+                  background: "#3F51B5",
+                },
+                text: "0.7.0 Released",
+              },
+            },
+            {
+              x: new Date("24 June 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#3F51B5",
+              label: {
+                borderColor: "#3F51B5",
+                style: {
+                  color: "#fff",
+                  background: "#3F51B5",
+                },
+                text: "0.7.1 Released",
               },
             },
           ],
@@ -123,7 +133,7 @@ export default {
         },
 
         fill: {
-          type: 'gradient',
+          type: "gradient",
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
@@ -139,36 +149,36 @@ export default {
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
-            formatter: function (value) {
-              return Math.floor(value) + ' Providers'
+            formatter: function(value) {
+              return Math.floor(value) + " Providers"
             },
           },
         },
         xaxis: {
-          type: 'datetime',
+          type: "datetime",
           title: {
             rotate: -90,
             offsetX: -25,
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
             datetimeFormatter: {
-              year: 'yyyy',
+              year: "yyyy",
               month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm:ss',
+              day: "dd MMM",
+              hour: "HH:mm:ss",
             },
           },
         },
@@ -178,7 +188,7 @@ export default {
   created() {
     this.fetchData()
   },
-  mounted: function () {
+  mounted: function() {
     this.timer = setInterval(() => {
       this.fetchData()
     }, 15000)
@@ -186,17 +196,13 @@ export default {
   methods: {
     hideshowAnnotation() {
       if (this.showAnnotations) {
-        var elem = document.getElementsByClassName(
-          'apexcharts-xaxis-annotations'
-        )
-        elem.forEach((element) => (element.style.visibility = 'hidden'))
+        var elem = document.getElementsByClassName("apexcharts-xaxis-annotations")
+        elem.forEach((element) => (element.style.visibility = "hidden"))
         this.showAnnotations = false
       } else {
         this.showAnnotations = true
-        var elem = document.getElementsByClassName(
-          'apexcharts-xaxis-annotations'
-        )
-        elem.forEach((element) => (element.style.visibility = 'visible'))
+        var elem = document.getElementsByClassName("apexcharts-xaxis-annotations")
+        elem.forEach((element) => (element.style.visibility = "visible"))
       }
     },
     floorFigure: function floorFigure(figure, decimals) {
@@ -217,7 +223,7 @@ export default {
         this.computingath = Math.max.apply(Math, counttotal)
         this.series.push({
           data: count,
-          name: 'Simultaneous providers computing',
+          name: "Simultaneous providers computing",
         })
       })
 
