@@ -102,6 +102,7 @@
             :filter-ignored-fields="ignoredfilter"
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
+            @row-clicked="trade_url_redirect"
             show-empty
             empty-text="No online nodes found"
           >
@@ -280,6 +281,9 @@ export default {
     }, 15000)
   },
   methods: {
+    trade_url_redirect(row) {
+      window.open(row.Trade_url, "_blank")
+    },
     floorFigure: function floorFigure(figure, decimals) {
       if (!decimals) decimals = 2
       const d = Math.pow(10, decimals)
@@ -326,6 +330,7 @@ export default {
             Pair: pair,
             Volume: obj.converted_volume.usd,
             Target: obj.target,
+            Trade_url: obj.trade_url,
           })
           this.pairlist.indexOf(obj.target) === -1 ? this.pairlist.push(obj.target) : void 0
         })
