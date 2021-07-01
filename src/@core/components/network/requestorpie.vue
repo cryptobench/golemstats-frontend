@@ -83,8 +83,9 @@ export default {
         let count = []
         const slicedArray = apiResponse.slice(0, this.displaycount)
         slicedArray.forEach((obj, i) => {
+          let number = i + 1
           count.push({
-            x: "Requestor " + i,
+            x: "Requestor " + number,
             y: Math.trunc(obj.tasks_requested),
           })
         })
