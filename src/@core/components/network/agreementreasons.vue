@@ -3,7 +3,7 @@
     <b-card class="h-100">
       <b-row>
         <b-col lg="6">
-          <h3>Market Agreement Termination Reasons</h3>
+          <h3>Market Agreement Termination Reasons (1h)</h3>
           <span class="card-text text-muted h5"
             >Find more details
             <a
