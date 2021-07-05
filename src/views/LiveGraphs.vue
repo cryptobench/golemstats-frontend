@@ -10,6 +10,15 @@
       <b-col xs="12" sm="12" lg="6" md="12">
         <architecturepie v-if="table_data" :data="architecturelist" />
       </b-col>
+      <b-col xs="12" sm="12" lg="6" md="12">
+        <agreementreasons />
+      </b-col>
+      <b-col xs="12" sm="12" lg="3" md="6">
+        <paidinvoicespercentage />
+      </b-col>
+      <b-col xs="12" sm="12" lg="3" md="6">
+        <invoiceaccepted />
+      </b-col>
       <!-- <b-col xl="12" lg="12" md="12" sm="12" xs="12">
         <networkversions> </networkversions>
       </b-col> -->
@@ -20,6 +29,9 @@
 
 <script>
 import networkutilization from "@core/components/network/networkutilization.vue"
+import agreementreasons from "@core/components/network/agreementreasons.vue"
+import paidinvoicespercentage from "@core/components/network/paidinvoicespercentage.vue"
+import invoiceaccepted from "@core/components/network/invoicesaccepted.vue"
 import networkpercentagecomputing from "@core/components/network/networkpercentagecomputing.vue"
 import networkversions from "@core/components/network/networkversions.vue"
 import Vendorpie from "@core/components/network/vendorpie.vue"
@@ -54,6 +66,9 @@ export default {
     networkpercentagecomputing,
     Vendorpie,
     architecturepie,
+    agreementreasons,
+    paidinvoicespercentage,
+    invoiceaccepted,
   },
   data() {
     return {
