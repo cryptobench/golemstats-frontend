@@ -41,7 +41,7 @@ export default {
       chartOptions: {
         colors: [],
 
-        labels: ["Invoices Paid"],
+        labels: ["Invoices Accepted"],
         plotOptions: {
           radialBar: {
             hollow: {
