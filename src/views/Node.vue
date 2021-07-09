@@ -100,6 +100,9 @@
               <span v-else class="card-text text-muted h5"
                 >Version: <b>{{ version }}</b></span
               >
+              <br /><span class="card-text text-muted h5"
+                >Seen for the first time: <b>{{ new Date(index_at).toLocaleString("en-GB").slice(0, 10) }}</b></span
+              >
 
               <div class="mt-1">
                 <b-button variant="primary" @click="operator">
@@ -453,6 +456,7 @@ export default {
         this.id = apiResponse[0].data.id
         this.online = apiResponse[0].online
         this.version = apiResponse[0].version
+        this.index_at = apiResponse[0].created_at
         this.scheme = apiResponse[0].data["golem.com.scheme"]
         this.memory = this.floorFigure(apiResponse[0].data["golem.inf.mem.gib"])
         this.name = apiResponse[0].data["golem.node.id.name"]
