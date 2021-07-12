@@ -123,6 +123,19 @@ export default {
                 text: "0.7.1 Released",
               },
             },
+            {
+              x: new Date("8 July 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#3F51B5",
+              label: {
+                borderColor: "#3F51B5",
+                style: {
+                  color: "#fff",
+                  background: "#3F51B5",
+                },
+                text: "0.7.2 Released",
+              },
+            },
           ],
         },
         fill: {

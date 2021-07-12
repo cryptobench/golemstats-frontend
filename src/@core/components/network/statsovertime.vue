@@ -168,6 +168,19 @@ export default {
                 text: "0.7.1 Released",
               },
             },
+            {
+              x: new Date("8 July 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#D7263D",
+              label: {
+                borderColor: "#D7263D",
+                style: {
+                  color: "#fff",
+                  background: "#D7263D",
+                },
+                text: "0.7.2 Released",
+              },
+            },
           ],
         },
         tooltip: {
@@ -318,6 +331,19 @@ export default {
                   background: "#A300D6",
                 },
                 text: "0.7.1 Released",
+              },
+            },
+            {
+              x: new Date("8 July 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#A300D6",
+              label: {
+                borderColor: "#A300D6",
+                style: {
+                  color: "#fff",
+                  background: "#A300D6",
+                },
+                text: "0.7.2 Released",
               },
             },
           ],
@@ -474,6 +500,19 @@ export default {
                 text: "0.7.1 Released",
               },
             },
+            {
+              x: new Date("8 July 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#4ECDC4",
+              label: {
+                borderColor: "#4ECDC4",
+                style: {
+                  color: "#fff",
+                  background: "#4ECDC4",
+                },
+                text: "0.7.2 Released",
+              },
+            },
           ],
         },
         tooltip: {
@@ -625,6 +664,19 @@ export default {
                   background: "#3F51B5",
                 },
                 text: "0.7.1 Released",
+              },
+            },
+            {
+              x: new Date("8 July 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#3F51B5	",
+              label: {
+                borderColor: "#3F51B5	",
+                style: {
+                  color: "#fff",
+                  background: "#3F51B5",
+                },
+                text: "0.7.2 Released",
               },
             },
           ],
