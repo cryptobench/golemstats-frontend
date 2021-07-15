@@ -12,7 +12,6 @@
               >here</a
             ></span
           >
-          >
         </b-col>
       </b-row>
       <apexchart width="100%" height="250" type="radialBar" v-if="loaded" :options="chartOptions" :series="series"></apexchart>
