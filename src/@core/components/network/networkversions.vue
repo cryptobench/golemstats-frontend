@@ -3,9 +3,7 @@
     <b-col lg="12" md="12">
       <b-card>
         <h3>Network Version Adoption (24h)</h3>
-        <span class="card-text text-muted h5"
-          >Live Data<b>{{ this.count }}</b></span
-        >
+        <span class="card-text text-muted h5">Live Data</span>
         <apexchart v-if="loaded" width="100%" height="350" type="area" :options="chartOptions" :series="series"></apexchart>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
@@ -145,6 +143,13 @@ export default {
           })
         })
       })
+      if (localStorage.getItem("vuexy-skin") == "dark") {
+        this.chartOptions.chart.foreColor = "#fff"
+        this.chartOptions.tooltip.theme = "dark"
+      } else {
+        this.chartOptions.chart.foreColor = "#373d3f"
+        this.chartOptions.tooltip.theme = "light"
+      }
       this.loaded = true
     },
   },

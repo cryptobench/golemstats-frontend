@@ -14,7 +14,7 @@
           >
         </b-col>
       </b-row>
-      <apexchart width="100%" height="250" type="donut" v-if="loaded" :options="chartOptions" :series="series"></apexchart>
+      <apexchart width="100%" height="250" v-if="loaded" :options="chartOptions" :series="series"></apexchart>
     </b-card>
   </div>
 </template>
@@ -38,6 +38,11 @@ export default {
       height: 450,
       series: [],
       chartOptions: {
+        chart: {
+          id: "donut",
+          type: "donut",
+          foreColor: "#373d3f",
+        },
         labels: ["Success", "Cancelled by Requestor", "Task Expired", "Requestor Unreachable", "Debitnote Deadline"],
         dataLabels: {
           enabled: true,
@@ -73,6 +78,11 @@ export default {
           apiResponse.market_agreements_requestorUnreachable,
           apiResponse.market_agreements_debitnoteDeadline
         )
+        if (localStorage.getItem("vuexy-skin") == "dark") {
+          this.chartOptions.chart.foreColor = "#fff"
+        } else {
+          this.chartOptions.chart.foreColor = "#373d3f"
+        }
         this.loaded = true
       })
     },

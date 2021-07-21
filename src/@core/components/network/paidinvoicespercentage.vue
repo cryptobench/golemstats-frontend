@@ -39,7 +39,9 @@ export default {
       series: [],
       chartOptions: {
         colors: [],
-
+        chart: {
+          type: "radialBar",
+        },
         labels: ["Invoices Paid"],
         plotOptions: {
           radialBar: {
@@ -105,6 +107,7 @@ export default {
         } else if (apiResponse.percentage_paid >= 60.01 && apiResponse.percentage_paid <= 101.0) {
           this.chartOptions.colors.push("#04cc11")
         }
+
         this.loaded = true
       })
     },

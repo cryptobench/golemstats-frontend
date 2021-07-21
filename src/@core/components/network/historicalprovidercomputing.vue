@@ -239,7 +239,15 @@ export default {
           name: "Simultaneous providers computing",
         })
       })
-
+      if (localStorage.getItem("vuexy-skin") == "dark") {
+        this.options.chart.foreColor = "#fff"
+        this.options.colors.push("#2c34e6")
+        this.options.tooltip.theme = "dark"
+      } else {
+        this.options.chart.foreColor = "#373d3f"
+        this.options.colors.push("#262ed1")
+        this.options.tooltip.theme = "light"
+      }
       this.loaded = true
     },
   },

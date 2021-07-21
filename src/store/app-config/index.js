@@ -1,13 +1,12 @@
-import { $themeConfig } from '@themeConfig'
+import { $themeConfig } from "@themeConfig"
 
 export default {
   namespaced: true,
   state: {
     layout: {
       isRTL: $themeConfig.layout.isRTL,
-      skin: localStorage.getItem('vuexy-skin') || $themeConfig.layout.skin,
-      currency:
-        localStorage.getItem('currency') || $themeConfig.layout.currency,
+      skin: localStorage.getItem("vuexy-skin") || $themeConfig.layout.skin,
+      currency: localStorage.getItem("currency") || $themeConfig.layout.currency,
       routerTransition: $themeConfig.layout.routerTransition,
       type: $themeConfig.layout.type,
       contentWidth: $themeConfig.layout.contentWidth,
@@ -27,31 +26,27 @@ export default {
   mutations: {
     TOGGLE_RTL(state) {
       state.layout.isRTL = !state.layout.isRTL
-      document.documentElement.setAttribute(
-        'dir',
-        state.layout.isRTL ? 'rtl' : 'ltr'
-      )
+      document.documentElement.setAttribute("dir", state.layout.isRTL ? "rtl" : "ltr")
     },
     UPDATE_SKIN(state, skin) {
       state.layout.skin = skin
 
       // Update value in localStorage
-      localStorage.setItem('vuexy-skin', skin)
+      localStorage.setItem("vuexy-skin", skin)
 
       // Update DOM for dark-layout
-      if (skin === 'dark') document.body.classList.add('dark-layout')
-      else if (document.body.className.match('dark-layout'))
-        document.body.classList.remove('dark-layout')
+      if (skin === "dark") document.body.classList.add("dark-layout")
+      else if (document.body.className.match("dark-layout")) document.body.classList.remove("dark-layout")
     },
     UPDATE_CURRENCY(state, currency) {
       state.layout.currency = currency
-      let current = localStorage.getItem('currency')
+      let current = localStorage.getItem("currency")
       // Update value in localStorage
-      localStorage.setItem('currency', currency)
+      localStorage.setItem("currency", currency)
 
       // Update DOM for dark-layout
-      if (current == 'usd') localStorage.setItem('currency', 'glm')
-      else if (current == 'glm') localStorage.setItem('currency', 'usd')
+      if (current == "usd") localStorage.setItem("currency", "glm")
+      else if (current == "glm") localStorage.setItem("currency", "usd")
     },
     UPDATE_ROUTER_TRANSITION(state, val) {
       state.layout.routerTransition = val

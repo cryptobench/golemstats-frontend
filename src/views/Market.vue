@@ -70,7 +70,15 @@
           <span class="card-text text-muted h5"
             >Current price: <b>${{ usdprice }}</b>
           </span>
-          <apexchart v-if="graph_loaded" width="100%" height="350" type="area" :options="chartOptions" :series="series" />
+          <apexchart
+            :key="updaterender"
+            v-if="graph_loaded"
+            width="100%"
+            height="350"
+            type="area"
+            :options="chartOptions"
+            :series="series"
+          />
           <div v-else class="text-center">
             <b-spinner variant="primary" label="Text Centered" />
           </div>
@@ -169,7 +177,7 @@ export default {
   data() {
     return {
       usdprice: "",
-
+      updaterender: 0,
       graph_loaded: false,
       marketcap: "",
       circulating_supply: "",
@@ -280,6 +288,11 @@ export default {
       this.geckoapi()
     }, 15000)
   },
+  watch: {
+    "$store.state.appConfig.layout.skin": function() {
+      this.updaterender += 1
+    },
+  },
   methods: {
     trade_url_redirect(row) {
       window.open(row.Trade_url, "_blank")
@@ -305,6 +318,15 @@ export default {
               name: "Price",
             },
           ]
+          if (localStorage.getItem("vuexy-skin") == "dark") {
+            this.chartOptions.chart.foreColor = "#fff"
+            this.chartOptions.tooltip.theme = "dark"
+            this.chartOptions.fill.gradient.opacityFrom = 0
+            this.chartOptions.fill.gradient.opacityTo = 0.3
+          } else {
+            this.chartOptions.chart.foreColor = "#373d3f"
+            this.chartOptions.tooltip.theme = "light"
+          }
           this.graph_loaded = true
         })
     },
@@ -334,6 +356,7 @@ export default {
           })
           this.pairlist.indexOf(obj.target) === -1 ? this.pairlist.push(obj.target) : void 0
         })
+
         this.table_data = true
       })
     },

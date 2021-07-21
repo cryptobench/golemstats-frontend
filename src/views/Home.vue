@@ -59,13 +59,14 @@
         </b-col>
       </b-row>
       <sixhourstat
+        :key="updaterender"
         :provider_title="online + ' Providers'"
         :cores_title="threads + ' Cores'"
         :memory_title="memory + ' TB Memory '"
         :disk_title="disk + ' TB Disk'"
       />
 
-      <networkutilization />
+      <networkutilization :key="updaterender" />
       <h3>Average Provider Stats</h3>
       <b-row>
         <b-col xs="12" sm="12" lg="4" md="4">
@@ -345,6 +346,7 @@ export default {
     return {
       ignoredfilter: ["Cores", "Memory", "Disk", "cpu_hour", "per_hour", "start_price"],
       filter: "",
+      updaterender: 0,
       mainnet: "",
       table_data: false,
       rowcount: "30",
@@ -407,6 +409,9 @@ export default {
         `Changing layout to ${this.$store.state.appConfig.layout.currency} prices`,
         "This will happen on next pull (within 15s)"
       )
+    },
+    "$store.state.appConfig.layout.skin": function() {
+      this.updaterender += 1
     },
   },
   created() {

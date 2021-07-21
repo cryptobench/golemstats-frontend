@@ -18,7 +18,7 @@
           <b-form-input v-model="displaycount" @keyup.enter="fetchData" />
         </b-col>
       </b-row>
-      <apexchart width="100%" :height="height" type="bar" :options="chartOptions" :series="series"></apexchart>
+      <apexchart width="100%" :height="height"  :options="chartOptions" :series="series"></apexchart>
     </b-card>
   </div>
 </template>
@@ -46,7 +46,23 @@ export default {
         },
       ],
       chartOptions: {
-        
+        chart: {
+          id: "bar",
+          type: "bar",
+          foreColor: "#373d3f",
+          zoom: {
+            autoScaleYaxis: true,
+          },
+        },
+        tooltip: {
+          theme: "light",
+          enabled: true,
+          x: {
+            show: true,
+            format: "HH:mm:ss",
+            formatter: undefined,
+          },
+        },
         plotOptions: {
           bar: {
             borderRadius: 5,
@@ -78,6 +94,14 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     fetchData() {
+      if (localStorage.getItem("vuexy-skin") == "dark") {
+        this.chartOptions.chart.foreColor = "#fff"
+        this.chartOptions.tooltip.theme = "dark"
+        console.log(this.chartOptions.tooltip.theme)
+      } else {
+        this.chartOptions.chart.foreColor = "#373d3f"
+        this.chartOptions.tooltip.theme = "light"
+      }
       axios.get("/v1/requestors").then((response) => {
         const apiResponse = response.data
         let count = []
@@ -89,6 +113,7 @@ export default {
             y: Math.trunc(obj.tasks_requested),
           })
         })
+        
         this.series = [
           {
             data: count,

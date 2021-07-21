@@ -121,8 +121,9 @@ export default {
   },
   props: {
     count: {
-      type: Number,
+      type: String,
       required: true,
+      default: "5",
     },
   },
 

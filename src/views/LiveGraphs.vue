@@ -2,28 +2,28 @@
   <div>
     <b-row>
       <b-col xl="12" lg="12" md="12" sm="12" xs="12">
-        <networkpercentagecomputing />
+        <networkpercentagecomputing :key="updaterender" />
       </b-col>
       <b-col xs="12" sm="12" lg="6" md="12">
-        <vendorpie v-if="table_data" :data="vendorlist" />
+        <vendorpie :key="updaterender" v-if="table_data" :data="vendorlist" />
       </b-col>
       <b-col xs="12" sm="12" lg="6" md="12">
-        <architecturepie v-if="table_data" :data="architecturelist" />
+        <architecturepie :key="updaterender" v-if="table_data" :data="architecturelist" />
       </b-col>
       <b-col xs="12" sm="12" lg="6" md="12">
-        <agreementreasons />
+        <agreementreasons :key="updaterender" />
       </b-col>
       <b-col xs="12" sm="12" lg="3" md="6">
-        <paidinvoicespercentage />
+        <paidinvoicespercentage :key="updaterender" />
       </b-col>
       <b-col xs="12" sm="12" lg="3" md="6">
-        <invoiceaccepted />
+        <invoiceaccepted :key="updaterender" />
       </b-col>
       <!-- <b-col xl="12" lg="12" md="12" sm="12" xs="12">
         <networkversions> </networkversions>
       </b-col> -->
     </b-row>
-    <networkutilization />
+    <networkutilization :key="updaterender" />
   </div>
 </template>
 
@@ -72,6 +72,7 @@ export default {
   },
   data() {
     return {
+      updaterender: 0,
       loaded: false,
       table_data: false,
       failure: false,
@@ -126,6 +127,11 @@ export default {
     this.timer = setInterval(() => {
       this.fetchData()
     }, 15000)
+  },
+  watch: {
+    "$store.state.appConfig.layout.skin": function() {
+      this.updaterender += 1
+    },
   },
   methods: {
     fetchData() {

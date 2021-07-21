@@ -5,6 +5,7 @@
       <b-row>
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
           <historicalpricinggraphs
+            :key="updaterender"
             :endpoint="'/v1/network/historical/pricing/average'"
             :title="'Provider Average Pricing'"
             :palette="['#7033FF', '#CC1100', '#FF7E3D']"
@@ -12,6 +13,7 @@
         </b-col>
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
           <historicalpricinggraphs
+            :key="updaterender"
             :endpoint="'/v1/network/historical/pricing/median'"
             :title="'Provider Median Pricing'"
             :palette="['#FFED29', '#FF5289', '#00096B']"
@@ -20,16 +22,17 @@
 
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
           <historicalprovidercomputing
+            :key="updaterender"
             :endpoint="'/v1/network/historical/provider/computing'"
             :title="'Providers computing simultaneously'"
             :colors="'#0230FF'"
           />
         </b-col>
         <b-col lg="6" xl="6" md="12" sm="12" xs="12">
-          <latestnodes :count="5" />
+          <latestnodes :key="updaterender" :count="5" />
         </b-col>
         <b-col lg="12" xl="12" md="12" sm="12" xs="12">
-          <networkversions />
+          <networkversions :key="updaterender" />
         </b-col>
       </b-row>
     </b-col>
@@ -72,8 +75,15 @@ export default {
     latestnodes,
     networkversions,
   },
+  watch: {
+    "$store.state.appConfig.layout.skin": function() {
+      this.updaterender += 1
+    },
+  },
   data() {
-    return {}
+    return {
+      updaterender: 0,
+    }
   },
   setup() {
     // App Name

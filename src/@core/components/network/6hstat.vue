@@ -8,26 +8,11 @@
           </b-avatar>
           <h1 class="avatar-margin">{{ this.provider_title }}</h1>
 
-          <b-spinner
-            variant="success"
-            type="grow"
-            small
-            label="Spinning"
-            class="mb-1 spinner-graph"
-          ></b-spinner>
+          <b-spinner variant="success" type="grow" small label="Spinning" class="mb-1 spinner-graph"></b-spinner>
         </div>
-        <b-badge class="badge-graph" pill variant="primary"
-          >Online and available for compute</b-badge
-        >
+        <b-badge class="badge-graph" pill variant="primary">Online and available for compute</b-badge>
 
-        <apexchart
-          v-if="loaded"
-          width="100%"
-          height="250"
-          type="area"
-          :options="onlineoptions"
-          :series="online"
-        ></apexchart>
+        <apexchart v-if="loaded" width="100%" height="250" type="area" :options="onlineoptions" :series="online"></apexchart>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
@@ -41,25 +26,10 @@
           </b-avatar>
           <h1 class="avatar-margin">{{ this.cores_title }}</h1>
 
-          <b-spinner
-            variant="success"
-            type="grow"
-            small
-            label="Spinning"
-            class="mb-1 spinner-graph"
-          ></b-spinner>
+          <b-spinner variant="success" type="grow" small label="Spinning" class="mb-1 spinner-graph"></b-spinner>
         </div>
-        <b-badge class="badge-graph" pill variant="primary"
-          >Online and available for compute</b-badge
-        >
-        <apexchart
-          v-if="loaded"
-          width="100%"
-          height="250"
-          type="area"
-          :options="coresoptions"
-          :series="cores"
-        ></apexchart>
+        <b-badge class="badge-graph" pill variant="primary">Online and available for compute</b-badge>
+        <apexchart v-if="loaded" width="100%" height="250" type="area" :options="coresoptions" :series="cores"></apexchart>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
@@ -73,25 +43,10 @@
           </b-avatar>
           <h1 class="avatar-margin">{{ this.memory_title }}</h1>
 
-          <b-spinner
-            variant="success"
-            type="grow"
-            small
-            label="Spinning"
-            class="mb-1 spinner-graph"
-          ></b-spinner>
+          <b-spinner variant="success" type="grow" small label="Spinning" class="mb-1 spinner-graph"></b-spinner>
         </div>
-        <b-badge class="badge-graph" pill variant="primary"
-          >Online and available for compute</b-badge
-        >
-        <apexchart
-          v-if="loaded"
-          width="100%"
-          height="250"
-          type="area"
-          :options="memoryoptions"
-          :series="memory"
-        ></apexchart>
+        <b-badge class="badge-graph" pill variant="primary">Online and available for compute</b-badge>
+        <apexchart v-if="loaded" width="100%" height="250" type="area" :options="memoryoptions" :series="memory"></apexchart>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
@@ -105,25 +60,10 @@
           </b-avatar>
           <h1 class="avatar-margin">{{ this.disk_title }}</h1>
 
-          <b-spinner
-            variant="success"
-            type="grow"
-            small
-            label="Spinning"
-            class="mb-1 spinner-graph"
-          ></b-spinner>
+          <b-spinner variant="success" type="grow" small label="Spinning" class="mb-1 spinner-graph"></b-spinner>
         </div>
-        <b-badge class="badge-graph" pill variant="primary"
-          >Online and available for compute</b-badge
-        >
-        <apexchart
-          v-if="loaded"
-          width="100%"
-          height="250"
-          type="area"
-          :options="diskoptions"
-          :series="disk"
-        ></apexchart>
+        <b-badge class="badge-graph" pill variant="primary">Online and available for compute</b-badge>
+        <apexchart v-if="loaded" width="100%" height="250" type="area" :options="diskoptions" :series="disk"></apexchart>
         <div class="text-center" v-else>
           <b-spinner variant="primary" label="Text Centered" />
         </div>
@@ -133,8 +73,8 @@
 </template>
 
 <script>
-import { BCard, BCol, BRow, BSpinner, BBadge, BAvatar } from 'bootstrap-vue'
-import axios from '@axios'
+import { BCard, BCol, BRow, BSpinner, BBadge, BAvatar } from "bootstrap-vue"
+import axios from "@axios"
 export default {
   components: {
     BCard,
@@ -171,14 +111,14 @@ export default {
       disk: [],
       diskoptions: {
         chart: {
-          id: 'area-datetime',
-          type: 'area',
+          id: "area-datetime",
+          type: "area",
           zoom: {
             autoScaleYaxis: true,
           },
           animations: {
             enabled: false,
-            easing: 'linear',
+            easing: "linear",
             dynamicAnimation: {
               speed: 1000,
             },
@@ -188,7 +128,7 @@ export default {
           enabled: true,
           x: {
             show: true,
-            format: 'dd MMMM HH:mm:ss',
+            format: "dd MMMM HH:mm:ss",
             formatter: undefined,
           },
         },
@@ -196,14 +136,14 @@ export default {
           enabled: false,
         },
         theme: {
-          palette: 'palette7', // upto palette10
+          palette: "palette7", // upto palette10
         },
         markers: {
           size: 0,
         },
 
         fill: {
-          type: 'gradient',
+          type: "gradient",
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
@@ -219,50 +159,50 @@ export default {
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
-            formatter: function (value) {
-              return value.toFixed(2) + ' TB'
+            formatter: function(value) {
+              return value.toFixed(2) + " TB"
             },
           },
         },
         xaxis: {
-          type: 'datetime',
+          type: "datetime",
           title: {
             rotate: -90,
             offsetX: -25,
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
             datetimeFormatter: {
-              year: 'yyyy',
+              year: "yyyy",
               month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm:ss',
+              day: "dd MMM",
+              hour: "HH:mm:ss",
             },
           },
         },
       },
       memoryoptions: {
         chart: {
-          id: 'area-datetime',
-          type: 'area',
+          id: "area-datetime",
+          type: "area",
           zoom: {
             autoScaleYaxis: true,
           },
           animations: {
             enabled: false,
-            easing: 'linear',
+            easing: "linear",
             dynamicAnimation: {
               speed: 1000,
             },
@@ -272,7 +212,7 @@ export default {
           enabled: true,
           x: {
             show: true,
-            format: 'dd MMMM HH:mm:ss',
+            format: "dd MMMM HH:mm:ss",
             formatter: undefined,
           },
         },
@@ -280,14 +220,14 @@ export default {
           enabled: false,
         },
         theme: {
-          palette: 'palette10', // upto palette10
+          palette: "palette10", // upto palette10
         },
         markers: {
           size: 0,
         },
 
         fill: {
-          type: 'gradient',
+          type: "gradient",
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
@@ -303,52 +243,52 @@ export default {
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
-            formatter: function (value) {
+            formatter: function(value) {
               let decimals = 2
               var d = Math.pow(10, decimals)
-              return (parseInt(value * d) / d).toFixed(decimals) + ' TB'
+              return (parseInt(value * d) / d).toFixed(decimals) + " TB"
             },
           },
         },
         xaxis: {
-          type: 'datetime',
+          type: "datetime",
           title: {
             rotate: -90,
             offsetX: -25,
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
             datetimeFormatter: {
-              year: 'yyyy',
+              year: "yyyy",
               month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm:ss',
+              day: "dd MMM",
+              hour: "HH:mm:ss",
             },
           },
         },
       },
       coresoptions: {
         chart: {
-          id: 'area-datetime',
-          type: 'area',
+          id: "area-datetime",
+          type: "area",
           zoom: {
             autoScaleYaxis: true,
           },
           animations: {
             enabled: false,
-            easing: 'linear',
+            easing: "linear",
             dynamicAnimation: {
               speed: 1000,
             },
@@ -358,7 +298,7 @@ export default {
           enabled: true,
           x: {
             show: true,
-            format: 'dd MMMM HH:mm:ss',
+            format: "dd MMMM HH:mm:ss",
             formatter: undefined,
           },
         },
@@ -366,14 +306,14 @@ export default {
           enabled: false,
         },
         theme: {
-          palette: 'palette4', // upto palette10
+          palette: "palette4", // upto palette10
         },
         markers: {
           size: 0,
         },
 
         fill: {
-          type: 'gradient',
+          type: "gradient",
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
@@ -389,36 +329,36 @@ export default {
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
-            formatter: function (value) {
-              return value + ' Cores'
+            formatter: function(value) {
+              return value + " Cores"
             },
           },
         },
         xaxis: {
-          type: 'datetime',
+          type: "datetime",
           title: {
             rotate: -90,
             offsetX: -25,
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
             datetimeFormatter: {
-              year: 'yyyy',
+              year: "yyyy",
               month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm:ss',
+              day: "dd MMM",
+              hour: "HH:mm:ss",
             },
           },
         },
@@ -426,14 +366,14 @@ export default {
 
       onlineoptions: {
         chart: {
-          id: 'area-datetime',
-          type: 'area',
+          id: "area-datetime",
+          type: "area",
           zoom: {
             autoScaleYaxis: true,
           },
           animations: {
             enabled: false,
-            easing: 'linear',
+            easing: "linear",
             dynamicAnimation: {
               speed: 1000,
             },
@@ -443,7 +383,7 @@ export default {
           enabled: true,
           x: {
             show: true,
-            format: 'dd MMMM HH:mm:ss',
+            format: "dd MMMM HH:mm:ss",
             formatter: undefined,
           },
         },
@@ -451,14 +391,14 @@ export default {
           enabled: false,
         },
         theme: {
-          palette: 'palette2', // upto palette10
+          palette: "palette3", // upto palette10
         },
         markers: {
           size: 0,
         },
 
         fill: {
-          type: 'gradient',
+          type: "gradient",
           gradient: {
             shadeIntensity: 0.1,
             inverseColors: false,
@@ -474,36 +414,36 @@ export default {
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
-            formatter: function (value) {
-              return value + ' Providers'
+            formatter: function(value) {
+              return value + " Providers"
             },
           },
         },
         xaxis: {
-          type: 'datetime',
+          type: "datetime",
           title: {
             rotate: -90,
             offsetX: -25,
             offsetY: 0,
             style: {
               color: undefined,
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 600,
-              cssClass: 'apexcharts-yaxis-title',
+              cssClass: "apexcharts-yaxis-title",
             },
           },
           labels: {
             datetimeFormatter: {
-              year: 'yyyy',
+              year: "yyyy",
               month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm:ss',
+              day: "dd MMM",
+              hour: "HH:mm:ss",
             },
           },
         },
@@ -513,7 +453,7 @@ export default {
   created() {
     this.fetchData()
   },
-  mounted: function () {
+  mounted: function() {
     this.timer = setInterval(() => {
       this.fetchData()
     }, 15000)
@@ -525,7 +465,7 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     fetchData() {
-      axios.get('/v1/network/historical/stats/30m').then((response) => {
+      axios.get("/v1/network/historical/stats/30m").then((response) => {
         let apiResponse = response.data
         let online = []
         let cores = []
@@ -540,28 +480,47 @@ export default {
         this.online = [
           {
             data: online,
-            name: 'Providers online',
+            name: "Providers online",
           },
         ]
         this.cores = [
           {
             data: cores,
-            name: 'Amount of Cores',
+            name: "Amount of Cores",
           },
         ]
         this.memory = [
           {
             data: memory,
-            name: 'TB of Memory',
+            name: "TB of Memory",
           },
         ]
         this.disk = [
           {
             data: disk,
-            name: 'TB of Disk',
+            name: "TB of Disk",
           },
         ]
       })
+      if (localStorage.getItem("vuexy-skin") == "dark") {
+        this.coresoptions.chart.foreColor = "#fff"
+        this.memoryoptions.chart.foreColor = "#fff"
+        this.diskoptions.chart.foreColor = "#fff"
+        this.onlineoptions.chart.foreColor = "#fff"
+        this.coresoptions.tooltip.theme = "dark"
+        this.memoryoptions.tooltip.theme = "dark"
+        this.diskoptions.tooltip.theme = "dark"
+        this.onlineoptions.tooltip.theme = "dark"
+      } else {
+        this.coresoptions.chart.foreColor = "#373d3f"
+        this.memoryoptions.chart.foreColor = "#373d3f"
+        this.diskoptions.chart.foreColor = "#373d3f"
+        this.onlineoptions.chart.foreColor = "#373d3f"
+        this.coresoptions.tooltip.theme = "light"
+        this.memoryoptions.tooltip.theme = "light"
+        this.diskoptions.tooltip.theme = "light"
+        this.onlineoptions.tooltip.theme = "light"
+      }
 
       this.loaded = true
     },
