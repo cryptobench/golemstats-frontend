@@ -11,7 +11,9 @@
 
     <!-- Left Col -->
     <div class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex">
-      <span class="rotate blink_me"><img src="https://emojigraph.org/media/google/rock_1faa8.png" width="20" class="rock" />👀</span>
+      <span class="rotate blink_me t**** Oh hello there mr inspector "
+        ><img src="https://emojigraph.org/media/google/rock_1faa8.png" width="20" class="rock" />👀</span
+      >
       <dark-Toggler class="d-none d-lg-block" />
       <currency-Toggler class="d-none d-lg-block" />
     </div>
@@ -19,7 +21,7 @@
       <span class="text-primary"
         ><b>{{ this.count.toLocaleString("en") }}</b> API requests served</span
       >
-      <span class="rotate blink_me rocky-mobile"
+      <span class="rotate blink_me rocky-mobile t**** Oh hello there mr inspector"
         ><img src="https://emojigraph.org/media/google/rock_1faa8.png" width="20" class="rock" />👀</span
       >
     </div>
