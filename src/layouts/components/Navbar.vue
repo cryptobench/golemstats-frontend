@@ -10,25 +10,24 @@
     </ul>
 
     <!-- Left Col -->
-    <div
-      class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex"
-    >
+    <div class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex">
+      <span class="rotate blink_me">🪨👀</span>
       <dark-Toggler class="d-none d-lg-block" />
       <currency-Toggler class="d-none d-lg-block" />
     </div>
     <div class="nav align-items-center ml-auto">
       <span class="text-primary"
-        ><b>{{ this.count.toLocaleString('en') }}</b> API requests served</span
+        ><b>{{ this.count.toLocaleString("en") }}</b> API requests served</span
       >
     </div>
   </div>
 </template>
 
 <script>
-import { BLink } from 'bootstrap-vue'
-import DarkToggler from '@/@core/layouts/components/app-navbar/components/DarkToggler.vue'
-import CurrencyToggler from '@/@core/layouts/components/app-navbar/components/CurrencyToggler.vue'
-import axios from '@axios'
+import { BLink } from "bootstrap-vue"
+import DarkToggler from "@/@core/layouts/components/app-navbar/components/DarkToggler.vue"
+import CurrencyToggler from "@/@core/layouts/components/app-navbar/components/CurrencyToggler.vue"
+import axios from "@axios"
 
 export default {
   components: {
@@ -46,27 +45,57 @@ export default {
   created() {
     this.usage()
   },
-  mounted: function () {
+  mounted: function() {
     this.timer = setInterval(() => {
       this.usage()
     }, 15000)
   },
   data() {
     return {
-      count: '',
+      count: "",
     }
   },
   methods: {
     usage() {
-      axios.get('/v1/api/usage').then((response) => {
+      axios.get("/v1/api/usage").then((response) => {
         this.count = response.data.count
       })
     },
   },
 }
 </script>
-<style >
+<style>
 .api {
   color: #13188d;
+}
+
+.rotate {
+  transform: rotate(20deg);
+
+  /* Legacy vendor prefixes that you probably don't need... */
+
+  /* Safari */
+  -webkit-transform: rotate(20deg);
+
+  /* Firefox */
+  -moz-transform: rotate(20deg);
+
+  /* IE */
+  -ms-transform: rotate(20deg);
+
+  /* Opera */
+  -o-transform: rotate(20deg);
+
+  /* Internet Explorer */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+.blink_me {
+  animation: blinker 2s linear 4;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
 </style>
