@@ -11,7 +11,7 @@
 
     <!-- Left Col -->
     <div class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex">
-      <span class="rotate blink_me">🪨👀</span>
+      <span class="rotate blink_me"><img src="https://emojigraph.org/media/google/rock_1faa8.png" width="20" class="rock" />👀</span>
       <dark-Toggler class="d-none d-lg-block" />
       <currency-Toggler class="d-none d-lg-block" />
     </div>
@@ -91,6 +91,10 @@ export default {
 }
 .blink_me {
   animation: blinker 2s linear 4;
+}
+
+.rock {
+  margin-right: 2px;
 }
 
 @keyframes blinker {
