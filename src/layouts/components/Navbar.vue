@@ -19,6 +19,9 @@
       <span class="text-primary"
         ><b>{{ this.count.toLocaleString("en") }}</b> API requests served</span
       >
+      <span class="rotate blink_me rocky-mobile"
+        ><img src="https://emojigraph.org/media/google/rock_1faa8.png" width="20" class="rock" />👀</span
+      >
     </div>
   </div>
 </template>
@@ -68,7 +71,9 @@ export default {
 .api {
   color: #13188d;
 }
-
+.rocky-mobile {
+  margin-left: 5px;
+}
 .rotate {
   transform: rotate(20deg);
 
