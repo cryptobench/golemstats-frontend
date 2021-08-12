@@ -6,7 +6,7 @@
         <b-button v-if="showAnnotations" @click="hideshowAnnotation()" size="sm" variant="primary">Hide Release Labels</b-button>
         <b-button v-else @click="hideshowAnnotation()" size="sm" variant="primary">Show Release Labels</b-button>
         <div v-if="loaded" class="text-center">
-          <apexchart width="100%" height="350" type="area" :options="onlineoptions" :series="online"></apexchart>
+          <apexchart :key="updaterender" width="100%" height="350" type="area" :options="onlineoptions" :series="online"></apexchart>
           <b-badge class="text-center" variant="success">ATH: {{ onlinecount }} Providers</b-badge>
         </div>
         <div class="text-center" v-else>
@@ -21,7 +21,7 @@
         <b-button v-else @click="hideshowAnnotation()" size="sm" variant="primary">Show Release Labels</b-button>
 
         <div v-if="loaded" class="text-center">
-          <apexchart width="100%" height="350" type="area" :options="coresoptions" :series="cores"></apexchart>
+          <apexchart :key="updaterender" width="100%" height="350" type="area" :options="coresoptions" :series="cores"></apexchart>
           <b-badge class="text-center" variant="success">ATH: {{ corescount }} Cores</b-badge>
         </div>
         <div class="text-center" v-else>
@@ -36,7 +36,7 @@
         <b-button v-else @click="hideshowAnnotation()" size="sm" variant="primary">Show Release Labels</b-button>
 
         <div v-if="loaded" class="text-center">
-          <apexchart width="100%" height="350" type="area" :options="memoryoptions" :series="memory"></apexchart>
+          <apexchart :key="updaterender" width="100%" height="350" type="area" :options="memoryoptions" :series="memory"></apexchart>
           <b-badge class="text-center" variant="success">ATH: {{ memorycount }} TB </b-badge>
         </div>
         <div class="text-center" v-else>
@@ -51,7 +51,7 @@
         <b-button v-else @click="hideshowAnnotation()" size="sm" variant="primary">Show Release Labels</b-button>
 
         <div v-if="loaded" class="text-center">
-          <apexchart width="100%" height="350" type="area" :options="diskoptions" :series="disk"></apexchart>
+          <apexchart :key="updaterender" width="100%" height="350" type="area" :options="diskoptions" :series="disk"></apexchart>
           <b-badge class="text-center" variant="success">ATH: {{ diskcount }} TB </b-badge>
         </div>
         <div class="text-center" v-else>
@@ -81,6 +81,7 @@ export default {
       online: [],
       onlinecount: [],
       cores: [],
+      updaterender: 0,
       corescount: [],
       memory: [],
       memorycount: [],
@@ -179,6 +180,19 @@ export default {
                   background: "#D7263D",
                 },
                 text: "0.7.2 Released",
+              },
+            },
+            {
+              x: new Date("28 July 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#D7263D",
+              label: {
+                borderColor: "#D7263D",
+                style: {
+                  color: "#fff",
+                  background: "#D7263D",
+                },
+                text: "0.7.3 Released",
               },
             },
           ],
@@ -344,6 +358,19 @@ export default {
                   background: "#A300D6",
                 },
                 text: "0.7.2 Released",
+              },
+            },
+            {
+              x: new Date("28 July 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#A300D6",
+              label: {
+                borderColor: "#A300D6",
+                style: {
+                  color: "#fff",
+                  background: "#A300D6",
+                },
+                text: "0.7.3 Released",
               },
             },
           ],
@@ -513,6 +540,19 @@ export default {
                 text: "0.7.2 Released",
               },
             },
+            {
+              x: new Date("28 July 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#4ECDC4",
+              label: {
+                borderColor: "#4ECDC4",
+                style: {
+                  color: "#fff",
+                  background: "#4ECDC4",
+                },
+                text: "0.7.3 Released",
+              },
+            },
           ],
         },
         tooltip: {
@@ -679,6 +719,19 @@ export default {
                 text: "0.7.2 Released",
               },
             },
+            {
+              x: new Date("28 July 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#3F51B5	",
+              label: {
+                borderColor: "#3F51B5	",
+                style: {
+                  color: "#fff",
+                  background: "#3F51B5",
+                },
+                text: "0.7.3 Released",
+              },
+            },
           ],
         },
         tooltip: {
@@ -753,6 +806,11 @@ export default {
   },
   created() {
     this.fetchData()
+  },
+  watch: {
+    "$store.state.appConfig.layout.skin": function() {
+      this.updaterender += 1
+    },
   },
   mounted: function() {
     this.timer = setInterval(() => {
