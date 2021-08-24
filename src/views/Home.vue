@@ -11,7 +11,7 @@
             icon="DollarSignIcon"
             color="success"
             :statistic="averageearnings"
-            statistic-title="Average earnings per task"
+            statistic-title="Average earnings per task (24h)"
             style="max-width: 400px"
           />
           <div v-else class="text-center cardish">
