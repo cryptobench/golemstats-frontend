@@ -50,7 +50,7 @@
             icon="DollarSignIcon"
             color="success"
             :statistic="earnings90d"
-            statistic-title="Total Network Earnings (90d)"
+            statistic-title="Total Network Earnings"
             style="max-width: 400px"
           />
           <div v-else class="text-center cardish">
