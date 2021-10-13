@@ -281,6 +281,17 @@
                   {{ data.value }}
                 </div>
               </template>
+              <template #cell(benchmark_score)="data">
+                <div class="d-flex align-items-center">
+                  <b-avatar class="mr-1" variant="light-primary" rounded>
+                    <feather-icon icon="ZapIcon" size="18" />
+                  </b-avatar>
+                  <div v-if="data['item'].benchmark_score == '0'">Not benchmarked</div>
+                  <div v-else>
+                    {{ data.value }}
+                  </div>
+                </div>
+              </template>
               <template #cell(cpu_hour)="data">
                 <div class="d-flex align-items-center">
                   <b-avatar class="mr-1" variant="light-primary" rounded>
@@ -351,7 +362,7 @@ export default {
       table_data: false,
       rowcount: "30",
       averageearnings_loaded: false,
-      sortBy: "Earnings",
+      sortBy: "benchmark_score",
       sortDesc: true,
       median_loaded: false,
       stats_loaded: false,
@@ -396,6 +407,7 @@ export default {
         { key: "Memory", label: "Memory (GB)", sortable: true },
         { key: "Disk", label: "Disk (GB)", sortable: true },
         { key: "Earnings", label: "Total earnings", sortable: true },
+        { key: "benchmark_score", label: "Performance Score", sortable: true },
         { key: "cpu_hour", label: "CPU/h price", sortable: true },
         { key: "per_hour", label: "Per/h price", sortable: true },
         { key: "start_price", label: "Start Price", sortable: true },
@@ -494,6 +506,7 @@ export default {
             Subnet: obj.data["golem.node.debug.subnet"],
             Cores: obj.data["golem.inf.cpu.threads"],
             Vendor: obj.data["golem.inf.cpu.vendor"],
+            benchmark_score: obj.benchmark_score,
             Wallet: wallet,
             start_price: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][2], 3)} GLM`,
             per_hour: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][0] * 3600, 3)} GLM`,
