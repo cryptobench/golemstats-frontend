@@ -211,6 +211,26 @@
                   </b-col>
                 </div>
               </b-col>
+              <b-col cols="12" sm="12" md="12" lg="12">
+                <div class="d-flex align-items-center mt-2">
+                  <b-col cols="6" sm="6" md="6" lg="6">
+                    <div class="d-flex align-items-center">
+                      <b-avatar v-if="this.cpu_vendor == 'AMD'" variant="light-danger" rounded>
+                        <feather-icon icon="CpuIcon" size="18" />
+                      </b-avatar>
+                      <b-avatar v-else variant="light-primary" rounded>
+                        <feather-icon icon="ZapIcon" size="18" />
+                      </b-avatar>
+                      <div class="ml-1">
+                        <h5 class="mb-0">
+                          {{ performance }}
+                        </h5>
+                        <small>Performance Score</small>
+                      </div>
+                    </div>
+                  </b-col>
+                </div>
+              </b-col>
             </b-row>
           </b-card>
         </b-col>
@@ -256,6 +276,7 @@ export default {
       cores: "",
       model: "",
       cpu_vendor: "",
+      performance: "",
       threads: "",
       version: "",
       disk: "",
@@ -470,6 +491,7 @@ export default {
         this.name = apiResponse[0].data["golem.node.id.name"]
         this.runtime_name = apiResponse[0].data["golem.runtime.name"]
         this.cores = apiResponse[0].data["golem.inf.cpu.threads"]
+        this.performance = apiResponse[0].benchmark_score
         this.model = apiResponse[0].data["golem.inf.cpu.model"]
 
         if (apiResponse[0].data["golem.inf.cpu.vendor"] == "GenuineIntel") {
