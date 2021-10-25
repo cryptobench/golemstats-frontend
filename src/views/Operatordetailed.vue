@@ -506,6 +506,9 @@ export default {
           } else {
             var earnings = `${this.floorFigure(obj.earnings_total * this.usdprice, 2)} USD`
           }
+          let pricing_hashmap = new Map()
+          pricing_hashmap.set(obj.data["golem.com.usage.vector"][0], obj.data["golem.com.pricing.model.linear.coeffs"][0])
+          pricing_hashmap.set(obj.data["golem.com.usage.vector"][1], obj.data["golem.com.pricing.model.linear.coeffs"][1])
 
           if (!old) {
             this.items.push({
@@ -520,8 +523,8 @@ export default {
               Vendor: obj.data["golem.inf.cpu.vendor"],
               Wallet: wallet,
               start_price: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][2], 3)} GLM`,
-              per_hour: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][0] * 3600, 3)} GLM`,
-              cpu_hour: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][1] * 3600, 3)} GLM`,
+              per_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.duration_sec") * 3600, 3)} GLM`,
+              cpu_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.cpu_sec") * 3600, 3)} GLM`,
               Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
               Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
             })
@@ -536,8 +539,8 @@ export default {
               Cores: obj.data["golem.inf.cpu.threads"],
               Wallet: wallet,
               start_price: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][2], 3)} GLM`,
-              per_hour: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][0] * 3600, 3)} GLM`,
-              cpu_hour: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][1] * 3600, 3)} GLM`,
+              per_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.duration_sec") * 3600, 3)} GLM`,
+              cpu_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.cpu_sec") * 3600, 3)} GLM`,
               Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
               Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
             })

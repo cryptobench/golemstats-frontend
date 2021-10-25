@@ -471,7 +471,15 @@ export default {
         this.runtime_name = apiResponse[0].data["golem.runtime.name"]
         this.cores = apiResponse[0].data["golem.inf.cpu.threads"]
         this.model = apiResponse[0].data["golem.inf.cpu.model"]
-
+        let pricing_hashmap = new Map()
+        pricing_hashmap.set(
+          apiResponse[0].data["golem.com.usage.vector"][0],
+          apiResponse[0].data["golem.com.pricing.model.linear.coeffs"][0]
+        )
+        pricing_hashmap.set(
+          apiResponse[0].data["golem.com.usage.vector"][1],
+          apiResponse[0].data["golem.com.pricing.model.linear.coeffs"][1]
+        )
         if (apiResponse[0].data["golem.inf.cpu.vendor"] == "GenuineIntel") {
           this.cpu_vendor = "Intel"
         } else if (apiResponse[0].data["golem.inf.cpu.vendor"] == "AuthenticAMD") {
@@ -482,8 +490,8 @@ export default {
         this.runtime_version = apiResponse[0].data["golem.runtime.version"]
         this.usage_vector = apiResponse[0].data["golem.com.usage.vector"]
         this.pricing_model = apiResponse[0].data["golem.com.pricing.model"]
-        this.cpu_hour = this.floorFigure(apiResponse[0].data["golem.com.pricing.model.linear.coeffs"][1] * 3600, 3)
-        this.per_hour = this.floorFigure(apiResponse[0].data["golem.com.pricing.model.linear.coeffs"][0] * 3600, 3)
+        this.cpu_hour = this.floorFigure(pricing_hashmap.get("golem.usage.cpu_sec") * 3600, 3)
+        this.per_hour = this.floorFigure(pricing_hashmap.get("golem.usage.duration_sec") * 3600, 3)
         this.start_price = this.floorFigure(apiResponse[0].data["golem.com.pricing.model.linear.coeffs"][2], 3)
         this.subnet = apiResponse[0].data["golem.node.debug.subnet"]
         this.architecture = apiResponse[0].data["golem.inf.cpu.architecture"]
