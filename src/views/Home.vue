@@ -487,7 +487,6 @@ export default {
           let pricing_hashmap = new Map()
           pricing_hashmap.set(obj.data["golem.com.usage.vector"][0], obj.data["golem.com.pricing.model.linear.coeffs"][0])
           pricing_hashmap.set(obj.data["golem.com.usage.vector"][1], obj.data["golem.com.pricing.model.linear.coeffs"][1])
-          console.log(pricing_hashmap)
 
           this.items.push({
             Online: obj.online,

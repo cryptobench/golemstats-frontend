@@ -97,7 +97,6 @@ export default {
       if (localStorage.getItem("vuexy-skin") == "dark") {
         this.chartOptions.chart.foreColor = "#fff"
         this.chartOptions.tooltip.theme = "dark"
-        console.log(this.chartOptions.tooltip.theme)
       } else {
         this.chartOptions.chart.foreColor = "#373d3f"
         this.chartOptions.tooltip.theme = "light"

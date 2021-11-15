@@ -8,12 +8,8 @@
           <b-badge pill variant="danger"> {{ this.offlinecount }} Offline Nodes </b-badge>
           <div class="mt-2 mb-1">
             <h4>Mainnet wallet</h4>
-            <b-button target="_blank" variant="primary" @click="zkscan">
-              ZKscan
-            </b-button>
-            <b-button variant="primary" class="ml-1" @click="etherscan">
-              Etherscan
-            </b-button>
+            <b-button target="_blank" variant="primary" @click="zkscan"> ZKscan </b-button>
+            <b-button variant="primary" class="ml-1" @click="etherscan"> Etherscan </b-button>
           </div>
         </b-card>
       </b-col>
@@ -87,26 +83,16 @@
             <!-- A virtual column -->
             <template #cell(Name)="data">
               {{ data.value }}
-              <b-badge v-if="data['item'].Online" pill variant="success">
-                Online
-              </b-badge>
-              <b-badge v-else-if="data['item'].Old" pill variant="danger">
-                OLD
-              </b-badge>
-              <b-badge v-else pill variant="danger">
-                Offline
-              </b-badge>
+              <b-badge v-if="data['item'].Online" pill variant="success"> Online </b-badge>
+              <b-badge v-else-if="data['item'].Old" pill variant="danger"> OLD </b-badge>
+              <b-badge v-else pill variant="danger"> Offline </b-badge>
             </template>
 
             <!-- A custom formatted column -->
             <template #cell(Subnet)="data">
               <div class="d-flex align-items-center">
-                <b-badge v-if="data['item'].Mainnet" class="w-100" pill variant="primary">
-                  Mainnet
-                </b-badge>
-                <b-badge v-else class="w-100" pill variant="warning">
-                  Testnet
-                </b-badge>
+                <b-badge v-if="data['item'].Mainnet" class="w-100" pill variant="primary"> Mainnet </b-badge>
+                <b-badge v-else class="w-100" pill variant="warning"> Testnet </b-badge>
               </div>
             </template>
 
@@ -206,20 +192,14 @@
             <!-- A virtual column -->
             <template #cell(Name)="data">
               {{ data.value }}
-              <b-badge pill variant="danger">
-                Old node
-              </b-badge>
+              <b-badge pill variant="danger"> Old node </b-badge>
             </template>
 
             <!-- A custom formatted column -->
             <template #cell(Subnet)="data">
               <div class="d-flex align-items-center">
-                <b-badge v-if="data['item'].Mainnet" class="w-100" pill variant="primary">
-                  Mainnet
-                </b-badge>
-                <b-badge v-else class="w-100" pill variant="warning">
-                  Testnet
-                </b-badge>
+                <b-badge v-if="data['item'].Mainnet" class="w-100" pill variant="primary"> Mainnet </b-badge>
+                <b-badge v-else class="w-100" pill variant="warning"> Testnet </b-badge>
               </div>
             </template>
 
@@ -375,7 +355,7 @@ export default {
     }
   },
   watch: {
-    "$store.state.appConfig.layout.currency": function() {
+    "$store.state.appConfig.layout.currency": function () {
       this.makeToast(
         "success",
         `Changing layout to ${this.$store.state.appConfig.layout.currency} prices`,
@@ -420,17 +400,14 @@ export default {
         const apiResponse = response.data
         if (localStorage.getItem("currency") == "glm") {
           const income = `${this.floorFigure(apiResponse.earnings, 3)} GLM`
-          console.log("INCOME", income)
           return income
         }
         if (!localStorage.getItem("currency")) {
           localStorage.setItem("currency", "glm")
           const income = `${this.floorFigure(apiResponse.earnings, 3)} GLM`
-          console.log("INCOME", income)
           return income
         }
         const income = `${this.floorFigure(apiResponse.earnings * this.usdprice, 3)} USD`
-        console.log("INCOME", income)
         return income
       })
     },
