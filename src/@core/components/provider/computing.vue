@@ -37,6 +37,7 @@ export default {
   },
   mounted: function () {
     this.timer = setInterval(() => {
+      if (document.visibilityState === "hidden") { return }
       this.check()
     }, 15000)
   },
