@@ -814,6 +814,7 @@ export default {
   },
   mounted: function() {
     this.timer = setInterval(() => {
+      if (document.visibilityState === "hidden") { return }
       this.fetchData()
     }, 15000)
   },

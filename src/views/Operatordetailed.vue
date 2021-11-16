@@ -369,6 +369,7 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
+      if (document.visibilityState === "hidden") { return }
       this.activity()
       this.geckoapi()
     }, 60000)

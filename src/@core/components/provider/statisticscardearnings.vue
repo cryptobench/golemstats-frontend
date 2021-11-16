@@ -63,6 +63,7 @@ export default {
   },
   mounted: function () {
     this.timer = setInterval(() => {
+      if (document.visibilityState === "hidden") { return }
       this.earnings()
     }, 15000)
   },

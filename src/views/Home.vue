@@ -426,6 +426,7 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
+      if (document.visibilityState === "hidden") { return }
       this.computingnow()
       this.generalstats()
       this.earningspertask()

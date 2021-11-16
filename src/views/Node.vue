@@ -367,6 +367,7 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
+      if (document.visibilityState === "hidden") { return }
       this.activity()
       this.tasks_computed()
       this.get_seconds_computed()
