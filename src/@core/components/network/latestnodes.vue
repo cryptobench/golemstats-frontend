@@ -153,6 +153,7 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
+      if (document.visibilityState === "hidden") { return }
       this.fetchData(this.count)
     }, 15000)
   },
