@@ -5,6 +5,7 @@ LATEST := ${REPO}:${GITHUB_SHA}
 
 build:
 	@docker build -t ${IMG} .
+	@docker tag ${IMG} ${LATEST}
  
 push:
 	@docker push ${REPO}:${GITHUB_SHA}
