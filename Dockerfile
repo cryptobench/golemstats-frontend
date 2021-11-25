@@ -5,7 +5,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY ./package.json /app/package.json
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./golemstatssitemap.xml /crawler/sitemap.xml
-COPY ./robots.txt /crawler/robots.txt"
+COPY ./robots.txt /crawler/robots.txt
 RUN npm install --silent
 RUN npm install -g @vue/cli
 COPY . /app
