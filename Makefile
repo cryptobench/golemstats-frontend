@@ -4,7 +4,7 @@ IMG   := ${REPO}:${GITHUB_SHA}
 LATEST := ${REPO}:latest
 
 build:
-	@docker build -t ${IMG} -f ./dockerfiles/Django .
+	@docker build -t ${IMG} .
 	@docker tag ${IMG} ${LATEST}
 
  
