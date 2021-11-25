@@ -1,9 +1,10 @@
 #Location: .github/workflows/custom_config.yml
 
-name: Build and push container to Dockerhub
+name: Build and push container to Dockerhub and deploy
 env:
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+  GITHUB_SHA: ${{ github.sha }}
 
 on:
   push:
@@ -24,4 +25,14 @@ jobs:
 
       - name: Push to Dockerhub
         run: make push
+
+      - name: SSH deploy
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.KEY }}
+            port: ${{ secrets.PORT }}
+            script: |
+                docker service update --force --image phillipjensen/golem-stats-frontend:${{ github.sha }} golemstats_frontend
   
