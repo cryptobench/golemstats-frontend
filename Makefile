@@ -1,7 +1,7 @@
  
 REPO   := phillipjensen/golem-stats-frontend
 IMG   := ${REPO}:${GITHUB_SHA}
-LATEST := ${REPO}:latest
+LATEST := ${REPO}:${GITHUB_SHA}
 
 build:
 	@docker build -t ${IMG} .
