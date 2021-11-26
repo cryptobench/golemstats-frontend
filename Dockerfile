@@ -1,13 +1,11 @@
 FROM node:lts-alpine as build
 WORKDIR /app
 RUN mkdir /crawler
-ENV PATH /app/node_modules/.bin:$PATH
 COPY ./package.json /app/package.json
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./golemstatssitemap.xml /crawler/sitemap.xml
 COPY ./robots.txt /crawler/robots.txt
-RUN npm install --silent
-RUN npm install -g @vue/cli
+RUN npm install
 COPY . /app
 RUN npm run build
 
