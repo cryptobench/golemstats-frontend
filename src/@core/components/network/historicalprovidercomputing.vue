@@ -141,6 +141,32 @@ export default {
                 text: "0.7.3 Released",
               },
             },
+            {
+              x: new Date("11 October 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#3F51B5",
+              label: {
+                borderColor: "#3F51B5",
+                style: {
+                  color: "#fff",
+                  background: "#3F51B5",
+                },
+                text: "0.8.0 Released",
+              },
+            },
+            {
+              x: new Date("8 December 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#3F51B5",
+              label: {
+                borderColor: "#3F51B5",
+                style: {
+                  color: "#fff",
+                  background: "#3F51B5",
+                },
+                text: "0.9.0 Released",
+              },
+            },
           ],
         },
         tooltip: {
@@ -181,7 +207,7 @@ export default {
             },
           },
           labels: {
-            formatter: function(value) {
+            formatter: function (value) {
               return Math.floor(value) + " Providers"
             },
           },
@@ -214,9 +240,11 @@ export default {
   created() {
     this.fetchData()
   },
-  mounted: function() {
+  mounted: function () {
     this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") { return }
+      if (document.visibilityState === "hidden") {
+        return
+      }
       this.fetchData()
     }, 15000)
   },
