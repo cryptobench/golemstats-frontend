@@ -58,9 +58,7 @@
               <b-avatar class="avatar-margin-btm" variant="light-primary" rounded>
                 <feather-icon icon="ActivityIcon" size="18" />
               </b-avatar>
-              <h1 class="avatar-margin icon-margin">
-                Task Activity
-              </h1>
+              <h1 class="avatar-margin icon-margin">Task Activity</h1>
 
               <b-spinner variant="success" type="grow" small label="Spinning" class="mb-1 spinner-graph" />
             </div>
@@ -82,7 +80,7 @@
         <b-col lg="5">
           <b-card class="provider-info">
             <b-row>
-              <b-col cols="9" sm="9" md="10" lg="8">
+              <b-col cols="12" sm="12" md="12" lg="12">
                 <h4 class="mb-0">
                   {{ name }}
                   <b-badge v-if="online" variant="success">
@@ -108,17 +106,12 @@
                 >
 
                 <div class="mt-1">
-                  <b-button variant="primary" @click="operator">
-                    Node by operator
-                  </b-button>
+                  <b-button variant="primary" @click="operator"> Node by operator </b-button>
                 </div>
                 <div class="mt-1 mb-1">
-                  <b-button variant="outline-primary" @click="zkscan">
-                    ZKscan
-                  </b-button>
-                  <b-button variant="outline-primary" class="ml-1" @click="etherscan">
-                    Etherscan
-                  </b-button>
+                  <b-button variant="outline-primary" @click="polygon"> Polygon </b-button>
+                  <b-button variant="outline-primary" class="ml-1" @click="zkscan"> ZKscan </b-button>
+                  <b-button variant="outline-primary" class="ml-1" @click="etherscan"> Etherscan </b-button>
                 </div>
               </b-col>
 
@@ -367,7 +360,9 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") { return }
+      if (document.visibilityState === "hidden") {
+        return
+      }
       this.activity()
       this.tasks_computed()
       this.get_seconds_computed()
@@ -457,6 +452,13 @@ export default {
         window.open(`https://rinkeby.etherscan.io/address/${this.wallet}`, "_blank")
       } else {
         window.open(`https://etherscan.io/address/${this.wallet}`, "_blank")
+      }
+    },
+    polygon() {
+      if (this.testnet) {
+        window.open(`https://mumbai.polygonscan.com/address/${this.wallet}#tokentxns`, "_blank")
+      } else {
+        window.open(`https://polygonscan.com/address/${this.wallet}#tokentxns`, "_blank")
       }
     },
     fetchData() {
