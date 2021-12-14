@@ -195,6 +195,32 @@ export default {
                 text: "0.7.3 Released",
               },
             },
+            {
+              x: new Date("11 October 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#D7263D",
+              label: {
+                borderColor: "#D7263D",
+                style: {
+                  color: "#fff",
+                  background: "#D7263D",
+                },
+                text: "0.8.0 Released",
+              },
+            },
+            {
+              x: new Date("8 December 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#D7263D",
+              label: {
+                borderColor: "#D7263D",
+                style: {
+                  color: "#fff",
+                  background: "#D7263D",
+                },
+                text: "0.9.0 Released",
+              },
+            },
           ],
         },
         tooltip: {
@@ -237,7 +263,7 @@ export default {
             },
           },
           labels: {
-            formatter: function(value) {
+            formatter: function (value) {
               return value + " TB"
             },
           },
@@ -373,6 +399,32 @@ export default {
                 text: "0.7.3 Released",
               },
             },
+            {
+              x: new Date("11 October 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#A300D6",
+              label: {
+                borderColor: "#A300D6",
+                style: {
+                  color: "#fff",
+                  background: "#A300D6",
+                },
+                text: "0.8.0 Released",
+              },
+            },
+            {
+              x: new Date("8 December 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#A300D6",
+              label: {
+                borderColor: "#A300D6",
+                style: {
+                  color: "#fff",
+                  background: "#A300D6",
+                },
+                text: "0.9.0 Released",
+              },
+            },
           ],
         },
         tooltip: {
@@ -415,7 +467,7 @@ export default {
             },
           },
           labels: {
-            formatter: function(value) {
+            formatter: function (value) {
               let decimals = 2
               var d = Math.pow(10, decimals)
               return (parseInt(value * d) / d).toFixed(decimals) + " TB"
@@ -553,6 +605,32 @@ export default {
                 text: "0.7.3 Released",
               },
             },
+            {
+              x: new Date("11 October 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#4ECDC4",
+              label: {
+                borderColor: "#4ECDC4",
+                style: {
+                  color: "#fff",
+                  background: "#4ECDC4",
+                },
+                text: "0.8.0 Released",
+              },
+            },
+            {
+              x: new Date("8 December 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#4ECDC4",
+              label: {
+                borderColor: "#4ECDC4",
+                style: {
+                  color: "#fff",
+                  background: "#4ECDC4",
+                },
+                text: "0.9.0 Released",
+              },
+            },
           ],
         },
         tooltip: {
@@ -595,7 +673,7 @@ export default {
             },
           },
           labels: {
-            formatter: function(value) {
+            formatter: function (value) {
               return value + " Cores"
             },
           },
@@ -732,6 +810,32 @@ export default {
                 text: "0.7.3 Released",
               },
             },
+            {
+              x: new Date("11 October 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#3F51B5	",
+              label: {
+                borderColor: "#3F51B5	",
+                style: {
+                  color: "#fff",
+                  background: "#3F51B5",
+                },
+                text: "0.8.0 Released",
+              },
+            },
+            {
+              x: new Date("8 December 2021").getTime(),
+              strokeDashArray: 0,
+              borderColor: "#3F51B5	",
+              label: {
+                borderColor: "#3F51B5	",
+                style: {
+                  color: "#fff",
+                  background: "#3F51B5",
+                },
+                text: "0.9.0 Released",
+              },
+            },
           ],
         },
         tooltip: {
@@ -774,7 +878,7 @@ export default {
             },
           },
           labels: {
-            formatter: function(value) {
+            formatter: function (value) {
               return value + " Providers"
             },
           },
@@ -808,13 +912,15 @@ export default {
     this.fetchData()
   },
   watch: {
-    "$store.state.appConfig.layout.skin": function() {
+    "$store.state.appConfig.layout.skin": function () {
       this.updaterender += 1
     },
   },
-  mounted: function() {
+  mounted: function () {
     this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") { return }
+      if (document.visibilityState === "hidden") {
+        return
+      }
       this.fetchData()
     }, 15000)
   },

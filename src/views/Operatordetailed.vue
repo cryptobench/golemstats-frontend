@@ -8,7 +8,8 @@
           <b-badge pill variant="danger"> {{ this.offlinecount }} Offline Nodes </b-badge>
           <div class="mt-2 mb-1">
             <h4>Mainnet wallet</h4>
-            <b-button target="_blank" variant="primary" @click="zkscan"> ZKscan </b-button>
+            <b-button target="_blank" variant="primary" @click="polygon"> Polygon </b-button>
+            <b-button target="_blank" class="ml-1" variant="primary" @click="zkscan"> ZKscan </b-button>
             <b-button variant="primary" class="ml-1" @click="etherscan"> Etherscan </b-button>
           </div>
         </b-card>
@@ -355,7 +356,7 @@ export default {
     }
   },
   watch: {
-    "$store.state.appConfig.layout.currency": function () {
+    "$store.state.appConfig.layout.currency": function() {
       this.makeToast(
         "success",
         `Changing layout to ${this.$store.state.appConfig.layout.currency} prices`,
@@ -369,7 +370,9 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") { return }
+      if (document.visibilityState === "hidden") {
+        return
+      }
       this.activity()
       this.geckoapi()
     }, 60000)
@@ -380,6 +383,9 @@ export default {
     },
     etherscan() {
       window.open(`https://etherscan.io/address/${this.$route.params.id}`, "_blank")
+    },
+    polygon() {
+      window.open(`https://polygonscan.com/address/${this.$route.params.id}#tokentxns`, "_blank")
     },
     expandAdditionalInfo(row) {
       this.$router.push({ name: "node", params: { id: row.id } })
