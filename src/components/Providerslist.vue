@@ -1,9 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
-    <h1 class="text-2xl mb-2 font-medium  mt-6">
-      Nodes by Operator <span class="text-sm font-medium text-gray-400">{{this.$route.params.id}}</span>
-    </h1>
+  <div>
+    <h1 class="text-2xl mb-2 font-medium">Online Providers</h1>
     <div
       class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12 bg-white pt-5 px-4 sm:py-6 sm:px-6 shadow rounded-lg overflow-hidden"
     >
@@ -170,7 +168,7 @@
     </div>
 
     <v-table :data="items" :filters="filters" class="divide-y-12 divide-gray-900 border-separate rowspacing overflow-scroll w-full">
-      <template #head>
+      <template :class="'edescription'" #head>
         <tr>
           <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-l-lg">Provider</th>
           <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Cores</th>
@@ -278,8 +276,8 @@
 <script>
 import axios from "axios"
 import GolemIcon from "@/components/golem.vue"
-import LayersIcon from "@/components/layers.vue"
 import { ChipIcon, DatabaseIcon } from "@heroicons/vue/solid"
+import LayersIcon from "@/components/layers.vue"
 const people = [
   {
     name: "Jane Cooper",
@@ -342,6 +340,7 @@ export default {
   created() {
     this.fetchData()
   },
+
   methods: {
     coresFilter (filterValue, row) {
       return row.Cores >= filterValue.min && row.Cores <= filterValue.max
@@ -370,14 +369,13 @@ export default {
       this.$router.push({ name: "node", params: { id: row } })
     },
     fetchData() {
-      axios.get(`https://api.stats.golem.network/v1/provider/wallet/${this.$route.params.id}`).then((response) => {
+      axios.get("https://api.stats.golem.network/v1/network/online").then((response) => {
         const apiResponse = response.data
         this.items.length = 0
         const avg_cpu_hour = []
         const avg_start_price = []
         const avg_per_hour = []
         apiResponse.forEach((obj) => {
-          if (obj.online) {
           if (obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]) {
             var mainnet = true
             var wallet = obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]
@@ -418,7 +416,7 @@ export default {
           avg_cpu_hour.push(obj.data["golem.com.pricing.model.linear.coeffs"][1] * 3600)
           avg_start_price.push(obj.data["golem.com.pricing.model.linear.coeffs"][2])
           avg_per_hour.push(obj.data["golem.com.pricing.model.linear.coeffs"][0] * 3600)
-        }})
+        })
         const median = (arr) => {
           const mid = Math.floor(arr.length / 2)
           const nums = [...arr].sort((a, b) => a - b)
@@ -443,6 +441,7 @@ export default {
 .rowspacing {
   border-spacing: 0 15px;
 }
+
 thead {
   @apply bg-gray-900;
   @apply py-24;
