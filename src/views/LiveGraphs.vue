@@ -1,0 +1,140 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<template>
+  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
+    <div class="mt-8 grid grid-cols-1 gap-6    lg:grid-cols-12">
+      <div class=" lg:col-span-12 -mb-4 -mt-4">
+        <h1 class="text-2xl font-medium dark:text-gray-300">Live Network Data</h1>
+      </div>
+      <div class=" lg:col-span-6">
+        <Agreementsreasons>/</Agreementsreasons>
+      </div>
+      <div class=" lg:col-span-6">
+        <Vendorpie :data="vendorlist">/</Vendorpie>
+      </div>
+      <div class=" lg:col-span-4">
+        <Architecture :data="architecturelist">/</Architecture>
+      </div>
+      <div class=" lg:col-span-4">
+        <InvoicesPaid>/</InvoicesPaid>
+      </div>
+      <div class=" lg:col-span-4">
+        <InvoicesAccepted>/</InvoicesAccepted>
+      </div>
+      <div class=" lg:col-span-12">
+        <Utilization class="mb-12 mt-2">/</Utilization>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios"
+// @ is an alias to /src
+import Agreementsreasons from "@/components/Agreementsreasons.vue"
+import InvoicesPaid from "@/components/Invoicespaid.vue"
+import InvoicesAccepted from "@/components/Invoicesaccepted.vue"
+import Vendorpie from "@/components/Vendorpie.vue"
+import Architecture from "@/components/Architecture.vue"
+import Utilization from "@/components/NetworkUtilization.vue"
+
+export default {
+  name: "LiveGraphs",
+  components: {
+    Agreementsreasons,
+    InvoicesPaid,
+    InvoicesAccepted,
+    Vendorpie,
+    Architecture,
+    Utilization
+  },
+  created() {
+      this.fetchData()
+  },
+  data() {
+    return {
+    intelcount: 0,
+      amdcount: 0,
+      thirdtypecpu: 0,
+      x86_64: 0,
+      Aarch64: 0,
+      vendorlist: [],
+      architecturelist: [],
+      chartOptions: {
+        chart: {
+          id: "Vendor-donut",
+          type: "donut",
+          zoom: {
+            autoScaleYaxis: true,
+          },
+        },
+        labels: ["Intel", "AMD", "Other"],
+        tooltip: {
+          enabled: true,
+          x: {
+            show: true,
+            format: "HH:mm:ss",
+            formatter: undefined,
+          },
+        },
+        dataLabels: {
+          enabled: true,
+        },
+        colors: ["#0000F9", "#d2090a", "#8b07cd"],
+        markers: {
+          size: 0,
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 0,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 90, 100],
+          },
+        },
+      },
+    }
+  },
+  methods: {
+    fetchData() {
+      this.intelcount = 0
+      this.amdcount = 0
+      this.thirdtypecpu = 0
+      this.vendorlist.length = 0
+      this.Aarch64 = 0
+      this.x86_64 = 0
+      this.architecturelist.length = 0
+      axios.get("https://api.stats.golem.network/v1/network/online").then((response) => {
+        const apiResponse = response.data
+        apiResponse.forEach((obj) => {
+          if (obj.data["golem.inf.cpu.vendor"]) {
+            if (obj.data["golem.inf.cpu.vendor"] == "GenuineIntel") {
+              this.intelcount++
+            } else if (obj.data["golem.inf.cpu.vendor"] == "AuthenticAMD") {
+              this.amdcount++
+            } else {
+              this.thirdtypecpu++
+            }
+          }
+          if (obj.data["golem.inf.cpu.architecture"]) {
+            if (obj.data["golem.inf.cpu.architecture"] == "x86_64") {
+              this.x86_64++
+            } else if (obj.data["golem.inf.cpu.architecture"] == "aarch64") {
+              this.Aarch64++
+            }
+          }
+        })
+        this.vendorlist.push(this.intelcount, this.amdcount, this.thirdtypecpu)
+        this.architecturelist.push(this.x86_64, this.Aarch64)
+      })
+    },
+  },
+}
+</script>
+<style>
+.apexcharts-text,
+.apexcharts-pie-label {
+  @apply font-sans !important;
+}
+</style>

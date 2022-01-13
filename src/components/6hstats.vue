@@ -1,6 +1,6 @@
 <template>
   <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2">
-    <div class="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+    <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
       <dt>
         <div class="absolute bg-golemblue rounded-md p-3">
           <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
@@ -8,7 +8,7 @@
       </dt>
       <dd class="ml-16 pb-6 sm:pb-7">
         <div class="relative">
-          <p class="text-2xl font-semibold text-gray-900">{{provider_title}}</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{provider_title}}</p>
           <p class="text-sm font-medium text-green-500 truncate">Online and available for compute</p>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -16,7 +16,7 @@
       </dd>
       <apexchart v-if="loaded" width="100%" height="250" type="area" :options="onlineoptions" :series="online"></apexchart>
     </div>
-    <div class="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+    <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
       <dt>
         <div class="absolute bg-golemblue rounded-md p-3">
           <component :is="chipicon" class="h-6 w-6 text-white" aria-hidden="true" />
@@ -24,7 +24,7 @@
       </dt>
       <dd class="ml-16 pb-6 sm:pb-7">
         <div class="relative">
-          <p class="text-2xl font-semibold text-gray-900">{{cores_title}}</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{cores_title}}</p>
           <p class="text-sm font-medium text-green-500 truncate">Online and available for compute</p>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -32,7 +32,7 @@
       </dd>
       <apexchart v-if="loaded" width="100%" height="250" type="area" :options="coresoptions" :series="cores"></apexchart>
     </div>
-    <div class="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+    <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
       <dt>
         <div class="absolute bg-golemblue rounded-md p-3">
           <component :is="layersicon" class="h-6 w-6 text-white" aria-hidden="true" />
@@ -40,7 +40,7 @@
       </dt>
       <dd class="ml-16 pb-6 sm:pb-7">
         <div class="relative">
-          <p class="text-2xl font-semibold text-gray-900">{{memory_title}}</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{memory_title}}</p>
           <p class="text-sm font-medium text-green-500 truncate">Online and available for compute</p>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -48,7 +48,7 @@
       </dd>
       <apexchart v-if="loaded" width="100%" height="250" type="area" :options="memoryoptions" :series="memory"></apexchart>
     </div>
-    <div class="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+    <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
       <dt>
         <div class="absolute bg-golemblue rounded-md p-3">
           <component :is="databaseicon" class="h-6 w-6 text-white" aria-hidden="true" />
@@ -56,7 +56,7 @@
       </dt>
       <dd class="ml-16 pb-6 sm:pb-7">
         <div class="relative">
-          <p class="text-2xl font-semibold text-gray-900">{{disk_title}}</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{disk_title}}</p>
           <p class="text-sm font-medium text-green-500 truncate">Online and available for compute</p>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -502,25 +502,7 @@ export default {
           },
         ]
       })
-      if (localStorage.getItem("vuexy-skin") == "dark") {
-        this.coresoptions.chart.foreColor = "#fff"
-        this.memoryoptions.chart.foreColor = "#fff"
-        this.diskoptions.chart.foreColor = "#fff"
-        this.onlineoptions.chart.foreColor = "#fff"
-        this.coresoptions.tooltip.theme = "dark"
-        this.memoryoptions.tooltip.theme = "dark"
-        this.diskoptions.tooltip.theme = "dark"
-        this.onlineoptions.tooltip.theme = "dark"
-      } else {
-        this.coresoptions.chart.foreColor = "#373d3f"
-        this.memoryoptions.chart.foreColor = "#373d3f"
-        this.diskoptions.chart.foreColor = "#373d3f"
-        this.onlineoptions.chart.foreColor = "#373d3f"
-        this.coresoptions.tooltip.theme = "light"
-        this.memoryoptions.tooltip.theme = "light"
-        this.diskoptions.tooltip.theme = "light"
-        this.onlineoptions.tooltip.theme = "light"
-      }
+
 
       this.loaded = true
     },

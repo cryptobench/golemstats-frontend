@@ -3,7 +3,7 @@ const colors = require("tailwindcss/colors")
 module.exports = {
   purge: ["./public/**/*.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   presets: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "class", // or 'media' or 'class'
   theme: {
     screens: {
       sm: "640px",
@@ -16,6 +16,10 @@ module.exports = {
       transparent: "transparent",
       current: "currentColor",
       golemblue: "#0c14d4",
+      facebook: "#1878f3",
+      twitter: "#1d9bf0",
+      thorg: "rgba(17, 13, 57)",
+      thorggradient: "linear-gradient(270deg, rgba(255, 6, 151, 0.8) 1.26%, rgba(0, 108, 255, 0.8) 51.88%, rgba(0, 255, 215, 0.8) 97.6%)",
       black: colors.black,
       white: colors.white,
       gray: colors.coolGray,
@@ -176,7 +180,15 @@ module.exports = {
       150: "1.5",
       200: "2",
     },
-    container: {},
+    container: {
+      screens: {
+        DEFAULT: "90%",
+        sm: "840px",
+        md: "100%",
+        lg: "1280px",
+        xl: "1480px"
+     }
+    },
     content: {
       none: "none",
     },
@@ -957,7 +969,35 @@ module.exports = {
     wordBreak: ["responsive"],
     zIndex: ["responsive", "focus-within", "focus"],
   },
+  corePlugins: {
+    container: false
+  },
   plugins: [
-    
+    function ({ addComponents }) {
+      addComponents({
+        '.container': {
+          width: '90%',
+          // marginLeft: 'auto',
+          // marginRight: 'auto',
+          // paddingLeft: '2rem',
+          // paddingRight: '2rem',
+          '@screen sm': {
+            maxWidth: '640px',
+          },
+          '@screen md': {
+            maxWidth: '768px',
+            width: '100%',
+          },
+          '@screen lg': {
+            maxWidth: '1480px',
+            width: '100%',
+          },
+          '@screen xl': {
+            maxWidth: '1680px',
+            width: '100%',
+          },
+        }
+      })
+    }
   ],
 }

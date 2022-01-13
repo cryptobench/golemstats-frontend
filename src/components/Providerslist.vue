@@ -1,15 +1,13 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div>
-    <h1 class="text-2xl mb-2 font-medium">Online Providers</h1>
-    <div
-      class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12 bg-white pt-5 px-4 sm:py-6 sm:px-6 shadow rounded-lg overflow-hidden"
-    >
+    <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Online Providers</h1>
+    <div class="mt-2 grid gap-5 grid-cols-12 bg-white dark:bg-gray-800 pt-5 px-4 py-6 shadow rounded-lg overflow-hidden">
       <div class="col-span-12">
-        <h1 class="text-2xl mb-2 font-medium">Search filter</h1>
+        <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Search filter</h1>
       </div>
       <div class="col-span-12">
-        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Provider or wallet address</label>
+        <label for="name" class="block text-md font-medium text-gray-700 mb-1 dark:text-gray-400">Provider or wallet address</label>
         <input
           v-model="filters.name.value"
           name="name"
@@ -18,12 +16,12 @@
         />
       </div>
       <div class="col-span-12">
-        <p class="text-lg font-medium">
+        <p class="text-lg font-medium dark:text-gray-300">
           Hardware
         </p>
       </div>
-      <div class="col-span-2">
-        <label class="form-label">Min Cores</label>
+      <div class="lg:col-span-2 col-span-6">
+        <label class="form-label dark:text-gray-300">Min Cores</label>
         <input
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
@@ -33,8 +31,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label for="coresmax">Max Cores</label>
+      <div class="lg:col-span-2 col-span-6 ">
+        <label for="coresmax" class="dark:text-gray-300">Max Cores</label>
         <input
           name="coresmax"
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
@@ -45,8 +43,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label class="form-label">Min Memory <span class="text-sm font-medium text-gray-400">GB</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label class="form-label dark:text-gray-300">Min Memory <span class="text-sm font-medium text-gray-400">GB</span></label>
         <input
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
@@ -56,8 +54,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label for="memorymax">Max Memory <span class="text-sm font-medium text-gray-400">GB</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label for="memorymax" class="dark:text-gray-300">Max Memory <span class="text-sm font-medium text-gray-400">GB</span></label>
         <input
           name="memorymax"
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
@@ -68,8 +66,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label class="form-label">Min Disk <span class="text-sm font-medium text-gray-400">GB</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label class="form-label dark:text-gray-300">Min Disk <span class="text-sm font-medium text-gray-400">GB</span></label>
         <input
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
@@ -79,8 +77,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label for="diskmax">Max Disk <span class="text-sm font-medium text-gray-400">GB</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label for="diskmax" class="dark:text-gray-300">Max Disk <span class="text-sm font-medium text-gray-400">GB</span></label>
         <input
           name="diskmax"
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
@@ -92,12 +90,12 @@
         />
       </div>
       <div class="col-span-12">
-        <p class="text-lg font-medium">
+        <p class="text-lg font-medium dark:text-gray-300">
           Pricing
         </p>
       </div>
-      <div class="col-span-2">
-        <label class="form-label">Min CPU/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label class="form-label dark:text-gray-300">Min CPU/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
         <input
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
@@ -107,8 +105,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label for="cpuhmax">Max CPU/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label for="cpuhmax" class="dark:text-gray-300">Max CPU/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
         <input
           name="cpuhmax"
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
@@ -119,8 +117,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label class="form-label">Min Env/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label class="form-label dark:text-gray-300">Min Env/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
         <input
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
@@ -130,8 +128,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label for="envmax">Max Env/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label for="envmax" class="dark:text-gray-300">Max Env/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
         <input
           name="envmax"
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
@@ -142,8 +140,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label class="form-label">Min Start price <span class="text-sm font-medium text-gray-400">GLM</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label class="form-label dark:text-gray-300">Min Start price <span class="text-sm font-medium text-gray-400">GLM</span></label>
         <input
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
@@ -153,8 +151,8 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
-      <div class="col-span-2">
-        <label for="startmax">Max Start price <span class="text-sm font-medium text-gray-400">GLM</span></label>
+      <div class="lg:col-span-2 col-span-6">
+        <label for="startmax" class="dark:text-gray-300">Max Start price <span class="text-sm font-medium text-gray-400">GLM</span></label>
         <input
           name="startmax"
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
@@ -167,7 +165,11 @@
       </div>
     </div>
 
-    <v-table :data="items" :filters="filters" class="divide-y-12 divide-gray-900 border-separate rowspacing overflow-scroll w-full">
+    <v-table
+      :data="items"
+      :filters="filters"
+      class="divide-y-12 divide-gray-900 border-separate rowspacing overflow-scroll w-full inline-block"
+    >
       <template :class="'edescription'" #head>
         <tr>
           <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-l-lg">Provider</th>
@@ -186,7 +188,7 @@
       </template>
       <template #body="{ rows }">
         <tr
-          class="hover:bg-gray-300 cursor-pointer my-12"
+          class="hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer my-12 golemtr"
           v-for="provider in rows"
           :key="provider.id"
           v-on:click="nodedetails(provider.id)"
@@ -194,34 +196,40 @@
           <td class="px-6 py-4 rounded-l-lg">
             <div class="flex items-center">
               <div class="flex-shrink-0 h-12 w-12 bg-golemblue rounded-md p-3 relative">
-                <div v-if="Math.random() < 0.5">
-                  <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 animate-ping"></div>
-                  <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300"></div>
-                </div>
-                <div v-else>
+                <div v-if="provider.Computing">
                   <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-red-500 animate-ping"></div>
                   <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-red-500"></div>
+                </div>
+                <div v-else>
+                  <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 golemping animate-ping"></div>
+                  <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 golemping"></div>
                 </div>
                 <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
               </div>
               <div class="ml-4">
-                <div class="text-sm font-medium text-gray-900">
+                <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300 ">
                   {{ provider.Name }}
                 </div>
-                <div class="text-sm text-gray-500">
+                <div class="text-sm text-gray-500 golemtext">
                   {{ provider.Subnet }}
                 </div>
 
-                <span v-if="provider.Mainnet" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue text-white">
+                <span
+                  v-if="provider.Mainnet"
+                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue golembadge text-white golemtext"
+                >
                   Mainnet
                 </span>
 
-                <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-500 text-white">
+                <span
+                  v-else
+                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full golembadge bg-yellow-500 text-white golemtext"
+                >
                   Testnet
                 </span>
                 <span
                   v-if="provider.Version"
-                  class="px-2 ml-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue text-white"
+                  class="px-2 ml-1 inline-flex text-xs leading-5 font-semibold rounded-full golembadge bg-golemblue text-white golemtext"
                 >
                   v{{ provider.Version }}
                 </span>
@@ -234,10 +242,10 @@
                 <component :is="chipicon" class="h-4 w-4 text-white" aria-hidden="true" />
               </div>
               <div class="ml-4">
-                <div class="text-sm font-medium text-gray-900">
+                <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
                   {{ provider.Cores }}
                 </div>
-                <div class="text-sm text-gray-500">AMD Ryzen 9 5900X 12-Core</div>
+                <div class="text-sm text-gray-500 golemtext ">AMD Ryzen 9 5900X 12-Core</div>
               </div>
             </div>
           </td>
@@ -247,7 +255,7 @@
               <div class="bg-golemblue rounded-md p-3">
                 <component :is="layersicon" class="h-4 w-4 text-white" aria-hidden="true" />
               </div>
-              <p class="ml-2 text-sm font-medium text-gray-900">{{ provider.Memory }} GB</p>
+              <p class="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">{{ provider.Memory }} GB</p>
             </dt>
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
@@ -255,17 +263,23 @@
               <div class="bg-golemblue rounded-md p-3">
                 <component :is="databaseicon" class="h-4 w-4 text-white" aria-hidden="true" />
               </div>
-              <p class="ml-2 text-sm font-medium text-gray-900">{{ provider.Disk }} GB</p>
+              <p class="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">{{ provider.Disk }} GB</p>
             </dt>
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-            <a href="#" class="font-semibold text-gray-900 text-sm">{{ provider.cpu_hour }} <span class="text-golemblue">GLM</span></a>
+            <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+              >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
+            >
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-            <a href="#" class="font-semibold text-gray-900 text-sm">{{ provider.cpu_hour }} <span class="text-golemblue">GLM</span></a>
+            <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+              >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
+            >
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium rounded-r-lg">
-            <a href="#" class="font-semibold text-gray-900 text-sm">{{ provider.cpu_hour }} <span class="text-golemblue">GLM</span></a>
+            <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+              >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
+            >
           </td>
         </tr>
       </template>
@@ -376,7 +390,8 @@ export default {
         const avg_start_price = []
         const avg_per_hour = []
         apiResponse.forEach((obj) => {
-          if (obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]) {
+          if (obj.data['golem.node.debug.subnet'] != "Thorg") {
+                      if (obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]) {
             var mainnet = true
             var wallet = obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]
             //  block of code to be executed if the condition is true
@@ -407,6 +422,7 @@ export default {
             Cores: obj.data["golem.inf.cpu.threads"],
             Vendor: obj.data["golem.inf.cpu.vendor"],
             Wallet: wallet,
+            Computing: obj.computing_now,
             start_price: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][2], 3)}`,
             per_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.duration_sec") * 3600, 3)}`,
             cpu_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.cpu_sec") * 3600, 3)}`,
@@ -416,6 +432,8 @@ export default {
           avg_cpu_hour.push(obj.data["golem.com.pricing.model.linear.coeffs"][1] * 3600)
           avg_start_price.push(obj.data["golem.com.pricing.model.linear.coeffs"][2])
           avg_per_hour.push(obj.data["golem.com.pricing.model.linear.coeffs"][0] * 3600)
+          }
+
         })
         const median = (arr) => {
           const mid = Math.floor(arr.length / 2)
@@ -444,6 +462,7 @@ export default {
 
 thead {
   @apply bg-gray-900;
+  @apply dark:bg-gray-800;
   @apply py-24;
   @apply sticky;
   @apply top-0;
@@ -452,5 +471,6 @@ thead {
 
 tbody {
   @apply bg-white;
+  @apply dark:bg-gray-800;
 }
 </style>

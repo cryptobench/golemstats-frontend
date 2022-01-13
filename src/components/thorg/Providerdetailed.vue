@@ -1,11 +1,35 @@
+<!--
+  This example requires Tailwind CSS v2.0+ 
+  
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
 <template>
+  <!--
+    This example requires updating your template:
+
+    ```
+    <html class="h-full bg-gray-100">
+    <body class="h-full">
+    ```
+  -->
   <div class="min-h-full">
     <main class="py-10">
       <!-- Page header -->
 
       <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
         <div
-          class="bg-white dark:bg-gray-800 col-span-12 rounded-lg px-6 overflow-scroll  py-4 md:flex md:items-center md:justify-between md:space-x-5 "
+          class="bg-thorg golemshadow golemshadow col-span-12 rounded-lg px-6 overflow-scroll  py-4 md:flex md:items-center md:justify-between md:space-x-5 "
         >
           <div class="flex items-center space-x-5 ">
             <div class="flex-shrink-0 ">
@@ -24,20 +48,15 @@
             </div>
             <div>
               <div class="flex flex-row  items-center ">
-                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-300 pr-2">
+                <h1 class="text-2xl font-bold text-white pr-2">
                   {{this.name}}
                 </h1>
-                <span v-if="testnet" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-500 text-white">
-                  Testnet
-                </span>
-                <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue text-white">
-                  Mainnet
-                </span>
-                <span v-if="version" class="px-2 ml-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue text-white">
-                  v{{ version }}
+
+                <span class="px-2 golemring inline-flex text-xs leading-5 font-semibold rounded-full golemgradient text-white">
+                  Thorg miner
                 </span>
               </div>
-              <p class="text-sm font-medium truncate text-gray-500">
+              <p class="text-sm font-medium text-gray-500">
                 {{this.id}}
               </p>
             </div>
@@ -49,180 +68,176 @@
             <button
               @click="operator"
               type="button"
-              class="inline-flex items-center justify-center px-2 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+              class="golemgradient golemring items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             >
-              Node by Operator
+              <span class="block golemgradient">Node by Operator</span>
             </button>
             <button
               @click="polygon"
               type="button"
-              class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+              class="items-center golemgradient golemring justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             >
-              Polygon
-            </button>
-            <button
-              @click="zkscan"
-              type="button"
-              class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-            >
-              zkScan
-            </button>
-            <button
-              @click="etherscan"
-              type="button"
-              class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-            >
-              Etherscan
+              <span class="block golemgradient">Polygon Wallet</span>
             </button>
           </div>
         </div>
       </div>
 
-      <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
-        <section aria-labelledby="timeline-title" class="lg:col-start-1 lg:col-span-4">
-          <h2 id="timeline-title" class="text-lg font-medium text-gray-900">Earnings</h2>
+      <div class="mt-8 max-w-3xl mx-auto grid grid-cols-12 gap-6 sm:px-6 lg:max-w-7xl ">
+        <section aria-labelledby="timeline-title" class="col-span-12">
+          <h2 id="timeline-title" class="text-lg font-medium text-white">Earnings</h2>
 
           <!-- Activity Feed -->
           <dl class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <div
               v-if="this.income['24']"
-              class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
+              class="relative bg-thorg golemshadow golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
             >
               <dt>
                 <div class="absolute bg-golemblue rounded-md p-3">
                   <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-                <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Earnings (24h)</p>
+                <p class="ml-16 text-sm font-medium golemgradient truncate">Earnings (24h)</p>
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                <p class="text-2xl font-semibold text-white">
                   {{ this.income['24'] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
+                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">
                   GLM
                 </p>
               </dd>
             </div>
             <div
               v-if="this.income['168']"
-              class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
+              class="relative bg-thorg golemshadow golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
             >
               <dt>
                 <div class="absolute bg-golemblue rounded-md p-3">
                   <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-                <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Earnings (7d)</p>
+                <p class="ml-16 text-sm font-medium golemgradient truncate">Earnings (7d)</p>
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                <p class="text-2xl font-semibold text-white">
                   {{ this.income['168'] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
+                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">
                   GLM
                 </p>
               </dd>
             </div>
             <div
               v-if="this.income['744']"
-              class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
+              class="relative bg-thorg golemshadow golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
             >
               <dt>
                 <div class="absolute bg-golemblue rounded-md p-3">
                   <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-                <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Earnings (31d)</p>
+                <p class="ml-16 text-sm font-medium golemgradient truncate">Earnings (31d)</p>
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                <p class="text-2xl font-semibold text-white">
                   {{ this.income['744'] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
+                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">
                   GLM
                 </p>
               </dd>
             </div>
-            <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+            <div class="relative bg-thorg golemshadow golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
               <dt>
                 <div class="absolute bg-golemblue rounded-md p-3">
                   <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-                <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Earnings (90d)</p>
+                <p class="ml-16 text-sm font-medium golemgradient truncate">Earnings (90d)</p>
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                <p class="text-2xl font-semibold text-white">
                   {{ this.income['8760'] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
+                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">
                   GLM
                 </p>
               </dd>
             </div>
           </dl>
         </section>
-        <div class="space-y-6 lg:col-start-1 lg:col-span-2">
-          <!-- Comments-->
 
-          <!-- Description list-->
-          <section aria-labelledby="applicant-information-title">
-            <h2 id="Hardware" class="text-lg font-medium text-gray-900">Activities</h2>
-            <div class="bg-white dark:bg-gray-800 mt-2 pt-5 px-4 sm:py-6 sm:px-6 shadow rounded-lg">
-              <h1 class="text-xl font-medium dark:text-gray-300">Tasks being computed</h1>
-              <p class="text-sm  text-gray-500 dark:text-gray-400">1 = Computing / 0 = Inactive</p>
-              <apexchart v-if="loaded_graph" width="100%" height="250" type="area" :options="chartOptions" :series="series" />
-            </div>
-          </section>
-        </div>
-
-        <section aria-labelledby="Hardware" class="lg:col-start-3 lg:col-span-2">
-          <h2 id="Hardware" class="text-lg font-medium text-gray-900">Hardware</h2>
+        <section aria-labelledby="Hardware" class="col-span-12">
+          <h2 id="Hardware" class="text-lg font-medium text-white">Hardware</h2>
 
           <!-- Activity Feed -->
           <section aria-labelledby="notes-title">
-            <dl class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1">
-              <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+            <dl class="mt-2 grid grid-cols-12 gap-5 ">
+              <div
+                v-for="(gpu, index) in Gpus"
+                :key="gpu"
+                class="relative bg-thorg golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden col-span-12"
+              >
+                <dt>
+                  <div class="absolute bg-golemblue rounded-md p-3">
+                    <component :is="gpuicon" class="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  <p class="ml-16 text-sm font-medium text-gray-400 truncate">GPU</p>
+                </dt>
+                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+                  <p class="text-2xl font-semibold text-white">
+                    {{ gpu}}
+                  </p>
+                  <p class="text-gray-400 ml-2 flex items-baseline text-sm font-semibold">
+                    {{Gpu_memory[index]}}
+                  </p>
+                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">
+                    GB VRAM
+                  </p>
+                </dd>
+              </div>
+              <div class="relative bg-thorg golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden col-span-12">
                 <dt>
                   <div class="absolute bg-golemblue rounded-md p-3">
                     <component :is="chipicon" class="h-6 w-6 text-white" aria-hidden="true" />
                   </div>
-                  <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">CPU</p>
+                  <p class="ml-16 text-sm font-medium text-gray-400 truncate">CPU</p>
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                  <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                  <p class="text-2xl font-semibold text-white">
                     {{ cores}}
                   </p>
-                  <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">
+                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">
                     Cores
                   </p>
                 </dd>
               </div>
-              <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+              <div class="relative bg-thorg golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden col-span-12">
                 <dt>
                   <div class="absolute bg-golemblue rounded-md p-3">
                     <component :is="layersicon" class="h-6 w-6 text-white" aria-hidden="true" />
                   </div>
-                  <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">RAM</p>
+                  <p class="ml-16 text-sm font-medium text-gray-400 truncate">RAM</p>
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                  <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                  <p class="text-2xl font-semibold text-white">
                     {{memory}}
                   </p>
-                  <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">
+                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">
                     GB
                   </p>
                 </dd>
               </div>
-              <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+              <div class="relative bg-thorg golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden col-span-12">
                 <dt>
                   <div class="absolute bg-golemblue rounded-md p-3">
                     <component :is="databaseicon" class="h-6 w-6 text-white" aria-hidden="true" />
                   </div>
-                  <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Disk</p>
+                  <p class="ml-16 text-sm font-medium text-gray-400 truncate">Disk</p>
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                  <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                  <p class="text-2xl font-semibold text-white">
                     {{disk}}
                   </p>
-                  <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">
+                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">
                     GB
                   </p>
                 </dd>
@@ -251,17 +266,8 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
-import {
-  ArrowNarrowLeftIcon,
-  CheckIcon,
-  HomeIcon,
-  PaperClipIcon,
-  QuestionMarkCircleIcon,
-  SearchIcon,
-  ThumbUpIcon,
-  UserIcon,
-} from '@heroicons/vue/solid'
-import { ChipIcon, DatabaseIcon } from '@heroicons/vue/outline'
+
+import { ChipIcon, DatabaseIcon, CubeTransparentIcon } from '@heroicons/vue/outline'
 
 
 
@@ -289,14 +295,18 @@ export default {
     GolemIcon,
     ChipIcon,
     LayersIcon,
-    DatabaseIcon
+    DatabaseIcon,
+    CubeTransparentIcon
   },
   data() {
     return {
       icon: "GolemIcon",
+      Gpus: [],
+      Gpu_memory: [],
       chipicon: "ChipIcon",
       databaseicon: "DatabaseIcon",
       layersicon: "LayersIcon",
+      gpuicon: "CubeTransparentIcon",
       loaded: false,
       failure: false,
       loaded_graph: false,
@@ -356,7 +366,7 @@ export default {
         dataLabels: {
           enabled: false,
         },
-        colors: ["#0000ff"],
+        colors: ["#fff"],
         markers: {
           size: 0,
         },
@@ -378,7 +388,7 @@ export default {
             offsetX: 0,
             offsetY: 0,
             style: {
-              color: undefined,
+              color: "#fff",
               fontSize: "12px",
               fontWeight: 600,
               cssClass: "apexcharts-yaxis-title",
@@ -409,7 +419,6 @@ export default {
     }
   },
     created() {
-      this.activity()
       this.tasks_computed()
       this.get_seconds_computed()
       this.fetchData()
@@ -484,31 +493,7 @@ export default {
         this.usdprice = response.data.market_data.current_price.usd.toString().slice(0, 7)
       })
     },
-    activity() {
-      axios.get(`https://api.stats.golem.network/v1/provider/node/${this.$route.params.id}/activity`).then((response) => {
-        const apiResponse = response.data
-        try {
-          var data = apiResponse.data.result[0].values
-        } catch (error) {
-          this.failure = true
-          // expected output: ReferenceError: nonExistentFunction is not defined
-          // Note - error messages will vary depending on browser
-        }
-        const computing = []
-        for (const i in data) {
-          const time = data[i][0] * 1000
-          computing.push([time, data[i][1]])
-        }
-        this.series = [
-          {
-            data: computing,
-            name: "Computing = 1",
-          },
-        ]
-        this.loaded_graph = true
-        // let success = data.map(({ values }) => values)
-      })
-    },
+
     tasks_computed() {
       axios.get(`https://api.stats.golem.network/v1/provider/node/${this.$route.params.id}/total/computed`).then((response) => {
         const apiResponse = response.data
@@ -556,6 +541,22 @@ export default {
         this.runtime_name = apiResponse[0].data["golem.runtime.name"]
         this.cores = apiResponse[0].data["golem.inf.cpu.threads"]
         this.model = apiResponse[0].data["golem.inf.cpu.model"]
+        var gpus = []
+          if (apiResponse[0].data['golem.inf.gpu.card']) {
+              apiResponse[0].data['golem.inf.gpu.card'].forEach((obj) => {
+                gpus.push(obj)
+              })
+          }
+
+
+          if (apiResponse[0].data['golem.inf.gpu.mem']) {
+            var gpu_memory = []
+              apiResponse[0].data['golem.inf.gpu.mem'].forEach((obj) => {
+                gpu_memory.push(this.floorFigure(obj / 1e+9))
+              })
+          } else {
+            var gpu_memory = null
+          }
         let pricing_hashmap = new Map()
         pricing_hashmap.set(
           apiResponse[0].data["golem.com.usage.vector"][0],
@@ -570,6 +571,8 @@ export default {
         } else if (apiResponse[0].data["golem.inf.cpu.vendor"] == "AuthenticAMD") {
           this.cpu_vendor = "AMD"
         }
+        this.Gpus = gpus,
+        this.Gpu_memory = gpu_memory,
         this.threads = apiResponse[0].data["golem.inf.cpu.threads"]
         this.disk = this.floorFigure(apiResponse[0].data["golem.inf.storage.gib"])
         this.runtime_version = apiResponse[0].data["golem.runtime.version"]
@@ -596,17 +599,7 @@ export default {
           //  block of code to be executed if the condition is false
         }
       })
-      if (localStorage.getItem("vuexy-skin") == "dark") {
-        this.chartOptions.chart.foreColor = "#fff"
-        this.chartOptions.colors.push("#2c34e6")
-        this.chartOptions.tooltip.theme = "dark"
-        this.chartOptions.fill.gradient.opacityFrom = 0
-        this.chartOptions.fill.gradient.opacityTo = 0.3
-      } else {
-        this.chartOptions.chart.foreColor = "#373d3f"
-        this.chartOptions.colors.push("#262ed1")
-        this.chartOptions.tooltip.theme = "light"
-      }
+
       this.loaded = true
     },
   },

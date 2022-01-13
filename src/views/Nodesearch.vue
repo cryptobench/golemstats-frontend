@@ -1,17 +1,17 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
-    <h1 class="text-2xl mb-2 font-medium  mt-6">
+    <h1 class="text-2xl mb-2 font-medium  mt-6 dark:text-gray-300">
       Node Lookup <span class="text-sm font-medium text-gray-400">{{this.$route.params.id}}</span>
     </h1>
     <div
-      class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12 bg-white pt-5 px-4 sm:py-6 mb-6 sm:px-6 shadow rounded-lg overflow-hidden"
+      class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12 bg-white dark:bg-gray-800 px-4 py-6 mb-6 sm:px-6 shadow rounded-lg overflow-hidden"
     >
       <div class="col-span-12">
-        <h1 class="text-2xl mb-2 font-medium">Search Node</h1>
+        <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Search Node</h1>
       </div>
-      <div class="col-span-4">
-        <label for="name" class="block text-md font-medium text-gray-700">Yagna ID</label>
+      <div class="col-span-12 ">
+        <label for="name" class="block text-md font-medium text-gray-700 dark:text-gray-300 mb-2">Yagna ID</label>
         <input
           name="name"
           id="name"

@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-white pt-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
+  <div class="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
     <div class="relative">
       <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
       <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
-      <h1 class="text-2xl mb-2 font-medium">Network Activity</h1>
+      <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Network Activity</h1>
       <div class="d-flex align-items-center">
         <dt>
           <div class="absolute bg-golemblue rounded-md p-3">
@@ -12,7 +12,7 @@
         </dt>
         <dd class="ml-16 pb-6 sm:pb-7">
           <div class="relative">
-            <p class="text-2xl font-semibold text-gray-900">48 Providers</p>
+            <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{computing_now}} Providers</p>
             <p class="text-sm font-medium text-green-500 truncate">computing right now</p>
           </div>
         </dd>
@@ -137,17 +137,7 @@ export default {
             name: "Providers computing a task",
           },
         ]
-        if (localStorage.getItem("vuexy-skin") == "dark") {
-          this.chartOptions.chart.foreColor = "#fff"
-          this.chartOptions.colors.push("#2c34e6")
-          this.chartOptions.tooltip.theme = "dark"
-          this.chartOptions.fill.gradient.opacityFrom = 0
-          this.chartOptions.fill.gradient.opacityTo = 0.3
-        } else {
-          this.chartOptions.chart.foreColor = "#373d3f"
-          this.chartOptions.colors.push("#262ed1")
-          this.chartOptions.tooltip.theme = "light"
-        }
+
         this.loaded = true
         //let success = data.map(({ values }) => values)
       })
