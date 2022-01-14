@@ -337,7 +337,7 @@
 
 <script>
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from "@headlessui/vue"
-import { ChartBarIcon, UserIcon, MenuIcon, SearchIcon, XIcon, DownloadIcon, GlobeAltIcon, ChartPieIcon, CodeIcon } from "@heroicons/vue/outline"
+import { ChartBarIcon, UserIcon, MenuIcon, SearchIcon, XIcon, DownloadIcon, GlobeAltIcon, ChartPieIcon, CodeIcon, ServerIcon } from "@heroicons/vue/outline"
 import { ChevronDownIcon } from "@heroicons/vue/solid"
 import { defineComponent, h } from "vue"
 import DiscordIcon from "@/components/discordicon.vue"
@@ -471,6 +471,7 @@ export default {
     ChartPieIcon,
     CodeIcon,
     GolemIcon,
+    ServerIcon,
   },
   setup() {
     return {
@@ -558,7 +559,7 @@ themeToggleBtnDesktop.addEventListener('click', function() {
     },
   data() {
     return {
-      thorgicon: "",
+      thorgicon: "ServerIcon",
       requestoricon: "CodeIcon",
       discordicon: "DiscordIcon",
       golemicon: "GolemIcon",
