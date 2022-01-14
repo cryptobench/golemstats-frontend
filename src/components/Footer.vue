@@ -73,6 +73,7 @@
           <div class="grid grid-cols-2 mt-2">
             <a
               href="https://handbook.golem.network/provider-tutorials/provider-tutorial"
+              rel="noreferrer"
               target="_blank"
               class="whitespace-nowrap inline-flex items-center justify-center px-14 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-golemblue hover:bg-blue-600"
             >
@@ -80,6 +81,7 @@
             </a>
             <a
               href="https://handbook.golem.network/requestor-tutorials/flash-tutorial-of-requestor-development"
+              rel="noreferrer"
               target="_blank"
               class="ml-4 whitespace-nowrap inline-flex items-center justify-center px-14 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-golemblue hover:bg-blue-600"
             >
@@ -95,7 +97,12 @@
               <component :is="golemicon" class="h-6 w-6 text-white" aria-hidden="true" />
             </div>
             <div class="lg:ml-4">
-              <a href="https://golem.network" target="_blank" class="text-2xl font-medium text-golemblue golemgradient dark:text-gray-300 ">
+              <a
+                href="https://golem.network"
+                rel="noreferrer"
+                target="_blank"
+                class="text-2xl font-medium text-golemblue golemgradient dark:text-gray-300 "
+              >
                 Golem Network
               </a>
             </div>
@@ -112,6 +119,7 @@
               :href="item.href"
               v-bind:class="item.color"
               target="_blank"
+              rel="noreferrer"
               class="cursor-pointer col-span-1"
             >
               <span class="sr-only">{{ item.name }}</span>

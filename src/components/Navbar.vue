@@ -314,6 +314,7 @@
                     :key="item.name"
                     :href="item.href"
                     v-bind:class="item.color"
+                    rel="noreferrer"
                     target="_blank"
                     class="cursor-pointer"
                   >
