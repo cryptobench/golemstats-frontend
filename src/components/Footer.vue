@@ -74,7 +74,7 @@
             <a
               href="https://handbook.golem.network/provider-tutorials/provider-tutorial"
               target="_blank"
-              class="whitespace-nowrap text-base font-medium text-white bg-golemblue py-2 rounded-md px-14 hover:bg-blue-600"
+              class="whitespace-nowrap inline-flex items-center justify-center px-14 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-golemblue hover:bg-blue-600"
             >
               Provider
             </a>
