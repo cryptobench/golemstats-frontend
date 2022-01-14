@@ -28,7 +28,7 @@
             </svg>
           </button>
           <PopoverButton
-            class="bg-white dark:bg-gray-600 dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:text-gray-300 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:focus:ring-gray-800"
+            class="bg-white golemnav dark:bg-gray-600 dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:text-gray-300 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:focus:ring-gray-800"
           >
             <span class="sr-only">Open menu</span>
             <MenuIcon class="h-6 w-6" aria-hidden="true" />
@@ -211,7 +211,7 @@
       >
         <!-- Mobile -->
         <PopoverPanel focus class="absolute top-0 z-50 inset-x-0 transition transform origin-top-right md:hidden">
-          <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white dark:bg-gray-800   ">
+          <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white dark:bg-gray-800 golemnav   ">
             <div class="pt-5 pb-6 px-5">
               <div class="flex items-center justify-between">
                 <div class="flex items-center">
@@ -219,7 +219,7 @@
                     <component :is="golemicon" class="h-6 w-6 text-white" aria-hidden="true" />
                   </div>
                   <div class="ml-4">
-                    <div class="text-2xl font-medium text-golemblue golemtext dark:text-gray-300">
+                    <div class="text-2xl font-medium text-golemblue golemtext dark:text-gray-300 golemgradient">
                       Golem Network
                     </div>
                   </div>
@@ -234,7 +234,7 @@
                 </div>
               </div>
               <div class="mt-8">
-                <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300">Network</p>
+                <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300 golemgradient">Network</p>
                 <nav class="grid grid-cols-1 gap-7">
                   <a
                     v-for="solution in network"
@@ -245,7 +245,7 @@
                     <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-golemblue text-white">
                       <component :is="solution.icon" class="h-6 w-6" aria-hidden="true" />
                     </div>
-                    <div class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400">
+                    <div class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400 golemtext">
                       {{ solution.name }}
                     </div>
                   </a>
@@ -253,7 +253,7 @@
               </div>
 
               <div class="mt-6">
-                <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300">Provider</p>
+                <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300 golemgradient">Provider</p>
                 <nav class="grid grid-cols-1 gap-7">
                   <a
                     v-for="solution in provider"
@@ -264,33 +264,33 @@
                     <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-golemblue text-white">
                       <component :is="solution.icon" class="h-6 w-6" aria-hidden="true" />
                     </div>
-                    <div class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400">
+                    <div class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400 golemtext">
                       {{ solution.name }}
                     </div>
                   </a>
                 </nav>
               </div>
               <div class="mt-6">
-                <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300">Thorg</p>
+                <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300 golemgradient">Thorg</p>
                 <nav class="grid grid-cols-1 gap-7">
-                  <a href="/thorg" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <a href="/thorg" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 thorgcolumn">
                     <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-golemblue text-white">
                       <component :is="thorgicon" class="h-6 w-6" aria-hidden="true" />
                     </div>
-                    <div href="/thorg" class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400">
+                    <div href="/thorg" class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400 golemtext">
                       Overview
                     </div>
                   </a>
                 </nav>
               </div>
               <div class="mt-6">
-                <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300">Requestor</p>
+                <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300 golemgradient">Requestor</p>
                 <nav class="grid grid-cols-1 gap-7">
                   <a href="/network/requestor" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
                     <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-golemblue text-white">
                       <component :is="requestoricon" class="h-6 w-6" aria-hidden="true" />
                     </div>
-                    <div class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400">
+                    <div class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400 golemtext">
                       Overview
                     </div>
                   </a>

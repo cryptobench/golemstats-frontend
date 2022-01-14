@@ -49,6 +49,11 @@ tbody {
 .golemtr:hover {
   @apply bg-blue-900;
 }
+
+thorgcolumn:hover {
+  @apply bg-blue-900 !important;
+}
+
 .golemring {
   @apply border-gray-600;
 }
