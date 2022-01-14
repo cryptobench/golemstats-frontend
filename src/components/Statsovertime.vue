@@ -1061,25 +1061,7 @@ export default {
           },
         ]
       })
-      if (localStorage.getItem("vuexy-skin") == "dark") {
-        this.coresoptions.chart.foreColor = "#fff"
-        this.memoryoptions.chart.foreColor = "#fff"
-        this.diskoptions.chart.foreColor = "#fff"
-        this.onlineoptions.chart.foreColor = "#fff"
-        this.coresoptions.tooltip.theme = "dark"
-        this.memoryoptions.tooltip.theme = "dark"
-        this.diskoptions.tooltip.theme = "dark"
-        this.onlineoptions.tooltip.theme = "dark"
-      } else {
-        this.coresoptions.chart.foreColor = "#373d3f"
-        this.memoryoptions.chart.foreColor = "#373d3f"
-        this.diskoptions.chart.foreColor = "#373d3f"
-        this.onlineoptions.chart.foreColor = "#373d3f"
-        this.coresoptions.tooltip.theme = "light"
-        this.memoryoptions.tooltip.theme = "light"
-        this.diskoptions.tooltip.theme = "light"
-        this.onlineoptions.tooltip.theme = "light"
-      }
+
       this.loaded = true
     },
   },

@@ -596,17 +596,7 @@ export default {
           //  block of code to be executed if the condition is false
         }
       })
-      if (localStorage.getItem("vuexy-skin") == "dark") {
-        this.chartOptions.chart.foreColor = "#fff"
-        this.chartOptions.colors.push("#2c34e6")
-        this.chartOptions.tooltip.theme = "dark"
-        this.chartOptions.fill.gradient.opacityFrom = 0
-        this.chartOptions.fill.gradient.opacityTo = 0.3
-      } else {
-        this.chartOptions.chart.foreColor = "#373d3f"
-        this.chartOptions.colors.push("#262ed1")
-        this.chartOptions.tooltip.theme = "light"
-      }
+
       this.loaded = true
     },
   },

@@ -135,13 +135,7 @@ export default {
           })
         })
       })
-      if (localStorage.getItem("vuexy-skin") == "dark") {
-        this.chartOptions.chart.foreColor = "#fff"
-        this.chartOptions.tooltip.theme = "dark"
-      } else {
-        this.chartOptions.chart.foreColor = "#373d3f"
-        this.chartOptions.tooltip.theme = "light"
-      }
+
       this.loaded = true
     },
   },
