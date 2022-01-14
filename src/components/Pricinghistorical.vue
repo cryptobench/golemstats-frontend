@@ -5,6 +5,7 @@
       <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
       <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">{{this.title}}</h1>
       <button
+        aria-label="Enable or Disable Annotations"
         type="button"
         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
         v-if="showAnnotations"
@@ -13,6 +14,7 @@
         Hide Release Labels
       </button>
       <button
+        aria-label="Enable or Disable Annotations"
         type="button"
         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
         v-else

@@ -11,6 +11,7 @@
         </div>
         <div class="mr-4 -my-2 md:hidden">
           <button
+            aria-label="Theme mode toggle"
             id="theme-toggle"
             type="button"
             class="text-gray-500 mr-10 dark:text-gray-400 hover:bg-blue-600 dark:hover:bg-gray-700  rounded-lg text-sm p-2.5"
@@ -169,6 +170,7 @@
         </PopoverGroup>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
           <button
+            aria-label="Theme mode toggle"
             id="theme-toggle-desktop"
             type="button"
             class="text-gray-500 dark:text-gray-400 hover:bg-blue-600 dark:hover:bg-gray-700  rounded-lg text-sm p-2.5"
