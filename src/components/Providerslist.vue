@@ -182,108 +182,98 @@
             scope="col"
             class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-r-lg whitespace-nowrap"
           >
-            Start price
-          </th>
-        </tr>
-      </template>
-      <template #body="{ rows }">
-        <tr
-          class="hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer my-12 golemtr"
-          v-for="provider in rows"
-          :key="provider.id"
-          v-on:click="nodedetails(provider.id)"
-        >
-          <td class="px-6 py-4 rounded-l-lg">
-            <div class="flex items-center">
-              <div class="flex-shrink-0 h-12 w-12 bg-golemblue rounded-md p-3 relative">
-                <div v-if="provider.Computing">
-                  <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-red-500 animate-ping"></div>
-                  <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-red-500"></div>
+            <td class="px-6 py-4 rounded-l-lg">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-12 w-12 bg-golemblue rounded-md p-3 relative">
+                  <div v-if="provider.Computing">
+                    <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-red-500 animate-ping"></div>
+                    <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-red-500"></div>
+                  </div>
+                  <div v-else>
+                    <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 golemping animate-ping"></div>
+                    <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 golemping"></div>
+                  </div>
+                  <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-                <div v-else>
-                  <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 golemping animate-ping"></div>
-                  <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 golemping"></div>
-                </div>
-                <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
-              </div>
-              <div class="ml-4">
-                <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300 ">
-                  {{ provider.Name }}
-                </div>
-                <div class="text-sm text-gray-500 golemtext">
-                  {{ provider.Subnet }}
-                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300 ">
+                    {{ provider.Name }}
+                  </div>
+                  <div class="text-sm text-gray-500 golemtext">
+                    {{ provider.Subnet }}
+                  </div>
 
-                <span
-                  v-if="provider.Mainnet"
-                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue golembadge text-white golemtext"
-                >
-                  Mainnet
-                </span>
+                  <span
+                    v-if="provider.Mainnet"
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue golembadge text-white golemtext"
+                  >
+                    Mainnet
+                  </span>
 
-                <span
-                  v-else
-                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full golembadge bg-yellow-500 text-white golemtext"
-                >
-                  Testnet
-                </span>
-                <span
-                  v-if="provider.Version"
-                  class="px-2 ml-1 inline-flex text-xs leading-5 font-semibold rounded-full golembadge bg-golemblue text-white golemtext"
-                >
-                  v{{ provider.Version }}
-                </span>
-              </div>
-            </div>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap">
-            <div class="flex items-center">
-              <div class="bg-golemblue rounded-md p-3">
-                <component :is="chipicon" class="h-4 w-4 text-white" aria-hidden="true" />
-              </div>
-              <div class="ml-4">
-                <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
-                  {{ provider.Cores }}
+                  <span
+                    v-else
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full golembadge bg-yellow-500 text-white golemtext"
+                  >
+                    Testnet
+                  </span>
+                  <span
+                    v-if="provider.Version"
+                    class="px-2 ml-1 inline-flex text-xs leading-5 font-semibold rounded-full golembadge bg-golemblue text-white golemtext"
+                  >
+                    v{{ provider.Version }}
+                  </span>
                 </div>
-                <div class="text-sm text-gray-500 golemtext ">AMD Ryzen 9 5900X 12-Core</div>
               </div>
-            </div>
-          </td>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="bg-golemblue rounded-md p-3">
+                  <component :is="chipicon" class="h-4 w-4 text-white" aria-hidden="true" />
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
+                    {{ provider.Cores }}
+                  </div>
+                  <div class="text-sm text-gray-500 golemtext ">AMD Ryzen 9 5900X 12-Core</div>
+                </div>
+              </div>
+            </td>
 
-          <td class="px-6 py-4">
-            <dt class="flex flex-row items-center">
-              <div class="bg-golemblue rounded-md p-3">
-                <component :is="layersicon" class="h-4 w-4 text-white" aria-hidden="true" />
-              </div>
-              <p class="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">{{ provider.Memory }} GB</p>
-            </dt>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap">
-            <dt class="flex flex-row items-center">
-              <div class="bg-golemblue rounded-md p-3">
-                <component :is="databaseicon" class="h-4 w-4 text-white" aria-hidden="true" />
-              </div>
-              <p class="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">{{ provider.Disk }} GB</p>
-            </dt>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-            <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
-              >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
-            >
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-            <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
-              >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
-            >
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium rounded-r-lg">
-            <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
-              >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
-            >
-          </td>
-        </tr>
-      </template>
-    </v-table>
+            <td class="px-6 py-4">
+              <dt class="flex flex-row items-center">
+                <div class="bg-golemblue rounded-md p-3">
+                  <component :is="layersicon" class="h-4 w-4 text-white" aria-hidden="true" />
+                </div>
+                <p class="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">{{ provider.Memory }} GB</p>
+              </dt>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <dt class="flex flex-row items-center">
+                <div class="bg-golemblue rounded-md p-3">
+                  <component :is="databaseicon" class="h-4 w-4 text-white" aria-hidden="true" />
+                </div>
+                <p class="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">{{ provider.Disk }} GB</p>
+              </dt>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
+              >
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
+              >
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium rounded-r-lg">
+              <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
+              >
+            </td>
+          </tr>
+        </template>
+      </v-table>
+    </div>
   </div>
 </template>
 
