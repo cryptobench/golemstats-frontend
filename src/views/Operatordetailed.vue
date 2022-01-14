@@ -250,7 +250,7 @@
                     <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
                       {{ provider.Cores }}
                     </div>
-                    <div class="text-sm text-gray-500 golemtext ">AMD Ryzen 9 5900X 12-Core</div>
+                    <div class="text-sm text-gray-500 golemtext ">Cores</div>
                   </div>
                 </div>
               </td>
