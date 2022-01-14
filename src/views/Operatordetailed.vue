@@ -272,17 +272,17 @@
                 </dt>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
                   >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
                 >
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
                   >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
                 >
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium rounded-r-lg">
-                <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
                   >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
                 >
               </td>

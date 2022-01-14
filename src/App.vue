@@ -33,7 +33,6 @@ body {
 @media (prefers-color-scheme: dark) {
   html.dark #apexchartsareaxdatetime,
   html.dark .apexcharts-text tspan,
-  html.dark .apexcharts-text,
   html.dark .apexcharts-yaxis-title-text,
   html.dark .apexcharts-legend-text,
   html.dark .apexcharts-legend-series .apexcharts-legend-text,
@@ -43,16 +42,19 @@ body {
   html.dark .apexcharts-legend-text span {
     fill: theme("colors.gray.400");
     @apply text-gray-400 !important;
+    @apply font-sans !important;
   }
   html.dark .apexcharts-tooltip,
   html.dark .apexcharts-theme-light,
   html.dark .apexcharts-active,
   html.dark .apexcharts-tooltip-title {
     @apply bg-gray-800;
+    @apply font-sans !important;
   }
   html.dark .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title,
   html.dark .apexcharts-tooltip.apexcharts-theme-light,
   html.dark .apexcharts-xaxistooltip {
+    @apply font-sans !important;
     @apply rounded-lg !important;
     @apply bg-gray-800;
     background: theme("colors.gray.900") !important;

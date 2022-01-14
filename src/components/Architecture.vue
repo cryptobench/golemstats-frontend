@@ -46,10 +46,13 @@ export default {
         dataLabels: {
           enabled: true,
         },
-        colors: ["#7cdb0f", "#0000F9"],
+        colors: ["#0000F9", "#8E6BE1"],
         markers: {
           size: 0,
         },
+        stroke: {
+    colors: ['']
+  },
 
         fill: {
           type: "gradient",

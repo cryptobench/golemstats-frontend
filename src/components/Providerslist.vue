@@ -164,23 +164,34 @@
         />
       </div>
     </div>
-
-    <v-table
-      :data="items"
-      :filters="filters"
-      class="divide-y-12 divide-gray-900 border-separate rowspacing overflow-scroll w-full inline-block"
-    >
-      <template :class="'edescription'" #head>
-        <tr>
-          <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-l-lg">Provider</th>
-          <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Cores</th>
-          <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Memory</th>
-          <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Disk</th>
-          <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">CPU/h</th>
-          <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Env/h</th>
-          <th
-            scope="col"
-            class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-r-lg whitespace-nowrap"
+    <div class="grid grid-cols-12 overflow-scroll ">
+      <v-table
+        :data="items"
+        :filters="filters"
+        class="divide-y-12 divide-gray-900 border-separate rowspacing w-full inline-block lg:table md:table xl:table  col-span-12"
+      >
+        <template :class="'edescription'" #head>
+          <tr>
+            <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-l-lg">Provider</th>
+            <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Cores</th>
+            <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Memory</th>
+            <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Disk</th>
+            <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">CPU/h</th>
+            <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Env/h</th>
+            <th
+              scope="col"
+              class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-r-lg whitespace-nowrap"
+            >
+              Start price
+            </th>
+          </tr>
+        </template>
+        <template #body="{ rows }">
+          <tr
+            class="hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer my-12 golemtr"
+            v-for="provider in rows"
+            :key="provider.id"
+            v-on:click="nodedetails(provider.id)"
           >
             <td class="px-6 py-4 rounded-l-lg">
               <div class="flex items-center">
@@ -256,17 +267,17 @@
               </dt>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-              <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+              <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
                 >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
               >
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-              <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+              <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
                 >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
               >
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium rounded-r-lg">
-              <a href="#" class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+              <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
                 >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
               >
             </td>

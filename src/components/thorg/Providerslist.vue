@@ -242,20 +242,7 @@ export default {
 
         })
         this.loaded
-        console.log(this.items)
-        // const median = (arr) => {
-        //   const mid = Math.floor(arr.length / 2)
-        //   const nums = [...arr].sort((a, b) => a - b)
-        //   return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2
-        // }
-        // this.median_cpu_hour = `${this.floorFigure(median(avg_cpu_hour), 3)} GLM`
-        // this.median_start_price = `${this.floorFigure(median(avg_start_price), 3)} GLM`
-        // this.median_per_hour = `${this.floorFigure(median(avg_per_hour), 3)} GLM`
-        // this.median_loaded = true
-        // const average = (array) => array.reduce((a, b) => a + b) / array.length
-        // this.avg_cpu_hour = `${this.floorFigure(average(avg_cpu_hour), 5)} GLM`
-        // this.avg_start_price = `${this.floorFigure(average(avg_start_price), 5)} GLM`
-        // this.avg_per_hour = `${this.floorFigure(average(avg_per_hour), 5)} GLM`
+
       })
     },
   },

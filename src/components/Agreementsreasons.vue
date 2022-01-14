@@ -35,8 +35,11 @@ export default {
           enabled: true,
         },
         theme: {
-          palette: "palette10", // upto palette10
+          palette: "palette8", // upto palette10
         },
+        stroke: {
+    colors: ['']
+  },
       },
     }
   },
