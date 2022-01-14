@@ -8,7 +8,7 @@
           <div class="absolute bg-golemblue rounded-md p-3">
             <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
           </div>
-          <p class="ml-16 text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Avg earnings per task</p>
+          <p class="ml-16 text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Avg Earnings Per Task</p>
         </dt>
         <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
           <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
