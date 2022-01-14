@@ -146,7 +146,7 @@ const navigation = {
   network: [
     { name: "Overview", href: "/" },
     { name: "Live Graphs", href: "/network/live" },
-    { name: "Historical statistics", href: "network/historical" },
+    { name: "Historical Statistics", href: "network/historical" },
   ],
   provider: [
     { name: "Online Providers", href: "/network/providers/online" },

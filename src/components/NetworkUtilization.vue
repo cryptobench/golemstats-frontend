@@ -13,7 +13,7 @@
         <dd class="ml-16 pb-6 sm:pb-7">
           <div class="relative">
             <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{computing_now}} Providers</p>
-            <p class="text-sm font-medium text-green-500 truncate">computing right now</p>
+            <p class="text-sm font-medium text-green-500 truncate">Computing right now</p>
           </div>
         </dd>
       </div>
