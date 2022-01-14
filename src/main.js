@@ -1,47 +1,11 @@
-import Vue from "vue"
-import { ToastPlugin, ModalPlugin } from "bootstrap-vue"
-import VueCompositionAPI from "@vue/composition-api"
-import VueGtag from "vue-gtag"
-
-import router from "./router"
-import store from "./store"
+import { createApp } from "vue"
 import App from "./App.vue"
-import VueMeta from "vue-meta"
-Vue.use(VueMeta)
+import "./assets/tailwind.css"
+import router from "./router"
+import VueApexCharts from "vue3-apexcharts"
+import SmartTable from 'vuejs-smart-table'
 
-// Configuration VueAnalytics
 
-Vue.use(
-  VueGtag,
-  {
-    config: { id: "G-P8PVPYRZSY" },
-  },
-  router
-)
-// Global Components
-import "./global-components"
-
-// 3rd party plugins
-import "@/libs/portal-vue"
-import "@/libs/toastification"
-
-// BSV Plugin Registration
-Vue.use(ToastPlugin)
-Vue.use(ModalPlugin)
-
-// Composition API
-Vue.use(VueCompositionAPI)
-
-// import core styles
-require("@core/scss/core.scss")
-
-// import assets styles
-require("@/assets/scss/style.scss")
-
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app")
+createApp(App).use(router).use(VueApexCharts).use(SmartTable, {
+    sortHeaderClass: 'bg-gray-900 py-24 sticky top-0 z-10 w-full',
+  }).mount("#app")

@@ -1,100 +1,64 @@
 <template>
-  <div id="app" class="h-100" :class="[skinClasses]">
-    <component :is="layout">
+  <div>
+    <Nav></Nav>
+    <div class="container mx-auto ">
       <router-view />
-    </component>
+    </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-// This will be populated in `beforeCreate` hook
-import { $themeColors, $themeBreakpoints, $themeConfig } from "@themeConfig"
-import { provideToast } from "vue-toastification/composition"
-import { watch } from "@vue/composition-api"
-import useAppConfig from "@core/app-config/useAppConfig"
-
-import { useWindowSize, useCssVar } from "@vueuse/core"
-
-import store from "@/store"
-
-const LayoutVertical = () => import("@/layouts/vertical/LayoutVertical.vue")
-const LayoutHorizontal = () => import("@/layouts/horizontal/LayoutHorizontal.vue")
-const LayoutFull = () => import("@/layouts/full/LayoutFull.vue")
+// @ is an alias to /src
+import Nav from "@/components/Navbar.vue"
+import Footer from "@/components/Footer.vue"
 
 export default {
+  name: "Home",
   components: {
-    // Layouts
-    LayoutHorizontal,
-    LayoutVertical,
-    LayoutFull,
-  },
-  // ! We can move this computed: layout & contentLayoutType once we get to use Vue 3
-  // Currently, router.currentRoute is not reactive and doesn't trigger any change
-  computed: {
-    layout() {
-      if (this.$route.meta.layout === "full") return "layout-full"
-      return `layout-${this.contentLayoutType}`
-    },
-    contentLayoutType() {
-      return this.$store.state.appConfig.layout.type
-    },
-  },
-  beforeCreate() {
-    // Set colors in theme
-    const colors = ["primary", "secondary", "success", "info", "warning", "danger", "light", "dark"]
-
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0, len = colors.length; i < len; i++) {
-      $themeColors[colors[i]] = useCssVar(`--${colors[i]}`, document.documentElement).value.trim()
-    }
-
-    // Set Theme Breakpoints
-    const breakpoints = ["xs", "sm", "md", "lg", "xl"]
-
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0, len = breakpoints.length; i < len; i++) {
-      $themeBreakpoints[breakpoints[i]] = Number(useCssVar(`--breakpoint-${breakpoints[i]}`, document.documentElement).value.slice(0, -2))
-    }
-
-    // Set RTL
-    const { isRTL } = $themeConfig.layout
-    document.documentElement.setAttribute("dir", isRTL ? "rtl" : "ltr")
-  },
-  setup() {
-    const { skin, skinClasses } = useAppConfig()
-
-    // If skin is dark when initialized => Add class to body
-    if (skin.value === "dark") document.body.classList.add("dark-layout")
-
-    // Provide toast for Composition API usage
-    // This for those apps/components which uses composition API
-    // Demos will still use Options API for ease
-    provideToast({
-      hideProgressBar: true,
-      closeOnClick: false,
-      closeButton: false,
-      icon: false,
-      timeout: 3000,
-      transition: "Vue-Toastification__fade",
-    })
-
-    // Set Window Width in store
-    store.commit("app/UPDATE_WINDOW_WIDTH", window.innerWidth)
-    const { width: windowWidth } = useWindowSize()
-    watch(windowWidth, (val) => {
-      store.commit("app/UPDATE_WINDOW_WIDTH", val)
-    })
-
-    return {
-      skinClasses,
-    }
+    Nav,
+    Footer,
   },
 }
 </script>
-
 <style>
-html {
-  max-width: 100vw;
-  overflow-x: hidden !important;
+body {
+  @apply bg-gray-200;
+  @apply dark:bg-gray-900;
+}
+.apexcharts-text,
+.apexcharts-pie-label {
+  @apply font-sans !important;
+}
+@media (prefers-color-scheme: dark) {
+  html.dark #apexchartsareaxdatetime,
+  html.dark .apexcharts-text tspan,
+  html.dark .apexcharts-yaxis-title-text,
+  html.dark .apexcharts-legend-text,
+  html.dark .apexcharts-legend-series .apexcharts-legend-text,
+  html.dark .apexcharts-xaxistooltip,
+  html.dark .apexcharts-yaxistooltip,
+  html.dark .apexcharts-point-annotations,
+  html.dark .apexcharts-legend-text span {
+    fill: theme("colors.gray.400");
+    @apply text-gray-400 !important;
+    @apply font-sans !important;
+  }
+  html.dark .apexcharts-tooltip,
+  html.dark .apexcharts-theme-light,
+  html.dark .apexcharts-active,
+  html.dark .apexcharts-tooltip-title {
+    @apply bg-gray-800;
+    @apply font-sans !important;
+  }
+  html.dark .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title,
+  html.dark .apexcharts-tooltip.apexcharts-theme-light,
+  html.dark .apexcharts-xaxistooltip {
+    @apply font-sans !important;
+    @apply rounded-lg !important;
+    @apply bg-gray-800;
+    background: theme("colors.gray.900") !important;
+    border-bottom: 1px solid theme("colors.gray.900") !important;
+  }
 }
 </style>

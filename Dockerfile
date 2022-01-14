@@ -1,9 +1,6 @@
 FROM node:lts-alpine as build
 WORKDIR /app
-RUN mkdir /crawler
 COPY ./package.json /app/package.json
-COPY ./golemstatssitemap.xml /crawler/sitemap.xml
-COPY ./robots.txt /crawler/robots.txt
 RUN npm install
 COPY . /app
 RUN npm run build

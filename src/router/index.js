@@ -1,85 +1,76 @@
-import Vue from "vue"
-import VueRouter from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
+import Home from "../views/Home.vue"
 
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  scrollBehavior() {
-    return { x: 0, y: 0 }
+const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: Home,
   },
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: () => import("@/views/Home.vue"),
-    },
-    {
-      path: "/node/:id",
-      name: "node",
-      component: () => import("@/views/Node.vue"),
-    },
-    {
-      path: "/graphs/live",
-      name: "livegraphs",
-      component: () => import("@/views/LiveGraphs.vue"),
-    },
-    {
-      path: "/graphs/historical",
-      name: "historical",
-      component: () => import("@/views/HistoricalGraphs.vue"),
-    },
-    {
-      path: "/operator",
-      name: "operator",
-      component: () => import("@/views/Operator.vue"),
-    },
-    {
-      path: "/operator/:id",
-      name: "operatordetailed",
-      component: () => import("@/views/Operatordetailed.vue"),
-    },
-    {
-      path: "/requestors",
-      name: "requestors",
-      component: () => import("@/views/Requestors.vue"),
-    },
-    {
-      path: "/market",
-      name: "market",
-      component: () => import("@/views/Market.vue"),
-    },
-    {
-      path: "/error-404",
-      name: "error-404",
-      component: () => import("@/views/error/Error404.vue"),
-      meta: {
-        layout: "full",
-      },
-    },
-    {
-      path: "https://docs.stats.golem.network",
-      name: "stats-docs",
-      beforeEnter() {
-        window.open("https://docs.stats.golem.network ", "_blank")
-      },
-    },
-    {
-      path: "*",
-      redirect: "error-404",
-    },
-  ],
-})
+  {
+    path: "/network/providers/online",
+    name: "providers",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ "../views/Providers.vue"),
+  },
+  {
+    path: "/network/live",
+    name: "LiveGraphs",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ "../views/LiveGraphs.vue"),
+  },
+  {
+    path: "/network/historical",
+    name: "Historical",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ "../views/Historical.vue"),
+  },
+  {
+    path: "/network/provider/:id",
+    name: "node",
+    component: () => import("@/views/Providerdetailed.vue"),
+  },
+  {
+    path: "/network/providers/lookup/operator/",
+    name: "operatorsearch",
+    component: () => import("@/views/Operatorsearch.vue"),
+  },
+  {
+    path: "/network/providers/lookup/node/",
+    name: "nodesearch",
+    component: () => import("@/views/Nodesearch.vue"),
+  },
+  {
+    path: "/network/requestor",
+    name: "requestor",
+    component: () => import("@/views/Requestor.vue"),
+  },
+  {
+    path: "/network/providers/operator/:id",
+    name: "operatordetailed",
+    component: () => import("@/views/Operatordetailed.vue"),
+  },
+  {
+    path: "/thorg",
+    name: "thorg",
+    component: () => import("@/views/Thorg.vue"),
+  },
+  {
+    path: "/thorg/provider/:id",
+    name: "thorgnode",
+    component: () => import("@/views/Thorgnode.vue"),
+  },
+]
 
-// ? For splash screen
-// Remove afterEach hook if you are not using splash screen
-router.afterEach(() => {
-  // Remove initial loading
-  const appLoading = document.getElementById("loading-bg")
-  if (appLoading) {
-    appLoading.style.display = "none"
-  }
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 })
 
 export default router

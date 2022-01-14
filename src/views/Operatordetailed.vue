@@ -1,477 +1,402 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <div v-if="loaded">
-    <b-row>
-      <b-col>
-        <b-card>
-          <h3>Operator Node Status</h3>
-          <b-badge class="mr-1" pill variant="success"> {{ this.onlinecount }} Online Nodes </b-badge>
-          <b-badge pill variant="danger"> {{ this.offlinecount }} Offline Nodes </b-badge>
-          <div class="mt-2 mb-1">
-            <h4>Mainnet wallet</h4>
-            <b-button target="_blank" variant="primary" @click="polygon"> Polygon </b-button>
-            <b-button target="_blank" class="ml-1" variant="primary" @click="zkscan"> ZKscan </b-button>
-            <b-button variant="primary" class="ml-1" @click="etherscan"> Etherscan </b-button>
-          </div>
-        </b-card>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="loaded"
-          icon="CpuIcon"
-          :statistic="totalcores"
-          statistic-title="Total Cores"
-          style="max-width: 400px"
-        />
-        <div v-else class="text-center cardish">
-          <b-spinner variant="primary" label="Text Centered" />
+  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
+    <div>
+      <h1 class="text-2xl mb-2 font-medium dark:text-gray-300 mt-4">
+        Node by Operator <span class="text-gray-400 text-sm">{{this.$route.params.id}}</span>
+      </h1>
+      <div class="mt-2 grid gap-5 grid-cols-12 bg-white dark:bg-gray-800 pt-5 px-4 py-6 shadow rounded-lg overflow-hidden">
+        <div class="col-span-12">
+          <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Search filter</h1>
         </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="loaded"
-          icon="LayersIcon"
-          :statistic="totalmemory"
-          statistic-title="Total Memory"
-          style="max-width: 400px"
-        />
-        <div v-else class="text-center cardish">
-          <b-spinner variant="primary" label="Text Centered" />
+        <div class="col-span-12">
+          <label for="name" class="block text-md font-medium text-gray-700 mb-1 dark:text-gray-400">Provider or wallet address</label>
+          <input
+            v-model="filters.name.value"
+            name="name"
+            id="name"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+          />
         </div>
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="loaded"
-          icon="HardDriveIcon"
-          :statistic="totaldisk"
-          statistic-title="Total Disk"
-          style="max-width: 400px"
-        />
-      </b-col>
-      <b-col xs="12" sm="12" lg="3" md="4">
-        <statistic-card-horizontal
-          v-if="usdloaded"
-          icon="DollarSignIcon"
-          color="success"
-          :statistic="totalearnings"
-          statistic-title="Total Earnings (90d)"
-          style="max-width: 400px"
-        />
-        <div v-else class="text-center cardish">
-          <b-spinner variant="primary" label="Text Centered" />
+        <div class="col-span-12">
+          <p class="text-lg font-medium dark:text-gray-300">
+            Hardware
+          </p>
         </div>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col class="pb-5" lg="12" xl="12" md="12" sm="12" xs="12">
-        <b-card no-body class="mb-0">
-          <b-col lg="6" class="mb-2 mt-2">
-            <h5>Search for node</h5>
-            <b-form-input v-model="filter" placeholder="Node Name" />
-          </b-col>
-          <b-table
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :fields="fields"
-            :filter="filter"
-            :filter-ignored-fields="ignoredfilter"
-            :items="items"
-            hover
-            responsive="sm"
-            @row-clicked="expandAdditionalInfo"
+        <div class="lg:col-span-2 col-span-6">
+          <label class="form-label dark:text-gray-300">Min Cores</label>
+          <input
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.cores.value.min"
+            :min="1"
+            :max="filters.cores.value.max"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6 ">
+          <label for="coresmax" class="dark:text-gray-300">Max Cores</label>
+          <input
+            name="coresmax"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.cores.value.max"
+            :min="filters.cores.value.min"
+            :max="256"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label class="form-label dark:text-gray-300">Min Memory <span class="text-sm font-medium text-gray-400">GB</span></label>
+          <input
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.memory.value.min"
+            :min="1"
+            :max="filters.memory.value.max"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label for="memorymax" class="dark:text-gray-300">Max Memory <span class="text-sm font-medium text-gray-400">GB</span></label>
+          <input
+            name="memorymax"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.memory.value.max"
+            :min="filters.memory.value.min"
+            :max="2048"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label class="form-label dark:text-gray-300">Min Disk <span class="text-sm font-medium text-gray-400">GB</span></label>
+          <input
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.disk.value.min"
+            :min="1"
+            :max="filters.disk.value.max"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label for="diskmax" class="dark:text-gray-300">Max Disk <span class="text-sm font-medium text-gray-400">GB</span></label>
+          <input
+            name="diskmax"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.disk.value.max"
+            :min="filters.disk.value.min"
+            :max="200000"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="col-span-12">
+          <p class="text-lg font-medium dark:text-gray-300">
+            Pricing
+          </p>
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label class="form-label dark:text-gray-300">Min CPU/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
+          <input
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.cpuh.value.min"
+            :min="1"
+            :max="filters.cpuh.value.max"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label for="cpuhmax" class="dark:text-gray-300">Max CPU/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
+          <input
+            name="cpuhmax"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.cpuh.value.max"
+            :min="filters.cpuh.value.min"
+            :max="200000"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label class="form-label dark:text-gray-300">Min Env/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
+          <input
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.cpuh.value.min"
+            :min="1"
+            :max="filters.cpuh.value.max"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label for="envmax" class="dark:text-gray-300">Max Env/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
+          <input
+            name="envmax"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.env.value.max"
+            :min="filters.env.value.min"
+            :max="200000"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label class="form-label dark:text-gray-300">Min Start price <span class="text-sm font-medium text-gray-400">GLM</span></label>
+          <input
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.start.value.min"
+            :min="1"
+            :max="filters.start.value.max"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+        <div class="lg:col-span-2 col-span-6">
+          <label for="startmax" class="dark:text-gray-300"
+            >Max Start price <span class="text-sm font-medium text-gray-400">GLM</span></label
           >
-            <!-- A virtual column -->
-            <template #cell(Name)="data">
-              {{ data.value }}
-              <b-badge v-if="data['item'].Online" pill variant="success"> Online </b-badge>
-              <b-badge v-else-if="data['item'].Old" pill variant="danger"> OLD </b-badge>
-              <b-badge v-else pill variant="danger"> Offline </b-badge>
-            </template>
+          <input
+            name="startmax"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            type="number"
+            v-model.number="filters.start.value.max"
+            :min="filters.start.value.min"
+            :max="200000"
+            @onKeyDown.prevent="() => {}"
+          />
+        </div>
+      </div>
+      <div class="grid grid-cols-12 overflow-scroll ">
+        <v-table
+          :data="items"
+          :filters="filters"
+          class="divide-y-12 divide-gray-900 border-separate rowspacing w-full inline-block lg:table md:table xl:table  col-span-12"
+        >
+          <template :class="'edescription'" #head>
+            <tr>
+              <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-l-lg">Provider</th>
+              <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Cores</th>
+              <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Memory</th>
+              <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Disk</th>
+              <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">CPU/h</th>
+              <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Env/h</th>
+              <th
+                scope="col"
+                class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-r-lg whitespace-nowrap"
+              >
+                Start price
+              </th>
+            </tr>
+          </template>
+          <template #body="{ rows }">
+            <tr
+              class="hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer my-12 golemtr"
+              v-for="provider in rows"
+              :key="provider.id"
+              v-on:click="nodedetails(provider.id)"
+            >
+              <td class="px-6 py-4 rounded-l-lg">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-12 w-12 bg-golemblue rounded-md p-3 relative">
+                    <div v-if="provider.Computing">
+                      <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-red-500 animate-ping"></div>
+                      <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-red-500"></div>
+                    </div>
+                    <div v-else>
+                      <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 golemping animate-ping"></div>
+                      <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 golemping"></div>
+                    </div>
+                    <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300 ">
+                      {{ provider.Name }}
+                    </div>
+                    <div class="text-sm text-gray-500 golemtext">
+                      {{ provider.Subnet }}
+                    </div>
 
-            <!-- A custom formatted column -->
-            <template #cell(Subnet)="data">
-              <div class="d-flex align-items-center">
-                <b-badge v-if="data['item'].Mainnet" class="w-100" pill variant="primary"> Mainnet </b-badge>
-                <b-badge v-else class="w-100" pill variant="warning"> Testnet </b-badge>
-              </div>
-            </template>
+                    <span
+                      v-if="provider.Mainnet"
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue golembadge text-white golemtext"
+                    >
+                      Mainnet
+                    </span>
 
-            <template #cell(Version)="data">
-              <div class="d-flex align-items-center">
-                <b-badge v-if="data['item'].Version == '0.0.0' || data['item'].Version == ''" class="w-100" pill variant="primary"
-                  >Not Reported</b-badge
+                    <span
+                      v-else
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full golembadge bg-yellow-500 text-white golemtext"
+                    >
+                      Testnet
+                    </span>
+                    <span
+                      v-if="provider.Version"
+                      class="px-2 ml-1 inline-flex text-xs leading-5 font-semibold rounded-full golembadge bg-golemblue text-white golemtext"
+                    >
+                      v{{ provider.Version }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="bg-golemblue rounded-md p-3">
+                    <component :is="chipicon" class="h-4 w-4 text-white" aria-hidden="true" />
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
+                      {{ provider.Cores }}
+                    </div>
+                    <div class="text-sm text-gray-500 golemtext ">AMD Ryzen 9 5900X 12-Core</div>
+                  </div>
+                </div>
+              </td>
+
+              <td class="px-6 py-4">
+                <dt class="flex flex-row items-center">
+                  <div class="bg-golemblue rounded-md p-3">
+                    <component :is="layersicon" class="h-4 w-4 text-white" aria-hidden="true" />
+                  </div>
+                  <p class="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">{{ provider.Memory }} GB</p>
+                </dt>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <dt class="flex flex-row items-center">
+                  <div class="bg-golemblue rounded-md p-3">
+                    <component :is="databaseicon" class="h-4 w-4 text-white" aria-hidden="true" />
+                  </div>
+                  <p class="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">{{ provider.Disk }} GB</p>
+                </dt>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                  >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
                 >
-                <b-badge v-else class="w-100" pill variant="primary"> v{{ data["item"].Version }} </b-badge>
-              </div>
-            </template>
-            <!-- A custom formatted column -->
-            <template #cell(Cores)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar v-if="data['item'].Vendor == 'AuthenticAMD'" class="mr-1" variant="light-danger" rounded>
-                  <feather-icon icon="CpuIcon" size="18" />
-                </b-avatar>
-                <b-avatar v-else class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="CpuIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-
-            <template #cell(Memory)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="LayersIcon" size="18" />
-                </b-avatar>
-                {{ data.value }} GB
-              </div>
-            </template>
-
-            <!-- A virtual composite column -->
-            <template #cell(Disk)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="HardDriveIcon" size="18" />
-                </b-avatar>
-                {{ data.value }} GB
-              </div>
-            </template>
-            <template #cell(Earnings)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-success" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-            <template #cell(cpu_hour)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-            <template #cell(per_hour)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-            <template #cell(start_price)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-          </b-table>
-        </b-card>
-      </b-col>
-    </b-row>
-
-    <b-row v-if="oldloaded">
-      <b-col lg="12" xl="12" md="12" sm="12" xs="12">
-        <b-card no-body class="mb-0">
-          <b-col lg="6" class="mb-2 mt-2">
-            <h5>Nodes offline for 7 or more days</h5>
-          </b-col>
-          <b-table
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :fields="fields"
-            :filter="filter"
-            :filter-ignored-fields="ignoredfilter"
-            :items="oldlist"
-            hover
-            responsive="sm"
-            @row-clicked="expandAdditionalInfo"
-          >
-            <!-- A virtual column -->
-            <template #cell(Name)="data">
-              {{ data.value }}
-              <b-badge pill variant="danger"> Old node </b-badge>
-            </template>
-
-            <!-- A custom formatted column -->
-            <template #cell(Subnet)="data">
-              <div class="d-flex align-items-center">
-                <b-badge v-if="data['item'].Mainnet" class="w-100" pill variant="primary"> Mainnet </b-badge>
-                <b-badge v-else class="w-100" pill variant="warning"> Testnet </b-badge>
-              </div>
-            </template>
-
-            <!-- A custom formatted column -->
-            <template #cell(Cores)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar v-if="data['item'].Vendor == 'AuthenticAMD'" class="mr-1" variant="light-danger" rounded>
-                  <feather-icon icon="CpuIcon" size="18" />
-                </b-avatar>
-                <b-avatar v-else class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="CpuIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-
-            <template #cell(Memory)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="LayersIcon" size="18" />
-                </b-avatar>
-                {{ data.value }} GB
-              </div>
-            </template>
-
-            <!-- A virtual composite column -->
-            <template #cell(Disk)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="HardDriveIcon" size="18" />
-                </b-avatar>
-                {{ data.value }} GB
-              </div>
-            </template>
-            <template #cell(Earnings)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-success" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-            <template #cell(cpu_hour)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-            <template #cell(per_hour)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-            <template #cell(start_price)="data">
-              <div class="d-flex align-items-center">
-                <b-avatar class="mr-1" variant="light-primary" rounded>
-                  <feather-icon icon="DollarSignIcon" size="18" />
-                </b-avatar>
-                {{ data.value }}
-              </div>
-            </template>
-          </b-table>
-        </b-card>
-      </b-col>
-    </b-row>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                  >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
+                >
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium rounded-r-lg">
+                <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                  >{{ provider.cpu_hour }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
+                >
+              </td>
+            </tr>
+          </template>
+        </v-table>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { BCard, BCardText, BFormGroup, BFormInput, BButton, BAvatar, BCol, BRow, BTable, BBadge, BSpinner } from "bootstrap-vue"
-import axios from "@axios"
-import { $themeConfig } from "@themeConfig"
-import statisticscardearnings from "@core/components/provider/statisticscardearnings.vue"
-import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue"
+import axios from "axios"
+import GolemIcon from "@/components/golem.vue"
+import LayersIcon from "@/components/layers.vue"
+import { ChipIcon, DatabaseIcon } from "@heroicons/vue/solid"
+const people = [
+  {
+    name: "Jane Cooper",
+    title: "Regional Paradigm Technician",
+    department: "Optimization",
+    role: "Admin",
+    email: "jane.cooper@example.com",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+  },
+  // More people...
+]
 
 export default {
-  metaInfo: {
-    title: "Golem Network Stats - A stats page for the Golem Network",
-    meta: [
-      {
-        name: "description",
-        content: "Filter node operators by wallet address to view in-depth details for operators.",
-      },
-    ],
-  },
   components: {
-    BCard,
-    BCardText,
-    BFormGroup,
-    BFormInput,
-    BButton,
-    BAvatar,
-    BBadge,
-    BCol,
-    BRow,
-    BSpinner,
-    BTable,
-    statisticscardearnings,
-    StatisticCardHorizontal,
+    GolemIcon,
+    ChipIcon,
+    LayersIcon,
+    DatabaseIcon
+  },
+  setup() {
+    return {
+      people,
+    }
   },
   data() {
     return {
-      loaded: false,
-      fields: [
-        /*
-          Optionally define a class per header,
-          this will overlay whatever thead-class background you choose
-        */
-        {
-          key: "Name",
-          label: "Provider Name",
-          tdClass: "primary bold",
-          sortable: true,
-        },
-        { key: "Subnet", label: "Network", sortable: true },
-        { key: "Version", label: "Version", sortable: true },
-        { key: "Cores", label: "Cores", sortable: true },
-        { key: "Memory", label: "Memory (GB)", sortable: true },
-        { key: "Disk", label: "Disk (GB)", sortable: true },
-        { key: "Earnings", label: "Total earnings", sortable: true },
-        { key: "cpu_hour", label: "CPU/h price", sortable: true },
-        { key: "per_hour", label: "Per/h price", sortable: true },
-        { key: "start_price", label: "Start Price", sortable: true },
-      ],
-      items: [],
-      oldlist: [],
-      ignoredfilter: ["Cores", "Memory", "Disk", "Earnings", "cpu_hour", "per_hour", "start_price", "Subnet"],
+      ignoredfilter: ["Cores", "Memory", "Disk", "cpu_hour", "per_hour", "start_price"],
       filter: "",
-      sortBy: "Online",
+      filters: {
+          name: { value: '', keys: ['Name', 'Wallet'] },
+          cores: { value: { min: 1, max: 256 }, custom: this.coresFilter },
+          memory: { value: { min: 1, max: 2056 }, custom: this.memoryFilter },
+          disk: { value: { min: 1, max: 200000 }, custom: this.diskFilter },
+          cpuh: { value: { min: 0, max: 10 }, custom: this.cpuhFilter },
+          env: { value: { min: 0, max: 10 }, custom: this.envFilter },
+          start: { value: { min: 0, max: 10 }, custom: this.startFilter }
+
+        },
+      icon: "GolemIcon",
+      chipicon: "ChipIcon",
+      databaseicon: "DatabaseIcon",
+      layersicon: "LayersIcon",
+      updaterender: 0,
+      table_data: false,
+      rowcount: "30",
+      averageearnings_loaded: false,
+      sortBy: "Earnings",
       sortDesc: true,
-      usdprice: "",
-      oldloaded: false,
-      usdloaded: false,
-      onlinecount: "",
-      offlinecount: "",
-      totalcores: "",
-      totalmemory: "",
-      totaldisk: "",
-      totalearnings: "",
+      median_loaded: false,
+      stats_loaded: false,
+      computing_loaded: false,
+      earnings6h_loaded: false,
+      earnings24h_loaded: false,
+      earnings90d_loaded: false,
+      earnings90d: "",
+      items: [],
     }
-  },
-  setup() {
-    // App Name
-    const { appName, appLogoImage } = $themeConfig.app
-    return {
-      appName,
-      appLogoImage,
-    }
-  },
-  watch: {
-    "$store.state.appConfig.layout.currency": function() {
-      this.makeToast(
-        "success",
-        `Changing layout to ${this.$store.state.appConfig.layout.currency} prices`,
-        "This will happen on next pull (within 60s)"
-      )
-    },
   },
   created() {
-    this.geckoapi()
-    this.activity()
-  },
-  mounted() {
-    this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") {
-        return
-      }
-      this.activity()
-      this.geckoapi()
-    }, 60000)
+    this.fetchData()
   },
   methods: {
-    zkscan() {
-      window.open(`https://zkscan.io/explorer/accounts/${this.$route.params.id}`, "_blank")
+    coresFilter (filterValue, row) {
+      return row.Cores >= filterValue.min && row.Cores <= filterValue.max
     },
-    etherscan() {
-      window.open(`https://etherscan.io/address/${this.$route.params.id}`, "_blank")
+    memoryFilter (filterValue, row) {
+      return row.Memory >= filterValue.min && row.Memory <= filterValue.max
     },
-    polygon() {
-      window.open(`https://polygonscan.com/address/${this.$route.params.id}#tokentxns`, "_blank")
+    diskFilter (filterValue, row) {
+      return row.Disk >= filterValue.min && row.Disk <= filterValue.max
     },
-    expandAdditionalInfo(row) {
-      this.$router.push({ name: "node", params: { id: row.id } })
+    cpuhFilter (filterValue, row) {
+      return row.cpu_hour >= filterValue.min && row.cpu_hour <= filterValue.max
     },
-    makeToast(variant = null, title, message) {
-      this.$bvToast.toast(message, {
-        title,
-        variant,
-        solid: true,
-      })
+    envFilter (filterValue, row) {
+      return row.per_hour >= filterValue.min && row.per_hour <= filterValue.max
+    },
+    startFilter (filterValue, row) {
+      return row.start_price >= filterValue.min && row.start_price <= filterValue.max
     },
     floorFigure: function floorFigure(figure, decimals) {
       if (!decimals) decimals = 2
       const d = Math.pow(10, decimals)
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
-    earnings(provider, hours) {
-      axios.get(`/v1/provider/node/${provider}/earnings` + `/${hours}`).then((response) => {
+    nodedetails(row) {
+      this.$router.push({ name: "node", params: { id: row } })
+    },
+    fetchData() {
+      axios.get(`https://api.stats.golem.network/v1/provider/wallet/${this.$route.params.id}`).then((response) => {
         const apiResponse = response.data
-        if (localStorage.getItem("currency") == "glm") {
-          const income = `${this.floorFigure(apiResponse.earnings, 3)} GLM`
-          return income
-        }
-        if (!localStorage.getItem("currency")) {
-          localStorage.setItem("currency", "glm")
-          const income = `${this.floorFigure(apiResponse.earnings, 3)} GLM`
-          return income
-        }
-        const income = `${this.floorFigure(apiResponse.earnings * this.usdprice, 3)} USD`
-        return income
-      })
-    },
-    geckoapi() {
-      axios.get("https://api.coingecko.com/api/v3/simple/price?ids=golem&vs_currencies=usd").then((response) => {
-        this.usdprice = response.data.golem.usd
-        if (localStorage.getItem("currency") == "glm") {
-          this.totalearnings = `${this.floorFigure(this.totalearnings, 2)} GLM`
-        } else if (!localStorage.getItem("currency")) {
-          localStorage.setItem("currency", "glm")
-          this.totalearnings = `${this.floorFigure(this.totalearnings, 2)} GLM`
-        } else {
-          this.totalearnings = `${this.floorFigure(this.totalearnings * this.usdprice, 2)} USD`
-        }
-        this.usdloaded = true
-      })
-    },
-    daydifference(d1, d2) {
-      const diff = Math.abs(d1.getTime() - d2.getTime())
-      return diff / (1000 * 60 * 60 * 24)
-    },
-    activity() {
-      this.items.length = 0
-      axios.get(`/v1/provider/wallet/${this.$route.params.id}`).then((response) => {
-        const apiResponse = response.data
-        let onlinecounter = 0
-        let offlinecounter = 0
-        let totalcores = 0
-        let totalmemory = 0
-        let totaldisk = 0
-        let totalearnings = 0
+        this.items.length = 0
+        const avg_cpu_hour = []
+        const avg_start_price = []
+        const avg_per_hour = []
         apiResponse.forEach((obj) => {
           if (obj.online) {
-            onlinecounter++
-          } else {
-            offlinecounter++
-          }
-          if (obj.online) {
-            totalcores += obj.data["golem.inf.cpu.threads"]
-            totalmemory += obj.data["golem.inf.mem.gib"]
-            totaldisk += obj.data["golem.inf.storage.gib"]
-          }
-
-          totalearnings += obj.earnings_total
-          // this.earnings(obj.data['id'], 24).then((items) => {
-          //   // You might use this at some stage: const { sortBy, descending, page, rowsPerPage } = this.pagination
-          //   console.log(items)
-          // })
-          // this.earnings(obj.data['id'], 24)
-          const seen = new Date(obj.updated_at)
-          const currenttime = new Date(Date.now())
-          if (this.daydifference(currenttime, seen) > 7) {
-            var old = true
-          } else {
-            var old = false
-          }
-
           if (obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]) {
             var mainnet = true
             var wallet = obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]
@@ -481,7 +406,6 @@ export default {
             var wallet = obj.data["golem.com.payment.platform.erc20-rinkeby-tglm.address"]
             //  block of code to be executed if the condition is false
           }
-
           if (localStorage.getItem("currency") == "glm") {
             var earnings = `${this.floorFigure(obj.earnings_total, 2)} GLM`
           } else if (!localStorage.getItem("currency")) {
@@ -493,72 +417,63 @@ export default {
           let pricing_hashmap = new Map()
           pricing_hashmap.set(obj.data["golem.com.usage.vector"][0], obj.data["golem.com.pricing.model.linear.coeffs"][0])
           pricing_hashmap.set(obj.data["golem.com.usage.vector"][1], obj.data["golem.com.pricing.model.linear.coeffs"][1])
-
-          if (!old) {
-            this.items.push({
-              Mainnet: mainnet,
-              Online: obj.online,
-              Version: obj.version,
-              Earnings: earnings,
-              Name: obj.data["golem.node.id.name"],
-              id: obj.data.id,
-              Subnet: obj.data["golem.node.debug.subnet"],
-              Cores: obj.data["golem.inf.cpu.threads"],
-              Vendor: obj.data["golem.inf.cpu.vendor"],
-              Wallet: wallet,
-              start_price: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][2], 3)} GLM`,
-              per_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.duration_sec") * 3600, 3)} GLM`,
-              cpu_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.cpu_sec") * 3600, 3)} GLM`,
-              Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
-              Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
-            })
-          } else {
-            this.oldlist.push({
-              Mainnet: mainnet,
-              Online: obj.online,
-              Earnings: earnings,
-              Name: obj.data["golem.node.id.name"],
-              id: obj.data.id,
-              Subnet: obj.data["golem.node.debug.subnet"],
-              Cores: obj.data["golem.inf.cpu.threads"],
-              Wallet: wallet,
-              start_price: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][2], 3)} GLM`,
-              per_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.duration_sec") * 3600, 3)} GLM`,
-              cpu_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.cpu_sec") * 3600, 3)} GLM`,
-              Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
-              Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
-            })
-            this.oldloaded = true
-          }
-        })
-        this.loaded = true
-        this.onlinecount = onlinecounter
-        this.offlinecount = offlinecounter
-        this.totalcores = totalcores
-        this.totalmemory = `${this.floorFigure(totalmemory)} GB`
-        this.totaldisk = `${this.floorFigure(totaldisk)} GB`
-        this.totalearnings = this.floorFigure(totalearnings)
-        // let success = data.map(({ values }) => values)
+          this.items.push({
+            Online: obj.online,
+            Version: obj.version,
+            Earnings: earnings,
+            Mainnet: mainnet,
+            Name: obj.data["golem.node.id.name"],
+            id: obj.data.id,
+            Subnet: obj.data["golem.node.debug.subnet"],
+            Cores: obj.data["golem.inf.cpu.threads"],
+            Vendor: obj.data["golem.inf.cpu.vendor"],
+            Wallet: wallet,
+            start_price: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][2], 3)}`,
+            per_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.duration_sec") * 3600, 3)}`,
+            cpu_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.cpu_sec") * 3600, 3)}`,
+            Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
+            Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
+          })
+          avg_cpu_hour.push(obj.data["golem.com.pricing.model.linear.coeffs"][1] * 3600)
+          avg_start_price.push(obj.data["golem.com.pricing.model.linear.coeffs"][2])
+          avg_per_hour.push(obj.data["golem.com.pricing.model.linear.coeffs"][0] * 3600)
+        }})
+        const median = (arr) => {
+          const mid = Math.floor(arr.length / 2)
+          const nums = [...arr].sort((a, b) => a - b)
+          return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2
+        }
+        this.median_cpu_hour = `${this.floorFigure(median(avg_cpu_hour), 3)} GLM`
+        this.median_start_price = `${this.floorFigure(median(avg_start_price), 3)} GLM`
+        this.median_per_hour = `${this.floorFigure(median(avg_per_hour), 3)} GLM`
+        this.median_loaded = true
+        const average = (array) => array.reduce((a, b) => a + b) / array.length
+        this.avg_cpu_hour = `${this.floorFigure(average(avg_cpu_hour), 5)} GLM`
+        this.avg_start_price = `${this.floorFigure(average(avg_start_price), 5)} GLM`
+        this.avg_per_hour = `${this.floorFigure(average(avg_per_hour), 5)} GLM`
       })
+      this.table_data = true
     },
   },
 }
 </script>
 
 <style>
-html {
-  max-width: 100vw;
-  overflow-x: hidden !important;
+.rowspacing {
+  border-spacing: 0 15px;
 }
-[dir] .table th,
-[dir] .table td {
-  padding: 1rem !important;
+
+thead {
+  @apply bg-gray-900;
+  @apply dark:bg-gray-800;
+  @apply py-24;
+  @apply sticky;
+  @apply top-0;
+  @apply z-10;
 }
-[dir] .table:not(.table-dark):not(.table-light) tfoot:not(.thead-dark) th,
-[dir] .table:not(.table-dark):not(.table-light) thead:not(.thead-dark) th {
-  background-color: white;
-}
-[dir] .table thead th {
-  border-bottom: none;
+
+tbody {
+  @apply bg-white;
+  @apply dark:bg-gray-800;
 }
 </style>
