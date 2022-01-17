@@ -2,7 +2,7 @@
 <template>
   <div>
     <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Online Providers</h1>
-    <div class="mt-2 grid gap-5 grid-cols-12 bg-white dark:bg-gray-800 pt-5 px-4 py-6 shadow rounded-lg overflow-hidden">
+    <div class="mt-2 grid gap-3 grid-cols-12 bg-white dark:bg-gray-800 pt-5 px-4 py-6 shadow rounded-lg overflow-hidden">
       <div class="col-span-12">
         <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Search filter</h1>
       </div>
@@ -163,6 +163,23 @@
           @onKeyDown.prevent="() => {}"
         />
       </div>
+      <div class="col-span-12">
+        <p class="text-lg font-medium dark:text-gray-300">
+          Network
+        </p>
+      </div>
+      <div class="lg:col-span-2 col-span-6">
+        <label for="network" class="dark:text-gray-300">Payment Network</label>
+        <select
+          id="network"
+          name="network"
+          v-model.number="filters.network.value"
+          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+        >
+          <option selected="">Mainnet</option>
+          <option>Testnet</option>
+        </select>
+      </div>
     </div>
     <div class="grid grid-cols-12 overflow-scroll ">
       <v-table
@@ -170,7 +187,7 @@
         :filters="filters"
         class="divide-y-12 divide-gray-900 border-separate rowspacing w-full inline-block lg:table md:table xl:table  col-span-12"
       >
-        <template :class="'edescription'" #head>
+        <template #head>
           <tr>
             <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-l-lg">Provider</th>
             <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Cores</th>
@@ -323,6 +340,7 @@ export default {
       ignoredfilter: ["Cores", "Memory", "Disk", "cpu_hour", "per_hour", "start_price"],
       filter: "",
       filters: {
+          network: { value: '', custom: this.networkFilter},
           name: { value: '', keys: ['Name', 'Wallet'] },
           cores: { value: { min: 1, max: 256 }, custom: this.coresFilter },
           memory: { value: { min: 1, max: 2056 }, custom: this.memoryFilter },
@@ -357,6 +375,13 @@ export default {
   },
 
   methods: {
+    networkFilter (filterValue, row) {
+      if (filterValue == "Mainnet") {
+        return row.Mainnet == true
+      } else {
+        return row.Mainnet == false
+      }
+    },
     coresFilter (filterValue, row) {
       return row.Cores >= filterValue.min && row.Cores <= filterValue.max
     },
