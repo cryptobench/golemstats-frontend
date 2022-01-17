@@ -181,7 +181,8 @@
             v-model.number="filters.network.value"
             class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
           >
-            <option selected="">Mainnet</option>
+            <option selected="">Both</option>
+            <option>Mainnet</option>
             <option>Testnet</option>
           </select>
         </div>
@@ -383,8 +384,10 @@ export default {
      networkFilter (filterValue, row) {
       if (filterValue == "Mainnet") {
         return row.Mainnet == true
-      } else {
+      } else if (filterValue == "Testnet") {
         return row.Mainnet == false
+      } else {
+        return row
       }
     },
     coresFilter (filterValue, row) {
