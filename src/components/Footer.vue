@@ -25,7 +25,10 @@
               <h3 class="text-sm font-semibold text-black dark:text-gray-300 golemgradient tracking-wider uppercase">Network</h3>
               <ul role="list" class="mt-4 space-y-4">
                 <li v-for="item in navigation.network" :key="item.name">
-                  <a :href="item.href" class="text-base text-gray-500 dark:text-gray-400 thorg-footer-text hover:text-white">
+                  <a
+                    :href="item.href"
+                    class="text-base text-gray-500 dark:text-gray-400 dark:hover:text-gray-200 thorg-footer-text hover:text-gray-800"
+                  >
                     {{ item.name }}
                   </a>
                 </li>
@@ -35,7 +38,10 @@
               <h3 class="text-sm font-semibold text-black dark:text-gray-300 golemgradient tracking-wider uppercase">Provider</h3>
               <ul role="list" class="mt-4 space-y-4">
                 <li v-for="item in navigation.provider" :key="item.name">
-                  <a :href="item.href" class="text-base text-gray-500 dark:text-gray-400 thorg-footer-text hover:text-white">
+                  <a
+                    :href="item.href"
+                    class="text-base text-gray-500 dark:text-gray-400 dark:hover:text-gray-200 thorg-footer-text hover:text-gray-800"
+                  >
                     {{ item.name }}
                   </a>
                 </li>
@@ -47,7 +53,10 @@
               <h3 class="text-sm font-semibold text-black dark:text-gray-300 golemgradient tracking-wider uppercase">Requestor</h3>
               <ul role="list" class="mt-4 space-y-4">
                 <li v-for="item in navigation.requestor" :key="item.name">
-                  <a :href="item.href" class="text-base text-gray-500 dark:text-gray-400 thorg-footer-text hover:text-white">
+                  <a
+                    :href="item.href"
+                    class="text-base text-gray-500 dark:text-gray-400 dark:hover:text-gray-200 thorg-footer-text hover:text-gray-800"
+                  >
                     {{ item.name }}
                   </a>
                 </li>
@@ -57,7 +66,10 @@
               <h3 class="text-sm font-semibold text-black dark:text-gray-300 golemgradient tracking-wider uppercase">Thorg</h3>
               <ul role="list" class="mt-4 space-y-4">
                 <li v-for="item in navigation.thorg" :key="item.name">
-                  <a :href="item.href" class="text-base text-gray-500 dark:text-gray-400 thorg-footer-text hover:text-white">
+                  <a
+                    :href="item.href"
+                    class="text-base text-gray-500 dark:text-gray-400 dark:hover:text-gray-200 thorg-footer-text hover:text-gray-800"
+                  >
                     {{ item.name }}
                   </a>
                 </li>
