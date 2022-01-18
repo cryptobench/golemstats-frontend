@@ -166,7 +166,7 @@
           </Popover>
 
           <a href="/network/requestor" class="text-base font-medium text-white hover:text-gray-300"> Requestor </a>
-          <a href="/thorg" class="text-base font-medium text-white hover:text-gray-300"> Thorg </a>
+          <!-- <a href="/thorg" class="text-base font-medium text-white hover:text-gray-300"> Thorg </a> -->
         </PopoverGroup>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
           <button

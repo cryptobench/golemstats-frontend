@@ -62,7 +62,7 @@
                 </li>
               </ul>
             </div>
-            <div class="mt-12 md:mt-0">
+            <!-- <div class="mt-12 md:mt-0">
               <h3 class="text-sm font-semibold text-black dark:text-gray-300 golemgradient tracking-wider uppercase">Thorg</h3>
               <ul role="list" class="mt-4 space-y-4">
                 <li v-for="item in navigation.thorg" :key="item.name">
@@ -74,7 +74,7 @@
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="mt-8 xl:mt-0">

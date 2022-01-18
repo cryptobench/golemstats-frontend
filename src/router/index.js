@@ -56,16 +56,16 @@ const routes = [
     name: "operatordetailed",
     component: () => import("@/views/Operatordetailed.vue"),
   },
-  {
-    path: "/thorg",
-    name: "thorg",
-    component: () => import("@/views/Thorg.vue"),
-  },
-  {
-    path: "/thorg/provider/:id",
-    name: "thorgnode",
-    component: () => import("@/views/Thorgnode.vue"),
-  },
+  // {
+  //   path: "/thorg",
+  //   name: "thorg",
+  //   component: () => import("@/views/Thorg.vue"),
+  // },
+  // {
+  //   path: "/thorg/provider/:id",
+  //   name: "thorgnode",
+  //   component: () => import("@/views/Thorgnode.vue"),
+  // },
 ]
 
 const router = createRouter({
