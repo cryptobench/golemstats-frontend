@@ -270,7 +270,7 @@
                   </a>
                 </nav>
               </div>
-              <div class="mt-6">
+              <!-- <div class="mt-6">
                 <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300 golemgradient">Thorg</p>
                 <nav class="grid grid-cols-1 gap-7">
                   <a href="/thorg" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 thorgcolumn">
@@ -282,7 +282,7 @@
                     </div>
                   </a>
                 </nav>
-              </div>
+              </div> -->
               <div class="mt-6">
                 <p class="text-xl mb-2 font-medium text-gray-900 dark:text-gray-300 golemgradient">Requestor</p>
                 <nav class="grid grid-cols-1 gap-7">
