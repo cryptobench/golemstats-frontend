@@ -3,7 +3,16 @@
   <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
     <div>
       <h1 class="text-2xl mb-2 font-medium dark:text-gray-300 mt-4">
-        Node by Operator <span class="text-gray-400 text-sm">{{this.$route.params.id}}</span>
+        Node by Operator
+        <span class="text-gray-400 text-sm"
+          >{{this.$route.params.id}}
+          <span
+            v-if="onlinecounter != 0"
+            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-400 golembadge text-white golemtext"
+          >
+            {{onlinecounter}} Online Nodes
+          </span></span
+        >
       </h1>
       <div class="mt-2 grid gap-5 grid-cols-12 bg-white dark:bg-gray-800 pt-5 px-4 py-6 shadow rounded-lg overflow-hidden">
         <div class="col-span-12">
@@ -187,13 +196,14 @@
           </select>
         </div>
       </div>
+
       <div class="grid grid-cols-12 overflow-scroll ">
         <v-table
           :data="items"
           :filters="filters"
           class="divide-y-12 divide-gray-900 border-separate rowspacing w-full inline-block lg:table md:table xl:table  col-span-12"
         >
-          <template :class="'edescription'" #head>
+          <template #head>
             <tr>
               <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider rounded-l-lg">Provider</th>
               <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Cores</th>
@@ -317,18 +327,7 @@ import axios from "axios"
 import GolemIcon from "@/components/golem.vue"
 import LayersIcon from "@/components/layers.vue"
 import { ChipIcon, DatabaseIcon } from "@heroicons/vue/solid"
-const people = [
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  // More people...
-]
+
 
 export default {
   components: {
@@ -337,11 +336,7 @@ export default {
     LayersIcon,
     DatabaseIcon
   },
-  setup() {
-    return {
-      people,
-    }
-  },
+
   data() {
     return {
       ignoredfilter: ["Cores", "Memory", "Disk", "cpu_hour", "per_hour", "start_price"],
@@ -374,6 +369,10 @@ export default {
       earnings24h_loaded: false,
       earnings90d_loaded: false,
       earnings90d: "",
+      onlinecounter: 0,
+      cores: 0,
+      memory: 0,
+      disk: 0,
       items: [],
     }
   },
@@ -420,11 +419,17 @@ export default {
       axios.get(`https://api.stats.golem.network/v1/provider/wallet/${this.$route.params.id}`).then((response) => {
         const apiResponse = response.data
         this.items.length = 0
-        const avg_cpu_hour = []
-        const avg_start_price = []
-        const avg_per_hour = []
         apiResponse.forEach((obj) => {
           if (obj.online) {
+            this.onlinecounter++
+            this.cores = this.cores + obj.data["golem.inf.cpu.threads"]
+            this.memory = (parseFloat(this.memory) + parseFloat(this.floorFigure(obj.data["golem.inf.mem.gib"]))).toFixed(2)
+            this.disk = (parseFloat(this.disk) + parseFloat(this.floorFigure(obj.data["golem.inf.storage.gib"]))).toFixed(2)
+            console.log(this.floorFigure(obj.data["golem.inf.storage.gib"]))
+
+            var earnings = `${this.floorFigure(obj.earnings_total, 2)}`
+
+
           if (obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]) {
             var mainnet = true
             var wallet = obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]
@@ -434,14 +439,7 @@ export default {
             var wallet = obj.data["golem.com.payment.platform.erc20-rinkeby-tglm.address"]
             //  block of code to be executed if the condition is false
           }
-          if (localStorage.getItem("currency") == "glm") {
-            var earnings = `${this.floorFigure(obj.earnings_total, 2)} GLM`
-          } else if (!localStorage.getItem("currency")) {
-            localStorage.setItem("currency", "glm")
-            var earnings = `${this.floorFigure(obj.earnings_total, 2)} GLM`
-          } else {
-            var earnings = `${this.floorFigure(obj.earnings_total * this.usdprice, 2)} USD`
-          }
+
           let pricing_hashmap = new Map()
           pricing_hashmap.set(obj.data["golem.com.usage.vector"][0], obj.data["golem.com.pricing.model.linear.coeffs"][0])
           pricing_hashmap.set(obj.data["golem.com.usage.vector"][1], obj.data["golem.com.pricing.model.linear.coeffs"][1])
@@ -462,23 +460,9 @@ export default {
             Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
             Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
           })
-          avg_cpu_hour.push(obj.data["golem.com.pricing.model.linear.coeffs"][1] * 3600)
-          avg_start_price.push(obj.data["golem.com.pricing.model.linear.coeffs"][2])
-          avg_per_hour.push(obj.data["golem.com.pricing.model.linear.coeffs"][0] * 3600)
+
         }})
-        const median = (arr) => {
-          const mid = Math.floor(arr.length / 2)
-          const nums = [...arr].sort((a, b) => a - b)
-          return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2
-        }
-        this.median_cpu_hour = `${this.floorFigure(median(avg_cpu_hour), 3)} GLM`
-        this.median_start_price = `${this.floorFigure(median(avg_start_price), 3)} GLM`
-        this.median_per_hour = `${this.floorFigure(median(avg_per_hour), 3)} GLM`
-        this.median_loaded = true
-        const average = (array) => array.reduce((a, b) => a + b) / array.length
-        this.avg_cpu_hour = `${this.floorFigure(average(avg_cpu_hour), 5)} GLM`
-        this.avg_start_price = `${this.floorFigure(average(avg_start_price), 5)} GLM`
-        this.avg_per_hour = `${this.floorFigure(average(avg_per_hour), 5)} GLM`
+
       })
       this.table_data = true
     },
