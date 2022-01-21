@@ -340,7 +340,7 @@
 
 <script>
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from "@headlessui/vue"
-import { ChartBarIcon, UserIcon, MenuIcon, SearchIcon, XIcon, DownloadIcon, GlobeAltIcon, ChartPieIcon, CodeIcon, ServerIcon } from "@heroicons/vue/outline"
+import { ChartBarIcon, UserIcon, MenuIcon, SearchIcon, XIcon, DownloadIcon, GlobeAltIcon, ChartPieIcon, CodeIcon, ServerIcon, PresentationChartBarIcon } from "@heroicons/vue/outline"
 import { ChevronDownIcon } from "@heroicons/vue/solid"
 import { defineComponent, h } from "vue"
 import DiscordIcon from "@/components/discordicon.vue"
@@ -445,6 +445,12 @@ const provider = [
     description: "Get direct insights to all providers connected to a specific wallet.",
     href: "/network/providers/lookup/operator/",
     icon: UserIcon,
+  },
+  {
+    name: "Pricing Analytics",
+    description: "Explore the pricing analytics of the providers.",
+    href: "/network/provider/pricing",
+    icon: PresentationChartBarIcon,
   },
 
 ]

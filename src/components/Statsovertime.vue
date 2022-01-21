@@ -3,10 +3,9 @@
     <div class="lg:col-span-6 col-span-12 md:col-span-12">
       <div class="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
         <div class="relative">
-          <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
-          <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
           <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Historical Stats Providers</h1>
           <button
+            aria-label="Enable or Disable Annotations"
             type="button"
             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             v-if="showAnnotations"
@@ -15,6 +14,7 @@
             Hide Release Labels
           </button>
           <button
+            aria-label="Enable or Disable Annotations"
             type="button"
             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             v-else
@@ -36,10 +36,9 @@
     <div class="lg:col-span-6 col-span-12 md:col-span-12">
       <div class="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
         <div class="relative">
-          <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
-          <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
           <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Historical Stats Cores</h1>
           <button
+            aria-label="Enable or Disable Annotations"
             type="button"
             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             v-if="showAnnotations"
@@ -48,6 +47,7 @@
             Hide Release Labels
           </button>
           <button
+            aria-label="Enable or Disable Annotations"
             type="button"
             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             v-else
@@ -70,12 +70,11 @@
     <div class="lg:col-span-6 col-span-12 md:col-span-12">
       <div class="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
         <div class="relative">
-          <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
-          <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
           <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">
             Historical Stats Memory <span class="ml-1 text-base font-medium text-gray-400">TB</span>
           </h1>
           <button
+            aria-label="Enable or Disable Annotations"
             type="button"
             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             v-if="showAnnotations"
@@ -84,6 +83,7 @@
             Hide Release Labels
           </button>
           <button
+            aria-label="Enable or Disable Annotations"
             type="button"
             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             v-else
@@ -106,12 +106,11 @@
     <div class="lg:col-span-6 col-span-12 md:col-span-12">
       <div class="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
         <div class="relative">
-          <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
-          <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
           <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">
             Historical Stats Disk <span class="ml-1 text-base font-medium text-gray-400">TB</span>
           </h1>
           <button
+            aria-label="Enable or Disable Annotations"
             type="button"
             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             v-if="showAnnotations"
@@ -120,6 +119,7 @@
             Hide Release Labels
           </button>
           <button
+            aria-label="Enable or Disable Annotations"
             type="button"
             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             v-else

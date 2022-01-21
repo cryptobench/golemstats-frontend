@@ -1,28 +1,28 @@
 <template>
   <div class="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
     <div class="relative">
-      <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
-      <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
-      <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">{{this.title}}</h1>
-      <button
-        aria-label="Enable or Disable Annotations"
-        type="button"
-        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-        v-if="showAnnotations"
-        @click="hideshowAnnotation()"
-      >
-        Hide Release Labels
-      </button>
-      <button
-        aria-label="Enable or Disable Annotations"
-        type="button"
-        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-        v-else
-        @click="hideshowAnnotation()"
-      >
-        Show Release Labels
-      </button>
-
+      <h1 class="text-2xl  font-medium dark:text-gray-300">{{this.title}}</h1>
+      <p v-if="this.paragraph" class="text-md mb-2 font-medium text-gray-500 dark:text-gray-300">{{this.paragraph}}</p>
+      <div v-if="annotations">
+        <button
+          aria-label="Enable or Disable Annotations"
+          type="button"
+          class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+          v-if="showAnnotations"
+          @click="hideshowAnnotation()"
+        >
+          Hide Release Labels
+        </button>
+        <button
+          aria-label="Enable or Disable Annotations"
+          type="button"
+          class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+          v-else
+          @click="hideshowAnnotation()"
+        >
+          Show Release Labels
+        </button>
+      </div>
       <apexchart width="100%" height="350" type="area" :options="options" :series="series"></apexchart>
     </div>
   </div>
@@ -37,6 +37,14 @@ export default {
       type: String,
       required: true,
     },
+    allDataPoints: {
+      type: Boolean,
+      required: true,
+    },
+    annotations: {
+      type: Boolean,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -44,6 +52,10 @@ export default {
     palette: {
       type: Array,
       required: true,
+    },
+    paragraph: {
+      type: String,
+      required: false,
     },
   },
   data() {
@@ -269,11 +281,21 @@ export default {
         let start = []
         let cpuh = []
         let perh = []
-        apiResponse.forEach((obj) => {
+        if (this.allDataPoints) {
+          apiResponse.forEach((obj) => {
+          start.push([obj.date, this.floorFigure(obj.start, 3)])
+          cpuh.push([obj.date, this.floorFigure(obj.cpuh, 3)])
+          perh.push([obj.date, this.floorFigure(obj.perh, 3)])
+        })} else {
+          let last_7_elements = apiResponse.slice(-7)
+           last_7_elements.forEach((obj) => {
           start.push([obj.date, this.floorFigure(obj.start, 3)])
           cpuh.push([obj.date, this.floorFigure(obj.cpuh, 3)])
           perh.push([obj.date, this.floorFigure(obj.perh, 3)])
         })
+        }
+
+
         this.series.push({
           data: start,
           name: "Start",

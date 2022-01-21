@@ -13,6 +13,8 @@
           :endpoint="'https://api.stats.golem.network/v1/network/historical/pricing/median'"
           :title="'Provider Median Pricing'"
           :palette="['#FFED29', '#FF5289', '#00096B']"
+          :allDataPoints="true"
+          :annotations="true"
           >/</Pricinghistorical
         >
       </div>
@@ -21,6 +23,8 @@
           :endpoint="'https://api.stats.golem.network/v1/network/historical/pricing/average'"
           :title="'Provider Average Pricing'"
           :palette="['#FFED29', '#FF5289', '#00096B']"
+          :allDataPoints="true"
+          :annotations="true"
           >/</Pricinghistorical
         >
       </div>

@@ -164,6 +164,7 @@ const navigation = {
     { name: "Online Providers", href: "/network/providers/online" },
     { name: "Node Lookup", href: "/network/providers/lookup/node/" },
     { name: "Nodes by Operator", href: "/network/providers/lookup/operator/" },
+    { name: "Pricing Analytics", href: "/network/provider/pricing"},
   ],
   requestor: [
     { name: "Overview", href: "/network/requestor" },
