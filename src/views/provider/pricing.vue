@@ -30,13 +30,11 @@ import axios from "axios"
 import Stats from "@/components/Stats.vue"
 import MedianLive from "@/components/pricing/median.vue"
 import Pricinghistorical from "@/components/Pricinghistorical.vue"
-import AverageLive from "@/components/pricing/average.vue"
 
 export default {
   name: "LiveGraphs",
   components: {
     MedianLive,
-    AverageLive,
     Stats,
     Pricinghistorical
   },
