@@ -394,6 +394,17 @@ export default {
         },
         xaxis: {
           type: "datetime",
+          title: {
+            text: "UTC Time",
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: "12px",
+              fontWeight: 600,
+              cssClass: "apexcharts-yaxis-title",
+            },
+          },
           labels: {
             datetimeFormatter: {
               year: "yyyy",
@@ -421,6 +432,19 @@ export default {
       this.earnings(168)
       this.earnings(744)
       this.earnings(8760)
+  },
+  mounted: function () {
+    this.timer = setInterval(() => {
+      if (document.visibilityState === "hidden") { return }
+        this.activity()
+      this.tasks_computed()
+      this.get_seconds_computed()
+      this.fetchData()
+      this.earnings(24)
+      this.earnings(168)
+      this.earnings(744)
+      this.earnings(8760)
+    }, 15000)
   },
   methods: {
       operator() {
