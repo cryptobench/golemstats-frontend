@@ -7,5 +7,5 @@ import SmartTable from 'vuejs-smart-table'
 
 
 createApp(App).use(router).use(VueApexCharts).use(SmartTable, {
-    sortHeaderClass: 'bg-gray-900 py-24 sticky top-0 z-10 w-full',
+    hideSortIcons: true,
   }).mount("#app")

@@ -209,6 +209,14 @@
               <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Cores</th>
               <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Memory</th>
               <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Disk</th>
+              <VTh
+                scope="col"
+                defaultSort="desc"
+                sortKey="Earnings"
+                class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider"
+              >
+                Total Earnings
+              </VTh>
               <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">CPU/h</th>
               <th scope="col" class="px-6 py-5 text-left text-xs font-medium text-white uppercase tracking-wider">Env/h</th>
               <th
@@ -298,6 +306,11 @@
                   </div>
                   <p class="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">{{ provider.Disk }} GB</p>
                 </dt>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
+                  >{{ provider.Earnings }} <span class="text-golemblue golemgradient dark:text-gray-400">GLM</span></a
+                >
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <a class="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300"
