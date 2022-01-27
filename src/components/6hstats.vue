@@ -176,8 +176,8 @@ export default {
         xaxis: {
           type: "datetime",
           title: {
-            rotate: -90,
-            offsetX: -25,
+            text: "UTC Time",
+            offsetX: 0,
             offsetY: 0,
             style: {
               color: undefined,
@@ -260,8 +260,8 @@ export default {
         xaxis: {
           type: "datetime",
           title: {
-            rotate: -90,
-            offsetX: -25,
+            text: "UTC Time",
+            offsetX: 0,
             offsetY: 0,
             style: {
               color: undefined,
@@ -342,8 +342,8 @@ export default {
         xaxis: {
           type: "datetime",
           title: {
-            rotate: -90,
-            offsetX: -25,
+            text: "UTC Time",
+            offsetX: 0,
             offsetY: 0,
             style: {
               color: undefined,
@@ -425,8 +425,8 @@ export default {
         xaxis: {
           type: "datetime",
           title: {
-            rotate: -90,
-            offsetX: -25,
+            text: "UTC Time",
+            offsetX: 0,
             offsetY: 0,
             style: {
               color: undefined,

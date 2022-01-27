@@ -104,6 +104,17 @@ export default {
               hour: "HH:mm:ss",
             },
           },
+          title: {
+            text: "UTC Time",
+            offsetX: 0,
+            offsetY: 5,
+            style: {
+              color: undefined,
+              fontSize: "12px",
+              fontWeight: 600,
+              cssClass: "apexcharts-yaxis-title",
+            },
+          },
         },
       },
     }
