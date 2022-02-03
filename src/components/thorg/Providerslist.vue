@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div>
-    <h1 class="text-2xl mb-2 font-medium golemtext">Thorg Miners</h1>
+    <h1 class="text-2xl mb-2 font-medium golemtext">Thorg Miner</h1>
     <div
       class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12 bg-thorg pt-5 px-4 sm:py-6 sm:px-6 shadow rounded-lg overflow-hidden"
     >
@@ -14,7 +14,7 @@
           v-model="filters.name.value"
           name="name"
           id="name"
-          class="shadow-sm p-2 w-full bg-thorg  block  sm:text-sm border-2 border-gray-600 text-white rounded-md"
+          class="shadow-sm p-2 w-full bg-thorg block sm:text-sm border-2 border-gray-600 text-white rounded-md"
         />
       </div>
       <div class="col-span-12 lg:col-span-6">
@@ -23,16 +23,16 @@
           v-model="filters.gpu.value"
           name="name"
           id="name"
-          class="shadow-sm  p-2 w-full bg-thorg  block  sm:text-sm border-2 border-gray-600 text-white rounded-md"
+          class="shadow-sm p-2 w-full bg-thorg block sm:text-sm border-2 border-gray-600 text-white rounded-md"
         />
       </div>
     </div>
 
-    <div class="grid grid-cols-12 overflow-scroll ">
+    <div class="grid grid-cols-12 overflow-scroll">
       <v-table
         :data="items"
         :filters="filters"
-        class="divide-y-12 divide-gray-900 border-separate rowspacing w-full inline-block lg:table md:table xl:table  col-span-12"
+        class="divide-y-12 divide-gray-900 border-separate rowspacing w-full inline-block lg:table md:table xl:table col-span-12"
       >
         <template #head>
           <tr>
@@ -63,9 +63,7 @@
                   <div class="text-sm font-medium text-gray-900 golemtext">
                     {{ provider.Name }}
                   </div>
-                  <div class="text-sm text-gray-500 ">
-                    Thorg Miner
-                  </div>
+                  <div class="text-sm text-gray-500">Thorg Miner</div>
                 </div>
               </div>
             </td>
@@ -77,13 +75,11 @@
                 <div v-if="provider.Gpus.length != 0" class="ml-4">
                   <div v-for="(gpu, index) in provider.Gpus" :key="gpu" class="text-sm font-medium text-gray-900 golemtext">
                     {{ gpu }}
-                    <div class="text-sm text-gray-600 ">{{provider.Gpu_memory[index]}} GB VRAM</div>
+                    <div class="text-sm text-gray-600">{{ provider.Gpu_memory[index] }} GB VRAM</div>
                   </div>
                 </div>
                 <div v-else class="ml-4">
-                  <div class="text-sm font-medium text-gray-900 golemtext">
-                    Unknown GPU
-                  </div>
+                  <div class="text-sm font-medium text-gray-900 golemtext">Unknown GPU</div>
                 </div>
               </div>
             </td>
@@ -129,14 +125,13 @@ import GolemIcon from "@/components/golem.vue"
 import { ChipIcon, DatabaseIcon, CubeTransparentIcon } from "@heroicons/vue/solid"
 import LayersIcon from "@/components/layers.vue"
 
-
 export default {
   components: {
     GolemIcon,
     ChipIcon,
     LayersIcon,
     DatabaseIcon,
-    CubeTransparentIcon
+    CubeTransparentIcon,
   },
 
   data() {
@@ -144,12 +139,12 @@ export default {
       ignoredfilter: ["Cores", "Memory", "Disk", "cpu_hour", "per_hour", "start_price"],
       filter: "",
       filters: {
-          name: { value: '', keys: ['Name', 'Wallet'] },
-          gpu: { value: '', keys: ['Gpus',] },
-          cores: { value: { min: 1, max: 256 }, custom: this.coresFilter },
-          memory: { value: { min: 1, max: 2056 }, custom: this.memoryFilter },
-          disk: { value: { min: 1, max: 200000 }, custom: this.diskFilter },
-        },
+        name: { value: "", keys: ["Name", "Wallet"] },
+        gpu: { value: "", keys: ["Gpus"] },
+        cores: { value: { min: 1, max: 256 }, custom: this.coresFilter },
+        memory: { value: { min: 1, max: 2056 }, custom: this.memoryFilter },
+        disk: { value: { min: 1, max: 200000 }, custom: this.diskFilter },
+      },
       icon: "GolemIcon",
       chipicon: "ChipIcon",
       databaseicon: "DatabaseIcon",
@@ -176,22 +171,22 @@ export default {
   },
 
   methods: {
-    coresFilter (filterValue, row) {
+    coresFilter(filterValue, row) {
       return row.Cores >= filterValue.min && row.Cores <= filterValue.max
     },
-    memoryFilter (filterValue, row) {
+    memoryFilter(filterValue, row) {
       return row.Memory >= filterValue.min && row.Memory <= filterValue.max
     },
-    diskFilter (filterValue, row) {
+    diskFilter(filterValue, row) {
       return row.Disk >= filterValue.min && row.Disk <= filterValue.max
     },
-    cpuhFilter (filterValue, row) {
+    cpuhFilter(filterValue, row) {
       return row.cpu_hour >= filterValue.min && row.cpu_hour <= filterValue.max
     },
-    envFilter (filterValue, row) {
+    envFilter(filterValue, row) {
       return row.per_hour >= filterValue.min && row.per_hour <= filterValue.max
     },
-    startFilter (filterValue, row) {
+    startFilter(filterValue, row) {
       return row.start_price >= filterValue.min && row.start_price <= filterValue.max
     },
     floorFigure: function floorFigure(figure, decimals) {
@@ -207,42 +202,37 @@ export default {
         const apiResponse = response.data
         this.items.length = 0
         apiResponse.forEach((obj) => {
-          if (obj.data['golem.node.debug.subnet'] == "Thorg") {
+          if (obj.data["golem.node.debug.subnet"] == "Thorg") {
             var gpus = []
-          if (obj.data['golem.inf.gpu.card']) {
-              obj.data['golem.inf.gpu.card'].forEach((obj) => {
+            if (obj.data["golem.inf.gpu.card"]) {
+              obj.data["golem.inf.gpu.card"].forEach((obj) => {
                 gpus.push(obj)
               })
-          }
+            }
 
-
-          if (obj.data['golem.inf.gpu.mem']) {
-            var gpu_memory = []
-              obj.data['golem.inf.gpu.mem'].forEach((obj) => {
-                gpu_memory.push(this.floorFigure(obj / 1e+9))
+            if (obj.data["golem.inf.gpu.mem"]) {
+              var gpu_memory = []
+              obj.data["golem.inf.gpu.mem"].forEach((obj) => {
+                gpu_memory.push(this.floorFigure(obj / 1e9))
               })
-          } else {
-            var gpu_memory = null
+            } else {
+              var gpu_memory = null
+            }
+
+            this.items.push({
+              Online: obj.online,
+              Name: obj.data["golem.node.id.name"],
+              id: obj.data.id,
+              Gpus: gpus,
+              Gpu_memory: gpu_memory,
+              Cores: obj.data["golem.inf.cpu.threads"],
+              Wallet: obj.data.wallet,
+              Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
+              Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
+            })
           }
-
-
-          this.items.push({
-            Online: obj.online,
-            Name: obj.data["golem.node.id.name"],
-            id: obj.data.id,
-            Gpus: gpus,
-            Gpu_memory: gpu_memory,
-            Cores: obj.data["golem.inf.cpu.threads"],
-            Wallet: obj.data.wallet,
-            Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
-            Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
-          })
-
-          }
-
         })
         this.loaded
-
       })
     },
   },
