@@ -8,7 +8,7 @@
       </dt>
       <dd class="ml-16 pb-6 sm:pb-7">
         <div class="relative">
-          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{provider_title}}</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{ provider_title }}</p>
           <p class="text-sm font-medium text-green-500 truncate">Online and available for compute</p>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -24,7 +24,7 @@
       </dt>
       <dd class="ml-16 pb-6 sm:pb-7">
         <div class="relative">
-          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{cores_title}}</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{ cores_title }}</p>
           <p class="text-sm font-medium text-green-500 truncate">Online and available for compute</p>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -40,7 +40,7 @@
       </dt>
       <dd class="ml-16 pb-6 sm:pb-7">
         <div class="relative">
-          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{memory_title}}</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{ memory_title }}</p>
           <p class="text-sm font-medium text-green-500 truncate">Online and available for compute</p>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -56,7 +56,7 @@
       </dt>
       <dd class="ml-16 pb-6 sm:pb-7">
         <div class="relative">
-          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{disk_title}}</p>
+          <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">{{ disk_title }}</p>
           <p class="text-sm font-medium text-green-500 truncate">Online and available for compute</p>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
           <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -76,7 +76,7 @@ export default {
     GlobeIcon,
     ChipIcon,
     DatabaseIcon,
-    LayersIcon
+    LayersIcon,
   },
   props: {
     provider_title: {
@@ -407,6 +407,7 @@ export default {
         yaxis: {
           title: {
             rotate: -90,
+            text: "Providers",
             offsetX: 0,
             offsetY: 0,
             style: {
@@ -418,7 +419,7 @@ export default {
           },
           labels: {
             formatter: function (value) {
-              return value + " Providers"
+              return value
             },
           },
         },
@@ -502,7 +503,6 @@ export default {
           },
         ]
       })
-
 
       this.loaded = true
     },
