@@ -323,6 +323,7 @@ export default {
         },
         yaxis: {
           title: {
+            text: "Cores",
             rotate: -90,
             offsetX: 0,
             offsetY: 0,
@@ -335,7 +336,7 @@ export default {
           },
           labels: {
             formatter: function (value) {
-              return value + " Cores"
+              return value
             },
           },
         },
