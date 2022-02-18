@@ -1,7 +1,7 @@
 <template>
   <div>
     <Nav></Nav>
-    <div class="container mx-auto ">
+    <div class="container mx-auto">
       <router-view />
     </div>
     <Footer></Footer>
@@ -38,27 +38,22 @@ body {
   html.dark .apexcharts-legend-series .apexcharts-legend-text,
   html.dark .apexcharts-xaxistooltip,
   html.dark .apexcharts-yaxistooltip,
+  html.dark .apexcharts-tooltip,
   html.dark .apexcharts-point-annotations,
   html.dark .apexcharts-legend-text span {
     fill: theme("colors.gray.400");
     @apply text-gray-400 !important;
     @apply font-sans !important;
   }
-  html.dark .apexcharts-tooltip,
-  html.dark .apexcharts-theme-light,
-  html.dark .apexcharts-active,
-  html.dark .apexcharts-tooltip-title {
-    @apply bg-gray-800;
-    @apply font-sans !important;
-  }
+
   html.dark .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title,
   html.dark .apexcharts-tooltip.apexcharts-theme-light,
   html.dark .apexcharts-xaxistooltip {
     @apply font-sans !important;
     @apply rounded-lg !important;
-    @apply bg-gray-800;
-    background: theme("colors.gray.900") !important;
-    border-bottom: 1px solid theme("colors.gray.900") !important;
+    @apply bg-gray-200;
+    background: theme("colors.gray.800") !important;
+    border: 1px solid theme("colors.gray.600") !important;
   }
 }
 </style>
