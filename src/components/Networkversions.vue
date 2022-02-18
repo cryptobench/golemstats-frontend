@@ -33,7 +33,34 @@ export default {
             horizontal: false,
           },
         },
-
+        yaxis: {
+          title: {
+            text: "Providers",
+            rotate: -90,
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: "12px",
+              fontWeight: 600,
+              cssClass: "apexcharts-yaxis-title",
+            },
+          },
+        },
+        xaxis: {
+          title: {
+            text: "Yagna Version",
+            rotate: -90,
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: "12px",
+              fontWeight: 600,
+              cssClass: "apexcharts-yaxis-title",
+            },
+          },
+        },
         colors: ["#0000ff"],
         dataLabels: {
           enabled: false,
