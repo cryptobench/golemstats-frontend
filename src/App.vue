@@ -40,7 +40,8 @@ body {
   html.dark .apexcharts-yaxistooltip,
   html.dark .apexcharts-tooltip,
   html.dark .apexcharts-point-annotations,
-  html.dark .apexcharts-legend-text span {
+  html.dark .apexcharts-legend-text span,
+  html.dark .apexcharts-yaxis-title {
     fill: theme("colors.gray.400");
     @apply text-gray-400 !important;
     @apply font-sans !important;
