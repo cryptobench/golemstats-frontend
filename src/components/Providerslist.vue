@@ -24,7 +24,7 @@
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
           v-model.number="filters.cores.value.min"
-          :min="1"
+          :min="filters.cores.value.min"
           :max="filters.cores.value.max"
           @onKeyDown.prevent="() => {}"
         />
@@ -37,7 +37,7 @@
           type="number"
           v-model.number="filters.cores.value.max"
           :min="filters.cores.value.min"
-          :max="256"
+          :max="filters.cores.value.max"
           @onKeyDown.prevent="() => {}"
         />
       </div>
@@ -47,7 +47,7 @@
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
           v-model.number="filters.memory.value.min"
-          :min="1"
+          :min="filters.memory.value.min"
           :max="filters.memory.value.max"
           @onKeyDown.prevent="() => {}"
         />
@@ -60,7 +60,7 @@
           type="number"
           v-model.number="filters.memory.value.max"
           :min="filters.memory.value.min"
-          :max="2048"
+          :max="filters.memory.value.max"
           @onKeyDown.prevent="() => {}"
         />
       </div>
@@ -70,7 +70,7 @@
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
           v-model.number="filters.disk.value.min"
-          :min="1"
+          :min="filters.disk.value.min"
           :max="filters.disk.value.max"
           @onKeyDown.prevent="() => {}"
         />
@@ -83,7 +83,7 @@
           type="number"
           v-model.number="filters.disk.value.max"
           :min="filters.disk.value.min"
-          :max="200000"
+          :max="filters.disk.value.max"
           @onKeyDown.prevent="() => {}"
         />
       </div>
@@ -96,7 +96,7 @@
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
           v-model.number="filters.cpuh.value.min"
-          :min="1"
+          :min="filters.cpuh.value.min"
           :max="filters.cpuh.value.max"
           @onKeyDown.prevent="() => {}"
         />
@@ -109,7 +109,7 @@
           type="number"
           v-model.number="filters.cpuh.value.max"
           :min="filters.cpuh.value.min"
-          :max="200000"
+          :max="filters.cpuh.value.max"
           @onKeyDown.prevent="() => {}"
         />
       </div>
@@ -132,7 +132,7 @@
           type="number"
           v-model.number="filters.env.value.max"
           :min="filters.env.value.min"
-          :max="200000"
+          :max="filters.env.value.max"
           @onKeyDown.prevent="() => {}"
         />
       </div>
@@ -142,7 +142,7 @@
           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
           type="number"
           v-model.number="filters.start.value.min"
-          :min="1"
+          :min="filters.start.value.min"
           :max="filters.start.value.max"
           @onKeyDown.prevent="() => {}"
         />
@@ -155,7 +155,7 @@
           type="number"
           v-model.number="filters.start.value.max"
           :min="filters.start.value.min"
-          :max="200000"
+          :max="filters.start.value.max"
           @onKeyDown.prevent="() => {}"
         />
       </div>
@@ -335,8 +335,8 @@ export default {
         network: { value: "", custom: this.networkFilter },
         name: { value: "", keys: ["Name", "Wallet"] },
         cores: { value: { min: 1, max: 256 }, custom: this.coresFilter },
-        memory: { value: { min: 1, max: 2056 }, custom: this.memoryFilter },
-        disk: { value: { min: 1, max: 200000 }, custom: this.diskFilter },
+        memory: { value: { min: 0.01, max: 2056 }, custom: this.memoryFilter },
+        disk: { value: { min: 0.01, max: 200000 }, custom: this.diskFilter },
         cpuh: { value: { min: 0, max: 10 }, custom: this.cpuhFilter },
         env: { value: { min: 0, max: 10 }, custom: this.envFilter },
         start: { value: { min: 0, max: 10 }, custom: this.startFilter },
