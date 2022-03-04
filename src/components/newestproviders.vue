@@ -2,11 +2,11 @@
 <template>
   <div class="bg-white dark:bg-gray-800 py-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
     <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">Newest Providers</h1>
-    <div class="grid grid-cols-12 overflow-scroll ">
+    <div class="grid grid-cols-12 overflow-scroll">
       <v-table
         v-if="loaded"
         :data="this.items"
-        class="divide-y-12 divide-gray-900 rowspacing w-full inline-block lg:table md:table xl:table  col-span-12"
+        class="divide-y-12 divide-gray-900 rowspacing w-full inline-block lg:table md:table xl:table col-span-12"
       >
         <template #head>
           <tr>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="ml-4">
                   <div class="text-sm font-medium text-gray-900 dark:text-gray-300">
-                    {{ provider.Name}}
+                    {{ provider.Name }}
                   </div>
                 </div>
               </div>
@@ -76,36 +76,35 @@
 </template>
 
 <script>
-import axios from "axios"
 import GolemIcon from "@/components/golem.vue"
 import { ChipIcon, DatabaseIcon } from "@heroicons/vue/solid"
 import LayersIcon from "@/components/layers.vue"
 export default {
-
-
   data() {
     return {
       loaded: false,
       items: [],
       count: 4,
-         icon: "GolemIcon",
+      icon: "GolemIcon",
       chipicon: "ChipIcon",
       databaseicon: "DatabaseIcon",
       layersicon: "LayersIcon",
     }
   },
-    components: {
+  components: {
     GolemIcon,
     ChipIcon,
     LayersIcon,
-    DatabaseIcon
+    DatabaseIcon,
   },
   created() {
     this.fetchData(this.count)
   },
   mounted() {
     this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") { return }
+      if (document.visibilityState === "hidden") {
+        return
+      }
       this.fetchData(this.count)
     }, 15000)
   },
@@ -125,7 +124,7 @@ export default {
       this.count = numberofnodes
 
       this.items.length = 0
-      axios.get(`https://api.stats.golem.network/v1/network/historical/nodes/${numberofnodes}`).then((response) => {
+      this.axios.get(`network/historical/nodes/${numberofnodes}`).then((response) => {
         const apiResponse = response.data
 
         apiResponse.forEach((obj) => {

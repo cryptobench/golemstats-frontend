@@ -18,9 +18,7 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
-
   data() {
     return {
       height: 450,
@@ -69,7 +67,9 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") { return }
+      if (document.visibilityState === "hidden") {
+        return
+      }
       this.fetchData()
     }, 15000)
   },
@@ -81,7 +81,7 @@ export default {
     },
     fetchData() {
       this.series.length = 0
-      axios.get("https://api.stats.golem.network/v1/network/market/provider/invoice/accepted/1h").then((response) => {
+      this.axios.get("network/market/provider/invoice/accepted/1h").then((response) => {
         const apiResponse = response.data
         this.series.push(this.floorFigure(apiResponse.percentage_invoice_accepted))
         if (apiResponse.percentage_invoice_accepted >= 0.0 && apiResponse.percentage_invoice_accepted <= 25.0) {

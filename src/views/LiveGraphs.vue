@@ -1,26 +1,26 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
-    <div class="mt-8 grid grid-cols-1 gap-6    lg:grid-cols-12">
-      <div class=" lg:col-span-12 -mb-4 -mt-4">
+    <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12">
+      <div class="lg:col-span-12 -mb-4 -mt-4">
         <h1 class="text-2xl font-medium dark:text-gray-300">Live Network Data</h1>
       </div>
-      <div class=" lg:col-span-6">
+      <div class="lg:col-span-6">
         <Agreementsreasons>/</Agreementsreasons>
       </div>
-      <div class=" lg:col-span-6">
+      <div class="lg:col-span-6">
         <Vendorpie :data="vendorlist">/</Vendorpie>
       </div>
-      <div class=" lg:col-span-4">
+      <div class="lg:col-span-4">
         <Architecture :data="architecturelist">/</Architecture>
       </div>
-      <div class=" lg:col-span-4">
+      <div class="lg:col-span-4">
         <InvoicesPaid>/</InvoicesPaid>
       </div>
-      <div class=" lg:col-span-4">
+      <div class="lg:col-span-4">
         <InvoicesAccepted>/</InvoicesAccepted>
       </div>
-      <div class=" lg:col-span-12">
+      <div class="lg:col-span-12">
         <Utilization class="mb-12 mt-2">/</Utilization>
       </div>
     </div>
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import axios from "axios"
 // @ is an alias to /src
 import Agreementsreasons from "@/components/Agreementsreasons.vue"
 import InvoicesPaid from "@/components/Invoicespaid.vue"
@@ -45,14 +44,14 @@ export default {
     InvoicesAccepted,
     Vendorpie,
     Architecture,
-    Utilization
+    Utilization,
   },
   created() {
-      this.fetchData()
+    this.fetchData()
   },
   data() {
     return {
-    intelcount: 0,
+      intelcount: 0,
       amdcount: 0,
       thirdtypecpu: 0,
       x86_64: 0,
@@ -105,7 +104,7 @@ export default {
       this.Aarch64 = 0
       this.x86_64 = 0
       this.architecturelist.length = 0
-      axios.get("https://api.stats.golem.network/v1/network/online").then((response) => {
+      this.axios.get("network/online").then((response) => {
         const apiResponse = response.data
         apiResponse.forEach((obj) => {
           if (obj.data["golem.inf.cpu.vendor"]) {

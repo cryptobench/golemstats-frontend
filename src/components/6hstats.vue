@@ -69,7 +69,6 @@
 
 <script>
 import { GlobeIcon, ChipIcon, DatabaseIcon } from "@heroicons/vue/solid"
-import axios from "axios"
 import LayersIcon from "@/components/layers.vue"
 export default {
   components: {
@@ -467,7 +466,7 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     fetchData() {
-      axios.get("https://api.stats.golem.network/v1/network/historical/stats/30m").then((response) => {
+      this.axios.get("/network/historical/stats/30m").then((response) => {
         let apiResponse = response.data
         let online = []
         let cores = []

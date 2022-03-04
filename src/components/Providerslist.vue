@@ -314,7 +314,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import GolemIcon from "@/components/golem.vue"
 import { ChipIcon, DatabaseIcon } from "@heroicons/vue/solid"
 import LayersIcon from "@/components/layers.vue"
@@ -402,7 +401,7 @@ export default {
       this.$router.push({ name: "node", params: { id: row } })
     },
     fetchData() {
-      axios.get("https://api.stats.golem.network/v1/network/online").then((response) => {
+      this.axios.get("network/online").then((response) => {
         const apiResponse = response.data
         this.items.length = 0
         const avg_cpu_hour = []

@@ -5,12 +5,12 @@
 
       <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
         <div
-          class="bg-white dark:bg-gray-800 col-span-12 rounded-lg px-6 overflow-scroll  py-4 md:flex md:items-center md:justify-between md:space-x-5 "
+          class="bg-white dark:bg-gray-800 col-span-12 rounded-lg px-6 overflow-scroll py-4 md:flex md:items-center md:justify-between md:space-x-5"
         >
-          <div class="flex items-center space-x-5 ">
-            <div class="flex-shrink-0 ">
-              <div class="flex flex-row  items-center justify-between ">
-                <div class=" bg-golemblue rounded-md p-3 relative">
+          <div class="flex items-center space-x-5">
+            <div class="flex-shrink-0">
+              <div class="flex flex-row items-center justify-between">
+                <div class="bg-golemblue rounded-md p-3 relative">
                   <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
                   <div v-if="online">
                     <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 animate-ping"></div>
@@ -23,22 +23,20 @@
               </div>
             </div>
             <div>
-              <div class="flex flex-row  items-center ">
+              <div class="flex flex-row items-center">
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-300 pr-2">
-                  {{this.name}}
+                  {{ this.name }}
                 </h1>
                 <span v-if="testnet" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-500 text-white">
                   Testnet
                 </span>
-                <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue text-white">
-                  Mainnet
-                </span>
+                <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue text-white"> Mainnet </span>
                 <span v-if="version" class="px-2 ml-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue text-white">
                   v{{ version }}
                 </span>
               </div>
               <p class="text-sm font-medium truncate text-gray-500">
-                {{this.id}}
+                {{ this.id }}
               </p>
             </div>
           </div>
@@ -100,11 +98,9 @@
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                 <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-                  {{ this.income['24'] }}
+                  {{ this.income["24"] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
-                  GLM
-                </p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
               </dd>
             </div>
             <div
@@ -119,11 +115,9 @@
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                 <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-                  {{ this.income['168'] }}
+                  {{ this.income["168"] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
-                  GLM
-                </p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
               </dd>
             </div>
             <div
@@ -138,11 +132,9 @@
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                 <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-                  {{ this.income['744'] }}
+                  {{ this.income["744"] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
-                  GLM
-                </p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
               </dd>
             </div>
             <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
@@ -154,11 +146,9 @@
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                 <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-                  {{ this.income['8760'] }}
+                  {{ this.income["8760"] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
-                  GLM
-                </p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
               </dd>
             </div>
           </dl>
@@ -171,7 +161,7 @@
             <h2 id="Hardware" class="text-lg font-medium text-gray-900">Activities</h2>
             <div class="bg-white dark:bg-gray-800 mt-2 pt-5 px-4 sm:py-6 sm:px-6 shadow rounded-lg">
               <h1 class="text-xl font-medium dark:text-gray-300">Tasks being computed</h1>
-              <p class="text-sm  text-gray-500 dark:text-gray-400">1 = Computing / 0 = Inactive</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">1 = Computing / 0 = Inactive</p>
               <apexchart v-if="loaded_graph" width="100%" height="250" type="area" :options="chartOptions" :series="series" />
             </div>
           </section>
@@ -192,11 +182,9 @@
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                   <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-                    {{ cores}}
+                    {{ cores }}
                   </p>
-                  <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">
-                    Cores
-                  </p>
+                  <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">Cores</p>
                 </dd>
               </div>
               <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
@@ -208,11 +196,9 @@
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                   <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-                    {{memory}}
+                    {{ memory }}
                   </p>
-                  <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">
-                    GB
-                  </p>
+                  <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">GB</p>
                 </dd>
               </div>
               <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
@@ -224,11 +210,9 @@
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                   <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-                    {{disk}}
+                    {{ disk }}
                   </p>
-                  <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">
-                    GB
-                  </p>
+                  <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">GB</p>
                 </dd>
               </div>
             </dl>
@@ -242,7 +226,7 @@
 <script>
 import GolemIcon from "@/components/golem.vue"
 import LayersIcon from "@/components/layers.vue"
-import axios from "axios"
+
 import {
   Menu,
   MenuButton,
@@ -254,7 +238,7 @@ import {
   PopoverPanel,
   TransitionChild,
   TransitionRoot,
-} from '@headlessui/vue'
+} from "@headlessui/vue"
 import {
   ArrowNarrowLeftIcon,
   CheckIcon,
@@ -264,10 +248,8 @@ import {
   SearchIcon,
   ThumbUpIcon,
   UserIcon,
-} from '@heroicons/vue/solid'
-import { ChipIcon, DatabaseIcon } from '@heroicons/vue/outline'
-
-
+} from "@heroicons/vue/solid"
+import { ChipIcon, DatabaseIcon } from "@heroicons/vue/outline"
 
 const stats = [
   { id: 1, name: "Earnings (24h)", stat: "0.0338", icon: GolemIcon, change: "GLM", changeType: "increase" },
@@ -275,8 +257,6 @@ const stats = [
   { id: 3, name: "Earnings (31d)", stat: "243.4", icon: GolemIcon, change: "GLM", changeType: "increase" },
   { id: 4, name: "Earnings (90d)", stat: "60238.2", icon: GolemIcon, change: "GLM", changeType: "increase" },
 ]
-
-
 
 export default {
   components: {
@@ -293,7 +273,7 @@ export default {
     GolemIcon,
     ChipIcon,
     LayersIcon,
-    DatabaseIcon
+    DatabaseIcon,
   },
   data() {
     return {
@@ -415,7 +395,6 @@ export default {
           },
         },
       },
-
     }
   },
   setup() {
@@ -423,20 +402,22 @@ export default {
       stats,
     }
   },
-    created() {
-      this.activity()
-      this.tasks_computed()
-      this.get_seconds_computed()
-      this.fetchData()
-      this.earnings(24)
-      this.earnings(168)
-      this.earnings(744)
-      this.earnings(8760)
+  created() {
+    this.activity()
+    this.tasks_computed()
+    this.get_seconds_computed()
+    this.fetchData()
+    this.earnings(24)
+    this.earnings(168)
+    this.earnings(744)
+    this.earnings(8760)
   },
   mounted: function () {
     this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") { return }
-        this.activity()
+      if (document.visibilityState === "hidden") {
+        return
+      }
+      this.activity()
       this.tasks_computed()
       this.get_seconds_computed()
       this.fetchData()
@@ -447,7 +428,7 @@ export default {
     }, 15000)
   },
   methods: {
-      operator() {
+    operator() {
       this.$router.push({
         name: "operatordetailed",
         params: {
@@ -455,7 +436,7 @@ export default {
         },
       })
     },
-          zkscan() {
+    zkscan() {
       if (this.testnet) {
         window.open(`https://rinkeby.zkscan.io/explorer/accounts/${this.wallet}`, "_blank")
       } else {
@@ -476,15 +457,11 @@ export default {
         window.open(`https://polygonscan.com/address/${this.wallet}#tokentxns`, "_blank")
       }
     },
-      earnings(hours) {
-      axios
-        .get(
-          'https://api.stats.golem.network/v1/provider/node/' + this.$route.params.id + '/earnings' + '/' + hours
-        )
-        .then((response) => {
-          let apiResponse = response.data
-          Object.assign(this.income, {[hours]: this.floorFigure(apiResponse.earnings, 3)})
-        })
+    earnings(hours) {
+      this.axios.get("provider/node/" + this.$route.params.id + "/earnings" + "/" + hours).then((response) => {
+        let apiResponse = response.data
+        Object.assign(this.income, { [hours]: this.floorFigure(apiResponse.earnings, 3) })
+      })
     },
     secondsToString(seconds) {
       const numyears = Math.floor(seconds / 31536000)
@@ -508,12 +485,12 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     geckoapi() {
-      axios.get("https://api.coingecko.com/api/v3/coins/golem").then((response) => {
+      this.axios.get("https://api.coingecko.com/api/v3/coins/golem").then((response) => {
         this.usdprice = response.data.market_data.current_price.usd.toString().slice(0, 7)
       })
     },
     activity() {
-      axios.get(`https://api.stats.golem.network/v1/provider/node/${this.$route.params.id}/activity`).then((response) => {
+      this.axios.get(`provider/node/${this.$route.params.id}/activity`).then((response) => {
         const apiResponse = response.data
         try {
           var data = apiResponse.data.result[0].values
@@ -538,13 +515,13 @@ export default {
       })
     },
     tasks_computed() {
-      axios.get(`https://api.stats.golem.network/v1/provider/node/${this.$route.params.id}/total/computed`).then((response) => {
+      this.axios.get(`provider/node/${this.$route.params.id}/total/computed`).then((response) => {
         const apiResponse = response.data
         this.computed_total = apiResponse.tasks_computed_total
       })
     },
     get_seconds_computed() {
-      axios.get(`https://api.stats.golem.network/v1/provider/node/${this.$route.params.id}/total/computed/seconds`).then((response) => {
+      this.axios.get(`provider/node/${this.$route.params.id}/total/computed/seconds`).then((response) => {
         const apiResponse = response.data
         this.seconds_computed = this.floorFigure(apiResponse.seconds_computed)
         this.seconds_computed = this.secondsToString(this.seconds_computed)
@@ -572,7 +549,7 @@ export default {
       }
     },
     fetchData() {
-      axios.get(`https://api.stats.golem.network/v1/provider/node/${this.$route.params.id}`).then((response) => {
+      this.axios.get(`provider/node/${this.$route.params.id}`).then((response) => {
         const apiResponse = response.data
         this.id = apiResponse[0].data.id
         this.online = apiResponse[0].online

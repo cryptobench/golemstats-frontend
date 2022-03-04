@@ -14,11 +14,9 @@
           </dt>
           <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
             <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-              {{this.cpuhour}}
+              {{ this.cpuhour }}
             </p>
-            <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
-              GLM
-            </p>
+            <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
           </dd>
         </div>
       </div>
@@ -34,11 +32,9 @@
           </dt>
           <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
             <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-              {{this.perhour}}
+              {{ this.perhour }}
             </p>
-            <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
-              GLM
-            </p>
+            <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
           </dd>
         </div>
       </div>
@@ -54,11 +50,9 @@
           </dt>
           <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
             <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-              {{this.startpricing}}
+              {{ this.startpricing }}
             </p>
-            <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">
-              GLM
-            </p>
+            <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
           </dd>
         </div>
       </div>
@@ -68,25 +62,22 @@
 
 <script>
 import GolemIcon from "@/components/golem.vue"
-import axios from "axios"
-
 
 export default {
   components: {
     GolemIcon,
   },
 
-    data() {
+  data() {
     return {
       icon: "GolemIcon",
       cpuhour: "",
       perhour: "",
       startpricing: "",
-
     }
-    },
-    created() {
-      this.medianpricing()
+  },
+  created() {
+    this.medianpricing()
   },
   methods: {
     floorFigure: function floorFigure(figure, decimals) {
@@ -94,14 +85,14 @@ export default {
       const d = Math.pow(10, decimals)
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
-             medianpricing() {
-      axios.get("https://api.stats.golem.network/v1/network/pricing/median").then((response) => {
+    medianpricing() {
+      this.axios.get("network/pricing/median").then((response) => {
         const apiResponse = response.data
-          this.cpuhour = this.floorFigure(apiResponse.cpuhour, 4)
-          this.perhour = this.floorFigure(apiResponse.perhour, 4)
-          this.startpricing = this.floorFigure(apiResponse.start, 4)
+        this.cpuhour = this.floorFigure(apiResponse.cpuhour, 4)
+        this.perhour = this.floorFigure(apiResponse.perhour, 4)
+        this.startpricing = this.floorFigure(apiResponse.start, 4)
       })
     },
-  }
+  },
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg ">
+  <div class="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg">
     <div class="relative">
       <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
       <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -17,10 +17,8 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
-  components: {
-  },
+  components: {},
   data() {
     return {
       series: [],
@@ -38,8 +36,8 @@ export default {
           palette: "palette8", // upto palette10
         },
         stroke: {
-    colors: ['']
-  },
+          colors: [""],
+        },
       },
     }
   },
@@ -48,7 +46,9 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") { return }
+      if (document.visibilityState === "hidden") {
+        return
+      }
       this.fetchData()
     }, 15000)
   },
@@ -60,7 +60,7 @@ export default {
     },
     fetchData() {
       this.series.length = 0
-      axios.get("https://api.stats.golem.network/v1/network/market/agreement/termination/reasons").then((response) => {
+      this.axios.get("network/market/agreement/termination/reasons").then((response) => {
         const apiResponse = response.data
         this.series.push(
           apiResponse.market_agreements_success,

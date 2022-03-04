@@ -1,8 +1,8 @@
 <template>
   <div class="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
     <div class="relative">
-      <h1 class="text-2xl  font-medium dark:text-gray-300">{{this.title}}</h1>
-      <p v-if="this.paragraph" class="text-md mb-2 font-medium text-gray-500 dark:text-gray-300">{{this.paragraph}}</p>
+      <h1 class="text-2xl font-medium dark:text-gray-300">{{ this.title }}</h1>
+      <p v-if="this.paragraph" class="text-md mb-2 font-medium text-gray-500 dark:text-gray-300">{{ this.paragraph }}</p>
       <div v-if="annotations">
         <button
           aria-label="Enable or Disable Annotations"
@@ -29,9 +29,7 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
-
   props: {
     endpoint: {
       type: String,
@@ -276,25 +274,25 @@ export default {
     },
     fetchData() {
       this.series.length = 0
-      axios.get(this.endpoint).then((response) => {
+      this.axios.get(this.endpoint).then((response) => {
         let apiResponse = response.data
         let start = []
         let cpuh = []
         let perh = []
         if (this.allDataPoints) {
           apiResponse.forEach((obj) => {
-          start.push([obj.date, this.floorFigure(obj.start, 3)])
-          cpuh.push([obj.date, this.floorFigure(obj.cpuh, 3)])
-          perh.push([obj.date, this.floorFigure(obj.perh, 3)])
-        })} else {
+            start.push([obj.date, this.floorFigure(obj.start, 3)])
+            cpuh.push([obj.date, this.floorFigure(obj.cpuh, 3)])
+            perh.push([obj.date, this.floorFigure(obj.perh, 3)])
+          })
+        } else {
           let last_7_elements = apiResponse.slice(-7)
-           last_7_elements.forEach((obj) => {
-          start.push([obj.date, this.floorFigure(obj.start, 3)])
-          cpuh.push([obj.date, this.floorFigure(obj.cpuh, 3)])
-          perh.push([obj.date, this.floorFigure(obj.perh, 3)])
-        })
+          last_7_elements.forEach((obj) => {
+            start.push([obj.date, this.floorFigure(obj.start, 3)])
+            cpuh.push([obj.date, this.floorFigure(obj.cpuh, 3)])
+            perh.push([obj.date, this.floorFigure(obj.perh, 3)])
+          })
         }
-
 
         this.series.push({
           data: start,
@@ -309,8 +307,6 @@ export default {
           name: "Per/h",
         })
       })
-
-
     },
   },
 }

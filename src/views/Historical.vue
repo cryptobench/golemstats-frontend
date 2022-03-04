@@ -2,7 +2,7 @@
 <template>
   <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
     <div class="grid gap-5 grid-cols-12">
-      <div class=" col-span-12 mt-4 -mb-2">
+      <div class="col-span-12 mt-4 -mb-2">
         <h1 class="text-2xl font-medium dark:text-gray-300">Historical Statistics</h1>
       </div>
       <div class="col-span-12">
@@ -10,7 +10,7 @@
       </div>
       <div class="col-span-12 lg:col-span-6 md:col-span-6">
         <Pricinghistorical
-          :endpoint="'https://api.stats.golem.network/v1/network/historical/pricing/median'"
+          :endpoint="'network/historical/pricing/median'"
           :title="'Provider Median Pricing'"
           :palette="['#FFED29', '#FF5289', '#00096B']"
           :allDataPoints="true"
@@ -20,7 +20,7 @@
       </div>
       <div class="col-span-12 lg:col-span-6 md:col-span-6">
         <Pricinghistorical
-          :endpoint="'https://api.stats.golem.network/v1/network/historical/pricing/average'"
+          :endpoint="'network/historical/pricing/average'"
           :title="'Provider Average Pricing'"
           :palette="['#FFED29', '#FF5289', '#00096B']"
           :allDataPoints="true"
@@ -30,7 +30,7 @@
       </div>
       <div class="col-span-12 lg:col-span-6">
         <Computinghistorical
-          :endpoint="'https://api.stats.golem.network/v1/network/historical/provider/computing'"
+          :endpoint="'network/historical/provider/computing'"
           :title="'Providers computing simultaneously'"
           :colors="'#0230FF'"
           class="mb-6"
@@ -64,6 +64,5 @@ export default {
     newestproviders,
     Networkversions,
   },
-
 }
 </script>

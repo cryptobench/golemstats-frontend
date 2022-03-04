@@ -143,9 +143,7 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
-
   data() {
     return {
       showAnnotations: false,
@@ -982,7 +980,6 @@ export default {
   },
   created() {
     this.fetchData()
-
   },
   watch: {
     "$store.state.appConfig.layout.skin": function () {
@@ -994,16 +991,16 @@ export default {
     hideshowAnnotation() {
       if (this.showAnnotations) {
         var elem = document.getElementsByClassName("apexcharts-xaxis-annotations")
-        Array.from(elem).forEach(child => {
-    child.style.visibility = "hidden"
-})
+        Array.from(elem).forEach((child) => {
+          child.style.visibility = "hidden"
+        })
         this.showAnnotations = false
       } else {
         this.showAnnotations = true
         var elem = document.getElementsByClassName("apexcharts-xaxis-annotations")
-          Array.from(elem).forEach(child => {
-    child.style.visibility = "visible"
-})
+        Array.from(elem).forEach((child) => {
+          child.style.visibility = "visible"
+        })
       }
     },
     floorFigure: function floorFigure(figure, decimals) {
@@ -1012,7 +1009,7 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     fetchData() {
-      axios.get("https://api.stats.golem.network/v1/network/historical/stats").then((response) => {
+      this.axios.get("network/historical/stats").then((response) => {
         let apiResponse = response.data
         let online = []
         let onlinecount = []

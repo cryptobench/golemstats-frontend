@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
   data() {
     return {
@@ -82,7 +81,7 @@ export default {
   methods: {
     utilization() {
       this.series[0].data.length = 0
-      axios.get("https://api.stats.golem.network/v1/network/versions").then((response) => {
+      this.axios.get("network/versions").then((response) => {
         let apiResponse = response.data
 
         apiResponse.forEach((obj, index) => {

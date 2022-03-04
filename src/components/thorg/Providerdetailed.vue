@@ -29,12 +29,12 @@
 
       <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
         <div
-          class="bg-thorg golemshadow golemshadow col-span-12 rounded-lg px-6 overflow-scroll  py-4 md:flex md:items-center md:justify-between md:space-x-5 "
+          class="bg-thorg golemshadow golemshadow col-span-12 rounded-lg px-6 overflow-scroll py-4 md:flex md:items-center md:justify-between md:space-x-5"
         >
-          <div class="flex items-center space-x-5 ">
-            <div class="flex-shrink-0 ">
-              <div class="flex flex-row  items-center justify-between ">
-                <div class=" bg-golemblue rounded-md p-3 relative">
+          <div class="flex items-center space-x-5">
+            <div class="flex-shrink-0">
+              <div class="flex flex-row items-center justify-between">
+                <div class="bg-golemblue rounded-md p-3 relative">
                   <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
                   <div v-if="online">
                     <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 animate-ping"></div>
@@ -47,9 +47,9 @@
               </div>
             </div>
             <div>
-              <div class="flex flex-row  items-center ">
+              <div class="flex flex-row items-center">
                 <h1 class="text-2xl font-bold text-white pr-2">
-                  {{this.name}}
+                  {{ this.name }}
                 </h1>
 
                 <span class="px-2 golemring inline-flex text-xs leading-5 font-semibold rounded-full golemgradient text-white">
@@ -57,7 +57,7 @@
                 </span>
               </div>
               <p class="text-sm font-medium text-gray-500">
-                {{this.id}}
+                {{ this.id }}
               </p>
             </div>
           </div>
@@ -84,7 +84,7 @@
         </div>
       </div>
 
-      <div class="mt-8 max-w-3xl mx-auto grid grid-cols-12 gap-6 sm:px-6 lg:max-w-7xl ">
+      <div class="mt-8 max-w-3xl mx-auto grid grid-cols-12 gap-6 sm:px-6 lg:max-w-7xl">
         <section aria-labelledby="timeline-title" class="col-span-12">
           <h2 id="timeline-title" class="text-lg font-medium text-white">Earnings</h2>
 
@@ -102,11 +102,9 @@
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                 <p class="text-2xl font-semibold text-white">
-                  {{ this.income['24'] }}
+                  {{ this.income["24"] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">
-                  GLM
-                </p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">GLM</p>
               </dd>
             </div>
             <div
@@ -121,11 +119,9 @@
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                 <p class="text-2xl font-semibold text-white">
-                  {{ this.income['168'] }}
+                  {{ this.income["168"] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">
-                  GLM
-                </p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">GLM</p>
               </dd>
             </div>
             <div
@@ -140,11 +136,9 @@
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                 <p class="text-2xl font-semibold text-white">
-                  {{ this.income['744'] }}
+                  {{ this.income["744"] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">
-                  GLM
-                </p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">GLM</p>
               </dd>
             </div>
             <div class="relative bg-thorg golemshadow golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
@@ -156,11 +150,9 @@
               </dt>
               <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                 <p class="text-2xl font-semibold text-white">
-                  {{ this.income['8760'] }}
+                  {{ this.income["8760"] }}
                 </p>
-                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">
-                  GLM
-                </p>
+                <p class="ml-2 flex items-baseline text-sm font-semibold golemgradient">GLM</p>
               </dd>
             </div>
           </dl>
@@ -171,7 +163,7 @@
 
           <!-- Activity Feed -->
           <section aria-labelledby="notes-title">
-            <dl class="mt-2 grid grid-cols-12 gap-5 ">
+            <dl class="mt-2 grid grid-cols-12 gap-5">
               <div
                 v-for="(gpu, index) in Gpus"
                 :key="gpu"
@@ -185,14 +177,12 @@
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                   <p class="text-2xl font-semibold text-white">
-                    {{ gpu}}
+                    {{ gpu }}
                   </p>
                   <p class="text-gray-400 ml-2 flex items-baseline text-sm font-semibold">
-                    {{Gpu_memory[index]}}
+                    {{ Gpu_memory[index] }}
                   </p>
-                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">
-                    GB VRAM
-                  </p>
+                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">GB VRAM</p>
                 </dd>
               </div>
               <div class="relative bg-thorg golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden col-span-12">
@@ -204,11 +194,9 @@
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                   <p class="text-2xl font-semibold text-white">
-                    {{ cores}}
+                    {{ cores }}
                   </p>
-                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">
-                    Cores
-                  </p>
+                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">Cores</p>
                 </dd>
               </div>
               <div class="relative bg-thorg golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden col-span-12">
@@ -220,11 +208,9 @@
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                   <p class="text-2xl font-semibold text-white">
-                    {{memory}}
+                    {{ memory }}
                   </p>
-                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">
-                    GB
-                  </p>
+                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">GB</p>
                 </dd>
               </div>
               <div class="relative bg-thorg golemshadow pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden col-span-12">
@@ -236,11 +222,9 @@
                 </dt>
                 <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                   <p class="text-2xl font-semibold text-white">
-                    {{disk}}
+                    {{ disk }}
                   </p>
-                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">
-                    GB
-                  </p>
+                  <p class="golemgradient ml-2 flex items-baseline text-sm font-semibold">GB</p>
                 </dd>
               </div>
             </dl>
@@ -254,7 +238,7 @@
 <script>
 import GolemIcon from "@/components/golem.vue"
 import LayersIcon from "@/components/layers.vue"
-import axios from "axios"
+
 import {
   Menu,
   MenuButton,
@@ -266,11 +250,9 @@ import {
   PopoverPanel,
   TransitionChild,
   TransitionRoot,
-} from '@headlessui/vue'
+} from "@headlessui/vue"
 
-import { ChipIcon, DatabaseIcon, CubeTransparentIcon } from '@heroicons/vue/outline'
-
-
+import { ChipIcon, DatabaseIcon, CubeTransparentIcon } from "@heroicons/vue/outline"
 
 const stats = [
   { id: 1, name: "Earnings (24h)", stat: "0.0338", icon: GolemIcon, change: "GLM", changeType: "increase" },
@@ -278,8 +260,6 @@ const stats = [
   { id: 3, name: "Earnings (31d)", stat: "243.4", icon: GolemIcon, change: "GLM", changeType: "increase" },
   { id: 4, name: "Earnings (90d)", stat: "60238.2", icon: GolemIcon, change: "GLM", changeType: "increase" },
 ]
-
-
 
 export default {
   components: {
@@ -297,7 +277,7 @@ export default {
     ChipIcon,
     LayersIcon,
     DatabaseIcon,
-    CubeTransparentIcon
+    CubeTransparentIcon,
   },
   data() {
     return {
@@ -411,7 +391,6 @@ export default {
           },
         },
       },
-
     }
   },
   setup() {
@@ -419,17 +398,17 @@ export default {
       stats,
     }
   },
-    created() {
-      this.tasks_computed()
-      this.get_seconds_computed()
-      this.fetchData()
-      this.earnings(24)
-      this.earnings(168)
-      this.earnings(744)
-      this.earnings(8760)
+  created() {
+    this.tasks_computed()
+    this.get_seconds_computed()
+    this.fetchData()
+    this.earnings(24)
+    this.earnings(168)
+    this.earnings(744)
+    this.earnings(8760)
   },
   methods: {
-      operator() {
+    operator() {
       this.$router.push({
         name: "operatordetailed",
         params: {
@@ -437,7 +416,7 @@ export default {
         },
       })
     },
-          zkscan() {
+    zkscan() {
       if (this.testnet) {
         window.open(`https://rinkeby.zkscan.io/explorer/accounts/${this.wallet}`, "_blank")
       } else {
@@ -458,15 +437,11 @@ export default {
         window.open(`https://polygonscan.com/address/${this.wallet}#tokentxns`, "_blank")
       }
     },
-      earnings(hours) {
-      axios
-        .get(
-          'https://api.stats.golem.network/v1/provider/node/' + this.$route.params.id + '/earnings' + '/' + hours
-        )
-        .then((response) => {
-          let apiResponse = response.data
-          Object.assign(this.income, {[hours]: this.floorFigure(apiResponse.earnings, 3)})
-        })
+    earnings(hours) {
+      this.axios.get("provider/node/" + this.$route.params.id + "/earnings" + "/" + hours).then((response) => {
+        let apiResponse = response.data
+        Object.assign(this.income, { [hours]: this.floorFigure(apiResponse.earnings, 3) })
+      })
     },
     secondsToString(seconds) {
       const numyears = Math.floor(seconds / 31536000)
@@ -490,19 +465,19 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     geckoapi() {
-      axios.get("https://api.coingecko.com/api/v3/coins/golem").then((response) => {
+      this.axios.get("https://api.coingecko.com/api/v3/coins/golem").then((response) => {
         this.usdprice = response.data.market_data.current_price.usd.toString().slice(0, 7)
       })
     },
 
     tasks_computed() {
-      axios.get(`https://api.stats.golem.network/v1/provider/node/${this.$route.params.id}/total/computed`).then((response) => {
+      this.axios.get(`provider/node/${this.$route.params.id}/total/computed`).then((response) => {
         const apiResponse = response.data
         this.computed_total = apiResponse.tasks_computed_total
       })
     },
     get_seconds_computed() {
-      axios.get(`https://api.stats.golem.network/v1/provider/node/${this.$route.params.id}/total/computed/seconds`).then((response) => {
+      this.axios.get(`provider/node/${this.$route.params.id}/total/computed/seconds`).then((response) => {
         const apiResponse = response.data
         this.seconds_computed = this.floorFigure(apiResponse.seconds_computed)
         this.seconds_computed = this.secondsToString(this.seconds_computed)
@@ -530,7 +505,7 @@ export default {
       }
     },
     fetchData() {
-      axios.get(`https://api.stats.golem.network/v1/provider/node/${this.$route.params.id}`).then((response) => {
+      this.axios.get(`provider/node/${this.$route.params.id}`).then((response) => {
         const apiResponse = response.data
         this.id = apiResponse[0].data.id
         this.online = apiResponse[0].online
@@ -543,21 +518,20 @@ export default {
         this.cores = apiResponse[0].data["golem.inf.cpu.threads"]
         this.model = apiResponse[0].data["golem.inf.cpu.model"]
         var gpus = []
-          if (apiResponse[0].data['golem.inf.gpu.card']) {
-              apiResponse[0].data['golem.inf.gpu.card'].forEach((obj) => {
-                gpus.push(obj)
-              })
-          }
+        if (apiResponse[0].data["golem.inf.gpu.card"]) {
+          apiResponse[0].data["golem.inf.gpu.card"].forEach((obj) => {
+            gpus.push(obj)
+          })
+        }
 
-
-          if (apiResponse[0].data['golem.inf.gpu.mem']) {
-            var gpu_memory = []
-              apiResponse[0].data['golem.inf.gpu.mem'].forEach((obj) => {
-                gpu_memory.push(this.floorFigure(obj / 1e+9))
-              })
-          } else {
-            var gpu_memory = null
-          }
+        if (apiResponse[0].data["golem.inf.gpu.mem"]) {
+          var gpu_memory = []
+          apiResponse[0].data["golem.inf.gpu.mem"].forEach((obj) => {
+            gpu_memory.push(this.floorFigure(obj / 1e9))
+          })
+        } else {
+          var gpu_memory = null
+        }
         let pricing_hashmap = new Map()
         pricing_hashmap.set(
           apiResponse[0].data["golem.com.usage.vector"][0],
@@ -572,9 +546,7 @@ export default {
         } else if (apiResponse[0].data["golem.inf.cpu.vendor"] == "AuthenticAMD") {
           this.cpu_vendor = "AMD"
         }
-        this.Gpus = gpus,
-        this.Gpu_memory = gpu_memory,
-        this.threads = apiResponse[0].data["golem.inf.cpu.threads"]
+        ;(this.Gpus = gpus), (this.Gpu_memory = gpu_memory), (this.threads = apiResponse[0].data["golem.inf.cpu.threads"])
         this.disk = this.floorFigure(apiResponse[0].data["golem.inf.storage.gib"])
         this.runtime_version = apiResponse[0].data["golem.runtime.version"]
         this.usage_vector = apiResponse[0].data["golem.com.usage.vector"]

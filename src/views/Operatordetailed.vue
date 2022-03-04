@@ -5,12 +5,12 @@
       <h1 class="text-2xl mb-2 font-medium dark:text-gray-300 mt-4">
         Node by Operator
         <span class="text-gray-400 text-sm"
-          >{{this.$route.params.id}}
+          >{{ this.$route.params.id }}
           <span
             v-if="onlinecounter != 0"
             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-400 golembadge text-white golemtext"
           >
-            {{onlinecounter}} Online Nodes
+            {{ onlinecounter }} Online Nodes
           </span></span
         >
       </h1>
@@ -24,18 +24,16 @@
             v-model="filters.name.value"
             name="name"
             id="name"
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
           />
         </div>
         <div class="col-span-12">
-          <p class="text-lg font-medium dark:text-gray-300">
-            Hardware
-          </p>
+          <p class="text-lg font-medium dark:text-gray-300">Hardware</p>
         </div>
         <div class="lg:col-span-2 col-span-6">
           <label class="form-label dark:text-gray-300">Min Cores</label>
           <input
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.cores.value.min"
             :min="1"
@@ -43,11 +41,11 @@
             @onKeyDown.prevent="() => {}"
           />
         </div>
-        <div class="lg:col-span-2 col-span-6 ">
+        <div class="lg:col-span-2 col-span-6">
           <label for="coresmax" class="dark:text-gray-300">Max Cores</label>
           <input
             name="coresmax"
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.cores.value.max"
             :min="filters.cores.value.min"
@@ -58,7 +56,7 @@
         <div class="lg:col-span-2 col-span-6">
           <label class="form-label dark:text-gray-300">Min Memory <span class="text-sm font-medium text-gray-400">GB</span></label>
           <input
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.memory.value.min"
             :min="1"
@@ -70,7 +68,7 @@
           <label for="memorymax" class="dark:text-gray-300">Max Memory <span class="text-sm font-medium text-gray-400">GB</span></label>
           <input
             name="memorymax"
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.memory.value.max"
             :min="filters.memory.value.min"
@@ -81,7 +79,7 @@
         <div class="lg:col-span-2 col-span-6">
           <label class="form-label dark:text-gray-300">Min Disk <span class="text-sm font-medium text-gray-400">GB</span></label>
           <input
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.disk.value.min"
             :min="1"
@@ -93,7 +91,7 @@
           <label for="diskmax" class="dark:text-gray-300">Max Disk <span class="text-sm font-medium text-gray-400">GB</span></label>
           <input
             name="diskmax"
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.disk.value.max"
             :min="filters.disk.value.min"
@@ -102,14 +100,12 @@
           />
         </div>
         <div class="col-span-12">
-          <p class="text-lg font-medium dark:text-gray-300">
-            Pricing
-          </p>
+          <p class="text-lg font-medium dark:text-gray-300">Pricing</p>
         </div>
         <div class="lg:col-span-2 col-span-6">
           <label class="form-label dark:text-gray-300">Min CPU/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
           <input
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.cpuh.value.min"
             :min="1"
@@ -121,7 +117,7 @@
           <label for="cpuhmax" class="dark:text-gray-300">Max CPU/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
           <input
             name="cpuhmax"
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.cpuh.value.max"
             :min="filters.cpuh.value.min"
@@ -132,7 +128,7 @@
         <div class="lg:col-span-2 col-span-6">
           <label class="form-label dark:text-gray-300">Min Env/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
           <input
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.cpuh.value.min"
             :min="1"
@@ -144,7 +140,7 @@
           <label for="envmax" class="dark:text-gray-300">Max Env/h <span class="text-sm font-medium text-gray-400">GLM</span></label>
           <input
             name="envmax"
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.env.value.max"
             :min="filters.env.value.min"
@@ -155,7 +151,7 @@
         <div class="lg:col-span-2 col-span-6">
           <label class="form-label dark:text-gray-300">Min Start price <span class="text-sm font-medium text-gray-400">GLM</span></label>
           <input
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.start.value.min"
             :min="1"
@@ -169,7 +165,7 @@
           >
           <input
             name="startmax"
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
             type="number"
             v-model.number="filters.start.value.max"
             :min="filters.start.value.min"
@@ -178,9 +174,7 @@
           />
         </div>
         <div class="col-span-12">
-          <p class="text-lg font-medium dark:text-gray-300">
-            Network
-          </p>
+          <p class="text-lg font-medium dark:text-gray-300">Network</p>
         </div>
         <div class="lg:col-span-2 col-span-6">
           <label for="network" class="dark:text-gray-300">Payment Network</label>
@@ -188,7 +182,7 @@
             id="network"
             name="network"
             v-model.number="filters.network.value"
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
           >
             <option selected="">Both</option>
             <option>Mainnet</option>
@@ -197,11 +191,11 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-12 overflow-scroll ">
+      <div class="grid grid-cols-12 overflow-scroll">
         <v-table
           :data="items"
           :filters="filters"
-          class="divide-y-12 divide-gray-900 border-separate rowspacing w-full inline-block lg:table md:table xl:table  col-span-12"
+          class="divide-y-12 divide-gray-900 border-separate rowspacing w-full inline-block lg:table md:table xl:table col-span-12"
         >
           <template #head>
             <tr>
@@ -248,7 +242,7 @@
                     <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
                   </div>
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300 ">
+                    <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
                       {{ provider.Name }}
                     </div>
                     <div class="text-sm text-gray-500 golemtext">
@@ -286,7 +280,7 @@
                     <div class="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
                       {{ provider.Cores }}
                     </div>
-                    <div class="text-sm text-gray-500 golemtext ">Cores</div>
+                    <div class="text-sm text-gray-500 golemtext">Cores</div>
                   </div>
                 </div>
               </td>
@@ -336,18 +330,16 @@
 </template>
 
 <script>
-import axios from "axios"
 import GolemIcon from "@/components/golem.vue"
 import LayersIcon from "@/components/layers.vue"
 import { ChipIcon, DatabaseIcon } from "@heroicons/vue/solid"
-
 
 export default {
   components: {
     GolemIcon,
     ChipIcon,
     LayersIcon,
-    DatabaseIcon
+    DatabaseIcon,
   },
 
   data() {
@@ -355,16 +347,15 @@ export default {
       ignoredfilter: ["Cores", "Memory", "Disk", "cpu_hour", "per_hour", "start_price"],
       filter: "",
       filters: {
-        network: { value: '', custom: this.networkFilter},
-          name: { value: '', keys: ['Name', 'Wallet'] },
-          cores: { value: { min: 1, max: 256 }, custom: this.coresFilter },
-          memory: { value: { min: 1, max: 2056 }, custom: this.memoryFilter },
-          disk: { value: { min: 1, max: 200000 }, custom: this.diskFilter },
-          cpuh: { value: { min: 0, max: 10 }, custom: this.cpuhFilter },
-          env: { value: { min: 0, max: 10 }, custom: this.envFilter },
-          start: { value: { min: 0, max: 10 }, custom: this.startFilter }
-
-        },
+        network: { value: "", custom: this.networkFilter },
+        name: { value: "", keys: ["Name", "Wallet"] },
+        cores: { value: { min: 1, max: 256 }, custom: this.coresFilter },
+        memory: { value: { min: 1, max: 2056 }, custom: this.memoryFilter },
+        disk: { value: { min: 1, max: 200000 }, custom: this.diskFilter },
+        cpuh: { value: { min: 0, max: 10 }, custom: this.cpuhFilter },
+        env: { value: { min: 0, max: 10 }, custom: this.envFilter },
+        start: { value: { min: 0, max: 10 }, custom: this.startFilter },
+      },
       icon: "GolemIcon",
       chipicon: "ChipIcon",
       databaseicon: "DatabaseIcon",
@@ -393,7 +384,7 @@ export default {
     this.fetchData()
   },
   methods: {
-     networkFilter (filterValue, row) {
+    networkFilter(filterValue, row) {
       if (filterValue == "Mainnet") {
         return row.Mainnet == true
       } else if (filterValue == "Testnet") {
@@ -402,22 +393,22 @@ export default {
         return row
       }
     },
-    coresFilter (filterValue, row) {
+    coresFilter(filterValue, row) {
       return row.Cores >= filterValue.min && row.Cores <= filterValue.max
     },
-    memoryFilter (filterValue, row) {
+    memoryFilter(filterValue, row) {
       return row.Memory >= filterValue.min && row.Memory <= filterValue.max
     },
-    diskFilter (filterValue, row) {
+    diskFilter(filterValue, row) {
       return row.Disk >= filterValue.min && row.Disk <= filterValue.max
     },
-    cpuhFilter (filterValue, row) {
+    cpuhFilter(filterValue, row) {
       return row.cpu_hour >= filterValue.min && row.cpu_hour <= filterValue.max
     },
-    envFilter (filterValue, row) {
+    envFilter(filterValue, row) {
       return row.per_hour >= filterValue.min && row.per_hour <= filterValue.max
     },
-    startFilter (filterValue, row) {
+    startFilter(filterValue, row) {
       return row.start_price >= filterValue.min && row.start_price <= filterValue.max
     },
     floorFigure: function floorFigure(figure, decimals) {
@@ -429,7 +420,7 @@ export default {
       this.$router.push({ name: "node", params: { id: row } })
     },
     fetchData() {
-      axios.get(`https://api.stats.golem.network/v1/provider/wallet/${this.$route.params.id}`).then((response) => {
+      this.axios.get(`provider/wallet/${this.$route.params.id}`).then((response) => {
         const apiResponse = response.data
         this.items.length = 0
         apiResponse.forEach((obj) => {
@@ -442,40 +433,38 @@ export default {
 
             var earnings = `${this.floorFigure(obj.earnings_total, 2)}`
 
+            if (obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]) {
+              var mainnet = true
+              var wallet = obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]
+              //  block of code to be executed if the condition is true
+            } else {
+              var mainnet = false
+              var wallet = obj.data["golem.com.payment.platform.erc20-rinkeby-tglm.address"]
+              //  block of code to be executed if the condition is false
+            }
 
-          if (obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]) {
-            var mainnet = true
-            var wallet = obj.data["golem.com.payment.platform.erc20-mainnet-glm.address"]
-            //  block of code to be executed if the condition is true
-          } else {
-            var mainnet = false
-            var wallet = obj.data["golem.com.payment.platform.erc20-rinkeby-tglm.address"]
-            //  block of code to be executed if the condition is false
+            let pricing_hashmap = new Map()
+            pricing_hashmap.set(obj.data["golem.com.usage.vector"][0], obj.data["golem.com.pricing.model.linear.coeffs"][0])
+            pricing_hashmap.set(obj.data["golem.com.usage.vector"][1], obj.data["golem.com.pricing.model.linear.coeffs"][1])
+            this.items.push({
+              Online: obj.online,
+              Version: obj.version,
+              Earnings: earnings,
+              Mainnet: mainnet,
+              Name: obj.data["golem.node.id.name"],
+              id: obj.data.id,
+              Subnet: obj.data["golem.node.debug.subnet"],
+              Cores: obj.data["golem.inf.cpu.threads"],
+              Vendor: obj.data["golem.inf.cpu.vendor"],
+              Wallet: wallet,
+              start_price: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][2], 3)}`,
+              per_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.duration_sec") * 3600, 3)}`,
+              cpu_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.cpu_sec") * 3600, 3)}`,
+              Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
+              Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
+            })
           }
-
-          let pricing_hashmap = new Map()
-          pricing_hashmap.set(obj.data["golem.com.usage.vector"][0], obj.data["golem.com.pricing.model.linear.coeffs"][0])
-          pricing_hashmap.set(obj.data["golem.com.usage.vector"][1], obj.data["golem.com.pricing.model.linear.coeffs"][1])
-          this.items.push({
-            Online: obj.online,
-            Version: obj.version,
-            Earnings: earnings,
-            Mainnet: mainnet,
-            Name: obj.data["golem.node.id.name"],
-            id: obj.data.id,
-            Subnet: obj.data["golem.node.debug.subnet"],
-            Cores: obj.data["golem.inf.cpu.threads"],
-            Vendor: obj.data["golem.inf.cpu.vendor"],
-            Wallet: wallet,
-            start_price: `${this.floorFigure(obj.data["golem.com.pricing.model.linear.coeffs"][2], 3)}`,
-            per_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.duration_sec") * 3600, 3)}`,
-            cpu_hour: `${this.floorFigure(pricing_hashmap.get("golem.usage.cpu_sec") * 3600, 3)}`,
-            Memory: this.floorFigure(obj.data["golem.inf.mem.gib"]),
-            Disk: this.floorFigure(obj.data["golem.inf.storage.gib"]),
-          })
-
-        }})
-
+        })
       })
       this.table_data = true
     },

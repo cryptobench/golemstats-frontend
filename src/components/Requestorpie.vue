@@ -10,7 +10,7 @@
         @keyup.enter="fetchData"
         name="name"
         id="name"
-        class="shadow-sm mb-2 focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+        class="shadow-sm mb-2 focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
       />
       <label for="name" class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300"
         >Chart Height <span class="text-sm font-medium text-gray-400">px</span></label
@@ -19,7 +19,7 @@
         v-model="height"
         name="name"
         id="name"
-        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full  block  sm:text-sm border-2 border-gray-100 rounded-md"
+        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
       />
 
       <apexchart width="100%" :height="height" :options="chartOptions" :series="series"></apexchart>
@@ -28,9 +28,7 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
-
   data() {
     return {
       loaded: false,
@@ -81,7 +79,9 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
-      if (document.visibilityState === "hidden") { return }
+      if (document.visibilityState === "hidden") {
+        return
+      }
       this.fetchData()
     }, 15000)
   },
@@ -92,8 +92,7 @@ export default {
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
     fetchData() {
-
-      axios.get("https://api.stats.golem.network/v1/requestors").then((response) => {
+      this.axios.get("requestors").then((response) => {
         const apiResponse = response.data
         let count = []
         const slicedArray = apiResponse.slice(0, this.displaycount)

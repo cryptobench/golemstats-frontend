@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import axios from "axios"
 // @ is an alias to /src
 import Stats from "@/components/Stats.vue"
 import providerstats from "@/components/6hstats.vue"
@@ -38,7 +37,7 @@ export default {
       avgdisk: "",
     }
   },
-    created() {
+  created() {
     this.generalstats()
   },
   methods: {
@@ -47,8 +46,8 @@ export default {
       const d = Math.pow(10, decimals)
       return (parseInt(figure * d) / d).toFixed(decimals)
     },
-      generalstats() {
-      axios.get("https://api.stats.golem.network/v1/network/online/stats").then((response) => {
+    generalstats() {
+      this.axios.get("network/online/stats").then((response) => {
         const apiResponse = response.data
         this.online = apiResponse.online
         this.cores = apiResponse.cores
@@ -60,6 +59,6 @@ export default {
         this.avgdisk = this.floorFigure(apiResponse.disk / apiResponse.online)
       })
     },
-  }
+  },
 }
 </script>

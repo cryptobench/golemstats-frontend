@@ -3,7 +3,7 @@
     <div class="relative">
       <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
       <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
-      <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">{{this.title}}</h1>
+      <h1 class="text-2xl mb-2 font-medium dark:text-gray-300">{{ this.title }}</h1>
       <button
         aria-label="Enable or Disable Annotations"
         type="button"
@@ -29,9 +29,7 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {
-
   props: {
     endpoint: {
       type: String,
@@ -273,7 +271,7 @@ export default {
     },
     fetchData() {
       this.series.length = 0
-      axios.get(this.endpoint).then((response) => {
+      this.axios.get(this.endpoint).then((response) => {
         let apiResponse = response.data
         let count = []
         let counttotal = []
@@ -287,7 +285,6 @@ export default {
           name: "Simultaneous providers computing",
         })
       })
-
     },
   },
 }
