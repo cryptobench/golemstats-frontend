@@ -1,5 +1,5 @@
  
-REPO   := phillipjensen/golem-stats-frontend
+REPO   := ghcr.io/golemfactory/golem-stats-frontend
 IMG   := golem-stats-frontend:${GITHUB_SHA}
 IMG_LATEST   := golem-stats-frontend:latest
 LATEST := ${REPO}:${GITHUB_SHA}
@@ -15,5 +15,5 @@ push:
 	@docker push ${REPO}:latest
  
 login:
-	@docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+	@docker login ghcr.io -u ${DOCKER_USER} -p ${DOCKER_PASS}
 	
