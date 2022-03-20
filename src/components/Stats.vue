@@ -86,6 +86,17 @@ export default {
     this.earnings365()
     this.earningspertask()
   },
+  mounted: function () {
+    this.timer = setInterval(() => {
+      if (document.visibilityState === "hidden") {
+        return
+      }
+      this.earnings1()
+      this.earnings24()
+      this.earnings365()
+      this.earningspertask()
+    }, 15000)
+  },
   methods: {
     floorFigure: function floorFigure(figure, decimals) {
       if (!decimals) decimals = 2
