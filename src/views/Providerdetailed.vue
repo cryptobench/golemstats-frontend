@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-full">
+  <div class="min-h-full z-10 relative">
     <main class="py-10">
       <!-- Page header -->
 
