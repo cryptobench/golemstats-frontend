@@ -69,14 +69,14 @@
               aria-label="Show Nodes by operator"
               @click="operator"
               type="button"
-              class="golemgradient golemring items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+              class="golemgradient golemring items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             >
               <span class="block golemgradient">Node by Operator</span>
             </button>
             <button
               @click="polygon"
               type="button"
-              class="items-center golemgradient golemring justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+              class="items-center golemgradient golemring justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
             >
               <span class="block golemgradient">Polygon Wallet</span>
             </button>

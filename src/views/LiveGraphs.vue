@@ -1,6 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
+  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 z-10 relative">
     <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12">
       <div class="lg:col-span-12 -mb-4 -mt-4">
         <h1 class="text-2xl font-medium dark:text-gray-300">Live Network Data</h1>

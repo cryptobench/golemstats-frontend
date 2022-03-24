@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 bg-golemblue dark:bg-gray-800 golemnav">
-    <Popover class="relative bg-golemblue dark:bg-gray-800 golemnav">
+  <div class="w-full bg-golemblue dark:bg-gray-800 golemnav">
+    <Popover class="max-w-8xl sm:px-6 lg:px-8 mx-auto relative bg-golemblue dark:bg-gray-800 golemnav">
       <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
         <div class="flex justify-start lg:w-0 lg:flex-1">
           <a href="/">
@@ -14,7 +14,7 @@
             aria-label="Theme mode toggle"
             id="theme-toggle"
             type="button"
-            class="text-gray-500 mr-10 dark:text-gray-400 hover:bg-blue-600 dark:hover:bg-gray-700  rounded-lg text-sm p-2.5"
+            class="text-gray-500 mr-10 dark:text-gray-400 hover:bg-blue-600 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5"
           >
             <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="#fff" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
@@ -60,7 +60,7 @@
               <PopoverPanel
                 class="absolute z-10 -ml-4 mt-3 transform w-screen max-w-md lg:max-w-2xl lg:ml-0 lg:left-1/2 lg:-translate-x-1/2"
               >
-                <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                <div class="rounded-lg shadow-2xl ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div class="relative grid gap-6 bg-white dark:bg-gray-800 px-5 py-6 sm:gap-8 sm:p-8 lg:grid-cols-2">
                     <a
                       v-for="solution in network"
@@ -69,7 +69,7 @@
                       class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
                     >
                       <div
-                        class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-golemblue  text-white sm:h-12 sm:w-12"
+                        class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-golemblue text-white sm:h-12 sm:w-12"
                       >
                         <component :is="solution.icon" class="h-6 w-6" aria-hidden="true" />
                       </div>
@@ -122,7 +122,7 @@
               <PopoverPanel
                 class="absolute z-10 -ml-4 mt-3 transform w-screen max-w-md lg:max-w-2xl lg:ml-0 lg:left-1/2 lg:-translate-x-1/2"
               >
-                <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                <div class="rounded-lg shadow-2xl ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div class="relative grid gap-6 bg-white dark:bg-gray-800 px-5 py-6 sm:gap-8 sm:p-8 lg:grid-cols-2">
                     <a
                       v-for="solution in provider"
@@ -153,7 +153,7 @@
                     <div class="flex items-center">
                       <div class="text-base font-medium text-gray-900 dark:text-gray-300">Join the network as a provider!</div>
                       <span
-                        class="ml-3 inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium leading-5 bg-golemblue text-white "
+                        class="ml-3 inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium leading-5 bg-golemblue text-white"
                       >
                         Now
                       </span>
@@ -173,7 +173,7 @@
             aria-label="Theme mode toggle"
             id="theme-toggle-desktop"
             type="button"
-            class="text-gray-500 dark:text-gray-400 hover:bg-blue-600 dark:hover:bg-gray-700  rounded-lg text-sm p-2.5"
+            class="text-gray-500 dark:text-gray-400 hover:bg-blue-600 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5"
           >
             <svg
               id="theme-toggle-dark-icon-desktop"
@@ -211,7 +211,7 @@
       >
         <!-- Mobile -->
         <PopoverPanel focus class="absolute top-0 z-50 inset-x-0 transition transform origin-top-right md:hidden">
-          <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white dark:bg-gray-800 golemnav   ">
+          <div class="rounded-lg shadow-2xl ring-1 ring-black ring-opacity-5 bg-white dark:bg-gray-800 golemnav">
             <div class="pt-5 pb-6 px-5">
               <div class="flex items-center justify-between">
                 <div class="flex items-center">
@@ -219,14 +219,12 @@
                     <component :is="golemicon" class="h-6 w-6 text-white" aria-hidden="true" />
                   </div>
                   <div class="ml-4">
-                    <div class="text-2xl font-medium text-golemblue golemtext dark:text-gray-300 golemgradient">
-                      Golem Network
-                    </div>
+                    <div class="text-2xl font-medium text-golemblue golemtext dark:text-gray-300 golemgradient">Golem Network</div>
                   </div>
                 </div>
                 <div class="-mr-2">
                   <PopoverButton
-                    class="bg-white dark:bg-gray-600 dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:text-gray-300 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:focus:bg-gray-600"
+                    class="bg-white dark:bg-gray-600 dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:text-gray-300 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:focus:bg-gray-600"
                   >
                     <span class="sr-only">Close menu</span>
                     <XIcon class="h-6 w-6" aria-hidden="true" />
@@ -290,9 +288,7 @@
                     <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-golemblue text-white">
                       <component :is="requestoricon" class="h-6 w-6" aria-hidden="true" />
                     </div>
-                    <div class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400 golemtext">
-                      Overview
-                    </div>
+                    <div class="ml-4 text-base font-medium text-gray-900 dark:text-gray-400 golemtext">Overview</div>
                   </a>
                 </nav>
               </div>
@@ -309,7 +305,7 @@
               </div>
             </div>
             <div class="pb-6 px-5 w-full mx-auto">
-              <div class="mt-8 border-t border-gray-700 pt-8 ">
+              <div class="mt-8 border-t border-gray-700 pt-8">
                 <div class="grid justify-items-center grid-cols-4 gap-7">
                   <a
                     v-for="item in socials"
@@ -325,9 +321,7 @@
                   </a>
                 </div>
                 <div class="grid grid-cols-12">
-                  <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1 col-start-4 col-span-6">
-                    &copy; 2021 Golem Factory GmbH.
-                  </p>
+                  <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1 col-start-4 col-span-6">&copy; 2021 Golem Factory GmbH.</p>
                 </div>
               </div>
             </div>
@@ -340,7 +334,19 @@
 
 <script>
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from "@headlessui/vue"
-import { ChartBarIcon, UserIcon, MenuIcon, SearchIcon, XIcon, DownloadIcon, GlobeAltIcon, ChartPieIcon, CodeIcon, ServerIcon, PresentationChartBarIcon } from "@heroicons/vue/outline"
+import {
+  ChartBarIcon,
+  UserIcon,
+  MenuIcon,
+  SearchIcon,
+  XIcon,
+  DownloadIcon,
+  GlobeAltIcon,
+  ChartPieIcon,
+  CodeIcon,
+  ServerIcon,
+  PresentationChartBarIcon,
+} from "@heroicons/vue/outline"
 import { ChevronDownIcon } from "@heroicons/vue/solid"
 import { defineComponent, h } from "vue"
 import DiscordIcon from "@/components/discordicon.vue"
@@ -348,83 +354,81 @@ import TelegramIcon from "@/components/telegramsvg.vue"
 import LinkedinIcon from "@/components/linkedinsvg.vue"
 import BlockfolioIcon from "@/components/blockfoliosvg.vue"
 import GolemIcon from "@/components/golem.vue"
-import { MailIcon } from '@heroicons/vue/outline'
-
+import { MailIcon } from "@heroicons/vue/outline"
 
 const socials = [
-    {
-      name: "GitHub",
-      href: "https://github.com/golemfactory",
-      icon: defineComponent({
-        render: () =>
-          h("svg", { fill: "currentColor", viewBox: "0 0 24 24" }, [
-            h("path", {
-              "fill-rule": "evenodd",
-              d: "M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z",
-              "clip-rule": "evenodd",
-            }),
-          ]),
-      }),
-      color: "text-black githubicon dark:text-white"
-    },
-    {
-      name: "Twitter",
-      href: "https://twitter.com/golemproject",
-      icon: defineComponent({
-        render: () =>
-          h("svg", { fill: "currentColor", viewBox: "0 0 24 24" }, [
-            h("path", {
-              d: "M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84",
-            }),
-          ]),
-      }),
-      color: "text-twitter"
-    },
-    {
-      name: "Discord",
-      href: "https://chat.golem.network",
-      icon: DiscordIcon,
-    },
+  {
+    name: "GitHub",
+    href: "https://github.com/golemfactory",
+    icon: defineComponent({
+      render: () =>
+        h("svg", { fill: "currentColor", viewBox: "0 0 24 24" }, [
+          h("path", {
+            "fill-rule": "evenodd",
+            d: "M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z",
+            "clip-rule": "evenodd",
+          }),
+        ]),
+    }),
+    color: "text-black githubicon dark:text-white",
+  },
+  {
+    name: "Twitter",
+    href: "https://twitter.com/golemproject",
+    icon: defineComponent({
+      render: () =>
+        h("svg", { fill: "currentColor", viewBox: "0 0 24 24" }, [
+          h("path", {
+            d: "M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84",
+          }),
+        ]),
+    }),
+    color: "text-twitter",
+  },
+  {
+    name: "Discord",
+    href: "https://chat.golem.network",
+    icon: DiscordIcon,
+  },
 
-    {
-      name: "Facebook",
-      href: "https://www.facebook.com/golemproject",
-      icon: defineComponent({
-        render: () =>
-          h("svg", { fill: "currentColor", viewBox: "0 0 24 24" }, [
-            h("path", {
-              "fill-rule": "evenodd",
-              d: "M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z",
-              "clip-rule": "evenodd",
-            }),
-          ]),
-      }),
-      color: "text-facebook"
-    },
-    {
-      name: "Telegram",
-      href: "https://t.me/GolemProject",
-      icon: TelegramIcon,
-    },
-    {
-      name: "LinkedIn",
-      href: "https://www.linkedin.com/company/golem-network/",
-      icon: LinkedinIcon,
-      width: "w-14"
-    },
-    {
-      name: "Blockfolio",
-      href: "https://blockfolio.com/coin/GLM",
-      icon: BlockfolioIcon,
-      width: "w-10"
-    },
-       {
-      name: "Mail",
-      href: "mailto:contact@golem.network",
-      icon: MailIcon,
-      color: "text-gray-500 thorgmail dark:text-white"
-    },
-
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/golemproject",
+    icon: defineComponent({
+      render: () =>
+        h("svg", { fill: "currentColor", viewBox: "0 0 24 24" }, [
+          h("path", {
+            "fill-rule": "evenodd",
+            d: "M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z",
+            "clip-rule": "evenodd",
+          }),
+        ]),
+    }),
+    color: "text-facebook",
+  },
+  {
+    name: "Telegram",
+    href: "https://t.me/GolemProject",
+    icon: TelegramIcon,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/company/golem-network/",
+    icon: LinkedinIcon,
+    width: "w-14",
+  },
+  {
+    name: "Blockfolio",
+    href: "https://blockfolio.com/coin/GLM",
+    icon: BlockfolioIcon,
+    width: "w-10",
+  },
+  {
+    name: "Mail",
+    href: "mailto:contact@golem.network",
+    icon: MailIcon,
+    color: "text-gray-500 thorgmail dark:text-white",
+  },
 ]
 
 const provider = [
@@ -434,7 +438,7 @@ const provider = [
     href: "/network/providers/online",
     icon: ChartBarIcon,
   },
-    {
+  {
     name: "Node Lookup",
     description: "Lookup a specific node on the network",
     href: "/network/providers/lookup/node/",
@@ -452,17 +456,21 @@ const provider = [
     href: "/network/provider/pricing",
     icon: PresentationChartBarIcon,
   },
-
 ]
 const network = [
   {
     name: "Overview",
     description: "Dashboard over the current status of the Golem Network",
     href: "/",
-    icon: GlobeAltIcon
+    icon: GlobeAltIcon,
   },
   { name: "Live Graphs", description: "Graphs containing more detailed analytics", href: "/network/live", icon: ChartPieIcon },
-  { name: "Historical Statistics", description: "Historical statistics for the Golem Network", href: "/network/historical", icon: ChartBarIcon },
+  {
+    name: "Historical Statistics",
+    description: "Historical statistics for the Golem Network",
+    href: "/network/historical",
+    icon: ChartBarIcon,
+  },
 ]
 
 export default {
@@ -486,86 +494,85 @@ export default {
     return {
       provider,
       network,
-      socials
+      socials,
     }
   },
   mounted() {
-      var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    var themeToggleDarkIcon = document.getElementById("theme-toggle-dark-icon")
+    var themeToggleLightIcon = document.getElementById("theme-toggle-light-icon")
 
-  var themeToggleDarkIconDesktop = document.getElementById('theme-toggle-dark-icon-desktop');
-var themeToggleLightIconDesktop = document.getElementById('theme-toggle-light-icon-desktop');
+    var themeToggleDarkIconDesktop = document.getElementById("theme-toggle-dark-icon-desktop")
+    var themeToggleLightIconDesktop = document.getElementById("theme-toggle-light-icon-desktop")
 
-// Change the icons inside the button based on previous settings
-if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    themeToggleLightIcon.classList.remove('hidden');
-    themeToggleLightIconDesktop.classList.remove('hidden');
-} else {
-    themeToggleDarkIcon.classList.remove('hidden');
-    themeToggleDarkIconDesktop.classList.remove('hidden');
-}
-
-var themeToggleBtn = document.getElementById('theme-toggle');
-var themeToggleBtnDesktop = document.getElementById('theme-toggle-desktop');
-
-themeToggleBtn.addEventListener('click', function() {
-
-    // toggle icons inside button
-    themeToggleDarkIcon.classList.toggle('hidden');
-    themeToggleLightIcon.classList.toggle('hidden');
-
-    // if set via local storage previously
-    if (localStorage.getItem('color-theme')) {
-        if (localStorage.getItem('color-theme') === 'light') {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('color-theme', 'dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
-        }
-
-    // if NOT set via local storage previously
+    // Change the icons inside the button based on previous settings
+    if (
+      localStorage.getItem("color-theme") === "dark" ||
+      (!("color-theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      themeToggleLightIcon.classList.remove("hidden")
+      themeToggleLightIconDesktop.classList.remove("hidden")
     } else {
-        if (document.documentElement.classList.contains('dark')) {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
-        } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('color-theme', 'dark');
-        }
+      themeToggleDarkIcon.classList.remove("hidden")
+      themeToggleDarkIconDesktop.classList.remove("hidden")
     }
 
-});
+    var themeToggleBtn = document.getElementById("theme-toggle")
+    var themeToggleBtnDesktop = document.getElementById("theme-toggle-desktop")
 
-themeToggleBtnDesktop.addEventListener('click', function() {
+    themeToggleBtn.addEventListener("click", function () {
+      // toggle icons inside button
+      themeToggleDarkIcon.classList.toggle("hidden")
+      themeToggleLightIcon.classList.toggle("hidden")
 
-    // toggle icons inside button
-    themeToggleDarkIconDesktop.classList.toggle('hidden');
-    themeToggleLightIconDesktop.classList.toggle('hidden');
-
-    // if set via local storage previously
-    if (localStorage.getItem('color-theme')) {
-        if (localStorage.getItem('color-theme') === 'light') {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('color-theme', 'dark');
+      // if set via local storage previously
+      if (localStorage.getItem("color-theme")) {
+        if (localStorage.getItem("color-theme") === "light") {
+          document.documentElement.classList.add("dark")
+          localStorage.setItem("color-theme", "dark")
         } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
+          document.documentElement.classList.remove("dark")
+          localStorage.setItem("color-theme", "light")
         }
 
-    // if NOT set via local storage previously
-    } else {
-        if (document.documentElement.classList.contains('dark')) {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
+        // if NOT set via local storage previously
+      } else {
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark")
+          localStorage.setItem("color-theme", "light")
         } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('color-theme', 'dark');
+          document.documentElement.classList.add("dark")
+          localStorage.setItem("color-theme", "dark")
         }
-    }
+      }
+    })
 
-});
-    },
+    themeToggleBtnDesktop.addEventListener("click", function () {
+      // toggle icons inside button
+      themeToggleDarkIconDesktop.classList.toggle("hidden")
+      themeToggleLightIconDesktop.classList.toggle("hidden")
+
+      // if set via local storage previously
+      if (localStorage.getItem("color-theme")) {
+        if (localStorage.getItem("color-theme") === "light") {
+          document.documentElement.classList.add("dark")
+          localStorage.setItem("color-theme", "dark")
+        } else {
+          document.documentElement.classList.remove("dark")
+          localStorage.setItem("color-theme", "light")
+        }
+
+        // if NOT set via local storage previously
+      } else {
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark")
+          localStorage.setItem("color-theme", "light")
+        } else {
+          document.documentElement.classList.add("dark")
+          localStorage.setItem("color-theme", "dark")
+        }
+      }
+    })
+  },
   data() {
     return {
       thorgicon: "ServerIcon",
@@ -573,6 +580,6 @@ themeToggleBtnDesktop.addEventListener('click', function() {
       discordicon: "DiscordIcon",
       golemicon: "GolemIcon",
     }
-  }
+  },
 }
 </script>

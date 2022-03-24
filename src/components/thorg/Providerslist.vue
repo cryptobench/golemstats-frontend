@@ -14,7 +14,7 @@
           v-model="filters.name.value"
           name="name"
           id="name"
-          class="shadow-sm p-2 w-full bg-thorg block sm:text-sm border-2 border-gray-600 text-white rounded-md"
+          class="shadow-2xl p-2 w-full bg-thorg block sm:text-sm border-2 border-gray-600 text-white rounded-md"
         />
       </div>
       <div class="col-span-12 lg:col-span-6">
@@ -23,7 +23,7 @@
           v-model="filters.gpu.value"
           name="name"
           id="name"
-          class="shadow-sm p-2 w-full bg-thorg block sm:text-sm border-2 border-gray-600 text-white rounded-md"
+          class="shadow-2xl p-2 w-full bg-thorg block sm:text-sm border-2 border-gray-600 text-white rounded-md"
         />
       </div>
     </div>

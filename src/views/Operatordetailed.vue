@@ -1,6 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
+  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 z-10 relative">
     <div>
       <h1 class="text-2xl mb-2 font-medium dark:text-gray-300 mt-4">
         Node by Operator

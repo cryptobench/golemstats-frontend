@@ -1,6 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
+  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 z-10 relative">
     <Providerslist class="mb-6 mt-6">/</Providerslist>
   </div>
 </template>

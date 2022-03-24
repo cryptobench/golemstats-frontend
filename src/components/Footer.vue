@@ -15,7 +15,7 @@
   ```
 -->
 <template>
-  <footer class="bg-white footerthorg dark:bg-gray-800" aria-labelledby="footer-heading">
+  <footer class="bg-white footerthorg dark:bg-gray-800 z-10 relative" aria-labelledby="footer-heading">
     <h2 id="footer-heading" class="sr-only">Footer</h2>
     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
@@ -87,7 +87,7 @@
               href="https://handbook.golem.network/provider-tutorials/provider-tutorial"
               rel="noreferrer"
               target="_blank"
-              class="whitespace-nowrap inline-flex items-center justify-center px-14 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-golemblue hover:bg-blue-600"
+              class="whitespace-nowrap inline-flex items-center justify-center px-14 py-2 border border-transparent rounded-md shadow-2xl text-base font-medium text-white bg-golemblue hover:bg-blue-600"
             >
               Provider
             </a>
@@ -95,7 +95,7 @@
               href="https://handbook.golem.network/requestor-tutorials/flash-tutorial-of-requestor-development"
               rel="noreferrer"
               target="_blank"
-              class="ml-4 whitespace-nowrap inline-flex items-center justify-center px-14 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-golemblue hover:bg-blue-600"
+              class="ml-4 whitespace-nowrap inline-flex items-center justify-center px-14 py-2 border border-transparent rounded-md shadow-2xl text-base font-medium text-white bg-golemblue hover:bg-blue-600"
             >
               Requestor
             </a>
@@ -105,7 +105,7 @@
       <div class="mt-8 border-t border-gray-700 pt-6 grid grid-cols-12">
         <div class="col-span-12 justify-items-center lg:justify-items-start grid lg:col-span-4 -mt-3">
           <div class="flex items-center">
-            <div class="hidden lg:inline h-12 w-12 bg-golemblue rounded-md p-3 ">
+            <div class="hidden lg:inline h-12 w-12 bg-golemblue rounded-md p-3">
               <component :is="golemicon" class="h-6 w-6 text-white" aria-hidden="true" />
             </div>
             <div class="lg:ml-4">
@@ -113,7 +113,7 @@
                 href="https://golem.network"
                 rel="noreferrer"
                 target="_blank"
-                class="text-2xl font-medium text-golemblue golemgradient dark:text-gray-300 "
+                class="text-2xl font-medium text-golemblue golemgradient dark:text-gray-300"
               >
                 Golem Network
               </a>
@@ -121,10 +121,10 @@
           </div>
         </div>
         <div class="lg:col-span-3 col-span-12 justify-items-center grid mt-2 lg:mt-0">
-          <p class="text-base text-gray-500  dark:text-gray-400">&copy; 2021 Golem Factory GmbH.</p>
+          <p class="text-base text-gray-500 dark:text-gray-400">&copy; 2021 Golem Factory GmbH.</p>
         </div>
         <div class="lg:col-span-4 lg:col-start-9 col-span-12 mt-8 lg:mt-0">
-          <div class="grid grid-cols-4  lg:grid-cols-8 gap-6 lg:gap-8 justify-items-center">
+          <div class="grid grid-cols-4 lg:grid-cols-8 gap-6 lg:gap-8 justify-items-center">
             <a
               v-for="item in navigation.social"
               :key="item.name"
@@ -151,8 +151,7 @@ import TelegramIcon from "@/components/telegramsvg.vue"
 import LinkedinIcon from "@/components/linkedinsvg.vue"
 import BlockfolioIcon from "@/components/blockfoliosvg.vue"
 import GolemIcon from "@/components/golem.vue"
-import { MailIcon } from '@heroicons/vue/outline'
-
+import { MailIcon } from "@heroicons/vue/outline"
 
 const navigation = {
   network: [
@@ -164,16 +163,12 @@ const navigation = {
     { name: "Online Providers", href: "/network/providers/online" },
     { name: "Node Lookup", href: "/network/providers/lookup/node/" },
     { name: "Nodes by Operator", href: "/network/providers/lookup/operator/" },
-    { name: "Pricing Analytics", href: "/network/provider/pricing"},
+    { name: "Pricing Analytics", href: "/network/provider/pricing" },
   ],
-  requestor: [
-    { name: "Overview", href: "/network/requestor" },
-  ],
-  thorg: [
-    { name: "Overview", href: "/thorg" },
-  ],
+  requestor: [{ name: "Overview", href: "/network/requestor" }],
+  thorg: [{ name: "Overview", href: "/thorg" }],
   social: [
-     {
+    {
       name: "GitHub",
       href: "https://github.com/golemfactory",
       icon: defineComponent({
@@ -186,7 +181,7 @@ const navigation = {
             }),
           ]),
       }),
-      color: "text-black githubicon dark:text-white"
+      color: "text-black githubicon dark:text-white",
     },
     {
       name: "Twitter",
@@ -199,7 +194,7 @@ const navigation = {
             }),
           ]),
       }),
-      color: "text-twitter"
+      color: "text-twitter",
     },
     {
       name: "Discord",
@@ -220,7 +215,7 @@ const navigation = {
             }),
           ]),
       }),
-      color: "text-facebook"
+      color: "text-facebook",
     },
     {
       name: "Telegram",
@@ -231,19 +226,19 @@ const navigation = {
       name: "LinkedIn",
       href: "https://www.linkedin.com/company/golem-network/",
       icon: LinkedinIcon,
-      width: "w-14 -ml-3"
+      width: "w-14 -ml-3",
     },
     {
       name: "Blockfolio",
       href: "https://blockfolio.com/coin/GLM",
       icon: BlockfolioIcon,
-      width: "w-10"
+      width: "w-10",
     },
     {
       name: "Mail",
       href: "mailto:contact@golem.network",
       icon: MailIcon,
-      color: "text-gray-500 thorgmail dark:text-white"
+      color: "text-gray-500 thorgmail dark:text-white",
     },
   ],
 }
@@ -254,13 +249,13 @@ export default {
       navigation,
     }
   },
-   components: {
+  components: {
     GolemIcon,
   },
   data() {
     return {
       golemicon: "GolemIcon",
     }
-  }
+  },
 }
 </script>

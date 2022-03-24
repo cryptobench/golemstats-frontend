@@ -1,6 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 h-80">
+  <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 z-10 relative h-80">
     <h1 class="text-2xl mb-2 font-medium mt-6 dark:text-gray-300">
       Nodes by Operator <span class="text-sm font-medium text-gray-400">{{ this.$route.params.id }}</span>
     </h1>
