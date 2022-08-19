@@ -3,7 +3,7 @@
     <div class="relative">
       <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
       <div class="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
-      <h3 class="text-2xl mb-2 font-medium dark:text-gray-300">Market Agreement Termination Reasons (1h)</h3>
+      <h3 class="text-2xl mb-2 font-medium dark:text-gray-300">Market Agreement Outcome (1h)</h3>
       <span class="text-gray-500 dark:text-gray-400"
         >Find more details
         <a target="_blank" href="https://docs.stats.golem.network/v1-api-endpoints/network-specific#market-agreement-termination-reasons"
