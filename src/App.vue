@@ -1,15 +1,5 @@
 <template>
   <div class="relative w-full">
-    <div class="hidden lg:block lg:absolute h-full w-full overflow-x-hidden" aria-hidden="true">
-      <svg class="absolute w-full test z-0" width="100%" height="100%" fill="none">
-        <defs>
-          <pattern id="9ebea6f4-a1f5-4d96-8c4e-4c2abf658047" x="118" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="2" height="2" class="text-gray-200 dark:text-gray-800" fill="currentColor" />
-          </pattern>
-        </defs>
-        <rect class="w-full" width="100%" height="100%" fill="url(#9ebea6f4-a1f5-4d96-8c4e-4c2abf658047)" />
-      </svg>
-    </div>
     <Nav></Nav>
     <div class="container mx-auto">
       <router-view />
