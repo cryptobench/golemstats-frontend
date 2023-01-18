@@ -25,9 +25,9 @@
                                 >We are currently investigating an issue with ingress of payment related metrics. Payments on the network
                                 are unaffected.</span
                             >
-                            <span class="hidden md:inline"
-                                >We are currently investigating an issue with ingress of payment related metrics. Payments on the network
-                                are unaffected.</span
+                            <span class="hidden md:inline">
+                                We are currently investigating an issue with ingress of payment related metrics. Payments on the network are
+                                unaffected.</span
                             >
                         </p>
                     </div>
