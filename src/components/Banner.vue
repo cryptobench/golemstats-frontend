@@ -22,12 +22,12 @@
                         </span>
                         <p class="ml-3 truncate font-medium text-white">
                             <span class="md:hidden"
-                                >We are currently investigating an issue with ingress of payment related metrics. Payments on the network
-                                are unaffected.</span
+                                >Planned maintenance on the internal backbone some of the stats page relies on at 9:30 UTC. Some features
+                                will be unavailable.</span
                             >
                             <span class="hidden md:inline">
-                                We are currently investigating an issue with ingress of payment related metrics. Payments on the network are
-                                unaffected.</span
+                                Planned maintenance on the internal backbone some of the stats page relies on at 9:30 UTC. Some features
+                                will be unavailable.</span
                             >
                         </p>
                     </div>
