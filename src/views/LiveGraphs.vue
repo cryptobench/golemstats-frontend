@@ -5,9 +5,9 @@
             <div class="lg:col-span-12 -mb-4 -mt-4">
                 <h1 class="text-2xl font-medium dark:text-gray-300">Live Network Data</h1>
             </div>
-            <!-- <div class="lg:col-span-6">
+            <div class="lg:col-span-6">
         <Agreementsreasons>/</Agreementsreasons>
-      </div> -->
+      </div>
             <div class="lg:col-span-6">
                 <Vendorpie :data="vendorlist">/</Vendorpie>
             </div>
