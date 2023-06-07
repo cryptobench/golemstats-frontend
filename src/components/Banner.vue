@@ -4,14 +4,14 @@
             <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
                 <div class="flex flex-wrap items-center justify-between">
                     <div class="flex w-0 flex-1 items-center">
-                        <span class="flex rounded-lg bg-white p-2">
+                        <span class="flex rounded-lg p-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="w-6 h-6 text-yellow-600"
+                                class="w-6 h-6 text-yellow-300"
                             >
                                 <path
                                     stroke-linecap="round"
@@ -22,12 +22,12 @@
                         </span>
                         <p class="ml-3 truncate font-medium text-white">
                             <span class="md:hidden"
-                                >We are currently investigating an issue with ingress of payment related metrics. Payments on the network
-                                are unaffected.</span
+                                >A global outage on OVH Cloud means that some stats are not updating correctly at the moment. We are
+                                monitoring the situation.</span
                             >
                             <span class="hidden md:inline">
-                                We are currently investigating an issue with ingress of payment related metrics. Payments on the network are
-                                unaffected.</span
+                                A global outage on OVH Cloud means that some stats are not updating correctly at the moment. We are
+                                monitoring the situation.</span
                             >
                         </p>
                     </div>
