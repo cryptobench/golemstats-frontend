@@ -1,7 +1,6 @@
 <template>
     <div class="relative w-full">
         <Nav></Nav>
-        <banner></banner>
         <div class="container mx-auto">
             <router-view />
         </div>
@@ -13,13 +12,11 @@
 // @ is an alias to /src
 import Nav from "@/components/Navbar.vue"
 import Footer from "@/components/Footer.vue"
-import Banner from "@/components/Banner.vue"
 export default {
     name: "Home",
     components: {
         Nav,
         Footer,
-        Banner,
     },
 }
 </script>
