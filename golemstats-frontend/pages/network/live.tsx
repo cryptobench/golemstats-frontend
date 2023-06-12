@@ -4,11 +4,12 @@ import { MarketAgreementOutcome } from "@/components/charts/MarketAgreementOutco
 import { NetworkActivity } from "@/components/charts/NetworkActivity"
 import { NetworkCPUArchitecture } from "@/components/charts/NetworkCPUArchitecture"
 import { NetworkVersionAdoption } from "@/components/charts/NetworkVersions"
+import { NetworkCPUVendorDistribution } from "@/components/charts/VendorChart"
 
 export default function Home() {
     return (
         <>
-            <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12">
+            <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-12">
                 <div className="lg:col-span-12 -mb-4 -mt-4">
                     <h1 className="text-2xl font-medium dark:text-gray-300">Live Network Data</h1>
                 </div>
@@ -18,6 +19,12 @@ export default function Home() {
                 </div>
                 <div className="lg:col-span-6">
                     <MarketAgreementOutcome />
+                </div>
+                <div className="lg:col-span-6">
+                    <NetworkCPUArchitecture />
+                </div>
+                <div className="lg:col-span-6">
+                    <NetworkCPUVendorDistribution />
                 </div>
                 <div className="lg:col-span-6">
                     <InvoicesPaid />

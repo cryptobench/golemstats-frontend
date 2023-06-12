@@ -49,7 +49,7 @@ const NetworkStats: React.FC = () => {
 
     return (
         <div>
-            <h1 className="text-2xl mt-5 font-medium dark:text-gray-300">Network Statistics</h1>
+            <h1 className="text-2xl  font-medium dark:text-gray-300">Network Statistics</h1>
             <dl className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 <StatCard title="Avg Earnings Per Task" value={averageearnings} loading={avgEarningsDataLoading} unit="GLM" />
                 <StatCard title="Network Earnings (6h)" value={earnings6h} unit="GLM" loading={data1Loading} />

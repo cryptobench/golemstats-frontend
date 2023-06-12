@@ -8,11 +8,11 @@ const inter = Inter({ subsets: ["latin"] })
 
 export default function Index() {
     return (
-        <>
+        <div className="grid gap-y-4">
             <NetworkStats />
             <Historical30mStats />
 
             <NetworkActivity />
-        </>
+        </div>
     )
 }

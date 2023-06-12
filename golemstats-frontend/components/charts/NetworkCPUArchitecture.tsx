@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import useSWR from "swr"
 import dynamic from "next/dynamic"
-import { RoundingFunction } from "@/lib/RoundingFunction"
 import { fetcher } from "@/fetcher"
 import { ApexOptions } from "apexcharts"
 

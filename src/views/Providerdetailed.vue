@@ -1,228 +1,173 @@
 <template>
-    <div class="min-h-full z-10 relative">
-        <main class="py-10">
+    <div>
+        <main>
             <!-- Page header -->
 
-            <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
-                <div
-                    class="bg-white dark:bg-gray-800 col-span-12 rounded-lg px-6 overflow-auto py-4 md:flex md:items-center md:justify-between md:space-x-5"
-                >
-                    <div class="flex items-center space-x-5">
-                        <div class="flex-shrink-0">
-                            <div class="flex flex-row items-center justify-between">
-                                <div class="bg-golemblue rounded-md p-3 relative">
-                                    <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
+            <div>
+                <div>
+                    <div>
+                        <div>
+                            <div>
+                                <div>
+                                    <component :is="icon" aria-hidden="true" />
                                     <div v-if="online">
-                                        <div
-                                            class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300 animate-ping"
-                                        ></div>
-                                        <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-green-300"></div>
+                                        <div></div>
+                                        <div></div>
                                     </div>
                                     <div v-else>
-                                        <div class="absolute top-0 right-0 -mr-1 -mt-1 w-3 h-3 rounded-full bg-red-500"></div>
+                                        <div></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex flex-row items-center">
-                                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-300 pr-2">
+                            <div>
+                                <h1>
                                     {{ this.name }}
                                 </h1>
-                                <span
-                                    v-if="testnet"
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-500 text-white"
-                                >
-                                    Testnet
-                                </span>
-                                <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue text-white">
-                                    Mainnet
-                                </span>
-                                <span
-                                    v-if="version"
-                                    class="px-2 ml-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue text-white"
-                                >
-                                    v{{ version }}
-                                </span>
+                                <span v-if="testnet"> Testnet </span>
+                                <span v-else> Mainnet </span>
+                                <span v-if="version"> v{{ version }} </span>
                             </div>
-                            <p class="text-sm font-medium truncate text-gray-500">
+                            <p>
                                 {{ this.id }}
                             </p>
                         </div>
                     </div>
 
-                    <div
-                        class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3"
-                    >
-                        <button
-                            aria-label="Show Node by opeator"
-                            @click="operator"
-                            type="button"
-                            class="inline-flex items-center justify-center px-2 py-2 border border-transparent text-sm font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                        >
-                            Node by Operator
-                        </button>
-                        <button
-                            aria-label="Show Polygon Wallet"
-                            @click="polygon"
-                            type="button"
-                            class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                        >
-                            Polygon
-                        </button>
-                        <button
-                            aria-label="Show zkSync Wallet"
-                            @click="zkscan"
-                            type="button"
-                            class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                        >
-                            zkScan
-                        </button>
-                        <button
-                            aria-label="Show Etherscan Wallet"
-                            @click="etherscan"
-                            type="button"
-                            class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                        >
-                            Etherscan
-                        </button>
+                    <div>
+                        <button aria-label="Show Node by opeator" @click="operator" type="button">Node by Operator</button>
+                        <button aria-label="Show Polygon Wallet" @click="polygon" type="button">Polygon</button>
+                        <button aria-label="Show zkSync Wallet" @click="zkscan" type="button">zkScan</button>
+                        <button aria-label="Show Etherscan Wallet" @click="etherscan" type="button">Etherscan</button>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
-                <section aria-labelledby="timeline-title" class="lg:col-start-1 lg:col-span-4">
-                    <h2 id="timeline-title" class="text-lg font-medium text-gray-900">Earnings</h2>
+            <div>
+                <section aria-labelledby="timeline-title">
+                    <h2 id="timeline-title">Earnings</h2>
 
                     <!-- Activity Feed -->
-                    <dl class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                        <div
-                            v-if="this.income['24']"
-                            class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
-                        >
+                    <dl>
+                        <div v-if="this.income['24']">
                             <dt>
-                                <div class="absolute bg-golemblue rounded-md p-3">
-                                    <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
+                                <div>
+                                    <component :is="icon" aria-hidden="true" />
                                 </div>
-                                <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Earnings (24h)</p>
+                                <p>Earnings (24h)</p>
                             </dt>
-                            <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                            <dd>
+                                <p>
                                     {{ this.income["24"] }}
                                 </p>
-                                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
+                                <p>GLM</p>
                             </dd>
                         </div>
-                        <div
-                            v-if="this.income['168']"
-                            class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
-                        >
+                        <div v-if="this.income['168']">
                             <dt>
-                                <div class="absolute bg-golemblue rounded-md p-3">
-                                    <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
+                                <div>
+                                    <component :is="icon" aria-hidden="true" />
                                 </div>
-                                <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Earnings (7d)</p>
+                                <p>Earnings (7d)</p>
                             </dt>
-                            <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                            <dd>
+                                <p>
                                     {{ this.income["168"] }}
                                 </p>
-                                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
+                                <p>GLM</p>
                             </dd>
                         </div>
-                        <div
-                            v-if="this.income['744']"
-                            class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
-                        >
+                        <div v-if="this.income['744']">
                             <dt>
-                                <div class="absolute bg-golemblue rounded-md p-3">
-                                    <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
+                                <div>
+                                    <component :is="icon" aria-hidden="true" />
                                 </div>
-                                <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Earnings (31d)</p>
+                                <p>Earnings (31d)</p>
                             </dt>
-                            <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                            <dd>
+                                <p>
                                     {{ this.income["744"] }}
                                 </p>
-                                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
+                                <p>GLM</p>
                             </dd>
                         </div>
-                        <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                        <div>
                             <dt>
-                                <div class="absolute bg-golemblue rounded-md p-3">
-                                    <component :is="icon" class="h-6 w-6 text-white" aria-hidden="true" />
+                                <div>
+                                    <component :is="icon" aria-hidden="true" />
                                 </div>
-                                <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Earnings (90d)</p>
+                                <p>Earnings (90d)</p>
                             </dt>
-                            <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                            <dd>
+                                <p>
                                     {{ this.income["8760"] }}
                                 </p>
-                                <p class="ml-2 flex items-baseline text-sm font-semibold text-golemblue dark:text-gray-400">GLM</p>
+                                <p>GLM</p>
                             </dd>
                         </div>
                     </dl>
                 </section>
-                <div class="space-y-6 lg:col-start-1 lg:col-span-2">
+                <div>
                     <!-- Comments-->
 
                     <!-- Description list-->
                     <section aria-labelledby="applicant-information-title">
-                        <h2 id="Hardware" class="text-lg font-medium text-gray-900">Activities</h2>
-                        <div class="bg-white dark:bg-gray-800 mt-2 pt-5 px-4 sm:py-6 sm:px-6 shadow rounded-lg">
-                            <h1 class="text-xl font-medium dark:text-gray-300">Tasks being computed</h1>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">1 = Computing / 0 = Inactive</p>
+                        <h2 id="Hardware">Activities</h2>
+                        <div>
+                            <h1>Tasks being computed</h1>
+                            <p>1 = Computing / 0 = Inactive</p>
                             <apexchart v-if="loaded_graph" width="100%" height="250" type="area" :options="chartOptions" :series="series" />
                         </div>
                     </section>
                 </div>
 
-                <section aria-labelledby="Hardware" class="lg:col-start-3 lg:col-span-2">
-                    <h2 id="Hardware" class="text-lg font-medium text-gray-900">Hardware</h2>
+                <section aria-labelledby="Hardware">
+                    <h2 id="Hardware">Hardware</h2>
 
                     <!-- Activity Feed -->
                     <section aria-labelledby="notes-title">
-                        <dl class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1">
-                            <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                        <dl>
+                            <div>
                                 <dt>
-                                    <div class="absolute bg-golemblue rounded-md p-3">
-                                        <component :is="chipicon" class="h-6 w-6 text-white" aria-hidden="true" />
+                                    <div>
+                                        <component :is="chipicon" aria-hidden="true" />
                                     </div>
-                                    <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">CPU</p>
+                                    <p>CPU</p>
                                 </dt>
-                                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                                    <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                                <dd>
+                                    <p>
                                         {{ cores }}
                                     </p>
-                                    <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">Cores</p>
+                                    <p>Cores</p>
                                 </dd>
                             </div>
-                            <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                            <div>
                                 <dt>
-                                    <div class="absolute bg-golemblue rounded-md p-3">
-                                        <component :is="layersicon" class="h-6 w-6 text-white" aria-hidden="true" />
+                                    <div>
+                                        <component :is="layersicon" aria-hidden="true" />
                                     </div>
-                                    <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">RAM</p>
+                                    <p>RAM</p>
                                 </dt>
-                                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                                    <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                                <dd>
+                                    <p>
                                         {{ memory }}
                                     </p>
-                                    <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">GB</p>
+                                    <p>GB</p>
                                 </dd>
                             </div>
-                            <div class="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+                            <div>
                                 <dt>
-                                    <div class="absolute bg-golemblue rounded-md p-3">
-                                        <component :is="databaseicon" class="h-6 w-6 text-white" aria-hidden="true" />
+                                    <div>
+                                        <component :is="databaseicon" aria-hidden="true" />
                                     </div>
-                                    <p class="ml-16 text-sm font-medium text-gray-500 truncate dark:text-gray-400">Disk</p>
+                                    <p>Disk</p>
                                 </dt>
-                                <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
-                                    <p class="text-2xl font-semibold text-gray-900 dark:text-gray-300">
+                                <dd>
+                                    <p>
                                         {{ disk }}
                                     </p>
-                                    <p class="text-golemblue ml-2 flex items-baseline text-sm font-semibold dark:text-gray-400">GB</p>
+                                    <p>GB</p>
                                 </dd>
                             </div>
                         </dl>

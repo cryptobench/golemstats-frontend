@@ -6,7 +6,6 @@ import dynamic from "next/dynamic"
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false })
 import { HistoricalChart } from "./charts/Historical"
 import { convertGBtoTB } from "@/lib/ConvertGBtoTB"
-im
 
 type ApiResponse = {
     date: number
@@ -132,7 +131,7 @@ const Historical30mStats = () => {
     }
 
     return (
-        <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2">
+        <div className=" grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2">
             <HistoricalChart
                 title={lastStatsObject?.online + " Providers"}
                 chartChild={
