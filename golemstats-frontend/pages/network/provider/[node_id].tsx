@@ -258,7 +258,7 @@ export async function getStaticProps({ params }: { params: { node_id: string } }
 
     const income = await fetcher(`provider/node/${params.node_id}/earnings`)
 
-    return { props: { initialData, income }, revalidate: 60 }
+    return { props: { initialData, income }, revalidate: 2880 }
 }
 
 export async function getStaticPaths() {
