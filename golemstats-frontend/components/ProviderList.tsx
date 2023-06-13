@@ -5,6 +5,7 @@ import { GolemIcon } from "./svg/GolemIcon"
 import { useState } from "react"
 import { CpuChipIcon, CircleStackIcon, Square3Stack3DIcon } from "@heroicons/react/24/solid"
 const ITEMS_PER_PAGE = 30
+import { useRouter } from "next/router"
 
 const computePricing = (data: Data, usage: string) => {
     let pricingMap: { [key: string]: number } = {}
@@ -47,7 +48,7 @@ const displayPages = (currentPage: number, lastPage: number) => {
 export const ProviderList = () => {
     const { data, error } = useSWR(`network/online`, fetcher)
     const { page, data: paginatedData, lastPage, setPage } = useProviderPagination(data)
-
+    const router = useRouter()
     const handleNext = () => setPage((page) => (page < lastPage ? page + 1 : lastPage))
     const handlePrevious = () => setPage((page) => (page > 1 ? page - 1 : 1))
     const visiblePages = displayPages(page, lastPage)
@@ -90,7 +91,13 @@ export const ProviderList = () => {
                 </thead>
                 <tbody className="bg-gray-50 dark:bg-gray-800 divide-y-12 divide-gray-900">
                     {paginatedData?.map((provider) => (
-                        <tr className="hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer my-12 golemtr">
+                        <tr
+                            onClick={() => {
+                                router.push(`/network/provider/${provider.node_id}`)
+                            }}
+                            key={provider.node_id}
+                            className="hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer my-12 golemtr"
+                        >
                             <td className="px-6 py-4 rounded-l-lg">
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0 h-12 w-12 bg-golemblue rounded-md p-3 relative">
@@ -164,8 +171,7 @@ export const ProviderList = () => {
                                         <CircleStackIcon className="h-4 w-4 text-white" aria-hidden="true" />
                                     </div>
                                     <p className="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
-                                        {RoundingFunction(provider.data["golem.inf.storage.gib"], 2)}
-                                        GB
+                                        {RoundingFunction(provider.data["golem.inf.storage.gib"], 2)} GB
                                     </p>
                                 </dt>
                             </td>
