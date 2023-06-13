@@ -7,10 +7,9 @@ import { GlobeAltIcon } from "@heroicons/react/24/solid"
 
 // Import the Globe Icon and use dynamic import for ApexChart.
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false })
-
 type SeriesType = {
     name: string
-    data: Array<[number, string]>
+    data: Array<{ x: number; y: number }>
 }
 
 export const NetworkActivity: React.FC = () => {
@@ -96,12 +95,13 @@ export const NetworkActivity: React.FC = () => {
 
     useEffect(() => {
         if (data) {
-            let apiResponse = data
-            let fetchedData = apiResponse.data.result[0].values
-            let computing: Array<[number, string]> = []
-            for (let i in fetchedData) {
+            const apiResponse = data
+            const fetchedData = apiResponse.data.result[0].values
+            const computing: Array<{ x: number; y: number }> = []
+            for (const i in fetchedData) {
                 const time = fetchedData[i][0] * 1000
-                computing.push([time, fetchedData[i][1]])
+                const value = Number(fetchedData[i][1]) // make sure to convert the fetched value to a number
+                computing.push({ x: time, y: value })
             }
 
             const lastElement = computing[computing.length - 1]
@@ -131,7 +131,7 @@ export const NetworkActivity: React.FC = () => {
                     <dd className="ml-16 pb-6 sm:pb-7">
                         <div className="relative">
                             <p className="text-2xl font-semibold text-gray-900 dark:text-gray-300">
-                                {loaded && series.length && series[0].data.length ? series[0].data[series[0].data.length - 1][1] : "-"}{" "}
+                                {loaded && series.length && series[0].data.length ? series[0].data[series[0].data.length - 1].y : "-"}{" "}
                                 Providers
                             </p>
                             <p className="text-sm font-medium text-green-500 truncate">Computing right now</p>

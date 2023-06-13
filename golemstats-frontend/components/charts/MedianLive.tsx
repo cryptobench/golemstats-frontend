@@ -4,7 +4,7 @@ import useSWR from "swr"
 import { GolemIcon } from "../svg/GolemIcon"
 import Skeleton from "react-loading-skeleton"
 import "react-loading-skeleton/dist/skeleton.css"
-const PricingColumn = ({ title, value }: { title: string; value: string }) => {
+const PricingColumn = ({ title, value }: { title: string; value: number }) => {
     return (
         <div className="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden col-span-12">
             <div className="absolute top-0 right-4 -mr-1 mt-3 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>

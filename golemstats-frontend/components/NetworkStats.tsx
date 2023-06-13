@@ -24,18 +24,18 @@ const NetworkStats: React.FC = () => {
         fetcher
     )
 
-    const [earnings6h, setEarnings6h] = useState("")
-    const [earnings24h, setEarnings24h] = useState("")
-    const [totalEarnings, setTotalEarnings] = useState("")
-    const [averageearnings, setAverageEarnings] = useState("")
+    const [earnings6h, setEarnings6h] = useState(0)
+    const [earnings24h, setEarnings24h] = useState(0)
+    const [totalEarnings, setTotalEarnings] = useState(0)
+    const [averageearnings, setAverageEarnings] = useState(0)
 
     useEffect(() => {
         if (data6h) {
-            setEarnings6h(data6h.total_earnings)
+            setEarnings6h(Number(data6h.total_earnings))
         }
 
         if (data24h) {
-            setEarnings24h(data24h.total_earnings)
+            setEarnings24h(Number(data24h.total_earnings))
         }
 
         if (data90d) {
@@ -43,13 +43,13 @@ const NetworkStats: React.FC = () => {
         }
 
         if (avgEarningsData) {
-            setAverageEarnings(avgEarningsData.average_earnings)
+            setAverageEarnings(Number(avgEarningsData.average_earnings))
         }
     }, [data6h, data24h, data90d, avgEarningsData])
 
     return (
         <div>
-            <h1 className="text-2xl  font-medium dark:text-gray-300">Network Statistics</h1>
+            <h1 className="text-2xl mt-5 font-medium dark:text-gray-300">Network Statistics</h1>
             <dl className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 <StatCard title="Avg Earnings Per Task" value={averageearnings} loading={avgEarningsDataLoading} unit="GLM" />
                 <StatCard title="Network Earnings (6h)" value={earnings6h} unit="GLM" loading={data1Loading} />

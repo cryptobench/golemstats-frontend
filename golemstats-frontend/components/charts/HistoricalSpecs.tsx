@@ -201,7 +201,6 @@ export const HistoricalSpecs: React.FC<Props> = ({ endpoint, title, colors, yaxi
         xaxis: {
             type: "datetime",
             title: {
-                rotate: -90,
                 offsetX: -25,
                 offsetY: 0,
                 style: {

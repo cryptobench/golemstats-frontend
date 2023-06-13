@@ -1,7 +1,7 @@
 import { GolemIcon } from "../svg/GolemIcon"
 import Skeleton from "react-loading-skeleton"
 import "react-loading-skeleton/dist/skeleton.css"
-export const StatCard = ({ title, value, unit, loading }: { title: string; value: string; unit: string; loading: boolean }) => {
+export const StatCard = ({ title, value, unit, loading }: { title: string; value: number; unit: string; loading: boolean }) => {
     return (
         <div className="relative bg-white dark:bg-gray-800 pt-5 px-4 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
             <dt>

@@ -194,7 +194,6 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
         xaxis: {
             type: "datetime",
             title: {
-                rotate: -90,
                 offsetX: -25,
                 offsetY: 0,
                 style: {
@@ -219,9 +218,9 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
 
     useEffect(() => {
         if (apiResponse) {
-            let start = []
-            let cpuh = []
-            let perh = []
+            const start: any[] = []
+            const cpuh: any[] = []
+            const perh: any[] = []
             const items = allDataPoints ? apiResponse : apiResponse.slice(-7)
 
             items.forEach((obj: any) => {

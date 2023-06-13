@@ -13,7 +13,7 @@ export const TasksRequestedChart = () => {
 
     const series = [
         {
-            data: apiResponse?.slice(0, displayCount).map((obj, i) => ({
+            data: apiResponse?.slice(0, displayCount).map((obj: { tasks_requested: number }, i: number) => ({
                 x: `Requestor ${i + 1}`,
                 y: RoundingFunction(obj.tasks_requested, 0),
             })),
@@ -22,7 +22,7 @@ export const TasksRequestedChart = () => {
     ]
 
     const chartOptions = {
-        chart: { id: "bar", type: "bar", foreColor: "#373d3f", zoom: { autoScaleYaxis: true } },
+        chart: { id: "bar", type: "bar" as "bar", foreColor: "#373d3f", zoom: { autoScaleYaxis: true } },
         tooltip: { theme: "light", enabled: true, x: { show: true, format: "HH:mm:ss", formatter: undefined } },
         plotOptions: { bar: { borderRadius: 5, horizontal: true } },
         colors: ["#0c3be8"],
@@ -41,10 +41,11 @@ export const TasksRequestedChart = () => {
                 </label>
                 <input
                     value={displayCount}
-                    onChange={(e) => setDisplayCount(e.target.value)}
+                    onChange={(e) => setDisplayCount(Number(e.target.value))}
                     onKeyUp={(e) => e.key === "Enter" && fetcher("requestors")}
                     name="name"
                     id="name"
+                    type="number"
                     className="shadow-sm mb-2 focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
                 />
                 <label htmlFor="height" className="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">
@@ -52,8 +53,9 @@ export const TasksRequestedChart = () => {
                 </label>
                 <input
                     value={height}
-                    onChange={(e) => setHeight(e.target.value)}
+                    onChange={(e) => setDisplayCount(Number(e.target.value))}
                     name="height"
+                    type="number"
                     id="height"
                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full block sm:text-sm border-2 border-gray-100 rounded-md"
                 />

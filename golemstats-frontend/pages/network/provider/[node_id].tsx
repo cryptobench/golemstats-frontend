@@ -1,35 +1,41 @@
+import NodeActivityChart from "@/components/charts/NodeActivityChart"
+import { GolemIcon } from "@/components/svg/GolemIcon"
+import { fetcher } from "@/fetcher"
+import { RoundingFunction } from "@/lib/RoundingFunction"
+import { CircleStackIcon, CpuChipIcon, Square3Stack3DIcon } from "@heroicons/react/24/solid"
 import { useRouter } from "next/router"
 import useSWR from "swr"
-import { fetcher } from "@/fetcher"
-import { GolemIcon } from "@/components/svg/GolemIcon"
-import { CpuChipIcon, CircleStackIcon, Square3Stack3DIcon } from "@heroicons/react/24/solid"
-import { RoundingFunction } from "@/lib/RoundingFunction"
-import NodeActivityChart from "@/components/charts/NodeActivityChart"
 
-const useIncome = (node_id, initialIncome) => {
+const useIncome = (node_id: string | undefined, initialIncome: object) => {
     const { data, error } = useSWR(node_id ? `provider/node/${node_id}/earnings` : null, fetcher, {
         initialData: initialIncome,
         refreshInterval: 10000,
     })
 
-    const formattedIncome = {}
+    const formattedIncome: { [key: string]: number } = {}
+
     if (data) {
         const keys = Object.keys(data)
 
         console.log(keys)
 
-        keys.forEach((key, index) => {
-            formattedIncome[key] = RoundingFunction(data[key], 2)
+        keys.forEach((key) => {
+            formattedIncome[key] = RoundingFunction(parseFloat(data[key]), 2)
         })
     }
-    
 
     return { income: formattedIncome, error }
 }
 
-export const ProviderDetailed = ({ initialData, initialIncome }) => {
+export const ProviderDetailed = ({ initialData, initialIncome }: { initialData: object; initialIncome: object }) => {
     const router = useRouter()
-    const { node_id } = router.query
+    let { node_id } = router.query
+
+    // if node_id is an array, use the first value
+    if (Array.isArray(node_id)) {
+        node_id = node_id[0]
+    }
+
     const { data: nodeData = initialData, error: nodeError } = useSWR(node_id ? `provider/node/${node_id}` : null, fetcher, {
         initialData: initialData,
         refreshInterval: 10000,
@@ -247,7 +253,7 @@ export const ProviderDetailed = ({ initialData, initialIncome }) => {
     )
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: { params: { node_id: string } }) {
     const initialData = await fetcher(`provider/node/${params.node_id}`)
 
     const income = await fetcher(`provider/node/${params.node_id}/earnings`)
@@ -256,8 +262,8 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-    const nodes = await fetcher("network/online") // endpoint to get all node_ids
-    const paths = nodes.map((node) => ({ params: { node_id: node.node_id.toString() } }))
+    const nodes: any = await fetcher("network/online") // endpoint to get all node_ids
+    const paths = nodes.map((node: any) => ({ params: { node_id: node.node_id.toString() } }))
 
     return { paths, fallback: "blocking" }
 }

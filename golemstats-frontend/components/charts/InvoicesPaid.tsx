@@ -82,7 +82,7 @@ export const InvoicesPaid: React.FC = () => {
                     Find more details{" "}
                     <a
                         target="_blank"
-                        href="https://app.gitbook.com/@golem-network/s/stats-api/v1-api-endpoints/network-specific#paid-invoices-last-hour"
+                        href="https://app.gitbook.com/@golem-network/s/stats-api/v1-api-endpoints/network-specific#paid-invoices-last-hour" rel="noreferrer"
                     >
                         here
                     </a>

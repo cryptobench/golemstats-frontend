@@ -7,8 +7,13 @@ import { CpuChipIcon, CircleStackIcon, Square3Stack3DIcon } from "@heroicons/rea
 const ITEMS_PER_PAGE = 30
 import { useRouter } from "next/router"
 
+type Data = {
+    "golem.com.pricing.model.linear.coeffs": number[]
+    "golem.com.usage.vector": string[]
+}
+
 const computePricing = (data: Data, usage: string) => {
-    let pricingMap: { [key: string]: number } = {}
+    const pricingMap: { [key: string]: number } = {}
 
     data["golem.com.usage.vector"].forEach((vector, index) => {
         if (index < data["golem.com.pricing.model.linear.coeffs"].length - 1) {
@@ -30,7 +35,7 @@ const useProviderPagination = (data: any[]) => {
 }
 
 const displayPages = (currentPage: number, lastPage: number) => {
-    let pages = []
+    const pages = []
     if (currentPage <= 3 || lastPage <= 5) {
         for (let i = 1; i <= Math.min(5, lastPage); i++) {
             pages.push(i)

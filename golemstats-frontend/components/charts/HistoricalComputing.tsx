@@ -185,7 +185,6 @@ export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, col
         xaxis: {
             type: "datetime",
             title: {
-                rotate: -90,
                 offsetX: -25,
                 offsetY: 0,
                 style: {
@@ -211,7 +210,7 @@ export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, col
 
     useEffect(() => {
         if (apiResponse) {
-            let count = []
+            const count: any[] = []
             apiResponse.forEach((obj: any) => {
                 count.push([obj.date, obj.total])
             })
@@ -227,7 +226,6 @@ export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, col
     const hideshowAnnotation = () => {
         setShowAnnotations(!showAnnotations)
         const elem = document.getElementsByClassName("apexcharts-xaxis-annotations")
-        console.log("elem", elem)
 
         if (showAnnotations) {
             Array.from(elem).forEach((element: any) => (element.style.visibility = "hidden"))
