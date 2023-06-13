@@ -3,7 +3,7 @@ import { fetcher } from "@/fetcher"
 import { RoundingFunction } from "@/lib/RoundingFunction"
 import { GolemIcon } from "./svg/GolemIcon"
 import { useState } from "react"
-
+import { CpuChipIcon, CircleStackIcon, Square3Stack3DIcon } from "@heroicons/react/24/solid"
 const ITEMS_PER_PAGE = 30
 
 const computePricing = (data: Data, usage: string) => {
@@ -19,15 +19,13 @@ const computePricing = (data: Data, usage: string) => {
     return RoundingFunction(pricingMap[usage], 2)
 }
 
-const useProviderPagination = (page: number) => {
-    const response: SWRResponse<any[], Error> = useSWR(`network/online?page=${page}`, fetcher)
-    const sortedData = response.data?.sort((a, b) => b.earnings_total - a.earnings_total)
+const useProviderPagination = (data: any[]) => {
+    const [page, setPage] = useState(1)
+    const sortedData = data?.sort((a, b) => b.earnings_total - a.earnings_total)
+    const paginatedData = sortedData?.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
+    const lastPage = sortedData ? Math.ceil(sortedData.length / ITEMS_PER_PAGE) : 0
 
-    return {
-        ...response,
-        data: sortedData?.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
-        lastPage: sortedData ? Math.ceil(sortedData.length / ITEMS_PER_PAGE) : 0,
-    }
+    return { page, data: paginatedData, lastPage, setPage }
 }
 
 const displayPages = (currentPage: number, lastPage: number) => {
@@ -47,13 +45,12 @@ const displayPages = (currentPage: number, lastPage: number) => {
 }
 
 export const ProviderList = () => {
-    const [page, setPage] = useState(1)
-    const { data, error, lastPage } = useProviderPagination(page)
+    const { data, error } = useSWR(`network/online`, fetcher)
+    const { page, data: paginatedData, lastPage, setPage } = useProviderPagination(data)
 
-    const handleNext = () => setPage(page < lastPage ? page + 1 : lastPage)
-    const handlePrevious = () => setPage(page > 1 ? page - 1 : 1)
+    const handleNext = () => setPage((page) => (page < lastPage ? page + 1 : lastPage))
+    const handlePrevious = () => setPage((page) => (page > 1 ? page - 1 : 1))
     const visiblePages = displayPages(page, lastPage)
-
     return (
         <div className="flex flex-col">
             <table className="divide-y-12 divide-gray-900 border-separate rowspacing w-full inline-block lg:table md:table xl:table col-span-12">
@@ -92,7 +89,7 @@ export const ProviderList = () => {
                     </tr>
                 </thead>
                 <tbody className="bg-gray-50 dark:bg-gray-800 divide-y-12 divide-gray-900">
-                    {data?.map((provider) => (
+                    {paginatedData?.map((provider) => (
                         <tr className="hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer my-12 golemtr">
                             <td className="px-6 py-4 rounded-l-lg">
                                 <div className="flex items-center">
@@ -140,7 +137,7 @@ export const ProviderList = () => {
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
                                     <div className="bg-golemblue rounded-md p-3">
-                                        {/* <component :is="chipicon" className="h-4 w-4 text-white" aria-hidden="true" /> */}
+                                        <CpuChipIcon className="h-4 w-4 text-white" aria-hidden="true" />
                                     </div>
                                     <div className="ml-4">
                                         <div className="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
@@ -154,7 +151,7 @@ export const ProviderList = () => {
                             <td className="px-6 py-4">
                                 <dt className="flex flex-row items-center">
                                     <div className="bg-golemblue rounded-md p-3">
-                                        {/* <component :is="layersicon" className="h-4 w-4 text-white" aria-hidden="true" /> */}
+                                        <Square3Stack3DIcon className="h-4 w-4 text-white" aria-hidden="true" />
                                     </div>
                                     <p className="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
                                         {RoundingFunction(provider.data["golem.inf.mem.gib"], 2)} GB
@@ -164,7 +161,7 @@ export const ProviderList = () => {
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <dt className="flex flex-row items-center">
                                     <div className="bg-golemblue rounded-md p-3">
-                                        {/* <component :is="databaseicon" className="h-4 w-4 text-white" aria-hidden="true" /> */}
+                                        <CircleStackIcon className="h-4 w-4 text-white" aria-hidden="true" />
                                     </div>
                                     <p className="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
                                         {RoundingFunction(provider.data["golem.inf.storage.gib"], 2)}
@@ -174,7 +171,8 @@ export const ProviderList = () => {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <a className="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300">
-                                    {provider.earnings_total} <span className="text-golemblue golemgradient dark:text-gray-400">GLM</span>
+                                    {RoundingFunction(provider.earnings_total, 2)}{" "}
+                                    <span className="text-golemblue golemgradient dark:text-gray-400">GLM</span>
                                 </a>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
