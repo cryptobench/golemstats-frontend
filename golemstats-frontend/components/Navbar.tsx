@@ -1,71 +1,128 @@
 import { Fragment, useState } from "react"
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react"
-import { Bars3Icon, ChartPieIcon, CursorArrowRaysIcon, FingerPrintIcon, XMarkIcon } from "@heroicons/react/24/outline"
-import { ChevronDownIcon, RectangleGroupIcon } from "@heroicons/react/20/solid"
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
+import { ElementType } from "react"
+import { useRouter } from "next/router"
+import { NetworkCTA, provider, network, providerCTA } from "@/lib/NavRoutes"
 
-const network = [
-    {
-        name: "Overview",
-        description: "Dashboard over the current status of the Golem Network",
-        href: "/",
-        icon: ChartPieIcon,
-    },
-    {
-        name: "Live Graphs",
-        description: "Graphs containing more detailed analytics",
-        href: "/network/live",
-        icon: CursorArrowRaysIcon,
-    },
-    {
-        name: "Historical Statistics",
-        description: "Historical statistics for the Golem Network",
-        href: "/network/historical",
-        icon: FingerPrintIcon,
-    },
-]
-const provider = [
-    {
-        name: "Online Providers",
-        description: "See and filter through the list of online providers on the Golem Network",
-        href: "/network/providers/online",
-        icon: ChartPieIcon,
-    },
-    {
-        name: "Node Lookup",
-        description: "Lookup a specific node on the network",
-        href: "/network/providers/lookup/node/",
-        icon: CursorArrowRaysIcon,
-    },
-    {
-        name: "Nodes By Operator",
-        description: "Get direct insights to all providers connected to a specific wallet.",
-        href: "/network/providers/lookup/operator/",
-        icon: FingerPrintIcon,
-    },
-    {
-        name: "Pricing Analytics",
-        description: "Explore the pricing analytics of the providers.",
-        href: "/network/provider/pricing",
-        icon: FingerPrintIcon,
-    },
-]
-const callsToAction = [
-    { name: "Main website", href: "#", icon: RectangleGroupIcon },
-    { name: "Golem SDK", href: "#", icon: RectangleGroupIcon },
-    { name: "Golem Portal", href: "#", icon: RectangleGroupIcon },
-]
+const NavItem = ({
+    item,
+    asComponent,
+}: {
+    item: {
+        name: string
+        description: string
+        href: string
+        icon: any
+    }
+    asComponent: ElementType
+}) => {
+    const router = useRouter()
 
-function classNames(...classes: (string | undefined | null | false)[]): string {
-    return classes.filter(Boolean).join(" ")
+    const handleClick = () => {
+        router.push(item.href)
+    }
+
+    return (
+        <div
+            onClick={handleClick}
+            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50 hover:cursor-pointer"
+        >
+            <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-golemblue group-hover:bg-golemblue/80">
+                <item.icon className="h-6 w-6 text-white group-hover:text-white" aria-hidden="true" />
+            </div>
+            <div className="flex-auto">
+                <Popover.Button as={asComponent} className="block font-semibold text-gray-900">
+                    {item.name}
+                    <span className="absolute inset-0" />
+                </Popover.Button>
+                <p className="mt-1 text-gray-600">{item.description}</p>
+            </div>
+        </div>
+    )
 }
+
+const CTA = ({
+    item,
+}: {
+    item: {
+        name: string
+        href: string
+        icon: any
+    }
+}) => (
+    <Link
+        href={item.href}
+        target="_blank"
+        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+    >
+        <item.icon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+        {item.name}
+    </Link>
+)
+
+const PopoverGroup = ({ children }: { children: React.ReactNode }) => (
+    <Popover.Group className="hidden lg:flex lg:gap-x-12">
+        <Popover className="relative">{children}</Popover>
+    </Popover.Group>
+)
+
+const PopoverArea = ({
+    title,
+    items,
+    CTAs,
+}: {
+    title: string
+    items: Array<{
+        name: string
+        description: string
+        href: string
+        icon: any
+    }>
+    CTAs: Array<{
+        name: string
+        href: string
+        icon: any
+    }>
+}) => (
+    <>
+        <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
+            {title}
+            <ChevronDownIcon className="h-5 w-5 flex-none text-white" aria-hidden="true" />
+        </Popover.Button>
+        <Transition
+            as={Fragment}
+            enter="transition ease-out duration-200"
+            enterFrom="opacity-0 translate-y-1"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition ease-in duration-150"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 translate-y-1"
+        >
+            <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-xl bg-white shadow-lg ">
+                <div className="p-4">
+                    {items.map((item) => (
+                        <NavItem key={item.name} item={item} asComponent={"div"} />
+                    ))}
+                </div>
+                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+                    {CTAs.map((item) => (
+                        <CTA key={item.name} item={item} />
+                    ))}
+                </div>
+            </Popover.Panel>
+        </Transition>
+    </>
+)
 
 export const Navbar: React.FC = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <header className="relative isolate  bg-golemblue text-white z-50">
-            <nav className="mx-auto  items-center grid grid-cols-4 lg:flex p-6 lg:px-8" aria-label="Global">
+        <header className="relative isolate bg-golemblue text-white z-50">
+            <nav className="mx-auto items-center grid grid-cols-4 lg:flex p-6 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1 col-span-3">
                     <Link href="/" className="text-xl font-medium -m-1.5 p-1.5">
                         Golem Network Stats
@@ -82,128 +139,15 @@ export const Navbar: React.FC = () => {
                     </button>
                 </div>
                 <div className="flex gap-x-8">
-                    <Popover.Group className="hidden lg:flex lg:gap-x-12">
-                        <Popover>
-                            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
-                                Network
-                                <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-                            </Popover.Button>
-
-                            <Transition
-                                as={Fragment}
-                                enter="transition ease-out duration-200"
-                                enterFrom="opacity-0 -translate-y-1"
-                                enterTo="opacity-100 translate-y-0"
-                                leave="transition ease-in duration-150"
-                                leaveFrom="opacity-100 translate-y-0"
-                                leaveTo="opacity-0 -translate-y-1"
-                            >
-                                <Popover.Panel className="absolute inset-x-0 top-0 -z-10 bg-golemblue pt-20 shadow-lg ring-1 ring-gray-900/5">
-                                    <div className="bg-white">
-                                        <div className="mx-auto grid max-w-7xl grid-cols-1 md:grid-cols-3 gap-x-4 px-6 py-10 lg:px-8 xl:gap-x-8">
-                                            {network.map((item) => (
-                                                <div
-                                                    key={item.name}
-                                                    className="group relative rounded-lg p-6 text-sm leading-6 hover:bg-gray-50"
-                                                >
-                                                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-golemblue group-hover:bg-golemblue/80">
-                                                        <item.icon
-                                                            className="h-6 w-6 text-white group-hover:text-white"
-                                                            aria-hidden="true"
-                                                        />
-                                                    </div>
-                                                    <a href={item.href} className="mt-6 block font-semibold text-golemblue">
-                                                        {item.name}
-                                                        <span className="absolute inset-0" />
-                                                    </a>
-                                                    <p className="mt-1 text-gray-600">{item.description}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="bg-golemblue">
-                                        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                                            <div className="grid grid-cols-1 md:grid-cols-3 divide-x divide-gray-900/5 border-x border-gray-900/5">
-                                                {callsToAction.map((item) => (
-                                                    <a
-                                                        key={item.name}
-                                                        href={item.href}
-                                                        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-white hover:bg-blue-800"
-                                                    >
-                                                        <item.icon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-                                                        {item.name}
-                                                    </a>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Popover.Panel>
-                            </Transition>
-                        </Popover>
-                    </Popover.Group>
-                    <Popover.Group className="hidden lg:flex lg:gap-x-12">
-                        <Popover>
-                            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
-                                Provider
-                                <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-                            </Popover.Button>
-
-                            <Transition
-                                as={Fragment}
-                                enter="transition ease-out duration-200"
-                                enterFrom="opacity-0 -translate-y-1"
-                                enterTo="opacity-100 translate-y-0"
-                                leave="transition ease-in duration-150"
-                                leaveFrom="opacity-100 translate-y-0"
-                                leaveTo="opacity-0 -translate-y-1"
-                            >
-                                <Popover.Panel className="absolute inset-x-0 top-0 -z-10 bg-golemblue pt-20 shadow-lg ring-1 ring-gray-900/5">
-                                    <div className="bg-white">
-                                        <div className="mx-auto grid max-w-7xl grid-cols-1 md:grid-cols-4 gap-x-4 px-6 md:py-10 lg:px-8 xl:gap-x-8">
-                                            {provider.map((item) => (
-                                                <div
-                                                    key={item.name}
-                                                    className="group relative rounded-lg p-6 text-sm leading-6 hover:bg-gray-50"
-                                                >
-                                                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-golemblue group-hover:bg-golemblue/80">
-                                                        <item.icon
-                                                            className="h-6 w-6 text-white group-hover:text-white"
-                                                            aria-hidden="true"
-                                                        />
-                                                    </div>
-                                                    <a href={item.href} className="mt-6 block font-semibold text-golemblue">
-                                                        {item.name}
-                                                        <span className="absolute inset-0" />
-                                                    </a>
-                                                    <p className="mt-1 text-gray-600">{item.description}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="bg-golemblue">
-                                        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                                            <div className="grid grid-cols-3 divide-x divide-gray-900/5 border-x border-gray-900/5">
-                                                {callsToAction.map((item) => (
-                                                    <a
-                                                        key={item.name}
-                                                        href={item.href}
-                                                        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-white hover:bg-blue-800"
-                                                    >
-                                                        <item.icon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-                                                        {item.name}
-                                                    </a>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Popover.Panel>
-                            </Transition>
-                        </Popover>
-                    </Popover.Group>
-
-                    <a href="/network/requestor" className="hidden lg:block text-sm font-semibold leading-6 text-white">
+                    <PopoverGroup>
+                        <PopoverArea title="Network" items={network} CTAs={NetworkCTA} />
+                    </PopoverGroup>
+                    <PopoverGroup>
+                        <PopoverArea title="Provider" items={provider} CTAs={providerCTA} />
+                    </PopoverGroup>
+                    <Link href="/network/requestor" className="hidden lg:block text-sm font-semibold leading-6 text-white">
                         Requestor
-                    </a>
+                    </Link>
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                     <a href="#" className="text-sm font-semibold leading-6 text-white">
@@ -215,11 +159,9 @@ export const Navbar: React.FC = () => {
                 <div className="fixed inset-0 z-10" />
                 <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div className="flex items-center justify-between">
-                        <a href="#" className="-m-1.5 p-1.5">
-                            <Link href="/" className="text-xl font-medium">
-                                Golem Network Stats
-                            </Link>
-                        </a>
+                        <Link href="/" className="text-xl font-medium -m-1.5 p-1.5">
+                            Golem Network Stats
+                        </Link>
                         <button type="button" className="-m-2.5 rounded-md p-2.5 text-gray-700" onClick={() => setMobileMenuOpen(false)}>
                             <span className="sr-only">Close menu</span>
                             <XMarkIcon className="h-6 w-6 text-white fill-white" aria-hidden="true" />
@@ -228,42 +170,42 @@ export const Navbar: React.FC = () => {
                     <div className="mt-6 flow-root">
                         <div className="-my-6 divide-y divide-gray-500/10 ">
                             <div className="space-y-2 py-6 grid gap-y-4 mt-4">
-                                <Disclosure as="div" className="-mx-3  grid gap-y-4">
+                                <Disclosure as="div" className="-mx-3 grid gap-y-4">
                                     {({ open }) => (
                                         <>
-                                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-lg font-semibold leading-7  hover:bg-gray-50">
+                                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-lg font-semibold leading-7 hover:bg-gray-50">
                                                 Network
                                                 <ChevronDownIcon
-                                                    className={classNames(open ? "rotate-180" : "", "h-5 w-5 flex-none")}
+                                                    className={`h-5 w-5 flex-none ${open ? "rotate-180" : ""}`}
                                                     aria-hidden="true"
                                                 />
                                             </Disclosure.Button>
                                             <Disclosure.Panel className="mt-2 space-y-2">
-                                                {[...network].map((item) => (
+                                                {network.map((item) => (
                                                     <Disclosure.Button
                                                         key={item.name}
                                                         as="a"
                                                         href={item.href}
-                                                        className="block rounded-lg py-2 pl-6 pr-3  font-semibold leading-7  hover:bg-gray-50"
+                                                        className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7 hover:bg-gray-50"
                                                     >
                                                         {item.name}
                                                     </Disclosure.Button>
                                                 ))}
                                             </Disclosure.Panel>
-                                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-lg font-semibold leading-7  hover:bg-gray-50">
+                                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-lg font-semibold leading-7 hover:bg-gray-50">
                                                 Provider
                                                 <ChevronDownIcon
-                                                    className={classNames(open ? "rotate-180" : "", "h-5 w-5 flex-none")}
+                                                    className={`h-5 w-5 flex-none ${open ? "rotate-180" : ""}`}
                                                     aria-hidden="true"
                                                 />
                                             </Disclosure.Button>
                                             <Disclosure.Panel className="mt-2 space-y-2">
-                                                {[...provider].map((item) => (
+                                                {provider.map((item) => (
                                                     <Disclosure.Button
                                                         key={item.name}
                                                         as="a"
                                                         href={item.href}
-                                                        className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7  hover:bg-gray-50"
+                                                        className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7 hover:bg-gray-50"
                                                     >
                                                         {item.name}
                                                     </Disclosure.Button>
@@ -272,9 +214,12 @@ export const Navbar: React.FC = () => {
                                         </>
                                     )}
                                 </Disclosure>
-                                <a href="#" className="-mx-3 block rounded-lg px-3  text-lg font-semibold leading-7 hover:bg-gray-50">
+                                <Link
+                                    href="/network/requestor"
+                                    className="-mx-3 block rounded-lg px-3 text-lg font-semibold leading-7 hover:bg-gray-50"
+                                >
                                     Requestor
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
