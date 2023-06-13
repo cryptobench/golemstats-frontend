@@ -22,6 +22,7 @@ const useIncome = (node_id, initialIncome) => {
             formattedIncome[key] = RoundingFunction(data[key], 2)
         })
     }
+    
 
     return { income: formattedIncome, error }
 }
