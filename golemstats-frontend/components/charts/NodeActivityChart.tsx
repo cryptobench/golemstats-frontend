@@ -12,22 +12,26 @@ const DynamicApexChart = dynamic(() => import("react-apexcharts"), {
 type Series = { data: number[][]; name: string };
 
 const NodeActivityChart = ({ nodeId }: { nodeId: string }) => {
-  const { data, error } = useSWR(`v1/provider/node/${nodeId}/activity`, fetcher, {
-    refreshInterval: 10000,
-  });
+  const { data, error } = useSWR(
+    `v1/provider/node/${nodeId}/activity`,
+    fetcher,
+    {
+      refreshInterval: 10000,
+    }
+  );
   const [series, setSeries] = useState<Series[]>([]);
 
   useEffect(() => {
     if (data && !error) {
       try {
-        const values = data.result[0].values;
-        const computing = values.map(([time, value]: [number, number]) => [
+        const values = data.data.result[0].values;
+        const computing = values.map(([time, value]: [number, string]) => [
           time * 1000,
-          value,
+          parseInt(value, 10),
         ]);
         setSeries([{ data: computing, name: "Computing = 1" }]);
       } catch (error) {
-        console.error(error);
+        console.error(error, data);
       }
     }
   }, [data, error]);
