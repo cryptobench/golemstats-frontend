@@ -22,7 +22,7 @@ const computePricing = (data: Data, usage: string) => {
             pricingMap[vector] = data["golem.com.pricing.model.linear.coeffs"][index]
         }
     })
-    return RoundingFunction(pricingMap[usage], 2)
+    return RoundingFunction(pricingMap[usage], 10)
 }
 
 const useProviderPagination = (data: any[]) => {

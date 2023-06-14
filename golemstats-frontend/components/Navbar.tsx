@@ -28,17 +28,17 @@ const NavItem = ({
     return (
         <div
             onClick={handleClick}
-            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50 hover:cursor-pointer"
+            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50 dark:hover:bg-gray-700/80 hover:cursor-pointer"
         >
             <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-golemblue group-hover:bg-golemblue/80">
                 <item.icon className="h-6 w-6 text-white group-hover:text-white" aria-hidden="true" />
             </div>
             <div className="flex-auto">
-                <Popover.Button as={asComponent} className="block font-semibold text-gray-900">
+                <Popover.Button as={asComponent} className="block font-semibold text-gray-900 dark:text-white">
                     {item.name}
                     <span className="absolute inset-0" />
                 </Popover.Button>
-                <p className="mt-1 text-gray-600">{item.description}</p>
+                <p className="mt-1 text-gray-600 dark:text-gray-400">{item.description}</p>
             </div>
         </div>
     )
@@ -56,7 +56,7 @@ const CTA = ({
     <Link
         href={item.href}
         target="_blank"
-        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700/80 dark:bg-gray-800 dark:text-gray-400 dark:border-top"
     >
         <item.icon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
         {item.name}
@@ -101,13 +101,13 @@ const PopoverArea = ({
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-xl bg-white shadow-lg ">
+            <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-xl bg-white dark:bg-gray-800 shadow-lg ">
                 <div className="p-4">
                     {items.map((item) => (
                         <NavItem key={item.name} item={item} asComponent={"div"} />
                     ))}
                 </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50 dark:divide-gray-700 dark:bg-gray-800">
                     {CTAs.map((item) => (
                         <CTA key={item.name} item={item} />
                     ))}
@@ -157,7 +157,7 @@ export const Navbar: React.FC = () => {
             </nav>
             <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                 <div className="fixed inset-0 z-10" />
-                <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+                <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-800 dark:text-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div className="flex items-center justify-between">
                         <Link href="/" className="text-xl font-medium -m-1.5 p-1.5">
                             Golem Network Stats
@@ -170,10 +170,10 @@ export const Navbar: React.FC = () => {
                     <div className="mt-6 flow-root">
                         <div className="-my-6 divide-y divide-gray-500/10 ">
                             <div className="space-y-2 py-6 grid gap-y-4 mt-4">
-                                <Disclosure as="div" className="-mx-3 grid gap-y-4">
+                                <Disclosure as="div" className="-mx-3 grid gap-y-4 ">
                                     {({ open }) => (
                                         <>
-                                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-lg font-semibold leading-7 hover:bg-gray-50">
+                                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 mb-2 pl-3 pr-3.5 text-lg font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-gray-700/80">
                                                 Network
                                                 <ChevronDownIcon
                                                     className={`h-5 w-5 flex-none ${open ? "rotate-180" : ""}`}
@@ -186,13 +186,13 @@ export const Navbar: React.FC = () => {
                                                         key={item.name}
                                                         as="a"
                                                         href={item.href}
-                                                        className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7 hover:bg-gray-50"
+                                                        className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-gray-700/80"
                                                     >
                                                         {item.name}
                                                     </Disclosure.Button>
                                                 ))}
                                             </Disclosure.Panel>
-                                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-lg font-semibold leading-7 hover:bg-gray-50">
+                                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-lg font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-gray-700/80">
                                                 Provider
                                                 <ChevronDownIcon
                                                     className={`h-5 w-5 flex-none ${open ? "rotate-180" : ""}`}
@@ -205,7 +205,7 @@ export const Navbar: React.FC = () => {
                                                         key={item.name}
                                                         as="a"
                                                         href={item.href}
-                                                        className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7 hover:bg-gray-50"
+                                                        className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-gray-700/80"
                                                     >
                                                         {item.name}
                                                     </Disclosure.Button>
@@ -216,7 +216,7 @@ export const Navbar: React.FC = () => {
                                 </Disclosure>
                                 <Link
                                     href="/network/requestor"
-                                    className="-mx-3 block rounded-lg px-3 text-lg font-semibold leading-7 hover:bg-gray-50"
+                                    className="-mx-3 block rounded-lg px-3 py-2 text-lg font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-gray-700/80"
                                 >
                                     Requestor
                                 </Link>

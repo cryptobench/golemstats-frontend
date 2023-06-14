@@ -73,7 +73,7 @@ export const InvoicesAccepted: React.FC = () => {
     }, [data])
 
     return (
-        <div className="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 pt-5 px-4 sm:px-6 shadow rounded-lg w-full h-full">
             <div className="relative">
                 <div className="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300 animate-ping"></div>
                 <div className="absolute top-0 right-0 -mr-1 -mt-1 w-4 h-4 rounded-full bg-green-300"></div>
@@ -84,12 +84,13 @@ export const InvoicesAccepted: React.FC = () => {
                         target="_blank"
                         href="https://app.gitbook.com/@golem-network/s/stats-api/v1-api-endpoints/network-specific#providers-invoices-accepted-percentage-last-hour"
                         rel="noopener noreferrer"
+                        className="underline"
                     >
                         here
                     </a>
                 </span>
                 {data && !error && (
-                    <ApexChart width="100%" className="py-6" height="250" type="radialBar" options={chartOptions} series={series} />
+                    <ApexChart width="100%" className="py-10" height="250" type="radialBar" options={chartOptions} series={series} />
                 )}
             </div>
         </div>

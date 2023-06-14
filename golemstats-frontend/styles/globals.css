@@ -37,8 +37,38 @@ body {
     .apexcharts-xaxistooltip {
         @apply font-sans !important;
         @apply rounded-lg !important;
+        @apply p-1 !important;
         @apply bg-gray-200;
-        background: theme("colors.gray.800") !important;
-        border: 1px solid theme("colors.gray.600") !important;
+        background: theme("colors.gray.700/80") !important;
+        border: none !important;
     }
+
+    .apexcharts-gridline {
+        @apply stroke-gray-700 !important;
+    }
+
+    .apexcharts-area-series,
+    .apexcharts-area,
+    .apexcharts-bar-area,
+    .apexcharts-pie-area {
+        @apply stroke-blue-700 !important;
+    }
+    .apexcharts-bar-area {
+        @apply fill-blue-700 !important;
+    }
+
+    .apexcharts-legend-text,
+    .apexcharts-legend-series .apexcharts-legend-text,
+    .apexcharts-datalabels {
+        @apply text-gray-300 !important;
+    }
+
+    .apexcharts-text,
+    .apexcharts-pie-label {
+        @apply fill-white font-sans !important;
+    }
+}
+
+.apexcharts-toolbar {
+    @apply z-10 !important;
 }

@@ -54,9 +54,10 @@ export const MarketAgreementOutcome = () => {
                     Find more details
                     <a
                         target="_blank"
-                        href="https://docs.stats.golem.network/v1-api-endpoints/network-specific#market-agreement-termination-reasons" rel="noreferrer"
+                        href="https://docs.stats.golem.network/v1-api-endpoints/network-specific#market-agreement-termination-reasons"
+                        rel="noreferrer"
                     >
-                        <span className="text-golemblue dark:text-gray-300">here</span>
+                        <span className="text-golemblue dark:text-gray-300"> here</span>
                     </a>
                 </span>
             </div>
