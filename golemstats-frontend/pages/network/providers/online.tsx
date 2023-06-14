@@ -1,5 +1,5 @@
 import { ProviderList } from "@/components/ProviderList";
 
 export default function Home() {
-  return <ProviderList />;
+  return <ProviderList endpoint={"network/online"} />;
 }

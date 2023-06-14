@@ -285,8 +285,8 @@ const Filters = ({ allKeys, onFilter, data }) => {
   );
 };
 
-export const ProviderList = () => {
-  const { data, error } = useSWR(`network/online`, fetcher);
+export const ProviderList = ({ endpoint }) => {
+  const { data, error } = useSWR(endpoint, fetcher);
 
   const [filters, setFilters] = useState([]);
 
