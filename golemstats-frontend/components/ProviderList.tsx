@@ -41,7 +41,14 @@ const FilterRow = ({ allKeys, onApply, data }) => {
     }, [data, allKeys])
 
     const allValuesForKey = useMemo(() => {
-        return Array.from(allValuesByKey.get(key) || [])
+        const sortedValues = Array.from(allValuesByKey.get(key) || [])
+        return sortedValues.sort((a, b) => {
+            if (typeof a === "number" && typeof b === "number") {
+                return a - b
+            } else {
+                return String(a).localeCompare(String(b))
+            }
+        })
     }, [key, allValuesByKey])
 
     useEffect(() => {
