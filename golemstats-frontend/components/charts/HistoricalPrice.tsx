@@ -168,10 +168,12 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
             return
         }
 
+        let htmlElem = elem as HTMLElement
+
         if (showAnnotations) {
-            elem.style.visibility = "hidden"
+            htmlElem.style.visibility = "hidden"
         } else {
-            elem.style.visibility = "visible"
+            htmlElem.style.visibility = "visible"
         }
     }
 
