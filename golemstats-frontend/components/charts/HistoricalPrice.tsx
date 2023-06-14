@@ -55,114 +55,6 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
     markers: {
       size: 0,
     },
-    annotations: {
-      xaxis: [
-        {
-          x: new Date("21 May 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.6.7 Released",
-          },
-        },
-        {
-          x: new Date("20 May 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.6.6 Released",
-          },
-        },
-        {
-          x: new Date("15 June 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.7.0 Released",
-          },
-        },
-        {
-          x: new Date("24 June 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.7.1 Released",
-          },
-        },
-        {
-          x: new Date("8 July 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.7.2 Released",
-          },
-        },
-        {
-          x: new Date("28 July 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.7.3 Released",
-          },
-        },
-        {
-          x: new Date("11 October 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.8.0 Released",
-          },
-        },
-        {
-          x: new Date("8 December 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.9.0 Released",
-          },
-        },
-      ],
-    },
     fill: {
       type: "gradient",
       gradient: {
@@ -215,6 +107,39 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
   });
 
   const { data: apiResponse } = useSWR(endpoint, fetcher);
+  const { data: releaseData, error: releaseDataError } = useSWR(
+    "api/yagna/releases",
+    fetcher
+  );
+
+  useEffect(() => {
+    const generateAnnotations = () => {
+      if (!releaseData || releaseDataError) {
+        return [];
+      }
+
+      return releaseData.map((release: any) => ({
+        x: new Date(release.published_at).getTime(),
+        strokeDashArray: 0,
+        borderColor: "#3F51B5",
+        label: {
+          borderColor: "#3F51B5",
+          style: {
+            color: "#fff",
+            background: "#3F51B5",
+          },
+          text: release.tag_name,
+        },
+      }));
+    };
+
+    setOptions((prevOptions) => ({
+      ...prevOptions,
+      annotations: {
+        xaxis: generateAnnotations(),
+      },
+    }));
+  }, [releaseData, releaseDataError]);
 
   useEffect(() => {
     if (apiResponse) {
@@ -224,34 +149,34 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
       const items = allDataPoints ? apiResponse : apiResponse.slice(-7);
 
       items.forEach((obj: any) => {
-        start.push([obj.date, RoundingFunction(obj.start, 3)]);
-        cpuh.push([obj.date, RoundingFunction(obj.cpuh, 3)]);
-        perh.push([obj.date, RoundingFunction(obj.perh, 3)]);
+        const dateInMilliseconds = new Date(obj.date).getTime();
+        start.push([dateInMilliseconds, RoundingFunction(obj.start, 3)]);
+        cpuh.push([dateInMilliseconds, RoundingFunction(obj.cpuh, 3)]);
+        perh.push([dateInMilliseconds, RoundingFunction(obj.perh, 3)]);
       });
 
       setSeries([
-        { data: start, name: "Start" },
-        { data: cpuh, name: "CPU/h" },
-        { data: perh, name: "Per/h" },
+        { data: start.filter((d) => d[1] < 10), name: "Start" },
+        { data: cpuh.filter((d) => d[1] < 10), name: "CPU/h" },
+        { data: perh.filter((d) => d[1] < 10), name: "Per/h" },
       ]);
     }
   }, [apiResponse]);
 
   const hideshowAnnotation = () => {
     setShowAnnotations(!showAnnotations);
-    const elem = document.getElementsByClassName(
-      "apexcharts-xaxis-annotations"
-    );
-    console.log("elem", elem);
+    const elem = document
+      .getElementsByClassName("apexcharts-xaxis-annotations")
+      .item(0);
+
+    if (!elem) {
+      return;
+    }
 
     if (showAnnotations) {
-      Array.from(elem).forEach(
-        (element: any) => (element.style.visibility = "hidden")
-      );
+      elem.style.visibility = "hidden";
     } else {
-      Array.from(elem).forEach(
-        (element: any) => (element.style.visibility = "visible")
-      );
+      elem.style.visibility = "visible";
     }
   };
 

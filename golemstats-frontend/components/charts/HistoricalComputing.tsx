@@ -20,197 +20,11 @@ export const HistoricalComputingChart: React.FC<Props> = ({
   title,
   colors,
 }) => {
-  const [options, setOptions] = useState<ApexOptions>({
-    chart: {
-      id: "area-datetime",
-      type: "area",
-      zoom: {
-        autoScaleYaxis: true,
-      },
-      animations: {
-        enabled: false,
-        easing: "linear",
-        dynamicAnimation: {
-          speed: 1000,
-        },
-      },
-    },
-    annotations: {
-      xaxis: [
-        {
-          x: new Date("21 May 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.6.7 Released",
-          },
-        },
-        {
-          x: new Date("20 May 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.6.6 Released",
-          },
-        },
-        {
-          x: new Date("15 June 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.7.0 Released",
-          },
-        },
-        {
-          x: new Date("24 June 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.7.1 Released",
-          },
-        },
-        {
-          x: new Date("8 July 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.7.2 Released",
-          },
-        },
-        {
-          x: new Date("28 July 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.7.3 Released",
-          },
-        },
-        {
-          x: new Date("11 October 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.8.0 Released",
-          },
-        },
-        {
-          x: new Date("8 December 2021").getTime(),
-          strokeDashArray: 0,
-          borderColor: "#3F51B5",
-          label: {
-            borderColor: "#3F51B5",
-            style: {
-              color: "#fff",
-              background: "#3F51B5",
-            },
-            text: "0.9.0 Released",
-          },
-        },
-      ],
-    },
-    tooltip: {
-      enabled: true,
-      x: {
-        show: true,
-        formatter: undefined,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    colors: [colors],
-    markers: {
-      size: 0,
-    },
-
-    fill: {
-      type: "gradient",
-      gradient: {
-        shadeIntensity: 0.1,
-        inverseColors: false,
-        opacityFrom: 0.2,
-        opacityTo: 0,
-        stops: [0, 90, 100],
-      },
-    },
-    yaxis: {
-      title: {
-        rotate: -90,
-        offsetX: 0,
-        offsetY: 0,
-        style: {
-          color: undefined,
-          fontSize: "12px",
-          fontWeight: 600,
-          cssClass: "apexcharts-yaxis-title",
-        },
-      },
-      labels: {
-        formatter: function (value) {
-          return Math.floor(value) + " Providers";
-        },
-      },
-    },
-    xaxis: {
-      type: "datetime",
-      title: {
-        offsetX: -25,
-        offsetY: 0,
-        style: {
-          color: undefined,
-          fontSize: "12px",
-          fontWeight: 600,
-          cssClass: "apexcharts-yaxis-title",
-        },
-      },
-      labels: {
-        datetimeFormatter: {
-          year: "yyyy",
-          month: "MMM 'yy",
-          day: "dd MMM",
-          hour: "HH:mm:ss",
-        },
-      },
-    },
-  });
+  const [options, setOptions] = useState<ApexOptions>({});
   const [showAnnotations, setShowAnnotations] = useState(false);
   const [series, setSeries] = useState<any[]>([]);
   const { data: apiResponse } = useSWR<any[]>(endpoint, fetcher);
+  const { data: releaseData } = useSWR<any[]>("api/yagna/releases", fetcher);
 
   useEffect(() => {
     if (apiResponse) {
@@ -226,6 +40,110 @@ export const HistoricalComputingChart: React.FC<Props> = ({
       ]);
     }
   }, [apiResponse]);
+
+  useEffect(() => {
+    if (releaseData) {
+      const annotations = releaseData.map((release: any) => {
+        return {
+          x: new Date(release.published_at).getTime(),
+          strokeDashArray: 0,
+          borderColor: "#3F51B5",
+          label: {
+            borderColor: "#3F51B5",
+            style: {
+              color: "#fff",
+              background: "#3F51B5",
+            },
+            text: `${release.tag_name} Released`,
+          },
+        };
+      });
+
+      setOptions({
+        chart: {
+          id: "area-datetime",
+          type: "area",
+          zoom: {
+            autoScaleYaxis: true,
+          },
+          animations: {
+            enabled: false,
+            easing: "linear",
+            dynamicAnimation: {
+              speed: 1000,
+            },
+          },
+        },
+        annotations: {
+          xaxis: annotations,
+        },
+        tooltip: {
+          enabled: true,
+          x: {
+            show: true,
+            formatter: undefined,
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        colors: [colors],
+        markers: {
+          size: 0,
+        },
+
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 0.1,
+            inverseColors: false,
+            opacityFrom: 0.2,
+            opacityTo: 0,
+            stops: [0, 90, 100],
+          },
+        },
+        yaxis: {
+          title: {
+            rotate: -90,
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: "12px",
+              fontWeight: 600,
+              cssClass: "apexcharts-yaxis-title",
+            },
+          },
+          labels: {
+            formatter: function (value) {
+              return Math.floor(value) + " Providers";
+            },
+          },
+        },
+        xaxis: {
+          type: "datetime",
+          title: {
+            offsetX: -25,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: "12px",
+              fontWeight: 600,
+              cssClass: "apexcharts-yaxis-title",
+            },
+          },
+          labels: {
+            datetimeFormatter: {
+              year: "yyyy",
+              month: "MMM 'yy",
+              day: "dd MMM",
+              hour: "HH:mm:ss",
+            },
+          },
+        },
+      });
+    }
+  }, [releaseData]);
 
   const hideshowAnnotation = () => {
     setShowAnnotations(!showAnnotations);

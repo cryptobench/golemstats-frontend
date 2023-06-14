@@ -62,12 +62,13 @@ export const NetworkVersionAdoption: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      data.forEach((obj: any, index: number) => {
-        const versions = obj["version"];
-        const count = obj["count"];
-
-        series[0].data.push({ x: versions, y: count });
-      });
+      const newSeries = [
+        {
+          ...series[0],
+          data: data.map((obj: any) => ({ x: obj.version, y: obj.count })),
+        },
+      ];
+      setSeries(newSeries);
       setLoaded(true);
     }
   }, [data]);

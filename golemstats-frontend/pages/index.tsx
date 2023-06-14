@@ -4,7 +4,6 @@ import NetworkStats from "@/components/NetworkStats";
 import Historical30mStats from "@/components/30mHistoricalStats";
 import { NetworkActivity } from "@/components/charts/NetworkActivity";
 
-
 export default function Index() {
   return (
     <div className="grid gap-y-4">
