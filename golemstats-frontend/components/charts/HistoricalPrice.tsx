@@ -108,7 +108,7 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
 
   const { data: apiResponse } = useSWR(endpoint, fetcher);
   const { data: releaseData, error: releaseDataError } = useSWR(
-    "api/yagna/releases",
+    "v1/api/yagna/releases",
     fetcher
   );
 

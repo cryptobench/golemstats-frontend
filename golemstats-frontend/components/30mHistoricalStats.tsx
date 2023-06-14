@@ -20,7 +20,7 @@ import { RoundingFunction } from "@/lib/RoundingFunction";
 
 const Historical30mStats = () => {
   const { data, error } = useSWR<ApiResponse[]>(
-    "network/historical/stats/30m",
+    "v1/network/historical/stats/30m",
     fetcher
   );
   const [online, setOnline] = useState<any[]>([]);

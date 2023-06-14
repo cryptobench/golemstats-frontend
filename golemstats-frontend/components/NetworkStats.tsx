@@ -17,19 +17,19 @@ import { RoundingFunction } from "@/lib/RoundingFunction";
 
 const NetworkStats: React.FC = () => {
   const { data: data6h, isLoading: data1Loading } = useSWR<EarningsData>(
-    "network/earnings/6",
+    "v1/network/earnings/6",
     fetcher
   );
   const { data: data24h, isLoading: data24Loading } = useSWR<EarningsData>(
-    "network/earnings/24",
+    "v1/network/earnings/24",
     fetcher
   );
   const { data: data90d, isLoading: data90dLoading } = useSWR<EarningsData>(
-    "network/earnings/90d",
+    "v1/network/earnings/90d",
     fetcher
   );
   const { data: avgEarningsData, isLoading: avgEarningsDataLoading } =
-    useSWR<AvgEarningsData>("network/provider/average/earnings", fetcher);
+    useSWR<AvgEarningsData>("v1/network/provider/average/earnings", fetcher);
 
   const [earnings6h, setEarnings6h] = useState(0);
   const [earnings24h, setEarnings24h] = useState(0);

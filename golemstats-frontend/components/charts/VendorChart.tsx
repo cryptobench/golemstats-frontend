@@ -14,7 +14,7 @@ export const NetworkCPUVendorDistribution: React.FC = () => {
   const [amdCount, setAmdCount] = useState(0);
   const [thirdTypeCpu, setThirdTypeCpu] = useState(0);
 
-  const { data: apiResponse } = useSWR("network/online", fetcher);
+  const { data: apiResponse } = useSWR("v1/network/online", fetcher);
 
   useEffect(() => {
     if (apiResponse) {

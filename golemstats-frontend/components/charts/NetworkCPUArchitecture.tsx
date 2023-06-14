@@ -9,7 +9,7 @@ const DynamicApexChart = dynamic(() => import("react-apexcharts"), {
 });
 
 export const NetworkCPUArchitecture: React.FC = () => {
-  const { data: apiData } = useSWR("network/online", fetcher);
+  const { data: apiData } = useSWR("v1/network/online", fetcher);
   const [data, setData] = useState<number[]>([0, 0]);
 
   useEffect(() => {

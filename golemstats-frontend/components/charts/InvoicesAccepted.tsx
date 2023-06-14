@@ -48,7 +48,7 @@ export const InvoicesAccepted: React.FC = () => {
   const [series, setSeries] = useState<number[]>([]);
 
   const { data, error } = useSWR(
-    "network/market/provider/invoice/accepted/1h",
+    "v1/network/market/provider/invoice/accepted/1h",
     fetcher
   );
 

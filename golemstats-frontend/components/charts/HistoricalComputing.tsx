@@ -24,7 +24,7 @@ export const HistoricalComputingChart: React.FC<Props> = ({
   const [showAnnotations, setShowAnnotations] = useState(false);
   const [series, setSeries] = useState<any[]>([]);
   const { data: apiResponse } = useSWR<any[]>(endpoint, fetcher);
-  const { data: releaseData } = useSWR<any[]>("api/yagna/releases", fetcher);
+  const { data: releaseData } = useSWR<any[]>("v1/api/yagna/releases", fetcher);
 
   useEffect(() => {
     if (apiResponse) {

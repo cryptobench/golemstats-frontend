@@ -16,7 +16,7 @@ export const NetworkVersionAdoption: React.FC = () => {
     },
   ]);
 
-  const { data, error } = useSWR("network/versions", fetcher);
+  const { data, error } = useSWR("v1/network/versions", fetcher);
 
   const chartOptions: ApexOptions = {
     chart: {

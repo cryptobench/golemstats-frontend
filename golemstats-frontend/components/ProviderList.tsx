@@ -29,9 +29,9 @@ const FilterRow = ({ allKeys, onApply, data }) => {
 
         allKeys.forEach((k) => {
             data.forEach((provider) => {
-                if (provider.data[k] !== undefined) {
+                if (provider[k] !== undefined) {
                     const currentValueInMap = values.get(k) || new Set()
-                    currentValueInMap.add(provider.data[k])
+                    currentValueInMap.add(provider[k])
                     values.set(k, currentValueInMap)
                 }
             })
@@ -248,11 +248,11 @@ export const ProviderList = ({ endpoint }) => {
         if (!data) return []
 
         return data.filter((provider) => {
-            const dataKeys = Object.keys(provider.data)
+            const dataKeys = Object.keys(provider)
 
             return filters.every(({ key, filterFunc }) => {
                 if (!dataKeys.includes(key)) return false
-                return filterFunc(provider.data[key])
+                return filterFunc(provider[key])
             })
         })
     }, [data, filters])
@@ -265,7 +265,7 @@ export const ProviderList = ({ endpoint }) => {
 
     const allKeys = new Set()
     data?.forEach((provider) => {
-        Object.keys(provider.data).forEach((key) => allKeys.add(key))
+        Object.keys(provider).forEach((key) => allKeys.add(key))
     })
 
     const handleFilter = (newFilters) => {
@@ -338,10 +338,10 @@ export const ProviderList = ({ endpoint }) => {
                                     </div>
                                     <div className="ml-4">
                                         <div className="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
-                                            {provider.data["golem.node.id.name"]}
+                                            {provider["golem.node.id.name"]}
                                         </div>
-                                        <div className="text-sm text-gray-500 golemtext">{provider.data["golem.node.debug.subnet"]}</div>
-                                        {provider.data["golem.com.payment.platform.erc20-mainnet-glm.address"] ? (
+                                        <div className="text-sm text-gray-500 golemtext">{provider["golem.node.debug.subnet"]}</div>
+                                        {provider["golem.com.payment.platform.erc20-mainnet-glm.address"] ? (
                                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-golemblue golembadge text-white golemtext">
                                                 Mainnet
                                             </span>
@@ -364,7 +364,7 @@ export const ProviderList = ({ endpoint }) => {
                                     </div>
                                     <div className="ml-4">
                                         <div className="text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
-                                            {provider.data["golem.inf.cpu.threads"]}
+                                            {provider["golem.inf.cpu.threads"]}
                                         </div>
                                         <div className="text-sm text-gray-500 golemtext">Cores</div>
                                     </div>
@@ -377,7 +377,7 @@ export const ProviderList = ({ endpoint }) => {
                                         <Square3Stack3DIcon className="h-4 w-4 text-white" aria-hidden="true" />
                                     </div>
                                     <p className="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
-                                        {RoundingFunction(provider.data["golem.inf.mem.gib"], 2)} GB
+                                        {RoundingFunction(provider["golem.inf.mem.gib"], 2)} GB
                                     </p>
                                 </dt>
                             </td>
@@ -387,7 +387,7 @@ export const ProviderList = ({ endpoint }) => {
                                         <CircleStackIcon className="h-4 w-4 text-white" aria-hidden="true" />
                                     </div>
                                     <p className="ml-2 text-sm font-medium text-gray-900 golemtext dark:text-gray-300">
-                                        {RoundingFunction(provider.data["golem.inf.storage.gib"], 2)} GB
+                                        {RoundingFunction(provider["golem.inf.storage.gib"], 2)} GB
                                     </p>
                                 </dt>
                             </td>
@@ -399,21 +399,21 @@ export const ProviderList = ({ endpoint }) => {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <a className="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300">
-                                    {computePricing(provider.data, "golem.usage.cpu_sec")}{" "}
+                                    {computePricing(provider, "golem.usage.cpu_sec")}{" "}
                                     <span className="text-golemblue golemgradient dark:text-gray-400">GLM</span>
                                 </a>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <a className="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300">
-                                    {computePricing(provider.data, "golem.usage.duration_sec")}{" "}
+                                    {computePricing(provider, "golem.usage.duration_sec")}{" "}
                                     <span className="text-golemblue golemgradient dark:text-gray-400">GLM</span>
                                 </a>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium rounded-r-lg">
                                 <a className="font-semibold text-gray-900 text-sm golemtext dark:text-gray-300">
                                     {
-                                        provider.data["golem.com.pricing.model.linear.coeffs"][
-                                            provider.data["golem.com.pricing.model.linear.coeffs"].length - 1
+                                        provider["golem.com.pricing.model.linear.coeffs"][
+                                            provider["golem.com.pricing.model.linear.coeffs"].length - 1
                                         ]
                                     }{" "}
                                     <span className="text-golemblue golemgradient dark:text-gray-400">GLM</span>

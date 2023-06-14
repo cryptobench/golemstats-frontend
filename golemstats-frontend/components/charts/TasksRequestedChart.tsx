@@ -9,7 +9,7 @@ const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 export const TasksRequestedChart = () => {
   const [displayCount, setDisplayCount] = useState(15);
   const [height, setHeight] = useState(450);
-  const { data: apiResponse } = useSWR("requestors", fetcher);
+  const { data: apiResponse } = useSWR("v1/requestors", fetcher);
 
   const series = [
     {

@@ -15,7 +15,7 @@ type SeriesType = {
 export const NetworkActivity: React.FC = () => {
   const [series, setSeries] = useState<SeriesType[]>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
-  const { data } = useSWR("network/utilization", fetcher);
+  const { data } = useSWR("v1/network/utilization", fetcher);
 
   const chartOptions: ApexOptions = {
     chart: {

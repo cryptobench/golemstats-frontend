@@ -9,7 +9,7 @@ const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export const MarketAgreementOutcome = () => {
   const { data, error } = useSWR(
-    "network/market/agreement/termination/reasons",
+    "v1/network/market/agreement/termination/reasons",
     fetcher
   );
   const [series, setSeries] = useState([] as number[]);
