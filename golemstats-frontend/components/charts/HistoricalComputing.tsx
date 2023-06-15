@@ -26,7 +26,7 @@ export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, col
         if (apiResponse) {
             const count: any[] = []
             apiResponse.forEach((obj: any) => {
-                count.push([new Date(obj.date).getTime(), obj.total])
+                count.push({ x: new Date(obj.date).getTime(), y: obj.total })
             })
             setSeries([
                 {
@@ -121,24 +121,6 @@ export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, col
                 },
                 xaxis: {
                     type: "datetime",
-                    title: {
-                        offsetX: -25,
-                        offsetY: 0,
-                        style: {
-                            color: undefined,
-                            fontSize: "12px",
-                            fontWeight: 600,
-                            cssClass: "apexcharts-yaxis-title",
-                        },
-                    },
-                    labels: {
-                        datetimeFormatter: {
-                            year: "yyyy",
-                            month: "MMM 'yy",
-                            day: "dd MMM",
-                            hour: "HH:mm:ss",
-                        },
-                    },
                 },
             })
         }
@@ -154,6 +136,8 @@ export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, col
             Array.from(elem).forEach((element: any) => (element.style.visibility = "visible"))
         }
     }
+
+    console.log(series)
 
     return (
         <div className="relative bg-white dark:bg-gray-800 p-6 rounded-xl">
