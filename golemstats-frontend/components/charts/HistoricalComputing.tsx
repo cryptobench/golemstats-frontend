@@ -19,7 +19,9 @@ export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, col
     const [options, setOptions] = useState<ApexOptions>({})
     const [showAnnotations, setShowAnnotations] = useState(false)
     const [series, setSeries] = useState<any[]>([])
-    const { data: apiResponse } = useSWR<any[]>(endpoint, fetcher)
+    const { data: apiResponse } = useSWR<any[]>(endpoint, fetcher, {
+        refreshInterval: 10000,
+    })
     const { data: releaseData } = useSWR<any[]>("v1/api/yagna/releases", fetcher)
 
     useEffect(() => {

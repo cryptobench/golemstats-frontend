@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from "react"
 import dynamic from "next/dynamic"
 import { fetcher } from "@/fetcher"
@@ -98,7 +99,7 @@ export const HistoricalSpecs: React.FC<Props> = ({ endpoint, title, colors, yaxi
             },
             labels: {
                 formatter: function (value) {
-                    return value
+                    return value + " "
                 },
             },
         },
@@ -129,7 +130,9 @@ export const HistoricalSpecs: React.FC<Props> = ({ endpoint, title, colors, yaxi
     const [hasFetchedAnnotations, setHasFetchedAnnotations] = useState(false)
 
     const [series, setSeries] = useState<any[]>([])
-    const { data: apiResponse } = useSWR<any[]>(endpoint, fetcher)
+    const { data: apiResponse } = useSWR<any[]>(endpoint, fetcher, {
+        refreshInterval: 10000,
+    })
 
     useEffect(() => {
         apiResponse && setSeries(processData(apiResponse, yaxisLabel))

@@ -240,7 +240,9 @@ const Filters = ({ allKeys, onFilter, data }) => {
 }
 
 export const ProviderList = ({ endpoint }) => {
-    const { data, error } = useSWR(endpoint, fetcher)
+    const { data, error } = useSWR(endpoint, fetcher, {
+        refreshInterval: 10000,
+    })
 
     const [filters, setFilters] = useState([])
 

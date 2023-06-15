@@ -107,7 +107,9 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
     })
 
     const { data: apiResponse } = useSWR(endpoint, fetcher)
-    const { data: releaseData, error: releaseDataError } = useSWR("v1/api/yagna/releases", fetcher)
+    const { data: releaseData, error: releaseDataError } = useSWR("v1/api/yagna/releases", fetcher, {
+        refreshInterval: 10000,
+    })
 
     useEffect(() => {
         const generateAnnotations = () => {
