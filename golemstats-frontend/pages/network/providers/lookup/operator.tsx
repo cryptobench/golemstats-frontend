@@ -46,7 +46,7 @@ const OperatorLookup = () => {
                     className="col-span-12"
                 >
                     <label htmlFor="name" className="block text-md font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Yagna ID
+                        Wallet Address
                     </label>
                     <div className="flex">
                         <input
