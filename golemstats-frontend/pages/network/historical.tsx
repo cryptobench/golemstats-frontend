@@ -2,8 +2,9 @@ import { HistoricalComputingChart } from "@/components/charts/HistoricalComputin
 import HistoricalPriceChart from "@/components/charts/HistoricalPrice";
 import { HistoricalSpecs } from "@/components/charts/HistoricalSpecs";
 import { NetworkVersionAdoption } from "@/components/charts/NetworkVersions";
-
+import { useState } from "react";
 export default function Home() {
+  const [showAnnotations, setShowAnnotations] = useState(false);
   return (
     <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-12">
       <div className="lg:col-span-12 -mb-4 -mt-4 col-span-12">
@@ -17,20 +18,28 @@ export default function Home() {
           title="Providers Online"
           colors={["#3F51B5"]}
           yaxisLabel="Providers"
+          showAnnotations={showAnnotations}
+          setShowAnnotations={setShowAnnotations}
         />
         <HistoricalSpecs
+          showAnnotations={showAnnotations}
+          setShowAnnotations={setShowAnnotations}
           endpoint="v1/network/historical/stats"
           title="Amount of Cores"
           colors={["#3F51B5"]}
           yaxisLabel="Cores"
         />
         <HistoricalSpecs
+          showAnnotations={showAnnotations}
+          setShowAnnotations={setShowAnnotations}
           endpoint="v1/network/historical/stats"
           title="TB of Memory"
           colors={["#3F51B5"]}
           yaxisLabel="Memory"
         />
         <HistoricalSpecs
+          showAnnotations={showAnnotations}
+          setShowAnnotations={setShowAnnotations}
           endpoint="v1/network/historical/stats"
           title="TB of Disk"
           colors={["#3F51B5"]}
@@ -43,7 +52,8 @@ export default function Home() {
           title="Provider Median Pricing"
           palette={["#FFED29", "#FF5289", "#00096B"]}
           allDataPoints={true}
-          annotations={true}
+          showAnnotations={showAnnotations}
+          setShowAnnotations={setShowAnnotations}
         />
       </div>
       <div className="col-span-12 lg:col-span-6 md:col-span-6">
@@ -52,7 +62,8 @@ export default function Home() {
           title="Provider Average Pricing"
           palette={["#FFED29", "#FF5289", "#00096B"]}
           allDataPoints={true}
-          annotations={true}
+          showAnnotations={showAnnotations}
+          setShowAnnotations={setShowAnnotations}
         />
       </div>
       <div className="col-span-12 ">
@@ -60,6 +71,8 @@ export default function Home() {
           endpoint="v1/network/historical/provider/computing"
           title="Providers computing simultaneously"
           colors="#0230FF"
+          showAnnotations={showAnnotations}
+          setShowAnnotations={setShowAnnotations}
         />
       </div>
       <div className="col-span-12">

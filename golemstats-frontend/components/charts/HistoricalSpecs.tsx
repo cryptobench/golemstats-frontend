@@ -36,6 +36,7 @@ const processData = (apiResponse: any[], yaxisLabel: string) => {
 
     result.push([obj.date, RoundingFunction(value, 0)]);
   });
+  console.log(result);
 
   return [
     {
@@ -50,6 +51,8 @@ export const HistoricalSpecs: React.FC<Props> = ({
   title,
   colors,
   yaxisLabel,
+  showAnnotations,
+  setShowAnnotations,
 }) => {
   const [options, setOptions] = useState<ApexOptions>({
     chart: {
@@ -111,6 +114,7 @@ export const HistoricalSpecs: React.FC<Props> = ({
         },
       },
     },
+    colors: ["#0000ff"],
     xaxis: {
       type: "datetime",
       title: {
@@ -134,27 +138,26 @@ export const HistoricalSpecs: React.FC<Props> = ({
     },
   });
 
-  const [showAnnotations, setShowAnnotations] = useState(false);
-  const [hasFetchedAnnotations, setHasFetchedAnnotations] = useState(false);
-
   const [series, setSeries] = useState<any[]>([]);
   const { data: apiResponse } = useSWR<any[]>(endpoint, fetcher, {
     refreshInterval: 10000,
   });
+  const { data: releaseData, error: releaseDataError } = useSWR(
+    "v1/api/yagna/releases",
+    fetcher,
+    {
+      refreshInterval: 10000,
+    }
+  );
 
   useEffect(() => {
     apiResponse && setSeries(processData(apiResponse, yaxisLabel));
   }, [apiResponse, yaxisLabel]);
 
-  const fetchAnnotations = async (
-    url: string
-  ): Promise<ApexOptions["annotations"]["xaxis"]> => {
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-
-      return data.map(
-        (release: { tag_name: string; published_at: string }) => ({
+  useEffect(() => {
+    if (releaseData) {
+      const annotations = releaseData.map((release: any) => {
+        return {
           x: new Date(release.published_at).getTime(),
           strokeDashArray: 0,
           borderColor: "#3F51B5",
@@ -166,28 +169,20 @@ export const HistoricalSpecs: React.FC<Props> = ({
             },
             text: `${release.tag_name} Released`,
           },
-        })
-      );
-    } catch (err) {
-      console.error("Error fetching annotations:", err);
-      return [];
-    }
-  };
+        };
+      });
 
-  const hideshowAnnotation = async () => {
-    setShowAnnotations(!showAnnotations);
-
-    if (!hasFetchedAnnotations) {
-      const annotations = await fetchAnnotations("/v1/api/yagna/releases");
-
-      setOptions((prevOptions) => ({
-        ...prevOptions,
-        annotations: { ...prevOptions.annotations, xaxis: annotations },
+      setOptions((prevState) => ({
+        ...prevState,
+        annotations: {
+          xaxis: annotations,
+        },
       }));
-
-      setHasFetchedAnnotations(true);
     }
+  }, [releaseData]);
 
+  const hideshowAnnotation = () => {
+    setShowAnnotations(!showAnnotations);
     const elem = document.getElementsByClassName(
       "apexcharts-xaxis-annotations"
     );

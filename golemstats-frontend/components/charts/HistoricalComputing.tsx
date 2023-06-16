@@ -13,15 +13,18 @@ type Props = {
   endpoint: string;
   title: string;
   colors: string;
+  showAnnotations: boolean;
+  setShowAnnotations: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const HistoricalComputingChart: React.FC<Props> = ({
   endpoint,
   title,
   colors,
+  showAnnotations,
+  setShowAnnotations,
 }) => {
   const [options, setOptions] = useState<ApexOptions>({});
-  const [showAnnotations, setShowAnnotations] = useState(false);
   const [series, setSeries] = useState<any[]>([]);
   const { data: apiResponse } = useSWR<any[]>(endpoint, fetcher, {
     refreshInterval: 10000,
@@ -76,27 +79,22 @@ export const HistoricalComputingChart: React.FC<Props> = ({
             },
           },
         },
-        annotations: {
-          xaxis: annotations,
-        },
         tooltip: {
           enabled: true,
           x: {
             show: true,
-            format: "dd MMM yyyy",
-            formatter: function (val) {
-              return new Date(val).toLocaleDateString();
-            },
+            formatter: undefined,
           },
         },
         dataLabels: {
           enabled: false,
         },
-        colors: [colors],
         markers: {
           size: 0,
         },
-
+        annotations: {
+          xaxis: annotations,
+        },
         fill: {
           type: "gradient",
           gradient: {
@@ -121,12 +119,31 @@ export const HistoricalComputingChart: React.FC<Props> = ({
           },
           labels: {
             formatter: function (value) {
-              return Math.floor(value) + " Providers";
+              return value + " ";
             },
           },
         },
+        colors: ["#0000ff"],
         xaxis: {
           type: "datetime",
+          title: {
+            offsetX: -25,
+            offsetY: 0,
+            style: {
+              color: undefined,
+              fontSize: "12px",
+              fontWeight: 600,
+              cssClass: "apexcharts-yaxis-title",
+            },
+          },
+          labels: {
+            datetimeFormatter: {
+              year: "yyyy",
+              month: "MMM 'yy",
+              day: "dd MMM",
+              hour: "HH:mm:ss",
+            },
+          },
         },
       });
     }

@@ -10,21 +10,22 @@ const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
 interface HistoricalPriceProps {
   endpoint: string;
   allDataPoints: boolean;
-  annotations: boolean;
   title: string;
   palette: string[];
   paragraph?: string;
+  showAnnotations?: boolean;
+  setShowAnnotations?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
   endpoint,
   allDataPoints,
-  annotations,
   title,
   palette,
   paragraph,
+  showAnnotations,
+  setShowAnnotations,
 }) => {
-  const [showAnnotations, setShowAnnotations] = useState(false);
   const [series, setSeries] = useState<any[]>([]);
   const [options, setOptions] = useState<ApexOptions>({
     chart: {
@@ -168,20 +169,18 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
 
   const hideshowAnnotation = () => {
     setShowAnnotations(!showAnnotations);
-    const elem = document
-      .getElementsByClassName("apexcharts-xaxis-annotations")
-      .item(0);
-
-    if (!elem) {
-      return;
-    }
-
-    let htmlElem = elem as HTMLElement;
+    const elem = document.getElementsByClassName(
+      "apexcharts-xaxis-annotations"
+    );
 
     if (showAnnotations) {
-      htmlElem.style.visibility = "hidden";
+      Array.from(elem).forEach(
+        (element: any) => (element.style.visibility = "hidden")
+      );
     } else {
-      htmlElem.style.visibility = "visible";
+      Array.from(elem).forEach(
+        (element: any) => (element.style.visibility = "visible")
+      );
     }
   };
 

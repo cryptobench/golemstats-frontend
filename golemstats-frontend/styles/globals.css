@@ -21,7 +21,7 @@ select {
 }
 
 thead {
-  @apply bg-gray-900;
+  @apply bg-golemblue;
   @apply dark:bg-gray-800;
   @apply py-24;
   @apply sticky;

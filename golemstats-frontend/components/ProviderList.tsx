@@ -177,10 +177,10 @@ const createFilterFunc = (operator, value) => {
 
   const ops = {
     eq: (dataValue) => {
-      if (typeof dataValue !== "string" || typeof value !== "string") {
-        return dataValue == value;
-      } else {
+      if (typeof dataValue === "string" || typeof value === "string") {
         return `${dataValue}`.toLowerCase() === stringValue.toLowerCase();
+      } else {
+        return dataValue == value;
       }
     },
     lt: (dataValue) => dataValue !== undefined && dataValue < value,
@@ -247,12 +247,12 @@ const Filters = ({ allKeys, onFilter, data }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-y-8">
+    <div className="grid grid-cols-1 gap-y-2">
       <FilterRow allKeys={allKeys} onApply={handleApply} data={data} />
 
-      <div className="filters">
+      <div className="filters mt-4">
         {filters && (
-          <h2 className="text-xl font-bold mb-4 dark:text-gray-300">
+          <h2 className="text-xl font-medium mb-4 dark:text-gray-300">
             Applied filters{" "}
           </h2>
         )}
@@ -291,6 +291,7 @@ export const ProviderList = ({ endpoint }) => {
     if (!data) return [];
 
     return data.filter((provider) => {
+      if (provider.online === false) return false;
       const dataKeys = Object.keys(provider);
 
       return filters.every(({ key, filterFunc }) => {
