@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useRouter } from "next/router"
 import { fetcher } from "@/fetcher"
 import { LoadingSpinner } from "@/components/LoadingSpinner"
-
+import { SEO } from "@/components/SEO"
 const OperatorLookup = () => {
     const [wallet, setWallet] = useState("")
     const router = useRouter()
@@ -33,6 +33,11 @@ const OperatorLookup = () => {
 
     return (
         <>
+            <SEO
+                title="Operator Lookup | Golem Network"
+                description="Search for an operator by wallet address."
+                url="https://stats.golem.network/network/providers/lookup/operator"
+            />
             <h1 className="text-2xl mb-2 font-medium mt-6 dark:text-gray-300">Node Lookup</h1>
             <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12 bg-white dark:bg-gray-800 px-4 py-6 mb-6 sm:px-6 shadow rounded-lg overflow-hidden">
                 <div className="col-span-12">
@@ -75,3 +80,7 @@ const OperatorLookup = () => {
 }
 
 export default OperatorLookup
+
+export async function getStaticProps({}) {
+    return { props: {} }
+}

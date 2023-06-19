@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import useSWR from "swr"
 import { fetcher } from "@/fetcher"
 import { LoadingSpinner } from "@/components/LoadingSpinner"
-
+import { SEO } from "@/components/SEO"
 const NodeLookup = () => {
     const [wallet, setWallet] = useState("")
     const router = useRouter()
@@ -33,6 +33,11 @@ const NodeLookup = () => {
 
     return (
         <>
+            <SEO
+                title="Node Lookup | Golem Network"
+                description="Search for a node by yagna ID."
+                url="https://stats.golem.network/network/providers/lookup/node"
+            />
             <h1 className="text-2xl mb-2 font-medium mt-6 dark:text-gray-300">
                 Node Lookup <span className="text-sm font-medium text-gray-400">{router.query.id}</span>
             </h1>
@@ -77,3 +82,6 @@ const NodeLookup = () => {
 }
 
 export default NodeLookup
+export async function getStaticProps({}) {
+    return { props: {} }
+}

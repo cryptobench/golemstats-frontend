@@ -3,10 +3,16 @@ import HistoricalPriceChart from "@/components/charts/HistoricalPrice"
 import { HistoricalSpecs } from "@/components/charts/HistoricalSpecs"
 import { NetworkVersionAdoption } from "@/components/charts/NetworkVersions"
 import { useState } from "react"
+import { SEO } from "@/components/SEO"
 export default function Home() {
     const [showAnnotations, setShowAnnotations] = useState(false)
     return (
         <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-12">
+            <SEO
+                title="Historical Network Data | Golem Network"
+                description="View historical network data for the Golem Network"
+                url="https://stats.golem.network/network/historical"
+            />
             <div className="lg:col-span-12 -mb-4 -mt-4 col-span-12">
                 <h1 className="text-2xl font-medium dark:text-gray-300">Historical Statistics</h1>
             </div>
@@ -78,4 +84,8 @@ export default function Home() {
             </div>
         </div>
     )
+}
+
+export async function getStaticProps({}) {
+    return { props: {} }
 }
