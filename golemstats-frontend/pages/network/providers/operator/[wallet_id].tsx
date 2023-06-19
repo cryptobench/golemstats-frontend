@@ -9,9 +9,12 @@ interface NodeOperatorProps {
 }
 
 export async function getStaticProps({ params }: { params: { wallet_id: string } }) {
-    const initialData = await fetcher(`v2/provider/wallet/${params.wallet_id}`)
-
-    return { props: { wallet_id: params.wallet_id, initialData: initialData }, revalidate: 14400 }
+    try {
+        const initialData = await fetcher(`v2/provider/wallet/${params.wallet_id}`)
+        return { props: { wallet_id: params.wallet_id, initialData: initialData }, revalidate: 14400 }
+    } catch (e) {
+        return { props: { wallet_id: params.wallet_id, initialData: {} }, revalidate: 14400 }
+    }
 }
 
 export async function getStaticPaths() {
