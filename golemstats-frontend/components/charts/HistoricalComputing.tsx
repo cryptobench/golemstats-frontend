@@ -13,11 +13,9 @@ type Props = {
     endpoint: string
     title: string
     colors: string
-    showAnnotations: boolean
-    setShowAnnotations: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, colors, showAnnotations, setShowAnnotations }) => {
+export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, colors }) => {
     const [options, setOptions] = useState<ApexOptions>({})
     const [series, setSeries] = useState<any[]>([])
     const { data: apiResponse } = useSWR<any[]>(endpoint, fetcher, {
@@ -139,41 +137,10 @@ export const HistoricalComputingChart: React.FC<Props> = ({ endpoint, title, col
         }
     }, [releaseData])
 
-    const hideshowAnnotation = () => {
-        setShowAnnotations(!showAnnotations)
-        const elem = document.getElementsByClassName("apexcharts-xaxis-annotations")
-
-        if (showAnnotations) {
-            Array.from(elem).forEach((element: any) => (element.style.visibility = "hidden"))
-        } else {
-            Array.from(elem).forEach((element: any) => (element.style.visibility = "visible"))
-        }
-    }
-
-    console.log(series)
-
     return (
         <div className="relative bg-white dark:bg-gray-800 p-6 rounded-xl">
             <h1 className="text-2xl font-medium dark:text-gray-300 mb-2">{title}</h1>
-            {showAnnotations ? (
-                <button
-                    aria-label="Enable or Disable Annotations"
-                    type="button"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                    onClick={hideshowAnnotation}
-                >
-                    Hide Release Labels
-                </button>
-            ) : (
-                <button
-                    aria-label="Enable or Disable Annotations"
-                    type="button"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                    onClick={hideshowAnnotation}
-                >
-                    Show Release Labels
-                </button>
-            )}
+
             <div className="mt-4">
                 <DynamicApexChart width="100%" height="350" series={series} options={options} type="area" />
             </div>

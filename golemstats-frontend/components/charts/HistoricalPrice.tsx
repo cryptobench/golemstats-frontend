@@ -13,19 +13,9 @@ interface HistoricalPriceProps {
     title: string
     palette: string[]
     paragraph?: string
-    showAnnotations: boolean
-    setShowAnnotations: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
-    endpoint,
-    allDataPoints,
-    title,
-    palette,
-    paragraph,
-    showAnnotations,
-    setShowAnnotations,
-}) => {
+export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({ endpoint, allDataPoints, title, palette, paragraph }) => {
     const [series, setSeries] = useState<any[]>([])
     const [options, setOptions] = useState<ApexOptions>({
         chart: {
@@ -105,41 +95,40 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
                 },
             },
         },
+        annotations: {
+            xaxis: [],
+        },
     })
 
     const { data: apiResponse } = useSWR(endpoint, fetcher)
-    const { data: releaseData, error: releaseDataError } = useSWR("v1/api/yagna/releases", fetcher, {
-        refreshInterval: 10000,
-    })
+    const { data: releaseData, error: releaseDataError } = useSWR("v1/api/yagna/releases", fetcher)
 
     useEffect(() => {
-        const generateAnnotations = () => {
-            if (!releaseData || releaseDataError) {
-                return []
-            }
-
-            return releaseData.map((release: any) => ({
-                x: new Date(release.published_at).getTime(),
-                strokeDashArray: 0,
-                borderColor: "#3F51B5",
-                label: {
+        if (releaseData) {
+            const annotations = releaseData.map((release: any) => {
+                return {
+                    x: new Date(release.published_at).getTime(),
+                    strokeDashArray: 0,
                     borderColor: "#3F51B5",
-                    style: {
-                        color: "#fff",
-                        background: "#3F51B5",
+                    label: {
+                        borderColor: "#3F51B5",
+                        style: {
+                            color: "#fff",
+                            background: "#3F51B5",
+                        },
+                        text: `${release.tag_name} Released`,
                     },
-                    text: release.tag_name,
+                }
+            })
+
+            setOptions((prevState) => ({
+                ...prevState,
+                annotations: {
+                    xaxis: annotations,
                 },
             }))
         }
-
-        setOptions((prevOptions) => ({
-            ...prevOptions,
-            annotations: {
-                xaxis: generateAnnotations(),
-            },
-        }))
-    }, [releaseData, releaseDataError])
+    }, [releaseData])
 
     useEffect(() => {
         if (apiResponse) {
@@ -163,39 +152,10 @@ export const HistoricalPriceChart: React.FC<HistoricalPriceProps> = ({
         }
     }, [apiResponse])
 
-    const hideshowAnnotation = () => {
-        setShowAnnotations(!showAnnotations)
-        const elem = document.getElementsByClassName("apexcharts-xaxis-annotations")
-
-        if (showAnnotations) {
-            Array.from(elem).forEach((element: any) => (element.style.visibility = "hidden"))
-        } else {
-            Array.from(elem).forEach((element: any) => (element.style.visibility = "visible"))
-        }
-    }
-
     return (
         <div className="relative bg-white dark:bg-gray-800 p-6 rounded-xl">
             <h1 className="text-2xl font-medium dark:text-gray-300 mb-2">{title}</h1>
-            {showAnnotations ? (
-                <button
-                    aria-label="Enable or Disable Annotations"
-                    type="button"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                    onClick={hideshowAnnotation}
-                >
-                    Hide Release Labels
-                </button>
-            ) : (
-                <button
-                    aria-label="Enable or Disable Annotations"
-                    type="button"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-2xl text-white bg-golemblue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
-                    onClick={hideshowAnnotation}
-                >
-                    Show Release Labels
-                </button>
-            )}
+
             <div className="mt-4">
                 <ApexCharts width="100%" height="350" type="area" options={options} series={series} />
             </div>
