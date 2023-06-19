@@ -31,12 +31,12 @@ export default function Home() {
                 <div className="lg:col-span-6">
                     <NetworkCPUVendorDistribution />
                 </div>
-                <div className="lg:col-span-6">
+                {/* <div className="lg:col-span-6">
                     <InvoicesPaid />
                 </div>
                 <div className="lg:col-span-6">
                     <InvoicesAccepted />
-                </div>
+                </div> */}
                 <div className="lg:col-span-12">
                     <NetworkActivity />
                 </div>
