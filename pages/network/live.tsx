@@ -22,9 +22,9 @@ export default function Home() {
                 <div className="lg:col-span-6">
                     <NetworkVersionAdoption />
                 </div>
-                <div className="lg:col-span-6">
+                {/* <div className="lg:col-span-6">
                     <MarketAgreementOutcome />
-                </div>
+                </div> */}
                 <div className="lg:col-span-6">
                     <NetworkCPUArchitecture />
                 </div>
