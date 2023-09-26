@@ -18,13 +18,17 @@ export async function getStaticProps({ params }: { params: { wallet_id: string }
 }
 
 export async function getStaticPaths() {
-    const nodes: any = await fetcher("v1/network/online") // endpoint to get all wallet_ids
-    const paths = nodes.map((node: any) => ({
-        params: { wallet_id: node.data["wallet"].toString() },
-    }))
+    const nodes: any = await fetcher("v1/network/online"); // endpoint to get all wallet_ids
+    
+    const paths = nodes
+        .filter((node: any) => node.data["wallet"] !== undefined) // filter nodes that have the wallet property defined
+        .map((node: any) => ({
+            params: { wallet_id: node.data["wallet"].toString() },
+        }));
 
-    return { paths, fallback: "blocking" }
+    return { paths, fallback: false };
 }
+
 
 const NodeOperator: NextPage<NodeOperatorProps> = ({ wallet_id, initialData }) => {
     return (

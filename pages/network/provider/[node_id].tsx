@@ -426,7 +426,7 @@ export async function getStaticPaths() {
         params: { node_id: node.node_id.toString() },
     }))
 
-    return { paths, fallback: "blocking" }
+    return { paths, fallback: false }
 }
 
 export default ProviderDetailed
